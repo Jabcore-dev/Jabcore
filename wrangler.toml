@@ -1,0 +1,7 @@
+name = "jabcore-cz"
+compatibility_date = "2024-01-01"
+
+[build]
+  command = "npm run build"
+  # next build with output: 'export' generates the out/ directory
+  directory = "out"

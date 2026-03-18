@@ -1,26 +1,21 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
+  // Static export for Cloudflare Pages deployment
+  // All pages are static — no server actions, no API routes
+  output: 'export',
+
+  // Trailing slash consistency — Cloudflare Pages handles both /about and /about/
+  trailingSlash: false,
+
   images: {
-    domains: [],
+    // Static export doesn't support Next.js Image Optimization — use unoptimized
+    unoptimized: true,
   },
-  async redirects() {
-    return [
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'jabcore.eu' }],
-        destination: 'https://jabcore.cz/:path*',
-        permanent: true,
-      },
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'www.jabcore.eu' }],
-        destination: 'https://jabcore.cz/:path*',
-        permanent: true,
-      },
-    ]
-  },
+
+  // NOTE: async redirects() is NOT supported with output: 'export'
+  // jabcore.eu -> jabcore.cz redirects are handled at Cloudflare level
+  // See: public/_redirects (Cloudflare Pages redirect rules)
 }
 
 export default nextConfig

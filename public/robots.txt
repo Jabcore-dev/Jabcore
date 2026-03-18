@@ -1,9 +1,0 @@
-# https://www.robotstxt.org/robotstxt.html
-User-agent: *
-Allow: /
-
-# Sitemap
-Sitemap: https://jabcore.cz/sitemap.xml
-
-# Crawl-delay (optional - be nice to your server)
-Crawl-delay: 1

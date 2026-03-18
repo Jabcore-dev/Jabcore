@@ -1,0 +1,9 @@
+# Cloudflare Pages redirect rules
+# Docs: https://developers.cloudflare.com/pages/configuration/redirects/
+
+# Redirect jabcore.eu domains to jabcore.cz (301 Permanent)
+https://jabcore.eu/* https://jabcore.cz/:splat 301
+https://www.jabcore.eu/* https://jabcore.cz/:splat 301
+
+# Redirect www.jabcore.cz to apex (301 Permanent)
+https://www.jabcore.cz/* https://jabcore.cz/:splat 301
