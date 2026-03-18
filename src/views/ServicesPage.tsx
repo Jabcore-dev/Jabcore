@@ -1,5 +1,3 @@
-'use client'
-
 import Services from '@/components/sections/Services'
 import CTA from '@/components/sections/CTA'
 

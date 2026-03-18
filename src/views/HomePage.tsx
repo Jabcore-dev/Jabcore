@@ -1,5 +1,3 @@
-'use client'
-
 import Hero from '@/components/sections/Hero'
 import CollaborationProcess from '@/components/sections/CollaborationProcess'
 import ServicesPreview from '@/components/sections/ServicesPreview'
