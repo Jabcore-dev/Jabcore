@@ -1,24 +1,26 @@
+'use client'
+
 import { motion, AnimatePresence } from 'framer-motion'
-import { Moon, Sun, List, X, GithubLogo, LinkedinLogo, FacebookLogo, InstagramLogo, Code, Envelope } from '@phosphor-icons/react'
+import { Moon, Sun, List, X, GithubLogo, LinkedinLogo, FacebookLogo, InstagramLogo, Envelope } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useTheme } from 'next-themes'
 import ContactModal from '@/components/ContactModal'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import logoTransparent from '@/assets/images/transparent.png'
 import { useTranslation } from 'react-i18next'
 
-interface NavigationProps {
-  theme: 'light' | 'dark'
-  onToggleTheme: () => void
-}
-
-export default function Navigation({ theme, onToggleTheme }: NavigationProps) {
+export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [isContactOpen, setIsContactOpen] = useState(false)
-  const location = useLocation()
+  const pathname = usePathname()
+  const { theme, setTheme } = useTheme()
   const { t } = useTranslation()
+
+  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
 
   const navItems = [
     { label: t('navigation.home'), href: '/' },
@@ -36,7 +38,7 @@ export default function Navigation({ theme, onToggleTheme }: NavigationProps) {
     { icon: InstagramLogo, label: 'Instagram', href: 'https://www.instagram.com/jabcore.dev/' },
   ]
 
-  const isActive = (href: string) => location.pathname === href
+  const isActive = (href: string) => pathname === href
 
   const handleContactClick = () => {
     setIsOpen(false)
@@ -55,8 +57,8 @@ export default function Navigation({ theme, onToggleTheme }: NavigationProps) {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          <Link to="/" className="flex items-center gap-3">
-            <img src={logoTransparent} alt="Jabcore" className="w-10 h-10 rounded-lg object-contain" />
+          <Link href="/" className="flex items-center gap-3">
+            <img src={logoTransparent.src} alt="Jabcore" className="w-10 h-10 rounded-lg object-contain" />
             <span className="text-xl font-display font-bold gradient-text">Jabcore</span>
           </Link>
         </motion.div>
@@ -70,7 +72,7 @@ export default function Navigation({ theme, onToggleTheme }: NavigationProps) {
               transition={{ delay: 0.1 * index }}
             >
               <Link
-                to={item.href}
+                href={item.href}
                 className={`font-medium transition-colors ${
                   isActive(item.href)
                     ? 'text-primary'
@@ -97,7 +99,7 @@ export default function Navigation({ theme, onToggleTheme }: NavigationProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={onToggleTheme}
+                onClick={toggleTheme}
                 className="rounded-full"
               >
                 {theme === 'light' ? (
@@ -134,7 +136,7 @@ export default function Navigation({ theme, onToggleTheme }: NavigationProps) {
           <Button
             variant="ghost"
             size="icon"
-            onClick={onToggleTheme}
+            onClick={toggleTheme}
             className="rounded-full"
           >
             {theme === 'light' ? (
@@ -182,7 +184,7 @@ export default function Navigation({ theme, onToggleTheme }: NavigationProps) {
                       transition={{ delay: index * 0.05, duration: 0.3 }}
                     >
                       <Link
-                        to={item.href}
+                        href={item.href}
                         onClick={() => setIsOpen(false)}
                         className={`block px-3 py-2.5 rounded-md text-base font-normal transition-colors ${
                           isActive(item.href)
