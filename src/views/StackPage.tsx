@@ -14,14 +14,10 @@ import TechIcon from '@/components/TechIcon'
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 import ContactModal from '@/components/ContactModal'
-import { useSEO } from '@/hooks/useSEO'
-
 export default function StackPage() {
   const { t } = useTranslation()
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
-  
-  useSEO({ page: 'stack', url: 'https://jabcore.cz/stack' })
-  
+
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
     whileInView: { opacity: 1, y: 0 },
