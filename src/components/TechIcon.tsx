@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import {
   TypescriptOriginal,
   JavascriptOriginal,
@@ -78,7 +79,7 @@ const specialIcons: Record<string, {
   'User Testing': { icon: PiUsersFourFill, color: '#1ABCFE' },
 }
 
-export default function TechIcon({ name, className = "w-6 h-6" }: TechIconProps) {
+const TechIcon = memo(function TechIcon({ name, className = "w-6 h-6" }: TechIconProps) {
   // DevIcons - automaticky barevné
   if (name in devIcons) {
     const IconComponent = devIcons[name]
@@ -98,4 +99,6 @@ export default function TechIcon({ name, className = "w-6 h-6" }: TechIconProps)
   }
 
   return <span className={className}>?</span>
-}
+})
+
+export default TechIcon

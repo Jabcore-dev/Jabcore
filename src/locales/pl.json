@@ -1,8 +1,8 @@
 {
   "seo": {
     "home": {
-      "description": "Jabcore oferuje profesjonalne tworzenie stron internetowych, nowoczesne rozwiązania cyfrowe i doradztwo. Specjalizujemy się w React, TypeScript i nowoczesnych technologiach.",
-      "keywords": "tworzenie stron, React, TypeScript, rozwiązania cyfrowe, Jabcore, programowanie, oprogramowanie"
+      "description": "Rozwój oprogramowania z integracją AI. Tworzymy cyfrowe produkty światowej klasy, które transformują biznes.",
+      "keywords": "tworzenie stron, React, TypeScript, rozwiązania cyfrowe, Jabcore, programowanie, oprogramowanie, integracja AI"
     },
     "services": {
       "description": "Oferujemy kompleksowe usługi tworzenia stron, aplikacji mobilnych, integracji AI, rozwiązań chmurowych i projektowania UX/UI.",
@@ -175,7 +175,11 @@
     "sendMessage": "Wyślij wiadomość",
     "sending": "Wysyłanie...",
     "copied": "Skopiowano",
-    "copy": "Kopiuj"
+    "copy": "Kopiuj",
+    "successTitle": "Wiadomość wysłana pomyślnie!",
+    "successDesc": "Odpowiemy w ciągu 24 godzin z kolejnymi krokami dla Twojego projektu.",
+    "errorTitle": "Coś poszło nie tak",
+    "errorDesc": "Nie udało się wysłać wiadomości. Spróbuj ponownie lub skontaktuj się z nami bezpośrednio."
   },
   "stack": {
     "title": "Nasz nowoczesny stos",

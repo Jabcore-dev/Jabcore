@@ -14,6 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { toast } from 'sonner'
 import { PaperPlaneRight, EnvelopeSimple, Phone, MapPin, Clock, Copy, Check } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
+import { sendContactEmail } from '@/lib/emailjs'
 
 const formSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -101,13 +102,26 @@ export default function Contact() {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
     
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    
-    toast.success('Message sent successfully!', {
-      description: "We'll respond within 24 hours to discuss your project.",
+    const success = await sendContactEmail({
+      name: data.name,
+      email: data.email,
+      company: data.company,
+      phone: `${data.phonePrefix} ${data.phoneNumber}`,
+      message: data.message,
+      language: i18n.language,
     })
     
-    form.reset()
+    if (success) {
+      toast.success(t('contact.successTitle'), {
+        description: t('contact.successDesc'),
+      })
+      form.reset()
+    } else {
+      toast.error(t('contact.errorTitle'), {
+        description: t('contact.errorDesc'),
+      })
+    }
+    
     setIsSubmitting(false)
   }
 

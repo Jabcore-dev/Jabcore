@@ -1,5 +1,6 @@
 'use client'
 
+import { memo, useMemo } from 'react'
 import { GithubLogo, LinkedinLogo, FacebookLogo, InstagramLogo, EnvelopeSimple, Phone } from '@phosphor-icons/react'
 import logoWhite from '@/assets/images/white.png'
 import logoBlack from '@/assets/images/black.png'
@@ -7,17 +8,17 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { useTranslation } from 'react-i18next'
 
-export default function Footer() {
-  const currentYear = new Date().getFullYear()
+const Footer = memo(function Footer() {
+  const currentYear = useMemo(() => new Date().getFullYear(), [])
   const { resolvedTheme } = useTheme()
   const { t } = useTranslation()
 
-  const socialLinks = [
+  const socialLinks = useMemo(() => [
     { icon: GithubLogo, label: 'GitHub', href: 'https://github.com/Jabcore-dev' },
     { icon: LinkedinLogo, label: 'LinkedIn', href: 'https://www.linkedin.com/company/jabcore' },
     { icon: FacebookLogo, label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61584245041851' },
     { icon: InstagramLogo, label: 'Instagram', href: 'https://www.instagram.com/jabcore.dev/' },
-  ]
+  ], [])
 
   const contactInfo = [
     { icon: EnvelopeSimple, label: t('contact.generalInquiries'), value: 'info@jabcore.cz', href: 'mailto:info@jabcore.cz' },
@@ -99,4 +100,6 @@ export default function Footer() {
       </div>
     </footer>
   )
-}
+})
+
+export default Footer

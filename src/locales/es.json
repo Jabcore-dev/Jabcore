@@ -413,7 +413,11 @@
     "sendMessage": "Enviar mensaje",
     "sending": "Enviando...",
     "copied": "Copiado",
-    "copy": "Copiar"
+    "copy": "Copiar",
+    "successTitle": "¡Mensaje enviado con éxito!",
+    "successDesc": "Responderemos dentro de 24 horas con los próximos pasos para su proyecto.",
+    "errorTitle": "Algo salió mal",
+    "errorDesc": "No se pudo enviar el mensaje. Inténtelo de nuevo o contáctenos directamente."
   },
   "footer": {
     "description": "Desarrollo de software con integración de IA. Creamos productos digitales de clase mundial que transforman negocios.",

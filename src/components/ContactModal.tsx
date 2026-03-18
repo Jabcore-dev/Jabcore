@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { toast } from 'sonner'
 import { PaperPlaneRight } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
+import { sendContactEmail } from '@/lib/emailjs'
 
 const formSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -71,15 +72,28 @@ export default function ContactModal({ open, onOpenChange }: ContactModalProps) 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
     
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    
-    toast.success('Message sent successfully!', {
-      description: "We'll respond within 24 hours to discuss your project.",
+    const success = await sendContactEmail({
+      name: data.name,
+      email: data.email,
+      company: data.company,
+      phone: `${data.phonePrefix} ${data.phoneNumber}`,
+      message: data.message,
+      language: i18n.language,
     })
     
-    form.reset()
+    if (success) {
+      toast.success(t('contact.successTitle'), {
+        description: t('contact.successDesc'),
+      })
+      form.reset()
+      onOpenChange(false)
+    } else {
+      toast.error(t('contact.errorTitle'), {
+        description: t('contact.errorDesc'),
+      })
+    }
+    
     setIsSubmitting(false)
-    onOpenChange(false)
   }
 
   return (

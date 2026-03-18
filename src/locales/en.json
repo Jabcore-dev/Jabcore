@@ -1,8 +1,8 @@
 {
   "seo": {
     "home": {
-      "description": "Jabcore offers professional web development, modern digital solutions and consulting. We specialize in React, TypeScript and modern technologies.",
-      "keywords": "web development, React, TypeScript, digital solutions, Jabcore, programming, software"
+      "description": "Software development with AI integration. We create world-class digital products that transform businesses.",
+      "keywords": "web development, React, TypeScript, digital solutions, Jabcore, programming, software, AI integration"
     },
     "services": {
       "description": "We offer complete web development services, mobile app development, AI integration, cloud solutions and UX/UI design.",
@@ -413,7 +413,11 @@
     "sendMessage": "Send Message",
     "sending": "Sending...",
     "copied": "Copied",
-    "copy": "Copy"
+    "copy": "Copy",
+    "successTitle": "Message sent successfully!",
+    "successDesc": "We'll respond within 24 hours with next steps for your project.",
+    "errorTitle": "Something went wrong",
+    "errorDesc": "Failed to send message. Please try again or contact us directly."
   },
   "footer": {
     "description": "Software development with AI integration. Building world-class digital products that transform businesses.",

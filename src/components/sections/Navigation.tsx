@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Moon, Sun, List, X, GithubLogo, LinkedinLogo, FacebookLogo, InstagramLogo, Envelope } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { useState } from 'react'
+import { useState, useCallback, useMemo, memo } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
@@ -13,7 +13,7 @@ import LanguageSwitcher from '@/components/LanguageSwitcher'
 import logoTransparent from '@/assets/images/transparent.png'
 import { useTranslation } from 'react-i18next'
 
-export default function Navigation() {
+const Navigation = memo(function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [isContactOpen, setIsContactOpen] = useState(false)
   const pathname = usePathname()
@@ -22,28 +22,28 @@ export default function Navigation() {
 
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
 
-  const navItems = [
+  const navItems = useMemo(() => [
     { label: t('navigation.home'), href: '/' },
     { label: t('navigation.services'), href: '/services' },
     // { label: t('navigation.products'), href: '/products' },
     { label: t('navigation.stack'), href: '/stack' },
     { label: t('navigation.about'), href: '/about' },
     { label: t('navigation.contact'), href: '/contact' },
-  ]
+  ], [t])
 
-  const socialLinks = [
+  const socialLinks = useMemo(() => [
     { icon: GithubLogo, label: 'GitHub', href: 'https://github.com/Jabcore-dev' },
     { icon: LinkedinLogo, label: 'LinkedIn', href: 'https://www.linkedin.com/company/jabcore' },
     { icon: FacebookLogo, label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61584245041851' },
     { icon: InstagramLogo, label: 'Instagram', href: 'https://www.instagram.com/jabcore.dev/' },
-  ]
+  ], [])
 
-  const isActive = (href: string) => pathname === href
+  const isActive = useCallback((href: string) => pathname === href, [pathname])
 
-  const handleContactClick = () => {
+  const handleContactClick = useCallback(() => {
     setIsOpen(false)
     setIsContactOpen(true)
-  }
+  }, [])
 
   return (
     <motion.header
@@ -197,7 +197,7 @@ export default function Navigation() {
                     </motion.div>
                   ))}
                 </div>
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -212,7 +212,7 @@ export default function Navigation() {
                     <Envelope className="mr-2" />
                     {t('contact.getInTouch')}
                   </Button>
-                  
+
                   <div>
                     <p className="text-xs text-muted-foreground mb-3">
                       {t('navigation.followUs')}
@@ -245,4 +245,6 @@ export default function Navigation() {
       <ContactModal open={isContactOpen} onOpenChange={setIsContactOpen} />
     </motion.header>
   )
-}
+})
+
+export default Navigation

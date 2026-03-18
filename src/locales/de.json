@@ -1,8 +1,8 @@
 {
   "seo": {
     "home": {
-      "description": "Jabcore bietet professionelle Webentwicklung, moderne digitale Lösungen und Beratung. Wir spezialisieren uns auf React, TypeScript und moderne Technologien.",
-      "keywords": "Webentwicklung, React, TypeScript, digitale Lösungen, Jabcore, Programmierung, Software"
+      "description": "Softwareentwicklung mit KI-Integration. Wir schaffen digitale Produkte von Weltklasse, die Unternehmen transformieren.",
+      "keywords": "Webentwicklung, React, TypeScript, digitale Lösungen, Jabcore, Programmierung, Software, KI-Integration"
     },
     "services": {
       "description": "Wir bieten komplette Webentwicklungsdienste, Mobile-App-Entwicklung, KI-Integration, Cloud-Lösungen und UX/UI-Design.",
@@ -413,7 +413,11 @@
     "sendMessage": "Nachricht senden",
     "sending": "Wird gesendet...",
     "copied": "Kopiert",
-    "copy": "Kopieren"
+    "copy": "Kopieren",
+    "successTitle": "Nachricht erfolgreich gesendet!",
+    "successDesc": "Wir werden innerhalb von 24 Stunden mit den nächsten Schritten für Ihr Projekt antworten.",
+    "errorTitle": "Etwas ist schiefgelaufen",
+    "errorDesc": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt."
   },
   "footer": {
     "description": "Softwareentwicklung mit KI-Integration. Wir bauen digitale Produkte von Weltklasse, die Unternehmen transformieren.",

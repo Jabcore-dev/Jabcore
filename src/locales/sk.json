@@ -1,8 +1,8 @@
 {
   "seo": {
     "home": {
-      "description": "Jabcore ponúka profesionálny webový vývoj, moderné digitálne riešenia a konzultácie. Špecializujeme sa na React, TypeScript a moderné technológie.",
-      "keywords": "webový vývoj, React, TypeScript, digitálne riešenia, Jabcore, programovanie, softvér"
+      "description": "Vývoj softvéru s integráciou AI. Vytvárame digitálne produkty svetovej úrovne, ktoré transformujú podnikanie.",
+      "keywords": "webový vývoj, React, TypeScript, digitálne riešenia, Jabcore, programovanie, softvér, AI integrácia"
     },
     "services": {
       "description": "Ponúkame kompletné služby webového vývoja, tvorbu mobilných aplikácií, AI integrácie, cloudové riešenia a UX/UI dizajn.",
@@ -175,7 +175,11 @@
     "sendMessage": "Odoslať správu",
     "sending": "Odosiela sa...",
     "copied": "Skopírované",
-    "copy": "Kopírovať"
+    "copy": "Kopírovať",
+    "successTitle": "Správa úspešne odoslaná!",
+    "successDesc": "Odpovieme do 24 hodín s ďalšími krokmi pre váš projekt.",
+    "errorTitle": "Niečo sa pokazilo",
+    "errorDesc": "Nepodarilo sa odoslať správu. Skúste to prosím znova alebo nás kontaktujte priamo."
   },
   "stack": {
     "title": "Náš moderný stack",

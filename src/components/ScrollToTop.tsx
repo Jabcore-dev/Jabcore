@@ -1,14 +1,19 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, memo } from 'react'
 import { usePathname } from 'next/navigation'
 
-export default function ScrollToTop() {
+const ScrollToTop = memo(function ScrollToTop() {
   const pathname = usePathname()
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    // Use requestAnimationFrame for smoother scroll
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    })
   }, [pathname])
 
   return null
-}
+})
+
+export default ScrollToTop
