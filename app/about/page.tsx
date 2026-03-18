@@ -1,17 +1,11 @@
-import type { Metadata } from 'next'
 import { generatePageMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = generatePageMetadata({
+export const metadata = generatePageMetadata({
   title: 'O nás',
-  description: 'Poznejte tým Jabcore. Jsme skupina nadšených vývojářů a designérů, kteří vytváří moderní digitální řešení.',
+  description: 'Poznejte tým Jabcore — lean tým vývojářů s AI-first přístupem.',
   path: '/about',
 })
 
-// TODO Honza: Replace with content from src/pages/AboutPage.tsx
 export default function AboutPage() {
-  return (
-    <main>
-      <p>About — TODO Honza</p>
-    </main>
-  )
+  return <div>AboutPage — Honza doplní</div>
 }

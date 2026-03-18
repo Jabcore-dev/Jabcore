@@ -1,32 +1,26 @@
 import type { Metadata } from 'next'
 
-const BASE_URL = 'https://jabcore.cz'
-const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`
-
-export interface PageMetadataProps {
-  /** Page title — will be rendered as "{title} | Jabcore", or just "Jabcore" for homepage */
+interface PageMetadataProps {
+  /** Název stránky — zobrazí se jako "{title} | Jabcore" */
   title: string
-  /** Page meta description */
+  /** Meta description stránky */
   description: string
-  /** URL path, e.g. '/services'. Used to generate canonical tag. */
+  /** URL cesta stránky, napr. "/services" */
   path: string
-  /** Optional OG image URL. Defaults to /og-image.png */
-  image?: string
-  /** Optional locale override. Defaults to 'cs_CZ' */
+  /** Pokud true, použije se title bez suffixu "| Jabcore" */
+  isHome?: boolean
+  /** Locale pro OG tagy, default "cs_CZ" */
   locale?: string
 }
 
 /**
- * Generate Next.js Metadata object for a page.
+ * Generuje Next.js Metadata objekt pro stránku.
  *
- * Usage in page.tsx:
+ * Použití v page.tsx:
  * ```ts
- * import { generatePageMetadata } from '@/lib/metadata'
- * import type { Metadata } from 'next'
- *
- * export const metadata: Metadata = generatePageMetadata({
- *   title: 'Naše Služby',
- *   description: 'Nabízíme kompletní služby webového vývoje...',
+ * export const metadata = generatePageMetadata({
+ *   title: 'Služby',
+ *   description: 'Popis stránky...',
  *   path: '/services',
  * })
  * ```
@@ -35,45 +29,25 @@ export function generatePageMetadata({
   title,
   description,
   path,
-  image = DEFAULT_OG_IMAGE,
+  isHome = false,
   locale = 'cs_CZ',
 }: PageMetadataProps): Metadata {
-  const isHome = path === '/'
-  const formattedTitle = isHome ? 'Jabcore' : `${title} | Jabcore`
-  const canonicalUrl = `${BASE_URL}${path}`
+  const url = `https://jabcore.cz${path}`
+  const fullTitle = isHome ? title : `${title} | Jabcore`
 
   return {
-    title: formattedTitle,
+    title: isHome ? { absolute: title } : title,
     description,
-    metadataBase: new URL(BASE_URL),
     alternates: {
-      canonical: canonicalUrl,
+      canonical: url,
     },
     openGraph: {
-      title: formattedTitle,
+      title: fullTitle,
       description,
-      url: canonicalUrl,
+      url,
       siteName: 'Jabcore',
       locale,
       type: 'website',
-      images: [
-        {
-          url: image,
-          width: 1200,
-          height: 630,
-          alt: formattedTitle,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: formattedTitle,
-      description,
-      images: [image],
-    },
-    robots: {
-      index: true,
-      follow: true,
     },
   }
 }

@@ -1,17 +1,11 @@
-import type { Metadata } from 'next'
 import { generatePageMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = generatePageMetadata({
-  title: 'Náš Technologický Stack',
-  description: 'Pracujeme s nejmodernějšími technologiemi: React, TypeScript, Node.js, Python, AI integrace, cloud řešení a další.',
+export const metadata = generatePageMetadata({
+  title: 'Technologie',
+  description: 'Technologie a nástroje, které používáme při vývoji.',
   path: '/stack',
 })
 
-// TODO Honza: Replace with content from src/pages/StackPage.tsx
 export default function StackPage() {
-  return (
-    <main>
-      <p>Stack — TODO Honza</p>
-    </main>
-  )
+  return <div>StackPage — Honza doplní</div>
 }

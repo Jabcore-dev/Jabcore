@@ -1,19 +1,12 @@
-import type { Metadata } from 'next'
 import { generatePageMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = generatePageMetadata({
-  title: 'Jabcore',
-  description: 'Jabcore nabízí profesionální webový vývoj, moderní digitální řešení a konzultace. Specializujeme se na React, TypeScript a moderní technologie.',
+export const metadata = generatePageMetadata({
+  title: 'Jabcore — Build it right, build it once.',
+  description: 'Vývoj softwaru na míru — mobilní aplikace, enterprise systémy, webové aplikace.',
   path: '/',
+  isHome: true,
 })
 
-// TODO Honza: Replace this placeholder with the content from src/pages/HomePage.tsx
-// - Import and render all sections: Hero, ServicesPreview, CollaborationPreview, CollaborationProcess, WhyChooseUs, TechStack, CTA
-// - Wrap in 'use client' if needed (Framer Motion, hooks)
 export default function HomePage() {
-  return (
-    <main>
-      <p>Homepage — TODO Honza</p>
-    </main>
-  )
+  return <div>Homepage — Honza doplní</div>
 }
