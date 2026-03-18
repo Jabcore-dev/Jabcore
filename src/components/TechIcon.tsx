@@ -1,21 +1,5 @@
 import { memo } from 'react'
 import {
-  TypescriptOriginal,
-  JavascriptOriginal,
-  ReactOriginal,
-  VuejsOriginal,
-  NodejsOriginal,
-  CsharpOriginal,
-  CapacitorOriginal,
-  SwiftOriginal,
-  KotlinOriginal,
-  GithubactionsOriginal,
-  PythonOriginal,
-  FigmaOriginal,
-  GitOriginal,
-  AzureOriginal,
-} from 'devicons-react'
-import { 
   SiN8N,
   SiGooglegemini,
   SiClaude,
@@ -25,7 +9,7 @@ import {
   SiUbuntu,
 } from 'react-icons/si'
 import { FaDocker } from 'react-icons/fa6'
-import { 
+import {
   PiPencilRulerFill,
   PiDevicesFill,
   PiUsersFourFill,
@@ -36,26 +20,29 @@ interface TechIconProps {
   className?: string
 }
 
-// DevIcons - tyto ikony mají správné barvy automaticky
-const devIcons: Record<string, React.ComponentType<{ size?: number | string; className?: string }>> = {
-  'TypeScript': TypescriptOriginal,
-  'JavaScript': JavascriptOriginal,
-  'React': ReactOriginal,
-  'Vue.js': VuejsOriginal,
-  'Node.js': NodejsOriginal,
-  'C#': CsharpOriginal,
-  'Capacitor JS': CapacitorOriginal,
-  'Swift': SwiftOriginal,
-  'Kotlin': KotlinOriginal,
-  'CI/CD': GithubactionsOriginal,
-  'Python': PythonOriginal,
-  'Figma': FigmaOriginal,
-  'Git': GitOriginal,
-  'Azure': AzureOriginal,
+const CDN_BASE = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons'
+
+// DevIcons via CDN - nahrazuje devicons-react (8.9 MB chunk) lightweight <img> tagy
+// Každá ikona se načte on-demand z CDN (~1-3 kB), ne z JS bundle
+const devIconUrls: Record<string, string> = {
+  'TypeScript': `${CDN_BASE}/typescript/typescript-original.svg`,
+  'JavaScript': `${CDN_BASE}/javascript/javascript-original.svg`,
+  'React': `${CDN_BASE}/react/react-original.svg`,
+  'Vue.js': `${CDN_BASE}/vuejs/vuejs-original.svg`,
+  'Node.js': `${CDN_BASE}/nodejs/nodejs-original.svg`,
+  'C#': `${CDN_BASE}/csharp/csharp-original.svg`,
+  'Capacitor JS': `${CDN_BASE}/capacitorjs/capacitorjs-original.svg`,
+  'Swift': `${CDN_BASE}/swift/swift-original.svg`,
+  'Kotlin': `${CDN_BASE}/kotlin/kotlin-original.svg`,
+  'CI/CD': `${CDN_BASE}/githubactions/githubactions-original.svg`,
+  'Python': `${CDN_BASE}/python/python-original.svg`,
+  'Figma': `${CDN_BASE}/figma/figma-original.svg`,
+  'Git': `${CDN_BASE}/git/git-original.svg`,
+  'Azure': `${CDN_BASE}/azure/azure-original.svg`,
 }
 
 // Simple Icons z react-icons (pro AI služby a platformy)
-const simpleIcons: Record<string, { 
+const simpleIcons: Record<string, {
   icon: React.ComponentType<{ size?: number | string; color?: string; className?: string }>;
   color: string;
 }> = {
@@ -70,7 +57,7 @@ const simpleIcons: Record<string, {
 }
 
 // Speciální ikony pro design/UX služby
-const specialIcons: Record<string, { 
+const specialIcons: Record<string, {
   icon: React.ComponentType<{ size?: number | string; color?: string; className?: string }>;
   color: string;
 }> = {
@@ -80,10 +67,18 @@ const specialIcons: Record<string, {
 }
 
 const TechIcon = memo(function TechIcon({ name, className = "w-6 h-6" }: TechIconProps) {
-  // DevIcons - automaticky barevné
-  if (name in devIcons) {
-    const IconComponent = devIcons[name]
-    return <IconComponent className={className} />
+  // DevIcons - via CDN, žádný JS bundle overhead
+  if (name in devIconUrls) {
+    return (
+      <img
+        src={devIconUrls[name]}
+        alt={name}
+        className={className}
+        loading="lazy"
+        width={24}
+        height={24}
+      />
+    )
   }
 
   // Simple Icons (AI služby)
