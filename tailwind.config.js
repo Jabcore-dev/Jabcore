@@ -138,10 +138,10 @@ const defaultTheme = {
     80: "var(--size-80)",
     96: "var(--size-96)",
   },
-  darkMode: ["selector", '[data-appearance="dark"]'],
+  darkMode: "class",
 }
 
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./src/**/*.{js,ts,jsx,tsx}", "./app/**/*.{js,ts,jsx,tsx}", "./lib/**/*.{js,ts,jsx,tsx}"],
   theme: { ...defaultTheme, ...theme },
 };
