@@ -15,8 +15,24 @@ export const metadata: Metadata = {
   },
   description: 'Vývoj softwaru na míru — mobilní aplikace, enterprise systémy, webové aplikace. Lean tým, AI-first přístup, konkurenční ceny.',
   metadataBase: new URL('https://jabcore.cz'),
-  alternates: { canonical: '/' },
-  openGraph: { siteName: 'Jabcore', locale: 'cs_CZ', type: 'website' },
+  alternates: { canonical: 'https://jabcore.cz' },
+  openGraph: {
+    siteName: 'Jabcore',
+    locale: 'cs_CZ',
+    type: 'website',
+    images: [
+      {
+        url: 'https://jabcore.cz/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Jabcore — Build it right, build it once.',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['https://jabcore.cz/og-image.png'],
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
