@@ -1,7 +1,9 @@
+'use client'
+
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Code, DeviceMobile, Database } from '@phosphor-icons/react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { useState } from 'react'
 import ContactModal from '@/components/ContactModal'
 import { useTranslation } from 'react-i18next'
@@ -144,7 +146,7 @@ export default function Hero() {
               {t('hero.getInTouch')}
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" weight="bold" />
             </Button>
-            <Link to="/services">
+            <Link href="/services">
               <Button
                 size="lg"
                 variant="outline"

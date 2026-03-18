@@ -1,3 +1,5 @@
+'use client'
+
 import { Globe } from '@phosphor-icons/react'
 import {
   Select,

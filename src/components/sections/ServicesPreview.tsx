@@ -1,7 +1,9 @@
+'use client'
+
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { DeviceMobile, Database, Globe, Layout, ArrowRight } from '@phosphor-icons/react'
@@ -84,7 +86,7 @@ export default function ServicesPreview() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center"
         >
-          <Link to="/services">
+          <Link href="/services">
             <Button size="lg" className="group">
               {t('servicesPreview.exploreAll')}
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

@@ -1,7 +1,9 @@
+'use client'
+
 import { motion } from 'framer-motion'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { 
   ChatCircleDots, 
   Handshake, 
@@ -106,7 +108,7 @@ export default function CollaborationPreview() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-center"
           >
-            <Link to="/about">
+            <Link href="/about">
               <Button size="lg" className="gap-2 group">
                 See Our Full Process
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" weight="bold" />
