@@ -1,1 +1,181 @@
-@import '../main.css';
+@import 'tailwindcss';
+@import "tw-animate-css";
+
+/*
+  Class-based dark mode — next-themes adds .dark to <html>
+  Required for dark: utilities to work with ThemeProvider attribute="class"
+*/
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+/* ─── Brand design tokens ─────────────────────────────────────── */
+
+:root {
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.15 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0 0);
+  --primary: oklch(0.45 0.15 255);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.96 0 0);
+  --secondary-foreground: oklch(0.15 0 0);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.50 0 0);
+  --accent: oklch(0.75 0.15 195);
+  --accent-foreground: oklch(0.15 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.92 0 0);
+  --input: oklch(0.92 0 0);
+  --ring: oklch(0.45 0.15 255);
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: oklch(0.12 0 0);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.18 0 0);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.18 0 0);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.50 0.15 255);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.25 0 0);
+  --secondary-foreground: oklch(0.98 0 0);
+  --muted: oklch(0.25 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.75 0.15 195);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.60 0.22 27);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.25 0 0);
+  --input: oklch(0.25 0 0);
+  --ring: oklch(0.50 0.15 255);
+}
+
+/* ─── Tailwind v4 theme mapping ───────────────────────────────── */
+/*
+  @theme inline — utility classes use var(--color-*) references,
+  which respond to dark-mode CSS variable changes at runtime.
+  Required when token values change between light/dark themes.
+*/
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) * 1.5);
+  --radius-xl: calc(var(--radius) * 2);
+  --radius-2xl: calc(var(--radius) * 3);
+  --radius-full: 9999px;
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* Radix UI Accordion animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from { height: 0; }
+    to { height: var(--radix-accordion-content-height); }
+  }
+
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; }
+  }
+}
+
+/* ─── Base styles ─────────────────────────────────────────────── */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+/* ─── Brand utility classes ───────────────────────────────────── */
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-border {
+  position: relative;
+  background: var(--card);
+  border-radius: var(--radius);
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  padding: 2px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}

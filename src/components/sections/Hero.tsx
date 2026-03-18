@@ -4,13 +4,33 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Code, DeviceMobile, Database } from '@phosphor-icons/react'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ContactModal from '@/components/ContactModal'
 import { useTranslation } from 'react-i18next'
+
+type Dot = {
+  left: number
+  top: number
+  duration: number
+  delay: number
+}
 
 export default function Hero() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
   const { t } = useTranslation()
+  const [dots, setDots] = useState<Dot[]>([])
+
+  useEffect(() => {
+    setDots(
+      Array.from({ length: 30 }, () => ({
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        duration: 4 + Math.random() * 3,
+        delay: Math.random() * 3,
+      }))
+    )
+  }, [])
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5" />
@@ -21,13 +41,13 @@ export default function Hero() {
       </div>
 
       <div className="absolute inset-0 overflow-hidden hidden md:block">
-        {[...Array(30)].map((_, i) => (
+        {dots.map((dot, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-accent/40 rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${dot.left}%`,
+              top: `${dot.top}%`,
             }}
             animate={{
               y: [0, -40, 0],
@@ -35,9 +55,9 @@ export default function Hero() {
               scale: [1, 1.5, 1],
             }}
             transition={{
-              duration: 4 + Math.random() * 3,
+              duration: dot.duration,
               repeat: Infinity,
-              delay: Math.random() * 3,
+              delay: dot.delay,
               ease: "easeInOut",
             }}
           />
