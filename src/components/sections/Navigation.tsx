@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Moon, Sun, List, X, GithubLogo, LinkedinLogo, FacebookLogo, InstagramLogo, Envelope } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { useState, useCallback, useMemo, memo } from 'react'
+import { useState, useCallback, useMemo, useEffect, memo } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
@@ -13,12 +13,21 @@ import LanguageSwitcher from '@/components/LanguageSwitcher'
 import logoTransparent from '@/assets/images/transparent.png'
 import { useTranslation } from 'react-i18next'
 
+// Module-level flag — persists across re-mounts, ensures animation plays only on first load
+let navbarHasAnimated = false
+
 const Navigation = memo(function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [isContactOpen, setIsContactOpen] = useState(false)
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
   const { t } = useTranslation()
+
+  const shouldAnimate = !navbarHasAnimated
+
+  useEffect(() => {
+    navbarHasAnimated = true
+  }, [])
 
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
 
@@ -47,13 +56,13 @@ const Navigation = memo(function Navigation() {
 
   return (
     <motion.header
-      initial={{ y: -100 }}
+      initial={shouldAnimate ? { y: -100 } : false}
       animate={{ y: 0 }}
       className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border"
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={shouldAnimate ? { opacity: 0 } : false}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
@@ -67,7 +76,7 @@ const Navigation = memo(function Navigation() {
           {navItems.map((item, index) => (
             <motion.div
               key={item.href}
-              initial={{ opacity: 0, y: -20 }}
+              initial={shouldAnimate ? { opacity: 0, y: -20 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 * index }}
             >
@@ -85,14 +94,14 @@ const Navigation = memo(function Navigation() {
           ))}
           <div className="flex items-center gap-2">
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={shouldAnimate ? { opacity: 0, y: -20 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
               <LanguageSwitcher />
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={shouldAnimate ? { opacity: 0, y: -20 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.55 }}
             >
@@ -114,7 +123,7 @@ const Navigation = memo(function Navigation() {
               return (
                 <motion.div
                   key={social.label}
-                  initial={{ opacity: 0, y: -20 }}
+                  initial={shouldAnimate ? { opacity: 0, y: -20 } : false}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 + index * 0.05 }}
                 >

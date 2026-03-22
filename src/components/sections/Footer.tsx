@@ -59,7 +59,6 @@ const Footer = memo(function Footer() {
               {[
                 { href: '/', label: t('navigation.home') },
                 { href: '/services', label: t('navigation.services') },
-                { href: '/products', label: t('navigation.products') },
                 { href: '/stack', label: t('navigation.stack') },
                 { href: '/about', label: t('navigation.about') },
                 { href: '/contact', label: t('navigation.contact') },
