@@ -179,7 +179,7 @@
     "phoneValue": "+421 912 345 678",
     "phonePrefix": "+421",
     "phoneDesc": "Pon-Pia, 9:00 - 18:00 CET",
-    "ourLocation": "Naša lokácia",
+    "ourLocation": "Naše sídlo",
     "locationDesc": "Praha, Česká republika",
     "locationNote": "Remote-first tím dostupný po celom svete",
     "businessHours": "Pracovné hodiny",
@@ -261,7 +261,7 @@
       },
       "uxui": {
         "title": "UX/UI dizajn",
-        "description": "Krásne, intuitívne rozhrania, ktoré používatelia milujú. Miešame estetickú dokonalosť s výskumom použiteľnosti na vytvorenie pixel-perfektných dizajnov, ktoré používateľov vedú prirodzene a podporujú zapojenie."
+        "description": "Krásne, intuítivne rozhrania, ktoré použivatelia milujú. Spájame estetickú dokonaľosť s výskumom použiteľnosti na vytvorenie pixel-perfektných dizajnov, ktoré používateľov vedú prirodzene a podporujú zapojenie."
       }
     },
     "categories": {
@@ -303,7 +303,7 @@
       },
       "uxui": {
         "title": "UX/UI dizajn",
-        "description": "Krásne, intuitívne rozhrania, ktoré používatelia milujú. Miešame estetickú dokonalosť s výskumom použiteľnosti na vytvorenie pixel-perfektných dizajnov, ktoré používateľov vedú prirodzene a podporujú zapojenie."
+        "description": "Krásne, intuitívne rozhrania, ktoré používatelia milujú. Spájame estetickú dokonalosť s výskumom použiteľnosti na vytvorenie pixel-perfektných dizajnov, ktoré používateľov vedú prirodzene a podporujú zapojenie."
       }
     }
   },
@@ -341,7 +341,7 @@
   },
   "collaboration": {
     "title": "Ako spoločne pracujeme",
-    "subtitle": "Od prvej poptávky po finálne dodanie a dlhodobú podporu—transparentný proces, kde máte úplnú viditeľnosť a kontrolu v každej fáze.",
+    "subtitle": "Od prvej poptávky po finálne dodanie a dlhodobú podporu—transparentný proces, kde máte úplný prehľad a kontrolu v každej fáze.",
     "note": "Presný proces sa môže líšiť v závislosti od vašich konkrétnych požiadaviek a rozsahu projektu.",
     "afterLaunch": "Čo sa stane po spustení?",
     "afterLaunchDesc": "Vývoj aplikácií je živý proces. Po nasadení začínajú používatelia pracovať s vaším riešením, objavujú sa nové nápady, funkcie sa vyvíjajú a optimalizácie odomykajú nové príležitosti pre rast a inovácie.",
@@ -365,17 +365,17 @@
       "kickoff": {
         "number": "04",
         "title": "Schválenie & oficiálne zahájenie vývoja",
-        "description": "Po schválení začneme pracovať s vývojárskou mapou, sprintovými fázami a nástrojmi pre riadenie projektov. Získate viditeľnosť v reálnom čase do toho, čo vytvárame a prečo—pri každom kroku."
+"description": "Po schválení začneme pracovať s vývojárskou mapou, šprintovými fázami a nástrojmi pre riadenie projektov. Získate prehľad v reálnom čase o tom, čo vytvárame a prečo—pri každom kroku."
       },
       "prototype": {
         "number": "05",
         "title": "Prvý prototyp – spoločné zdokonaľovanie",
-        "description": "Dodáme funkčný prototyp, ktorý oživí vašu víziu. Prostredníctvom kontrolných seancí a spätnej väzby zdokonaľujeme interakcie a funkcie, aby sme zabezpečili, že finálny produkt prekročí očakávania."
+        "description": "Dodáme funkčný prototyp, ktorý oživí vašu víziu. Prostredníctvom kontrolných schôdzok a spätnej väzby zdokonaľujeme interakcie a funkcie, aby sme zabezpečili, že finálny produkt prekročí očakávania."
       },
       "delivery": {
         "number": "06",
         "title": "Finálne dodanie – vaše riešenie je spustené",
-        "description": "Obdržíte produkčne pripravené riešenie testované naprieč zariadeniami a prehliadačmi. Poskytujeme prevodné sekcie, dokumentáciu a v prípade potreby nastavíme hosting, zmluvy o podpore a integrácie pre dlhodobý úspech."
+        "description": "Obdržíte produkčne pripravené riešenie testované naprieč zariadeniami a prehliadačmi. Poskytujeme úvodné prezentácie, dokumentáciu a v prípade potreby nastavíme hosting, zmluvy o podpore a integrácie pre dlhodobý úspech."
       }
     }
   },
