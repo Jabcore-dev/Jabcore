@@ -162,8 +162,8 @@
     }
   },
   "stack": {
-    "title": "Notre stack moderne",
-    "subtitle": "Technologies de pointe et méthodologies éprouvées qui alimentent des solutions numériques exceptionnelles. Nous combinons les meilleurs outils avec une expertise approfondie pour créer des produits évolutifs.",
+    "title": "Ce que nous utilisons",
+    "subtitle": "Nous nous appuyons sur des technologies modernes et des méthodes éprouvées pour créer des solutions numériques d'exception. Nous associons les meilleurs outils à notre expertise pour que votre produit fonctionne parfaitement et puisse évoluer facilement avec votre entreprise.",
     "readyToBuild": "Prêt à construire quelque chose d'incroyable ?",
     "readyDesc": "Discutons de la façon dont notre stack technologique peut donner vie à votre vision. Nous vous aiderons à choisir les bons outils et à créer une solution qui dépasse les attentes.",
     "getStarted": "Commencez aujourd'hui",
@@ -359,8 +359,8 @@
     }
   },
   "techStack": {
-    "title": "Notre stack technologique",
-    "subtitle": "Nous exploitons les technologies les plus puissantes et les plus modernes pour créer des solutions rapides, évolutives et pérennes. Notre expertise couvre l'ensemble de l'écosystème de développement—du frontend au backend, du mobile au cloud et tout ce qui se trouve entre les deux.",
+    "title": "Ce que nous utilisons",
+    "subtitle": "Nous nous appuyons sur des technologies modernes et des méthodes éprouvées pour créer des solutions numériques d'exception. Nous associons les meilleurs outils à notre expertise pour que votre produit fonctionne parfaitement et puisse évoluer facilement avec votre entreprise.",
     "notSeeingYourTech": "Vous ne voyez pas votre stack technologique préféré ?",
     "notSeeingDesc": "Nous apprenons et nous adaptons toujours. Si vous avez des exigences ou des préférences technologiques spécifiques, nous les évaluerons et intégrerons les meilleurs outils pour les besoins uniques de votre projet. Notre engagement est envers la bonne solution, pas seulement celle qui nous est familière.",
     "categories": {

@@ -162,8 +162,8 @@
     }
   },
   "stack": {
-    "title": "Modern stack-ünk",
-    "subtitle": "Élvonalbeli technológiák és bevált módszertanok, amelyek kivételes digitális megoldásokat tesznek lehetővé. A legjobb eszközöket kombináljuk mély szakértelemmel, hogy skálázható termékeket építsünk.",
+    "title": "Mit használunk",
+    "subtitle": "Modern technológiákra és bevált módszerekre támaszkodunk, hogy kiemelkedő digitális megoldásokat hozzunk létre. A legjobb eszközöket ötvözzük szakértelmünkkel, hogy az Ön terméke kiválóan működjön és könnyedén növekedhessen vállalkozásával együtt.",
     "readyToBuild": "Készen állsz valami nagyszerű építésére?",
     "readyDesc": "Beszéljük meg, hogyan keltheti életre technológiai stack-ünk az elképzelésedet. Segítünk kiválasztani a megfelelő eszközöket és olyan megoldást építeni, amely meghaladja az elvárásokat.",
     "getStarted": "Kezdd el ma",
@@ -359,8 +359,8 @@
     }
   },
   "techStack": {
-    "title": "Technológiai stack-ünk",
-    "subtitle": "A legerősebb, legmodernebb technológiákat használjuk, hogy gyors, skálázható és jövőbiztos megoldásokat építsünk. Szakértelmünk lefedi a teljes fejlesztési ökoszisztémát — a frontendtől a backendig, a mobilos alkalmazásoktól a felhőig és minden köztes területre.",
+    "title": "Mit használunk",
+    "subtitle": "Modern technológiákra és bevált módszerekre támaszkodunk, hogy kiemelkedő digitális megoldásokat hozzunk létre. A legjobb eszközöket ötvözzük szakértelmünkkel, hogy az Ön terméke kiválóan működjön és könnyedén növekedhessen vállalkozásával együtt.",
     "notSeeingYourTech": "Nem látod az előnyben részesített technológiai stack-ed?",
     "notSeeingDesc": "Mindig tanulunk és alkalmazkodunk. Ha konkrét technológiai követelményeid vagy preferenciáid vannak, értékeljük és integráljuk a legjobb eszközöket a projekted egyedi igényeihez. Számunkra a megfelelő megoldás a fontos, nem csupán az ismerős.",
     "categories": {

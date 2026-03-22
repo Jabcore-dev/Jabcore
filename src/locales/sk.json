@@ -211,8 +211,8 @@
     "phoneNumberPlaceholder": "123456789"
   },
   "stack": {
-    "title": "Náš moderný stack",
-    "subtitle": "Najmodernejšie technológie a osvedčené metodológie, ktoré poháňajú výnimočné digitálne riešenia. Kombinujeme najlepšie nástroje s hlbokými znalosťami na vytváranie produktov, ktoré škálujú.",
+    "title": "Čo používame",
+    "subtitle": "Stavíme na moderných technológiách a osvedčených postupoch, vďaka ktorým tvoríme špičkové digitálne riešenia. Spájame najlepšie nástroje s našimi skúsenosťami, aby váš produkt skvele fungoval a mohol jednoducho rásť spolu s vašou firmou.",
     "readyToBuild": "Pripravení vytvoriť niečo úžasné?",
     "readyDesc": "Poďme prediskutovať, ako môže náš technologický stack oživiť vašu víziu. Pomôžeme vám vybrať správne nástroje a vytvoriť riešenie, ktoré prekročí očakávania.",
     "getStarted": "Začnite ešte dnes",
@@ -408,8 +408,8 @@
     }
   },
   "techStack": {
-    "title": "Náš technologický stack",
-    "subtitle": "Využívame najpokročilejšie, moderné technológie na vytváranie riešení, ktoré sú rýchle, škálovateľné a pripravené na budúcnosť. Naša odbornosť pokrýva celý ekosystém vývoja — od frontendu po backend, od mobilných aplikácií po cloud a všetko medzi tým.",
+    "title": "Čo používame",
+    "subtitle": "Stavíme na moderných technológiách a osvedčených postupoch, vďaka ktorým tvoríme špičkové digitálne riešenia. Spájame najlepšie nástroje s našimi skúsenosťami, aby váš produkt skvele fungoval a mohol jednoducho rásť spolu s vašou firmou.",
     "notSeeingYourTech": "Nevidíte váš obľúbený tech stack?",
     "notSeeingDesc": "Vždy sa učíme a adaptujeme. Ak máte konkrétne technologické požiadavky alebo preferencie, vyhodnotíme ich a integrujeme najlepšie nástroje pre jedinečné potreby vášho projektu. Náš záväzok je k správnemu riešeniu, nie len k známemu.",
     "categories": {
