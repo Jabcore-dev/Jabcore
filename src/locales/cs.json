@@ -87,7 +87,11 @@
     "mobile": {
       "title": "Vývoj mobilních aplikací",
       "description": "Vyvíjíme mobilní aplikace primárně s Ionic + Capacitor — jednou kódovou základnou pokryjeme iOS i Android a sdílíme logiku s webem. Výsledkem je nativní výkon, rychlejší vývoj a konzistentní zážitek na všech platformách.",
-      "highlights": ["Rychlý výkon", "Nativní pocit", "Škálovatelná architektura"],
+      "highlights": [
+        "Rychlý výkon",
+        "Nativní pocit",
+        "Škálovatelná architektura"
+      ],
       "features": [
         "Ionic + Capacitor (iOS + Android z jedné kódové základny)",
         "Sdílení kódu s webovou aplikací",
@@ -102,7 +106,11 @@
     "enterprise": {
       "title": "Firemní & podnikové systémy",
       "description": "Zefektivněte své obchodní operace pomocí firemních řešení na míru. Vytváříme výkonné systémy, které automatizují pracovní postupy, integrují se s existujícími nástroji a využívají AI ke zvýšení produktivity.",
-      "highlights": ["Poháněno AI", "Plně integrováno", "Bezpečné a kompatibilní"],
+      "highlights": [
+        "Poháněno AI",
+        "Plně integrováno",
+        "Bezpečné a kompatibilní"
+      ],
       "features": [
         "Vlastní CRM a ERP systémy",
         "Automatizace obchodních procesů",
@@ -117,7 +125,11 @@
     "web": {
       "title": "Webové aplikace",
       "description": "Vytvářejte škálovatelné, bezpečné a bleskově rychlé webové aplikace, které rostou s vaším podnikáním. Od SaaS platforem po složité portály dodáváme moderní webová řešení postavená na nejmodernějších technologiích.",
-      "highlights": ["Cloud-nativní", "Vysoce škálovatelné", "Podnikové úrovně"],
+      "highlights": [
+        "Cloud-nativní",
+        "Vysoce škálovatelné",
+        "Podnikové úrovně"
+      ],
       "features": [
         "Progressive Web Apps (PWA)",
         "Vývoj SaaS platforem",
@@ -132,7 +144,11 @@
     "websites": {
       "title": "Moderní webové stránky",
       "description": "Vytvořte úžasnou online přítomnost, která konvertuje návštěvníky na zákazníky. Navrhujeme a vyvíjíme SEO optimalizované, rychle se načítající webové stránky, které prezentují vaši značku a podporují růst podnikání.",
-      "highlights": ["SEO optimalizováno", "Vysoká konverze", "Bleskově rychlé"],
+      "highlights": [
+        "SEO optimalizováno",
+        "Vysoká konverze",
+        "Bleskově rychlé"
+      ],
       "features": [
         "Vlastní design a vývoj webových stránek",
         "SEO optimalizace a strategie",
@@ -262,7 +278,7 @@
   "servicesPreview": {
     "title": "Co vytváříme pro vaše podnikání",
     "subtitle": "Komplexní služby vývoje softwaru přizpůsobené vašim jedinečným potřebám",
-    "mobileDesc": "Nativní iOS a Android aplikace s bezproblémovým výkonem.",
+    "mobileDesc": "Mobilní aplikace pro iOS i Android s Ionic + Capacitor — jedna kódová základna, nativní výkon.",
     "enterpriseDesc": "Vlastní automatizace podnikání a AI-poháněná řešení.",
     "webDesc": "Škálovatelné SaaS platformy vytvořené pro rychlost a bezpečnost.",
     "websitesDesc": "SEO optimalizované, vysokokonverzní webové stránky.",
