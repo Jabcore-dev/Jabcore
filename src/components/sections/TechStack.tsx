@@ -1,3 +1,5 @@
+'use client'
+
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
@@ -33,11 +35,6 @@ export default function TechStack() {
       title: t('techStack.categories.mobile.title'),
       description: t('techStack.categories.mobile.description'),
       technologies: [
-        'React',
-        'Swift',
-        'Kotlin',
-        'iOS',
-        'Android',
         'Capacitor JS',
       ],
     },

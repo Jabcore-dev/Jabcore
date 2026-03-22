@@ -2,27 +2,33 @@
   "seo": {
     "home": {
       "description": "Software development with AI integration. We create world-class digital products that transform businesses.",
-      "keywords": "web development, React, TypeScript, digital solutions, Jabcore, programming, software, AI integration"
+      "keywords": "web development, React, TypeScript, digital solutions, Jabcore, programming, software, AI integration",
+      "title": "Jabcore — Build it right, build it once."
     },
     "services": {
       "description": "We offer complete web development services, mobile app development, AI integration, cloud solutions and UX/UI design.",
-      "keywords": "web development, mobile apps, AI integration, cloud solutions, UX design, UI design, React, TypeScript"
+      "keywords": "web development, mobile apps, AI integration, cloud solutions, UX design, UI design, React, TypeScript",
+      "title": "Services | Jabcore"
     },
     "products": {
       "description": "Discover our own products and applications. PillSee and other innovative solutions created by the Jabcore team.",
-      "keywords": "products, applications, PillSee, mobile apps, Jabcore"
+      "keywords": "products, applications, PillSee, mobile apps, Jabcore",
+      "title": "Products | Jabcore"
     },
     "stack": {
       "description": "We work with the most modern technologies: React, TypeScript, Node.js, Python, AI integration, cloud solutions and more.",
-      "keywords": "technology, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure"
+      "keywords": "technology, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure",
+      "title": "Technologies | Jabcore"
     },
     "about": {
       "description": "Meet the Jabcore team. We are a group of passionate developers and designers creating modern digital solutions.",
-      "keywords": "about us, team, Jabcore, developers, designers, company story"
+      "keywords": "about us, team, Jabcore, developers, designers, company story",
+      "title": "About Us | Jabcore"
     },
     "contact": {
       "description": "Contact us for a free consultation on your project. We'll help you with web development, mobile apps or AI solutions.",
-      "keywords": "contact, consultation, project, collaboration, Jabcore"
+      "keywords": "contact, consultation, project, collaboration, Jabcore",
+      "title": "Contact | Jabcore"
     }
   },
   "navigation": {
@@ -87,7 +93,11 @@
     "mobile": {
       "title": "Mobile App Development",
       "description": "Transform your ideas into powerful native mobile applications that users love. We build high-performance iOS and Android apps with intuitive interfaces and seamless user experiences.",
-      "highlights": ["Fast Performance", "Native Feel", "Scalable Architecture"],
+      "highlights": [
+        "Fast Performance",
+        "Native Feel",
+        "Scalable Architecture"
+      ],
       "features": [
         "Native iOS development (Swift, SwiftUI)",
         "Native Android development (Kotlin, Jetpack Compose)",
@@ -102,7 +112,11 @@
     "enterprise": {
       "title": "Corporate & Enterprise Systems",
       "description": "Streamline your business operations with custom-built enterprise solutions. We create powerful systems that automate workflows, integrate with existing tools, and leverage AI to boost productivity.",
-      "highlights": ["AI-Powered", "Fully Integrated", "Secure & Compliant"],
+      "highlights": [
+        "AI-Powered",
+        "Fully Integrated",
+        "Secure & Compliant"
+      ],
       "features": [
         "Custom CRM and ERP systems",
         "Business process automation",
@@ -117,7 +131,11 @@
     "web": {
       "title": "Web Applications",
       "description": "Build scalable, secure, and lightning-fast web applications that grow with your business. From SaaS platforms to complex portals, we deliver modern web solutions built on cutting-edge technologies.",
-      "highlights": ["Cloud-Native", "Highly Scalable", "Enterprise-Grade"],
+      "highlights": [
+        "Cloud-Native",
+        "Highly Scalable",
+        "Enterprise-Grade"
+      ],
       "features": [
         "Progressive Web Apps (PWA)",
         "SaaS platform development",
@@ -132,7 +150,11 @@
     "websites": {
       "title": "Modern Websites",
       "description": "Create a stunning online presence that converts visitors into customers. We design and develop SEO-optimized, fast-loading websites that showcase your brand and drive business growth.",
-      "highlights": ["SEO-Optimized", "High Converting", "Lightning Fast"],
+      "highlights": [
+        "SEO-Optimized",
+        "High Converting",
+        "Lightning Fast"
+      ],
       "features": [
         "Custom website design and development",
         "SEO optimization and strategy",
@@ -146,8 +168,8 @@
     }
   },
   "stack": {
-    "title": "Our Modern Stack",
-    "subtitle": "Cutting-edge technologies and proven methodologies that power exceptional digital solutions. We combine the best tools with deep expertise to build products that scale.",
+    "title": "What We Use",
+    "subtitle": "We build on modern technologies and proven methods to create outstanding digital solutions. We combine the best tools with our expertise so your product performs brilliantly and can grow effortlessly alongside your business.",
     "readyToBuild": "Ready to Build Something Amazing?",
     "readyDesc": "Let's discuss how our technology stack can bring your vision to life. We'll help you choose the right tools and build a solution that exceeds expectations.",
     "getStarted": "Get Started Today",
@@ -318,7 +340,7 @@
       },
       "security": {
         "title": "Enterprise-Grade Security",
-        "description": "Security built into every line of code. GDPR compliant, OWASP certified, fully protected."
+        "description": "Security built into every line of code. GDPR compliant, OWASP-compliant, fully protected."
       },
       "scalability": {
         "title": "Infinite Scalability",
@@ -343,8 +365,8 @@
     }
   },
   "techStack": {
-    "title": "Our Technology Stack",
-    "subtitle": "We leverage the most powerful, modern technologies to build solutions that are fast, scalable, and future-proof. Our expertise spans the entire development ecosystem—from frontend to backend, mobile to cloud, and everything in between.",
+    "title": "What We Use",
+    "subtitle": "We build on modern technologies and proven methods to create outstanding digital solutions. We combine the best tools with our expertise so your product performs brilliantly and can grow effortlessly alongside your business.",
     "notSeeingYourTech": "Not seeing your preferred tech stack?",
     "notSeeingDesc": "We're always learning and adapting. If you have specific technology requirements or preferences, we'll evaluate them and integrate the best tools for your project's unique needs. Our commitment is to the right solution, not just the familiar one.",
     "categories": {
@@ -417,7 +439,20 @@
     "successTitle": "Message sent successfully!",
     "successDesc": "We'll respond within 24 hours with next steps for your project.",
     "errorTitle": "Something went wrong",
-    "errorDesc": "Failed to send message. Please try again or contact us directly."
+    "errorDesc": "Failed to send message. Please try again or contact us directly.",
+    "validation": {
+      "nameMin": "Name must be at least 2 characters",
+      "emailInvalid": "Please enter a valid email address",
+      "phoneCodeRequired": "Please select a country code",
+      "phoneMin": "Phone number must be at least 6 digits",
+      "phoneDigitsOnly": "Phone number must contain only digits",
+      "messageMin": "Message must be at least 10 characters"
+    },
+    "namePlaceholder": "John Doe",
+    "emailPlaceholder": "john@example.com",
+    "companyPlaceholder": "Acme Corporation",
+    "phoneCodePlaceholder": "Code",
+    "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
     "description": "Software development with AI integration. Building world-class digital products that transform businesses.",

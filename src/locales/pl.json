@@ -2,27 +2,33 @@
   "seo": {
     "home": {
       "description": "Rozwój oprogramowania z integracją AI. Tworzymy cyfrowe produkty światowej klasy, które transformują biznes.",
-      "keywords": "tworzenie stron, React, TypeScript, rozwiązania cyfrowe, Jabcore, programowanie, oprogramowanie, integracja AI"
+      "keywords": "tworzenie stron, React, TypeScript, rozwiązania cyfrowe, Jabcore, programowanie, oprogramowanie, integracja AI",
+      "title": "Jabcore — Rdzeń Twojej nowej aplikacji."
     },
     "services": {
       "description": "Oferujemy kompleksowe usługi tworzenia stron, aplikacji mobilnych, integracji AI, rozwiązań chmurowych i projektowania UX/UI.",
-      "keywords": "tworzenie stron, aplikacje mobilne, integracja AI, rozwiązania chmurowe, UX design, UI design, React, TypeScript"
+      "keywords": "tworzenie stron, aplikacje mobilne, integracja AI, rozwiązania chmurowe, UX design, UI design, React, TypeScript",
+      "title": "Usługi | Jabcore"
     },
     "products": {
       "description": "Odkryj nasze własne produkty i aplikacje. PillSee i inne innowacyjne rozwiązania stworzone przez zespół Jabcore.",
-      "keywords": "produkty, aplikacje, PillSee, aplikacje mobilne, Jabcore"
+      "keywords": "produkty, aplikacje, PillSee, aplikacje mobilne, Jabcore",
+      "title": "Produkty | Jabcore"
     },
     "stack": {
       "description": "Pracujemy z najnowocześniejszymi technologiami: React, TypeScript, Node.js, Python, integracja AI, rozwiązania chmurowe i więcej.",
-      "keywords": "technologia, stack, React, TypeScript, Node.js, Python, AI, chmura, Docker, Azure"
+      "keywords": "technologia, stack, React, TypeScript, Node.js, Python, AI, chmura, Docker, Azure",
+      "title": "Technologie | Jabcore"
     },
     "about": {
       "description": "Poznaj zespół Jabcore. Jesteśmy grupą pasjonatów programistów i projektantów tworzących nowoczesne rozwiązania cyfrowe.",
-      "keywords": "o nas, zespół, Jabcore, programiści, projektanci, historia firmy"
+      "keywords": "o nas, zespół, Jabcore, programiści, projektanci, historia firmy",
+      "title": "O nas | Jabcore"
     },
     "contact": {
       "description": "Skontaktuj się z nami w sprawie bezpłatnej konsultacji projektu. Pomożemy Ci w tworzeniu stron, aplikacji mobilnych lub rozwiązań AI.",
-      "keywords": "kontakt, konsultacja, projekt, współpraca, Jabcore"
+      "keywords": "kontakt, konsultacja, projekt, współpraca, Jabcore",
+      "title": "Kontakt | Jabcore"
     }
   },
   "navigation": {
@@ -87,7 +93,11 @@
     "mobile": {
       "title": "Rozwój aplikacji mobilnych",
       "description": "Przekształć swoje pomysły w potężne natywne aplikacje mobilne, które użytkownicy pokochają. Budujemy wysokowydajne aplikacje iOS i Android z intuicyjnymi interfejsami i płynnymi doświadczeniami użytkownika.",
-      "highlights": ["Szybka wydajność", "Natywne wrażenia", "Skalowalna architektura"],
+      "highlights": [
+        "Szybka wydajność",
+        "Natywne wrażenia",
+        "Skalowalna architektura"
+      ],
       "features": [
         "Natywny rozwój iOS (Swift, SwiftUI)",
         "Natywny rozwój Android (Kotlin, Jetpack Compose)",
@@ -102,7 +112,11 @@
     "enterprise": {
       "title": "Systemy korporacyjne i dla przedsiębiorstw",
       "description": "Usprawnij swoje operacje biznesowe dzięki niestandardowym rozwiązaniom dla przedsiębiorstw. Tworzymy potężne systemy, które automatyzują przepływy pracy, integrują się z istniejącymi narzędziami i wykorzystują AI do zwiększenia produktywności.",
-      "highlights": ["Napędzane AI", "W pełni zintegrowane", "Bezpieczne i zgodne"],
+      "highlights": [
+        "Napędzane AI",
+        "W pełni zintegrowane",
+        "Bezpieczne i zgodne"
+      ],
       "features": [
         "Niestandardowe systemy CRM i ERP",
         "Automatyzacja procesów biznesowych",
@@ -117,7 +131,11 @@
     "web": {
       "title": "Aplikacje webowe",
       "description": "Buduj skalowalne, bezpieczne i błyskawicznie szybkie aplikacje webowe, które rosną wraz z Twoim biznesem. Od platform SaaS po złożone portale, dostarczamy nowoczesne rozwiązania webowe zbudowane na najnowocześniejszych technologiach.",
-      "highlights": ["Cloud-Native", "Wysoce skalowalne", "Klasa enterprise"],
+      "highlights": [
+        "Cloud-Native",
+        "Wysoce skalowalne",
+        "Klasa enterprise"
+      ],
       "features": [
         "Progresywne aplikacje webowe (PWA)",
         "Rozwój platform SaaS",
@@ -132,7 +150,11 @@
     "websites": {
       "title": "Nowoczesne strony internetowe",
       "description": "Stwórz oszałamiającą obecność online, która konwertuje odwiedzających na klientów. Projektujemy i rozwijamy zoptymalizowane pod kątem SEO, szybko ładujące się strony internetowe, które prezentują Twoją markę i napędzają wzrost biznesu.",
-      "highlights": ["Zoptymalizowane SEO", "Wysoka konwersja", "Błyskawicznie szybkie"],
+      "highlights": [
+        "Zoptymalizowane SEO",
+        "Wysoka konwersja",
+        "Błyskawicznie szybkie"
+      ],
       "features": [
         "Niestandardowe projektowanie i rozwój stron internetowych",
         "Optymalizacja i strategia SEO",
@@ -179,13 +201,26 @@
     "successTitle": "Wiadomość wysłana pomyślnie!",
     "successDesc": "Odpowiemy w ciągu 24 godzin z kolejnymi krokami dla Twojego projektu.",
     "errorTitle": "Coś poszło nie tak",
-    "errorDesc": "Nie udało się wysłać wiadomości. Spróbuj ponownie lub skontaktuj się z nami bezpośrednio."
+    "errorDesc": "Nie udało się wysłać wiadomości. Spróbuj ponownie lub skontaktuj się z nami bezpośrednio.",
+    "validation": {
+      "nameMin": "Imię musi mieć co najmniej 2 znaki",
+      "emailInvalid": "Proszę podać prawidłowy adres e-mail",
+      "phoneCodeRequired": "Proszę wybrać kod kraju",
+      "phoneMin": "Numer telefonu musi mieć co najmniej 6 cyfr",
+      "phoneDigitsOnly": "Numer telefonu może zawierać tylko cyfry",
+      "messageMin": "Wiadomość musi mieć co najmniej 10 znaków"
+    },
+    "namePlaceholder": "Jan Kowalski",
+    "emailPlaceholder": "jan@przyklad.pl",
+    "companyPlaceholder": "Firma sp. z o.o.",
+    "phoneCodePlaceholder": "Kod",
+    "phoneNumberPlaceholder": "123456789"
   },
   "stack": {
-    "title": "Nasz nowoczesny stos",
-    "subtitle": "Najnowocześniejsze technologie i sprawdzone metodologie, które zasilają wyjątkowe rozwiązania cyfrowe. Łączymy najlepsze narzędzia z głęboką wiedzą, aby budować produkty, które skalują się.",
+    "title": "Czego używamy",
+    "subtitle": "Rozwijamy produkty w oparciu o nowoczesne technologie i sprawdzone metody, tworząc wyjątkowe rozwiązania cyfrowe. Łączymy najlepsze narzędzia z naszym doświadczeniem, aby Twój produkt działał doskonale i mógł łatwo rosnąć razem z Twoją firmą.",
     "readyToBuild": "Gotowy zbudować coś niesamowitego?",
-    "readyDesc": "Porozmawiajmy o tym, jak nasz stos technologiczny może ożywić Twoją wizję. Pomożemy Ci wybrać odpowiednie narzędzia i zbudować rozwiązanie, które przekroczy oczekiwania.",
+    "readyDesc": "Porozmawiajmy o tym, jak nasz stack technologiczny może ożywić Twoją wizję. Pomożemy Ci wybrać odpowiednie narzędzia i zbudować rozwiązanie, które przekroczy oczekiwania.",
     "getStarted": "Zacznij dzisiaj",
     "technologies": {
       "solutionArchitecture": {
@@ -194,7 +229,7 @@
         "features": [
           "Analiza techniczna i planowanie strategiczne",
           "Rozwój proof of concept",
-          "Ciągłe właścicielstwo architektury",
+          "Ciągłe zarządzanie architekturą",
           "Optymalizacja skalowalności i wydajności"
         ]
       },
@@ -236,7 +271,7 @@
         "features": [
           "Analiza techniczna i planowanie strategiczne",
           "Rozwój proof of concept",
-          "Ciągłe właścicielstwo architektury",
+          "Ciągłe zarządzanie architekturą",
           "Optymalizacja skalowalności i wydajności"
         ]
       },
@@ -354,7 +389,7 @@
       },
       "security": {
         "title": "Bezpieczeństwo klasy enterprise",
-        "description": "Bezpieczeństwo wbudowane w każdą linię kodu. Zgodność z GDPR, certyfikat OWASP, w pełni chronione."
+        "description": "Bezpieczeństwo wbudowane w każdą linię kodu. Zgodność z GDPR, zgodność ze standardami OWASP, w pełni chronione."
       },
       "scalability": {
         "title": "Nieskończona skalowalność",
@@ -379,9 +414,9 @@
     }
   },
   "techStack": {
-    "title": "Nasz stos technologiczny",
-    "subtitle": "Wykorzystujemy najpotężniejsze, nowoczesne technologie do budowania rozwiązań, które są szybkie, skalowalne i przyszłościowe. Nasza wiedza obejmuje cały ekosystem rozwoju—od frontendu do backendu, mobilnego do chmury i wszystkiego pomiędzy.",
-    "notSeeingYourTech": "Nie widzisz swojego preferowanego stosu technologicznego?",
+    "title": "Czego używamy",
+    "subtitle": "Rozwijamy produkty w oparciu o nowoczesne technologie i sprawdzone metody, tworząc wyjątkowe rozwiązania cyfrowe. Łączymy najlepsze narzędzia z naszym doświadczeniem, aby Twój produkt działał doskonale i mógł łatwo rosnąć razem z Twoją firmą.",
+    "notSeeingYourTech": "Nie widzisz swojego preferowanego tech stacku?",
     "notSeeingDesc": "Zawsze się uczymy i adaptujemy. Jeśli masz konkretne wymagania lub preferencje technologiczne, ocenimy je i zintegrujemy najlepsze narzędzia dla unikalnych potrzeb Twojego projektu. Naszym zobowiązaniem jest właściwe rozwiązanie, nie tylko znajome.",
     "categories": {
       "frontend": {

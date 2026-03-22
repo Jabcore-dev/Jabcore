@@ -2,27 +2,33 @@
   "seo": {
     "home": {
       "description": "Jabcore biedt professionele webontwikkeling, moderne digitale oplossingen en advies. Wij specialiseren in React, TypeScript en moderne technologieën.",
-      "keywords": "webontwikkeling, React, TypeScript, digitale oplossingen, Jabcore, programmeren, software"
+      "keywords": "webontwikkeling, React, TypeScript, digitale oplossingen, Jabcore, programmeren, software",
+      "title": "Jabcore — De kern van uw nieuwe app."
     },
     "services": {
       "description": "Wij bieden complete webontwikkelingsdiensten, mobiele app-ontwikkeling, AI-integratie, cloudoplossingen en UX/UI-design.",
-      "keywords": "webontwikkeling, mobiele apps, AI-integratie, cloudoplossingen, UX design, UI design, React, TypeScript"
+      "keywords": "webontwikkeling, mobiele apps, AI-integratie, cloudoplossingen, UX design, UI design, React, TypeScript",
+      "title": "Diensten | Jabcore"
     },
     "products": {
       "description": "Ontdek onze eigen producten en applicaties. PillSee en andere innovatieve oplossingen gemaakt door het Jabcore-team.",
-      "keywords": "producten, applicaties, PillSee, mobiele apps, Jabcore"
+      "keywords": "producten, applicaties, PillSee, mobiele apps, Jabcore",
+      "title": "Producten | Jabcore"
     },
     "stack": {
       "description": "Wij werken met de meest moderne technologieën: React, TypeScript, Node.js, Python, AI-integratie, cloudoplossingen en meer.",
-      "keywords": "technologie, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure"
+      "keywords": "technologie, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure",
+      "title": "Technologieën | Jabcore"
     },
     "about": {
       "description": "Maak kennis met het Jabcore-team. Wij zijn een groep gepassioneerde ontwikkelaars en designers die moderne digitale oplossingen creëren.",
-      "keywords": "over ons, team, Jabcore, ontwikkelaars, designers, bedrijfsverhaal"
+      "keywords": "over ons, team, Jabcore, ontwikkelaars, designers, bedrijfsverhaal",
+      "title": "Over ons | Jabcore"
     },
     "contact": {
       "description": "Neem contact met ons op voor een gratis consultatie over uw project. Wij helpen u met webontwikkeling, mobiele apps of AI-oplossingen.",
-      "keywords": "contact, consultatie, project, samenwerking, Jabcore"
+      "keywords": "contact, consultatie, project, samenwerking, Jabcore",
+      "title": "Contact | Jabcore"
     }
   },
   "navigation": {
@@ -87,7 +93,11 @@
     "mobile": {
       "title": "Mobiele app-ontwikkeling",
       "description": "Transform je ideeën in krachtige native mobiele applicaties waar gebruikers van houden. We bouwen hoogperformante iOS- en Android-apps met intuïtieve interfaces en naadloze gebruikerservaringen.",
-      "highlights": ["Snelle prestaties", "Native gevoel", "Schaalbare architectuur"],
+      "highlights": [
+        "Snelle prestaties",
+        "Native gevoel",
+        "Schaalbare architectuur"
+      ],
       "features": [
         "Native iOS-ontwikkeling (Swift, SwiftUI)",
         "Native Android-ontwikkeling (Kotlin, Jetpack Compose)",
@@ -102,7 +112,11 @@
     "enterprise": {
       "title": "Bedrijfs- en enterprise-systemen",
       "description": "Stroomlijn je bedrijfsoperaties met op maat gemaakte enterprise-oplossingen. We creëren krachtige systemen die workflows automatiseren, integreren met bestaande tools en AI inzetten om productiviteit te verhogen.",
-      "highlights": ["AI-aangedreven", "Volledig geïntegreerd", "Veilig & compliant"],
+      "highlights": [
+        "AI-aangedreven",
+        "Volledig geïntegreerd",
+        "Veilig & compliant"
+      ],
       "features": [
         "Op maat gemaakte CRM- en ERP-systemen",
         "Automatisering van bedrijfsprocessen",
@@ -117,7 +131,11 @@
     "web": {
       "title": "Webapplicaties",
       "description": "Bouw schaalbare, veilige en bliksemsnelle webapplicaties die meegroeien met je bedrijf. Van SaaS-platforms tot complexe portalen, we leveren moderne weboplossingen gebouwd op geavanceerde technologieën.",
-      "highlights": ["Cloud-Native", "Zeer schaalbaar", "Enterprise-niveau"],
+      "highlights": [
+        "Cloud-Native",
+        "Zeer schaalbaar",
+        "Enterprise-niveau"
+      ],
       "features": [
         "Progressive Web Apps (PWA)",
         "SaaS-platformontwikkeling",
@@ -132,7 +150,11 @@
     "websites": {
       "title": "Moderne websites",
       "description": "Creëer een verbluffende online aanwezigheid die bezoekers omzet in klanten. We ontwerpen en ontwikkelen SEO-geoptimaliseerde, snel ladende websites die je merk laten zien en bedrijfsgroei stimuleren.",
-      "highlights": ["SEO-geoptimaliseerd", "Hoge conversie", "Bliksemsnell"],
+      "highlights": [
+        "SEO-geoptimaliseerd",
+        "Hoge conversie",
+        "Bliksemsnell"
+      ],
       "features": [
         "Op maat gemaakt website-ontwerp en -ontwikkeling",
         "SEO-optimalisatie en strategie",
@@ -146,8 +168,8 @@
     }
   },
   "stack": {
-    "title": "Onze moderne stack",
-    "subtitle": "Geavanceerde technologieën en bewezen methodologieën die uitzonderlijke digitale oplossingen mogelijk maken. We combineren de beste tools met diepgaande expertise om producten te bouwen die schalen.",
+    "title": "Wat wij gebruiken",
+    "subtitle": "We bouwen op moderne technologieën en bewezen methoden om uitstekende digitale oplossingen te creëren. We combineren de beste tools met onze expertise zodat uw product optimaal presteert en gemakkelijk mee kan groeien met uw bedrijf.",
     "readyToBuild": "Klaar om iets geweldigs te bouwen?",
     "readyDesc": "Laten we bespreken hoe onze technologie-stack je visie tot leven kan brengen. We helpen je de juiste tools te kiezen en een oplossing te bouwen die verwachtingen overtreft.",
     "getStarted": "Start vandaag",
@@ -158,7 +180,7 @@
         "features": [
           "Technische analyse & strategische planning",
           "Proof of concept ontwikkeling",
-          "Continue architectuureigendom",
+          "Continu architectuurbeheer",
           "Schaalbaarheid & prestatie-optimalisatie"
         ]
       },
@@ -200,7 +222,7 @@
         "features": [
           "Technische analyse & strategische planning",
           "Proof of concept ontwikkeling",
-          "Continue architectuureigendom",
+          "Continu architectuurbeheer",
           "Schaalbaarheid & prestatie-optimalisatie"
         ]
       },
@@ -318,7 +340,7 @@
       },
       "security": {
         "title": "Enterprise-grade beveiliging",
-        "description": "Beveiliging ingebouwd in elke coderegel. GDPR-compliant, OWASP-gecertificeerd, volledig beschermd."
+        "description": "Beveiliging ingebouwd in elke coderegel. AVG-compliant, OWASP-conform, volledig beschermd."
       },
       "scalability": {
         "title": "Oneindige schaalbaarheid",
@@ -343,9 +365,9 @@
     }
   },
   "techStack": {
-    "title": "Onze technologie-stack",
-    "subtitle": "We benutten de krachtigste, moderne technologieën om oplossingen te bouwen die snel, schaalbaar en toekomstbestendig zijn. Onze expertise omvat het hele ontwikkelingsecosysteem—van frontend tot backend, mobiel tot cloud en alles daartussenin.",
-    "notSeeingYourTech": "Zie je je voorkeurstechnologie-stack niet?",
+    "title": "Wat wij gebruiken",
+    "subtitle": "We bouwen op moderne technologieën en bewezen methoden om uitstekende digitale oplossingen te creëren. We combineren de beste tools met onze expertise zodat uw product optimaal presteert en gemakkelijk mee kan groeien met uw bedrijf.",
+    "notSeeingYourTech": "Zie je jouw favoriete tech stack niet?",
     "notSeeingDesc": "We leren en passen ons altijd aan. Als je specifieke technologievereisten of voorkeuren hebt, zullen we ze evalueren en de beste tools integreren voor de unieke behoeften van je project. Onze toewijding is aan de juiste oplossing, niet alleen de vertrouwde.",
     "categories": {
       "frontend": {
@@ -442,7 +464,20 @@
         "websites": "Moderne websites",
         "other": "Anders / Niet zeker"
       }
-    }
+    },
+    "validation": {
+      "nameMin": "Naam moet minimaal 2 tekens bevatten",
+      "emailInvalid": "Voer een geldig e-mailadres in",
+      "phoneCodeRequired": "Selecteer een landnummer",
+      "phoneMin": "Telefoonnummer moet minimaal 6 cijfers bevatten",
+      "phoneDigitsOnly": "Telefoonnummer mag alleen cijfers bevatten",
+      "messageMin": "Bericht moet minimaal 10 tekens bevatten"
+    },
+    "namePlaceholder": "Jan de Vries",
+    "emailPlaceholder": "jan@voorbeeld.nl",
+    "companyPlaceholder": "Bedrijf B.V.",
+    "phoneCodePlaceholder": "Code",
+    "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
     "rights": "Alle rechten voorbehouden.",

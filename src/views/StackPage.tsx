@@ -1,3 +1,4 @@
+'use client'
 import { motion } from 'framer-motion'
 import { 
   Cube, 
@@ -13,14 +14,10 @@ import TechIcon from '@/components/TechIcon'
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 import ContactModal from '@/components/ContactModal'
-import { useSEO } from '@/hooks/useSEO'
-
 export default function StackPage() {
   const { t } = useTranslation()
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
-  
-  useSEO({ page: 'stack', url: 'https://jabcore.cz/stack' })
-  
+
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
     whileInView: { opacity: 1, y: 0 },
@@ -74,11 +71,7 @@ export default function StackPage() {
       description: t('stack.technologies.mobileApps.description'),
       features: t('stack.technologies.mobileApps.features', { returnObjects: true }) as string[],
       techs: [
-        { name: 'iOS' },
-        { name: 'Android' },
-        { name: 'Capacitor JS' },
-        { name: 'Swift' },
-        { name: 'Kotlin' }
+        { name: 'Capacitor JS' }
       ]
     },
     {
@@ -137,7 +130,7 @@ export default function StackPage() {
             className="text-center max-w-3xl mx-auto mb-20"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold mb-6">
-              {t('stack.title').split(' ').slice(0, -2).join(' ')} <span className="gradient-text">{t('stack.title').split(' ').slice(-2).join(' ')}</span>
+              {t('stack.title').split(' ').slice(0, -2).join(' ')} <span>{t('stack.title').split(' ').slice(-2).join(' ')}</span>
             </h1>
             <p className="text-lg text-muted-foreground">
               {t('stack.subtitle')}

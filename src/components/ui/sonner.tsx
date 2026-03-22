@@ -1,3 +1,5 @@
+'use client'
+
 import { CSSProperties, useEffect, useState } from "react"
 import { Toaster as Sonner, ToasterProps } from "sonner"
 

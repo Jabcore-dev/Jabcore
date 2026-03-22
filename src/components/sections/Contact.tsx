@@ -1,3 +1,5 @@
+'use client'
+
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -6,21 +8,33 @@ import * as z from 'zod'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, useFormField } from '@/components/ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { toast } from 'sonner'
 import { PaperPlaneRight, EnvelopeSimple, Phone, MapPin, Clock, Copy, Check } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import { sendContactEmail } from '@/lib/emailjs'
+import { cn } from '@/lib/utils'
+
+function TranslatedFormMessage({ className }: { className?: string }) {
+  const { error, formMessageId } = useFormField()
+  const { t } = useTranslation()
+  if (!error?.message) return null
+  return (
+    <p id={formMessageId} className={cn('text-destructive text-sm', className)}>
+      {t(error.message)}
+    </p>
+  )
+}
 
 const formSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
+  name: z.string().min(2, 'contact.validation.nameMin'),
+  email: z.string().email('contact.validation.emailInvalid'),
   company: z.string().optional(),
-  phonePrefix: z.string().min(1, 'Please select a country code'),
-  phoneNumber: z.string().min(6, 'Phone number must be at least 6 digits').regex(/^[0-9]+$/, 'Phone number must contain only digits'),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
+  phonePrefix: z.string().min(1, 'contact.validation.phoneCodeRequired'),
+  phoneNumber: z.string().min(6, 'contact.validation.phoneMin').regex(/^[0-9]+$/, 'contact.validation.phoneDigitsOnly'),
+  message: z.string().min(10, 'contact.validation.messageMin'),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -93,7 +107,7 @@ export default function Contact() {
   const handleCopy = async (text: string, index: number) => {
     await navigator.clipboard.writeText(text)
     setCopiedIndex(index)
-    toast.success('Copied to clipboard!')
+    toast.success(t('contact.copied'))
     setTimeout(() => setCopiedIndex(null), 2000)
   }
 
@@ -268,12 +282,12 @@ export default function Contact() {
                         <FormLabel>{t('contact.name')} *</FormLabel>
                         <FormControl>
                           <Input 
-                            placeholder="John Doe" 
+                            placeholder={t('contact.namePlaceholder')}
                             {...field}
                             className="h-12"
                           />
                         </FormControl>
-                        <FormMessage />
+                        <TranslatedFormMessage />
                       </FormItem>
                     )}
                   />
@@ -287,12 +301,12 @@ export default function Contact() {
                         <FormControl>
                           <Input 
                             type="email"
-                            placeholder="john@example.com" 
+                            placeholder={t('contact.emailPlaceholder')}
                             {...field}
                             className="h-12"
                           />
                         </FormControl>
-                        <FormMessage />
+                        <TranslatedFormMessage />
                       </FormItem>
                     )}
                   />
@@ -305,12 +319,12 @@ export default function Contact() {
                         <FormLabel>{t('contact.company')}</FormLabel>
                         <FormControl>
                           <Input 
-                            placeholder="Acme Corporation" 
+                            placeholder={t('contact.companyPlaceholder')}
                             {...field}
                             className="h-12"
                           />
                         </FormControl>
-                        <FormMessage />
+                        <TranslatedFormMessage />
                       </FormItem>
                     )}
                   />
@@ -325,7 +339,7 @@ export default function Contact() {
                           <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl>
                               <SelectTrigger className="h-12">
-                                <SelectValue placeholder="Code" />
+                                <SelectValue placeholder={t('contact.phoneCodePlaceholder')} />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -339,7 +353,7 @@ export default function Contact() {
                               ))}
                             </SelectContent>
                           </Select>
-                          <FormMessage />
+                          <TranslatedFormMessage />
                         </FormItem>
                       )}
                     />
@@ -353,12 +367,12 @@ export default function Contact() {
                           <FormControl>
                             <Input 
                               type="tel"
-                              placeholder="123456789" 
+                              placeholder={t('contact.phoneNumberPlaceholder')}
                               {...field}
                               className="h-12"
                             />
                           </FormControl>
-                          <FormMessage />
+                          <TranslatedFormMessage />
                         </FormItem>
                       )}
                     />
@@ -377,7 +391,7 @@ export default function Contact() {
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage />
+                        <TranslatedFormMessage />
                       </FormItem>
                     )}
                   />

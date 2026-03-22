@@ -30,3 +30,8 @@ packages
 pids
 .file-manifest
 .devcontainer/
+
+# Next.js
+.next
+next-env.d.ts
+out

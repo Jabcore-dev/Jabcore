@@ -1,8 +1,10 @@
+'use client'
+
 import { useEffect, memo } from 'react'
-import { useLocation } from 'react-router-dom'
+import { usePathname } from 'next/navigation'
 
 const ScrollToTop = memo(function ScrollToTop() {
-  const { pathname } = useLocation()
+  const pathname = usePathname()
 
   useEffect(() => {
     // Use requestAnimationFrame for smoother scroll

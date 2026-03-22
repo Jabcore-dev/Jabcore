@@ -1,3 +1,5 @@
+'use client'
+
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'

@@ -1,3 +1,5 @@
+'use client'
+
 import { Globe } from '@phosphor-icons/react'
 import {
   Select,
@@ -6,13 +8,16 @@ import {
   SelectTrigger,
 } from '@/components/ui/select'
 import { useTranslation } from 'react-i18next'
-import { languages } from '@/lib/i18n'
+import { languages, STORAGE_KEY } from '@/lib/i18n'
 
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation()
 
   const handleLanguageChange = (value: string) => {
     i18n.changeLanguage(value)
+    // LanguageDetector byl odstraněn (způsoboval hydration mismatch),
+    // proto persistujeme preferenci ručně.
+    localStorage.setItem(STORAGE_KEY, value)
   }
 
   // Získej základní kód jazyka (např. "cs" z "cs-CZ")

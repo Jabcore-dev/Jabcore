@@ -1,15 +1,13 @@
+'use client'
 import { motion } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { AppleLogo, GooglePlayLogo, Pill, Globe } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
-import { useSEO } from '@/hooks/useSEO'
 
 export default function ProductsPage() {
   const { t } = useTranslation()
-  
-  useSEO({ page: 'products', url: 'https://jabcore.cz/products' })
   
   const products = [
     {

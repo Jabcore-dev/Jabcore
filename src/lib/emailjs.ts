@@ -150,6 +150,7 @@ const getAutoReplyTexts = (language: string) => {
 // Funkce pro odeslání emailu
 export const sendContactEmail = async (data: ContactFormData): Promise<boolean> => {
   try {
+    emailjs.init(EMAILJS_CONFIG.publicKey)
     const year = new Date().getFullYear().toString()
     const texts = getAutoReplyTexts(data.language)
     

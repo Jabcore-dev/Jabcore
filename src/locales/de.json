@@ -2,27 +2,33 @@
   "seo": {
     "home": {
       "description": "Softwareentwicklung mit KI-Integration. Wir schaffen digitale Produkte von Weltklasse, die Unternehmen transformieren.",
-      "keywords": "Webentwicklung, React, TypeScript, digitale Lösungen, Jabcore, Programmierung, Software, KI-Integration"
+      "keywords": "Webentwicklung, React, TypeScript, digitale Lösungen, Jabcore, Programmierung, Software, KI-Integration",
+      "title": "Jabcore — Der Kern Ihrer neuen App."
     },
     "services": {
       "description": "Wir bieten komplette Webentwicklungsdienste, Mobile-App-Entwicklung, KI-Integration, Cloud-Lösungen und UX/UI-Design.",
-      "keywords": "Webentwicklung, Mobile Apps, KI-Integration, Cloud-Lösungen, UX Design, UI Design, React, TypeScript"
+      "keywords": "Webentwicklung, Mobile Apps, KI-Integration, Cloud-Lösungen, UX Design, UI Design, React, TypeScript",
+      "title": "Leistungen | Jabcore"
     },
     "products": {
       "description": "Entdecken Sie unsere eigenen Produkte und Anwendungen. PillSee und andere innovative Lösungen vom Jabcore-Team.",
-      "keywords": "Produkte, Anwendungen, PillSee, Mobile Apps, Jabcore"
+      "keywords": "Produkte, Anwendungen, PillSee, Mobile Apps, Jabcore",
+      "title": "Produkte | Jabcore"
     },
     "stack": {
       "description": "Wir arbeiten mit modernsten Technologien: React, TypeScript, Node.js, Python, KI-Integration, Cloud-Lösungen und mehr.",
-      "keywords": "Technologie, Stack, React, TypeScript, Node.js, Python, KI, Cloud, Docker, Azure"
+      "keywords": "Technologie, Stack, React, TypeScript, Node.js, Python, KI, Cloud, Docker, Azure",
+      "title": "Technologien | Jabcore"
     },
     "about": {
       "description": "Lernen Sie das Jabcore-Team kennen. Wir sind eine Gruppe leidenschaftlicher Entwickler und Designer, die moderne digitale Lösungen erstellen.",
-      "keywords": "über uns, Team, Jabcore, Entwickler, Designer, Unternehmensgeschichte"
+      "keywords": "über uns, Team, Jabcore, Entwickler, Designer, Unternehmensgeschichte",
+      "title": "Über uns | Jabcore"
     },
     "contact": {
       "description": "Kontaktieren Sie uns für eine kostenlose Beratung zu Ihrem Projekt. Wir helfen Ihnen bei Webentwicklung, Mobile Apps oder KI-Lösungen.",
-      "keywords": "Kontakt, Beratung, Projekt, Zusammenarbeit, Jabcore"
+      "keywords": "Kontakt, Beratung, Projekt, Zusammenarbeit, Jabcore",
+      "title": "Kontakt | Jabcore"
     }
   },
   "navigation": {
@@ -87,7 +93,11 @@
     "mobile": {
       "title": "Mobile App-Entwicklung",
       "description": "Verwandeln Sie Ihre Ideen in leistungsstarke native mobile Anwendungen, die Benutzer lieben. Wir entwickeln hochperformante iOS- und Android-Apps mit intuitiven Benutzeroberflächen und nahtlosen Benutzererlebnissen.",
-      "highlights": ["Schnelle Leistung", "Natives Gefühl", "Skalierbare Architektur"],
+      "highlights": [
+        "Schnelle Leistung",
+        "Natives Gefühl",
+        "Skalierbare Architektur"
+      ],
       "features": [
         "Native iOS-Entwicklung (Swift, SwiftUI)",
         "Native Android-Entwicklung (Kotlin, Jetpack Compose)",
@@ -102,7 +112,11 @@
     "enterprise": {
       "title": "Unternehmens- & Enterprise-Systeme",
       "description": "Optimieren Sie Ihre Geschäftsprozesse mit maßgeschneiderten Unternehmenslösungen. Wir erstellen leistungsstarke Systeme, die Workflows automatisieren, sich in bestehende Tools integrieren und KI nutzen, um die Produktivität zu steigern.",
-      "highlights": ["KI-gesteuert", "Vollständig integriert", "Sicher & konform"],
+      "highlights": [
+        "KI-gesteuert",
+        "Vollständig integriert",
+        "Sicher & konform"
+      ],
       "features": [
         "Maßgeschneiderte CRM- und ERP-Systeme",
         "Automatisierung von Geschäftsprozessen",
@@ -117,7 +131,11 @@
     "web": {
       "title": "Webanwendungen",
       "description": "Erstellen Sie skalierbare, sichere und blitzschnelle Webanwendungen, die mit Ihrem Unternehmen wachsen. Von SaaS-Plattformen bis hin zu komplexen Portalen liefern wir moderne Weblösungen auf Basis modernster Technologien.",
-      "highlights": ["Cloud-nativ", "Hochskalierbar", "Enterprise-Grade"],
+      "highlights": [
+        "Cloud-nativ",
+        "Hochskalierbar",
+        "Enterprise-Grade"
+      ],
       "features": [
         "Progressive Web Apps (PWA)",
         "SaaS-Plattform-Entwicklung",
@@ -132,7 +150,11 @@
     "websites": {
       "title": "Moderne Websites",
       "description": "Schaffen Sie eine beeindruckende Online-Präsenz, die Besucher in Kunden verwandelt. Wir entwerfen und entwickeln SEO-optimierte, schnell ladende Websites, die Ihre Marke präsentieren und das Unternehmenswachstum fördern.",
-      "highlights": ["SEO-optimiert", "Hohe Konversion", "Blitzschnell"],
+      "highlights": [
+        "SEO-optimiert",
+        "Hohe Konversion",
+        "Blitzschnell"
+      ],
       "features": [
         "Individuelles Website-Design und -Entwicklung",
         "SEO-Optimierung und -Strategie",
@@ -146,8 +168,8 @@
     }
   },
   "stack": {
-    "title": "Unser moderner Stack",
-    "subtitle": "Modernste Technologien und bewährte Methoden, die außergewöhnliche digitale Lösungen antreiben. Wir kombinieren die besten Tools mit tiefgreifendem Fachwissen, um Produkte zu entwickeln, die skalieren.",
+    "title": "Was wir einsetzen",
+    "subtitle": "Wir setzen auf moderne Technologien und bewährte Methoden, um herausragende digitale Lösungen zu entwickeln. Wir verbinden die besten Tools mit unserer Expertise, damit Ihr Produkt reibungslos läuft und einfach mit Ihrem Unternehmen wächst.",
     "readyToBuild": "Bereit, etwas Großartiges zu schaffen?",
     "readyDesc": "Lassen Sie uns besprechen, wie unser Technologie-Stack Ihre Vision zum Leben erwecken kann. Wir helfen Ihnen, die richtigen Tools auszuwählen und eine Lösung zu entwickeln, die Erwartungen übertrifft.",
     "getStarted": "Heute beginnen",
@@ -318,7 +340,7 @@
       },
       "security": {
         "title": "Enterprise-Grade-Sicherheit",
-        "description": "Sicherheit in jede Codezeile eingebaut. GDPR-konform, OWASP-zertifiziert, vollständig geschützt."
+        "description": "Sicherheit in jede Codezeile eingebaut. DSGVO-konform, OWASP-konform, vollständig geschützt."
       },
       "scalability": {
         "title": "Unendliche Skalierbarkeit",
@@ -343,8 +365,8 @@
     }
   },
   "techStack": {
-    "title": "Unser Technologie-Stack",
-    "subtitle": "Wir nutzen die leistungsstärksten, modernsten Technologien, um Lösungen zu erstellen, die schnell, skalierbar und zukunftssicher sind. Unsere Expertise erstreckt sich über das gesamte Entwicklungs-Ökosystem—von Frontend bis Backend, Mobile bis Cloud und alles dazwischen.",
+    "title": "Was wir einsetzen",
+    "subtitle": "Wir setzen auf moderne Technologien und bewährte Methoden, um herausragende digitale Lösungen zu entwickeln. Wir verbinden die besten Tools mit unserer Expertise, damit Ihr Produkt reibungslos läuft und einfach mit Ihrem Unternehmen wächst.",
     "notSeeingYourTech": "Sehen Sie Ihren bevorzugten Tech-Stack nicht?",
     "notSeeingDesc": "Wir lernen und passen uns ständig an. Wenn Sie spezifische Technologieanforderungen oder -präferenzen haben, werden wir sie bewerten und die besten Tools für die einzigartigen Bedürfnisse Ihres Projekts integrieren. Unser Engagement gilt der richtigen Lösung, nicht nur der bekannten.",
     "categories": {
@@ -366,7 +388,7 @@
       },
       "ai": {
         "title": "KI & maschinelles Lernen",
-        "description": "Intelligente Funktionen powered by modernster KI"
+        "description": "Intelligente Funktionen angetrieben von modernster KI"
       },
       "design": {
         "title": "Design & Prototyping",
@@ -417,7 +439,20 @@
     "successTitle": "Nachricht erfolgreich gesendet!",
     "successDesc": "Wir werden innerhalb von 24 Stunden mit den nächsten Schritten für Ihr Projekt antworten.",
     "errorTitle": "Etwas ist schiefgelaufen",
-    "errorDesc": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt."
+    "errorDesc": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.",
+    "validation": {
+      "nameMin": "Name muss mindestens 2 Zeichen lang sein",
+      "emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+      "phoneCodeRequired": "Bitte wählen Sie eine Ländervorwahl",
+      "phoneMin": "Telefonnummer muss mindestens 6 Ziffern haben",
+      "phoneDigitsOnly": "Telefonnummer darf nur Ziffern enthalten",
+      "messageMin": "Nachricht muss mindestens 10 Zeichen lang sein"
+    },
+    "namePlaceholder": "Max Mustermann",
+    "emailPlaceholder": "max@beispiel.de",
+    "companyPlaceholder": "Muster GmbH",
+    "phoneCodePlaceholder": "Vorwahl",
+    "phoneNumberPlaceholder": "1234567890"
   },
   "footer": {
     "description": "Softwareentwicklung mit KI-Integration. Wir bauen digitale Produkte von Weltklasse, die Unternehmen transformieren.",

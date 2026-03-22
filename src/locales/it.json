@@ -2,27 +2,33 @@
   "seo": {
     "home": {
       "description": "Jabcore offre sviluppo web professionale, soluzioni digitali moderne e consulenza. Siamo specializzati in React, TypeScript e tecnologie moderne.",
-      "keywords": "sviluppo web, React, TypeScript, soluzioni digitali, Jabcore, programmazione, software"
+      "keywords": "sviluppo web, React, TypeScript, soluzioni digitali, Jabcore, programmazione, software",
+      "title": "Jabcore — Il cuore della tua nuova app."
     },
     "services": {
       "description": "Offriamo servizi completi di sviluppo web, sviluppo di app mobili, integrazione AI, soluzioni cloud e design UX/UI.",
-      "keywords": "sviluppo web, app mobili, integrazione AI, soluzioni cloud, UX design, UI design, React, TypeScript"
+      "keywords": "sviluppo web, app mobili, integrazione AI, soluzioni cloud, UX design, UI design, React, TypeScript",
+      "title": "Servizi | Jabcore"
     },
     "products": {
       "description": "Scopri i nostri prodotti e applicazioni. PillSee e altre soluzioni innovative create dal team Jabcore.",
-      "keywords": "prodotti, applicazioni, PillSee, app mobili, Jabcore"
+      "keywords": "prodotti, applicazioni, PillSee, app mobili, Jabcore",
+      "title": "Prodotti | Jabcore"
     },
     "stack": {
       "description": "Lavoriamo con le tecnologie più moderne: React, TypeScript, Node.js, Python, integrazione AI, soluzioni cloud e altro.",
-      "keywords": "tecnologia, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure"
+      "keywords": "tecnologia, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure",
+      "title": "Tecnologie | Jabcore"
     },
     "about": {
       "description": "Conosci il team Jabcore. Siamo un gruppo di sviluppatori e designer appassionati che creano soluzioni digitali moderne.",
-      "keywords": "chi siamo, team, Jabcore, sviluppatori, designer, storia aziendale"
+      "keywords": "chi siamo, team, Jabcore, sviluppatori, designer, storia aziendale",
+      "title": "Chi siamo | Jabcore"
     },
     "contact": {
       "description": "Contattaci per una consulenza gratuita sul tuo progetto. Ti aiuteremo con sviluppo web, app mobili o soluzioni AI.",
-      "keywords": "contatto, consulenza, progetto, collaborazione, Jabcore"
+      "keywords": "contatto, consulenza, progetto, collaborazione, Jabcore",
+      "title": "Contatti | Jabcore"
     }
   },
   "navigation": {
@@ -87,7 +93,11 @@
     "mobile": {
       "title": "Sviluppo app mobili",
       "description": "Trasforma le tue idee in potenti applicazioni mobili native che gli utenti amano. Costruiamo app iOS e Android ad alte prestazioni con interfacce intuitive ed esperienze utente fluide.",
-      "highlights": ["Prestazioni veloci", "Sensazione native", "Architettura scalabile"],
+      "highlights": [
+        "Prestazioni veloci",
+        "Sensazione native",
+        "Architettura scalabile"
+      ],
       "features": [
         "Sviluppo iOS nativo (Swift, SwiftUI)",
         "Sviluppo Android nativo (Kotlin, Jetpack Compose)",
@@ -102,7 +112,11 @@
     "enterprise": {
       "title": "Sistemi aziendali e corporate",
       "description": "Razionalizza le tue operazioni aziendali con soluzioni enterprise personalizzate. Creiamo sistemi potenti che automatizzano i flussi di lavoro, si integrano con strumenti esistenti e sfruttano l'IA per aumentare la produttività.",
-      "highlights": ["Alimentato da IA", "Completamente integrato", "Sicuro e conforme"],
+      "highlights": [
+        "Alimentato da IA",
+        "Completamente integrato",
+        "Sicuro e conforme"
+      ],
       "features": [
         "Sistemi CRM ed ERP personalizzati",
         "Automazione dei processi aziendali",
@@ -117,7 +131,11 @@
     "web": {
       "title": "Applicazioni web",
       "description": "Costruisci applicazioni web scalabili, sicure e velocissime che crescono con la tua azienda. Dalle piattaforme SaaS ai portali complessi, forniamo soluzioni web moderne costruite su tecnologie all'avanguardia.",
-      "highlights": ["Cloud-Native", "Altamente scalabile", "Livello enterprise"],
+      "highlights": [
+        "Cloud-Native",
+        "Altamente scalabile",
+        "Livello enterprise"
+      ],
       "features": [
         "Progressive Web Apps (PWA)",
         "Sviluppo piattaforme SaaS",
@@ -132,7 +150,11 @@
     "websites": {
       "title": "Siti web moderni",
       "description": "Crea una presenza online straordinaria che converte i visitatori in clienti. Progettiamo e sviluppiamo siti web ottimizzati SEO, a caricamento rapido che mostrano il tuo brand e guidano la crescita aziendale.",
-      "highlights": ["Ottimizzato SEO", "Alta conversione", "Velocissimo"],
+      "highlights": [
+        "Ottimizzato SEO",
+        "Alta conversione",
+        "Velocissimo"
+      ],
       "features": [
         "Design e sviluppo sito web personalizzato",
         "Ottimizzazione e strategia SEO",
@@ -146,8 +168,8 @@
     }
   },
   "stack": {
-    "title": "Il nostro stack moderno",
-    "subtitle": "Tecnologie all'avanguardia e metodologie comprovate che alimentano soluzioni digitali eccezionali. Combiniamo i migliori strumenti con una profonda esperienza per costruire prodotti che scalano.",
+    "title": "Cosa utilizziamo",
+    "subtitle": "Lavoriamo con tecnologie moderne e metodi collaudati per creare soluzioni digitali di alto livello. Uniamo i migliori strumenti alla nostra esperienza affinché il vostro prodotto funzioni alla perfezione e possa crescere facilmente insieme alla vostra azienda.",
     "readyToBuild": "Pronto a costruire qualcosa di straordinario?",
     "readyDesc": "Discutiamo di come il nostro stack tecnologico può dare vita alla tua visione. Ti aiuteremo a scegliere gli strumenti giusti e a costruire una soluzione che supera le aspettative.",
     "getStarted": "Inizia oggi",
@@ -158,7 +180,7 @@
         "features": [
           "Analisi tecnica e pianificazione strategica",
           "Sviluppo proof of concept",
-          "Proprietà continua dell'architettura",
+          "Gestione continua dell'architettura",
           "Ottimizzazione scalabilità e prestazioni"
         ]
       },
@@ -200,7 +222,7 @@
         "features": [
           "Analisi tecnica e pianificazione strategica",
           "Sviluppo proof of concept",
-          "Proprietà continua dell'architettura",
+          "Gestione continua dell'architettura",
           "Ottimizzazione scalabilità e prestazioni"
         ]
       },
@@ -318,7 +340,7 @@
       },
       "security": {
         "title": "Sicurezza di livello enterprise",
-        "description": "Sicurezza integrata in ogni riga di codice. Conforme GDPR, certificato OWASP, completamente protetto."
+        "description": "Sicurezza integrata in ogni riga di codice. Conforme GDPR, conforme agli standard OWASP, completamente protetto."
       },
       "scalability": {
         "title": "Scalabilità infinita",
@@ -343,8 +365,8 @@
     }
   },
   "techStack": {
-    "title": "Il nostro stack tecnologico",
-    "subtitle": "Sfruttiamo le tecnologie più potenti e moderne per costruire soluzioni veloci, scalabili e a prova di futuro. La nostra esperienza abbraccia l'intero ecosistema di sviluppo—dal frontend al backend, dal mobile al cloud e tutto ciò che sta in mezzo.",
+    "title": "Cosa utilizziamo",
+    "subtitle": "Lavoriamo con tecnologie moderne e metodi collaudati per creare soluzioni digitali di alto livello. Uniamo i migliori strumenti alla nostra esperienza affinché il vostro prodotto funzioni alla perfezione e possa crescere facilmente insieme alla vostra azienda.",
     "notSeeingYourTech": "Non vedi il tuo stack tecnologico preferito?",
     "notSeeingDesc": "Stiamo sempre imparando e adattandoci. Se hai requisiti o preferenze tecnologiche specifiche, li valuteremo e integreremo i migliori strumenti per le esigenze uniche del tuo progetto. Il nostro impegno è verso la soluzione giusta, non solo quella familiare.",
     "categories": {
@@ -417,7 +439,20 @@
     "successTitle": "Messaggio inviato con successo!",
     "successDesc": "Risponderemo entro 24 ore con i prossimi passi per il tuo progetto.",
     "errorTitle": "Qualcosa è andato storto",
-    "errorDesc": "Impossibile inviare il messaggio. Riprova o contattaci direttamente."
+    "errorDesc": "Impossibile inviare il messaggio. Riprova o contattaci direttamente.",
+    "validation": {
+      "nameMin": "Il nome deve avere almeno 2 caratteri",
+      "emailInvalid": "Inserisci un indirizzo e-mail valido",
+      "phoneCodeRequired": "Seleziona un prefisso internazionale",
+      "phoneMin": "Il numero di telefono deve avere almeno 6 cifre",
+      "phoneDigitsOnly": "Il numero di telefono può contenere solo cifre",
+      "messageMin": "Il messaggio deve avere almeno 10 caratteri"
+    },
+    "namePlaceholder": "Mario Rossi",
+    "emailPlaceholder": "mario@esempio.it",
+    "companyPlaceholder": "Acme S.r.l.",
+    "phoneCodePlaceholder": "Prefisso",
+    "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
     "description": "Sviluppo software con integrazione AI. Creiamo prodotti digitali di livello mondiale che trasformano le aziende.",

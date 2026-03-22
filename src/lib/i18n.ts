@@ -1,6 +1,5 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
-import LanguageDetector from 'i18next-browser-languagedetector'
 
 import en from '@/locales/en.json'
 import cs from '@/locales/cs.json'
@@ -30,6 +29,10 @@ export const languages = {
   ro: { name: 'Română', flag: '🇷🇴' },
 }
 
+export const SUPPORTED_LANGUAGES = Object.keys(languages) as Array<keyof typeof languages>
+
+export const STORAGE_KEY = 'jabcore_locale'
+
 const resources = {
   en: { translation: en },
   cs: { translation: cs },
@@ -45,19 +48,24 @@ const resources = {
   ro: { translation: ro },
 }
 
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    resources,
-    fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false,
-    },
-    detection: {
-      order: ['localStorage', 'navigator', 'htmlTag'],
-      caches: ['localStorage'],
-    },
-  })
+// LanguageDetector (i18next-browser-languagedetector) je browser-only — na serveru
+// nemá přístup k localStorage ani navigator, proto padá na fallbackLng: 'en'.
+// Klient detekuje jazyk synchronně při init a dostane jiný výsledek → hydration mismatch.
+//
+// Řešení: inicializovat vždy s pevným lng: 'cs' (konzistentní s lang="cs" v HTML
+// a OpenGraph locale cs_CZ). Detekci uložené preference přebírá I18nProvider.useEffect
+// který běží výhradně na klientovi, tedy až PO úspěšné hydrataci.
+if (!i18n.isInitialized) {
+  i18n
+    .use(initReactI18next)
+    .init({
+      resources,
+      lng: 'cs',
+      fallbackLng: 'en',
+      interpolation: {
+        escapeValue: false,
+      },
+    })
+}
 
 export default i18n

@@ -2,27 +2,33 @@
   "seo": {
     "home": {
       "description": "Jabcore oferă dezvoltare web profesională, soluții digitale moderne și consultanță. Ne specializăm în React, TypeScript și tehnologii moderne.",
-      "keywords": "dezvoltare web, React, TypeScript, soluții digitale, Jabcore, programare, software"
+      "keywords": "dezvoltare web, React, TypeScript, soluții digitale, Jabcore, programare, software",
+      "title": "Jabcore — Nucleul noii tale aplicații."
     },
     "services": {
       "description": "Oferim servicii complete de dezvoltare web, dezvoltare de aplicații mobile, integrare AI, soluții cloud și design UX/UI.",
-      "keywords": "dezvoltare web, aplicații mobile, integrare AI, soluții cloud, UX design, UI design, React, TypeScript"
+      "keywords": "dezvoltare web, aplicații mobile, integrare AI, soluții cloud, UX design, UI design, React, TypeScript",
+      "title": "Servicii | Jabcore"
     },
     "products": {
       "description": "Descoperiți produsele și aplicațiile noastre. PillSee și alte soluții inovatoare create de echipa Jabcore.",
-      "keywords": "produse, aplicații, PillSee, aplicații mobile, Jabcore"
+      "keywords": "produse, aplicații, PillSee, aplicații mobile, Jabcore",
+      "title": "Produse | Jabcore"
     },
     "stack": {
       "description": "Lucrăm cu cele mai moderne tehnologii: React, TypeScript, Node.js, Python, integrare AI, soluții cloud și multe altele.",
-      "keywords": "tehnologie, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure"
+      "keywords": "tehnologie, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure",
+      "title": "Tehnologii | Jabcore"
     },
     "about": {
       "description": "Cunoașteți echipa Jabcore. Suntem un grup de dezvoltatori și designeri pasionați care creează soluții digitale moderne.",
-      "keywords": "despre noi, echipă, Jabcore, dezvoltatori, designeri, istoria companiei"
+      "keywords": "despre noi, echipă, Jabcore, dezvoltatori, designeri, istoria companiei",
+      "title": "Despre noi | Jabcore"
     },
     "contact": {
       "description": "Contactați-ne pentru o consultație gratuită despre proiectul dvs. Vă ajutăm cu dezvoltare web, aplicații mobile sau soluții AI.",
-      "keywords": "contact, consultație, proiect, colaborare, Jabcore"
+      "keywords": "contact, consultație, proiect, colaborare, Jabcore",
+      "title": "Contact | Jabcore"
     }
   },
   "navigation": {
@@ -87,7 +93,11 @@
     "mobile": {
       "title": "Dezvoltare aplicații mobile",
       "description": "Transformă-ți ideile în aplicații mobile native puternice pe care utilizatorii le adoră. Construim aplicații iOS și Android de înaltă performanță cu interfețe intuitive și experiențe de utilizator perfecte.",
-      "highlights": ["Performanță rapidă", "Senzație nativă", "Arhitectură scalabilă"],
+      "highlights": [
+        "Performanță rapidă",
+        "Senzație nativă",
+        "Arhitectură scalabilă"
+      ],
       "features": [
         "Dezvoltare iOS nativă (Swift, SwiftUI)",
         "Dezvoltare Android nativă (Kotlin, Jetpack Compose)",
@@ -102,7 +112,11 @@
     "enterprise": {
       "title": "Sisteme de afaceri și enterprise",
       "description": "Simplifică operațiunile afacerii tale cu soluții enterprise personalizate. Creăm sisteme puternice care automatizează fluxurile de lucru, se integrează cu instrumentele existente și valorifică AI pentru a crește productivitatea.",
-      "highlights": ["Condus de AI", "Complet integrat", "Sigur și conform"],
+      "highlights": [
+        "Condus de AI",
+        "Complet integrat",
+        "Sigur și conform"
+      ],
       "features": [
         "Sisteme CRM și ERP personalizate",
         "Automatizarea proceselor de afaceri",
@@ -117,7 +131,11 @@
     "web": {
       "title": "Aplicații web",
       "description": "Construiește aplicații web scalabile, sigure și extrem de rapide care cresc odată cu afacerea ta. De la platforme SaaS la portaluri complexe, livrăm soluții web moderne construite cu tehnologii de vârf.",
-      "highlights": ["Cloud-native", "Extrem de scalabil", "Nivel enterprise"],
+      "highlights": [
+        "Cloud-native",
+        "Extrem de scalabil",
+        "Nivel enterprise"
+      ],
       "features": [
         "Progressive Web Apps (PWA)",
         "Dezvoltare platformă SaaS",
@@ -132,7 +150,11 @@
     "websites": {
       "title": "Site-uri web moderne",
       "description": "Creează o prezență online impresionantă care convertește vizitatorii în clienți. Proiectăm și dezvoltăm site-uri web optimizate SEO, cu încărcare rapidă, care prezintă brandul tău și conduc creșterea afacerii.",
-      "highlights": ["Optimizat SEO", "Conversie ridicată", "Extrem de rapid"],
+      "highlights": [
+        "Optimizat SEO",
+        "Conversie ridicată",
+        "Extrem de rapid"
+      ],
       "features": [
         "Design și dezvoltare site personalizat",
         "Optimizare și strategie SEO",
@@ -146,8 +168,8 @@
     }
   },
   "stack": {
-    "title": "Stack-ul nostru modern",
-    "subtitle": "Tehnologii de vârf și metodologii dovedite care permit soluții digitale excepționale. Combinăm cele mai bune instrumente cu expertiză profundă pentru a construi produse care scalează.",
+    "title": "Ce folosim",
+    "subtitle": "Ne bazăm pe tehnologii moderne și metode dovedite pentru a crea soluții digitale de top. Combinăm cele mai bune instrumente cu experiența noastră pentru ca produsul tău să funcționeze excelent și să crească ușor alături de afacerea ta.",
     "readyToBuild": "Pregătit să construiești ceva grozav?",
     "readyDesc": "Să discutăm cum stack-ul nostru tehnologic poate da viață viziunii tale. Te vom ajuta să alegi instrumentele potrivite și să construiești o soluție care depășește așteptările.",
     "getStarted": "Începe astăzi",
@@ -158,7 +180,7 @@
         "features": [
           "Analiză tehnică și planificare strategică",
           "Dezvoltare proof of concept",
-          "Proprietate continuă asupra arhitecturii",
+          "Gestionare continuă a arhitecturii",
           "Scalabilitate și optimizare performanță"
         ]
       },
@@ -200,7 +222,7 @@
         "features": [
           "Analiză tehnică și planificare strategică",
           "Dezvoltare proof of concept",
-          "Proprietate continuă asupra arhitecturii",
+          "Gestionare continuă a arhitecturii",
           "Scalabilitate și optimizare performanță"
         ]
       },
@@ -318,7 +340,7 @@
       },
       "security": {
         "title": "Securitate de nivel enterprise",
-        "description": "Securitate încorporată în fiecare linie de cod. Conform GDPR, certificat OWASP, complet protejat."
+        "description": "Securitate încorporată în fiecare linie de cod. Conform GDPR, conform standardelor OWASP, complet protejat."
       },
       "scalability": {
         "title": "Scalabilitate infinită",
@@ -343,8 +365,8 @@
     }
   },
   "techStack": {
-    "title": "Stack-ul nostru tehnologic",
-    "subtitle": "Valorificăm cele mai puternice, moderne tehnologii pentru a construi soluții rapide, scalabile și pregătite pentru viitor. Expertiza noastră acoperă întregul ecosistem de dezvoltare—de la frontend la backend, mobil la cloud și tot ce e între.",
+    "title": "Ce folosim",
+    "subtitle": "Ne bazăm pe tehnologii moderne și metode dovedite pentru a crea soluții digitale de top. Combinăm cele mai bune instrumente cu experiența noastră pentru ca produsul tău să funcționeze excelent și să crească ușor alături de afacerea ta.",
     "notSeeingYourTech": "Nu vezi stack-ul tău tehnologic preferat?",
     "notSeeingDesc": "Învățăm și ne adaptăm întotdeauna. Dacă ai cerințe sau preferințe tehnologice specifice, le vom evalua și integra cele mai bune instrumente pentru nevoile unice ale proiectului tău. Angajamentul nostru este pentru soluția corectă, nu doar pentru cea familiară.",
     "categories": {
@@ -442,7 +464,20 @@
         "websites": "Site-uri web moderne",
         "other": "Altceva / Nu sunt sigur"
       }
-    }
+    },
+    "validation": {
+      "nameMin": "Numele trebuie să aibă cel puțin 2 caractere",
+      "emailInvalid": "Vă rugăm să introduceți o adresă de e-mail validă",
+      "phoneCodeRequired": "Vă rugăm să selectați un prefix de țară",
+      "phoneMin": "Numărul de telefon trebuie să aibă cel puțin 6 cifre",
+      "phoneDigitsOnly": "Numărul de telefon poate conține doar cifre",
+      "messageMin": "Mesajul trebuie să aibă cel puțin 10 caractere"
+    },
+    "namePlaceholder": "Ion Popescu",
+    "emailPlaceholder": "ion@exemplu.ro",
+    "companyPlaceholder": "Firma S.R.L.",
+    "phoneCodePlaceholder": "Prefix",
+    "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
     "rights": "Toate drepturile rezervate.",
