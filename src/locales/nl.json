@@ -87,7 +87,11 @@
     "mobile": {
       "title": "Mobiele app-ontwikkeling",
       "description": "Transform je ideeën in krachtige native mobiele applicaties waar gebruikers van houden. We bouwen hoogperformante iOS- en Android-apps met intuïtieve interfaces en naadloze gebruikerservaringen.",
-      "highlights": ["Snelle prestaties", "Native gevoel", "Schaalbare architectuur"],
+      "highlights": [
+        "Snelle prestaties",
+        "Native gevoel",
+        "Schaalbare architectuur"
+      ],
       "features": [
         "Native iOS-ontwikkeling (Swift, SwiftUI)",
         "Native Android-ontwikkeling (Kotlin, Jetpack Compose)",
@@ -102,7 +106,11 @@
     "enterprise": {
       "title": "Bedrijfs- en enterprise-systemen",
       "description": "Stroomlijn je bedrijfsoperaties met op maat gemaakte enterprise-oplossingen. We creëren krachtige systemen die workflows automatiseren, integreren met bestaande tools en AI inzetten om productiviteit te verhogen.",
-      "highlights": ["AI-aangedreven", "Volledig geïntegreerd", "Veilig & compliant"],
+      "highlights": [
+        "AI-aangedreven",
+        "Volledig geïntegreerd",
+        "Veilig & compliant"
+      ],
       "features": [
         "Op maat gemaakte CRM- en ERP-systemen",
         "Automatisering van bedrijfsprocessen",
@@ -117,7 +125,11 @@
     "web": {
       "title": "Webapplicaties",
       "description": "Bouw schaalbare, veilige en bliksemsnelle webapplicaties die meegroeien met je bedrijf. Van SaaS-platforms tot complexe portalen, we leveren moderne weboplossingen gebouwd op geavanceerde technologieën.",
-      "highlights": ["Cloud-Native", "Zeer schaalbaar", "Enterprise-niveau"],
+      "highlights": [
+        "Cloud-Native",
+        "Zeer schaalbaar",
+        "Enterprise-niveau"
+      ],
       "features": [
         "Progressive Web Apps (PWA)",
         "SaaS-platformontwikkeling",
@@ -132,7 +144,11 @@
     "websites": {
       "title": "Moderne websites",
       "description": "Creëer een verbluffende online aanwezigheid die bezoekers omzet in klanten. We ontwerpen en ontwikkelen SEO-geoptimaliseerde, snel ladende websites die je merk laten zien en bedrijfsgroei stimuleren.",
-      "highlights": ["SEO-geoptimaliseerd", "Hoge conversie", "Bliksemsnell"],
+      "highlights": [
+        "SEO-geoptimaliseerd",
+        "Hoge conversie",
+        "Bliksemsnell"
+      ],
       "features": [
         "Op maat gemaakt website-ontwerp en -ontwikkeling",
         "SEO-optimalisatie en strategie",
@@ -442,7 +458,20 @@
         "websites": "Moderne websites",
         "other": "Anders / Niet zeker"
       }
-    }
+    },
+    "validation": {
+      "nameMin": "Naam moet minimaal 2 tekens bevatten",
+      "emailInvalid": "Voer een geldig e-mailadres in",
+      "phoneCodeRequired": "Selecteer een landnummer",
+      "phoneMin": "Telefoonnummer moet minimaal 6 cijfers bevatten",
+      "phoneDigitsOnly": "Telefoonnummer mag alleen cijfers bevatten",
+      "messageMin": "Bericht moet minimaal 10 tekens bevatten"
+    },
+    "namePlaceholder": "Jan de Vries",
+    "emailPlaceholder": "jan@voorbeeld.nl",
+    "companyPlaceholder": "Bedrijf B.V.",
+    "phoneCodePlaceholder": "Code",
+    "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
     "rights": "Alle rechten voorbehouden.",

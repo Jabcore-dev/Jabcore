@@ -87,7 +87,11 @@
     "mobile": {
       "title": "Rozwój aplikacji mobilnych",
       "description": "Przekształć swoje pomysły w potężne natywne aplikacje mobilne, które użytkownicy pokochają. Budujemy wysokowydajne aplikacje iOS i Android z intuicyjnymi interfejsami i płynnymi doświadczeniami użytkownika.",
-      "highlights": ["Szybka wydajność", "Natywne wrażenia", "Skalowalna architektura"],
+      "highlights": [
+        "Szybka wydajność",
+        "Natywne wrażenia",
+        "Skalowalna architektura"
+      ],
       "features": [
         "Natywny rozwój iOS (Swift, SwiftUI)",
         "Natywny rozwój Android (Kotlin, Jetpack Compose)",
@@ -102,7 +106,11 @@
     "enterprise": {
       "title": "Systemy korporacyjne i dla przedsiębiorstw",
       "description": "Usprawnij swoje operacje biznesowe dzięki niestandardowym rozwiązaniom dla przedsiębiorstw. Tworzymy potężne systemy, które automatyzują przepływy pracy, integrują się z istniejącymi narzędziami i wykorzystują AI do zwiększenia produktywności.",
-      "highlights": ["Napędzane AI", "W pełni zintegrowane", "Bezpieczne i zgodne"],
+      "highlights": [
+        "Napędzane AI",
+        "W pełni zintegrowane",
+        "Bezpieczne i zgodne"
+      ],
       "features": [
         "Niestandardowe systemy CRM i ERP",
         "Automatyzacja procesów biznesowych",
@@ -117,7 +125,11 @@
     "web": {
       "title": "Aplikacje webowe",
       "description": "Buduj skalowalne, bezpieczne i błyskawicznie szybkie aplikacje webowe, które rosną wraz z Twoim biznesem. Od platform SaaS po złożone portale, dostarczamy nowoczesne rozwiązania webowe zbudowane na najnowocześniejszych technologiach.",
-      "highlights": ["Cloud-Native", "Wysoce skalowalne", "Klasa enterprise"],
+      "highlights": [
+        "Cloud-Native",
+        "Wysoce skalowalne",
+        "Klasa enterprise"
+      ],
       "features": [
         "Progresywne aplikacje webowe (PWA)",
         "Rozwój platform SaaS",
@@ -132,7 +144,11 @@
     "websites": {
       "title": "Nowoczesne strony internetowe",
       "description": "Stwórz oszałamiającą obecność online, która konwertuje odwiedzających na klientów. Projektujemy i rozwijamy zoptymalizowane pod kątem SEO, szybko ładujące się strony internetowe, które prezentują Twoją markę i napędzają wzrost biznesu.",
-      "highlights": ["Zoptymalizowane SEO", "Wysoka konwersja", "Błyskawicznie szybkie"],
+      "highlights": [
+        "Zoptymalizowane SEO",
+        "Wysoka konwersja",
+        "Błyskawicznie szybkie"
+      ],
       "features": [
         "Niestandardowe projektowanie i rozwój stron internetowych",
         "Optymalizacja i strategia SEO",
@@ -179,7 +195,20 @@
     "successTitle": "Wiadomość wysłana pomyślnie!",
     "successDesc": "Odpowiemy w ciągu 24 godzin z kolejnymi krokami dla Twojego projektu.",
     "errorTitle": "Coś poszło nie tak",
-    "errorDesc": "Nie udało się wysłać wiadomości. Spróbuj ponownie lub skontaktuj się z nami bezpośrednio."
+    "errorDesc": "Nie udało się wysłać wiadomości. Spróbuj ponownie lub skontaktuj się z nami bezpośrednio.",
+    "validation": {
+      "nameMin": "Imię musi mieć co najmniej 2 znaki",
+      "emailInvalid": "Proszę podać prawidłowy adres e-mail",
+      "phoneCodeRequired": "Proszę wybrać kod kraju",
+      "phoneMin": "Numer telefonu musi mieć co najmniej 6 cyfr",
+      "phoneDigitsOnly": "Numer telefonu może zawierać tylko cyfry",
+      "messageMin": "Wiadomość musi mieć co najmniej 10 znaków"
+    },
+    "namePlaceholder": "Jan Kowalski",
+    "emailPlaceholder": "jan@przyklad.pl",
+    "companyPlaceholder": "Firma sp. z o.o.",
+    "phoneCodePlaceholder": "Kod",
+    "phoneNumberPlaceholder": "123456789"
   },
   "stack": {
     "title": "Nasz nowoczesny stos",

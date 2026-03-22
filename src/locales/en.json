@@ -87,7 +87,11 @@
     "mobile": {
       "title": "Mobile App Development",
       "description": "Transform your ideas into powerful native mobile applications that users love. We build high-performance iOS and Android apps with intuitive interfaces and seamless user experiences.",
-      "highlights": ["Fast Performance", "Native Feel", "Scalable Architecture"],
+      "highlights": [
+        "Fast Performance",
+        "Native Feel",
+        "Scalable Architecture"
+      ],
       "features": [
         "Native iOS development (Swift, SwiftUI)",
         "Native Android development (Kotlin, Jetpack Compose)",
@@ -102,7 +106,11 @@
     "enterprise": {
       "title": "Corporate & Enterprise Systems",
       "description": "Streamline your business operations with custom-built enterprise solutions. We create powerful systems that automate workflows, integrate with existing tools, and leverage AI to boost productivity.",
-      "highlights": ["AI-Powered", "Fully Integrated", "Secure & Compliant"],
+      "highlights": [
+        "AI-Powered",
+        "Fully Integrated",
+        "Secure & Compliant"
+      ],
       "features": [
         "Custom CRM and ERP systems",
         "Business process automation",
@@ -117,7 +125,11 @@
     "web": {
       "title": "Web Applications",
       "description": "Build scalable, secure, and lightning-fast web applications that grow with your business. From SaaS platforms to complex portals, we deliver modern web solutions built on cutting-edge technologies.",
-      "highlights": ["Cloud-Native", "Highly Scalable", "Enterprise-Grade"],
+      "highlights": [
+        "Cloud-Native",
+        "Highly Scalable",
+        "Enterprise-Grade"
+      ],
       "features": [
         "Progressive Web Apps (PWA)",
         "SaaS platform development",
@@ -132,7 +144,11 @@
     "websites": {
       "title": "Modern Websites",
       "description": "Create a stunning online presence that converts visitors into customers. We design and develop SEO-optimized, fast-loading websites that showcase your brand and drive business growth.",
-      "highlights": ["SEO-Optimized", "High Converting", "Lightning Fast"],
+      "highlights": [
+        "SEO-Optimized",
+        "High Converting",
+        "Lightning Fast"
+      ],
       "features": [
         "Custom website design and development",
         "SEO optimization and strategy",
@@ -417,7 +433,20 @@
     "successTitle": "Message sent successfully!",
     "successDesc": "We'll respond within 24 hours with next steps for your project.",
     "errorTitle": "Something went wrong",
-    "errorDesc": "Failed to send message. Please try again or contact us directly."
+    "errorDesc": "Failed to send message. Please try again or contact us directly.",
+    "validation": {
+      "nameMin": "Name must be at least 2 characters",
+      "emailInvalid": "Please enter a valid email address",
+      "phoneCodeRequired": "Please select a country code",
+      "phoneMin": "Phone number must be at least 6 digits",
+      "phoneDigitsOnly": "Phone number must contain only digits",
+      "messageMin": "Message must be at least 10 characters"
+    },
+    "namePlaceholder": "John Doe",
+    "emailPlaceholder": "john@example.com",
+    "companyPlaceholder": "Acme Corporation",
+    "phoneCodePlaceholder": "Code",
+    "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
     "description": "Software development with AI integration. Building world-class digital products that transform businesses.",

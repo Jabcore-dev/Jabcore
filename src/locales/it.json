@@ -87,7 +87,11 @@
     "mobile": {
       "title": "Sviluppo app mobili",
       "description": "Trasforma le tue idee in potenti applicazioni mobili native che gli utenti amano. Costruiamo app iOS e Android ad alte prestazioni con interfacce intuitive ed esperienze utente fluide.",
-      "highlights": ["Prestazioni veloci", "Sensazione native", "Architettura scalabile"],
+      "highlights": [
+        "Prestazioni veloci",
+        "Sensazione native",
+        "Architettura scalabile"
+      ],
       "features": [
         "Sviluppo iOS nativo (Swift, SwiftUI)",
         "Sviluppo Android nativo (Kotlin, Jetpack Compose)",
@@ -102,7 +106,11 @@
     "enterprise": {
       "title": "Sistemi aziendali e corporate",
       "description": "Razionalizza le tue operazioni aziendali con soluzioni enterprise personalizzate. Creiamo sistemi potenti che automatizzano i flussi di lavoro, si integrano con strumenti esistenti e sfruttano l'IA per aumentare la produttività.",
-      "highlights": ["Alimentato da IA", "Completamente integrato", "Sicuro e conforme"],
+      "highlights": [
+        "Alimentato da IA",
+        "Completamente integrato",
+        "Sicuro e conforme"
+      ],
       "features": [
         "Sistemi CRM ed ERP personalizzati",
         "Automazione dei processi aziendali",
@@ -117,7 +125,11 @@
     "web": {
       "title": "Applicazioni web",
       "description": "Costruisci applicazioni web scalabili, sicure e velocissime che crescono con la tua azienda. Dalle piattaforme SaaS ai portali complessi, forniamo soluzioni web moderne costruite su tecnologie all'avanguardia.",
-      "highlights": ["Cloud-Native", "Altamente scalabile", "Livello enterprise"],
+      "highlights": [
+        "Cloud-Native",
+        "Altamente scalabile",
+        "Livello enterprise"
+      ],
       "features": [
         "Progressive Web Apps (PWA)",
         "Sviluppo piattaforme SaaS",
@@ -132,7 +144,11 @@
     "websites": {
       "title": "Siti web moderni",
       "description": "Crea una presenza online straordinaria che converte i visitatori in clienti. Progettiamo e sviluppiamo siti web ottimizzati SEO, a caricamento rapido che mostrano il tuo brand e guidano la crescita aziendale.",
-      "highlights": ["Ottimizzato SEO", "Alta conversione", "Velocissimo"],
+      "highlights": [
+        "Ottimizzato SEO",
+        "Alta conversione",
+        "Velocissimo"
+      ],
       "features": [
         "Design e sviluppo sito web personalizzato",
         "Ottimizzazione e strategia SEO",
@@ -417,7 +433,20 @@
     "successTitle": "Messaggio inviato con successo!",
     "successDesc": "Risponderemo entro 24 ore con i prossimi passi per il tuo progetto.",
     "errorTitle": "Qualcosa è andato storto",
-    "errorDesc": "Impossibile inviare il messaggio. Riprova o contattaci direttamente."
+    "errorDesc": "Impossibile inviare il messaggio. Riprova o contattaci direttamente.",
+    "validation": {
+      "nameMin": "Il nome deve avere almeno 2 caratteri",
+      "emailInvalid": "Inserisci un indirizzo e-mail valido",
+      "phoneCodeRequired": "Seleziona un prefisso internazionale",
+      "phoneMin": "Il numero di telefono deve avere almeno 6 cifre",
+      "phoneDigitsOnly": "Il numero di telefono può contenere solo cifre",
+      "messageMin": "Il messaggio deve avere almeno 10 caratteri"
+    },
+    "namePlaceholder": "Mario Rossi",
+    "emailPlaceholder": "mario@esempio.it",
+    "companyPlaceholder": "Acme S.r.l.",
+    "phoneCodePlaceholder": "Prefisso",
+    "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
     "description": "Sviluppo software con integrazione AI. Creiamo prodotti digitali di livello mondiale che trasformano le aziende.",

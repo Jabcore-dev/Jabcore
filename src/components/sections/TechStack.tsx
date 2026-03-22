@@ -35,11 +35,6 @@ export default function TechStack() {
       title: t('techStack.categories.mobile.title'),
       description: t('techStack.categories.mobile.description'),
       technologies: [
-        'React',
-        'Swift',
-        'Kotlin',
-        'iOS',
-        'Android',
         'Capacitor JS',
       ],
     },

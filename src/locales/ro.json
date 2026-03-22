@@ -87,7 +87,11 @@
     "mobile": {
       "title": "Dezvoltare aplicații mobile",
       "description": "Transformă-ți ideile în aplicații mobile native puternice pe care utilizatorii le adoră. Construim aplicații iOS și Android de înaltă performanță cu interfețe intuitive și experiențe de utilizator perfecte.",
-      "highlights": ["Performanță rapidă", "Senzație nativă", "Arhitectură scalabilă"],
+      "highlights": [
+        "Performanță rapidă",
+        "Senzație nativă",
+        "Arhitectură scalabilă"
+      ],
       "features": [
         "Dezvoltare iOS nativă (Swift, SwiftUI)",
         "Dezvoltare Android nativă (Kotlin, Jetpack Compose)",
@@ -102,7 +106,11 @@
     "enterprise": {
       "title": "Sisteme de afaceri și enterprise",
       "description": "Simplifică operațiunile afacerii tale cu soluții enterprise personalizate. Creăm sisteme puternice care automatizează fluxurile de lucru, se integrează cu instrumentele existente și valorifică AI pentru a crește productivitatea.",
-      "highlights": ["Condus de AI", "Complet integrat", "Sigur și conform"],
+      "highlights": [
+        "Condus de AI",
+        "Complet integrat",
+        "Sigur și conform"
+      ],
       "features": [
         "Sisteme CRM și ERP personalizate",
         "Automatizarea proceselor de afaceri",
@@ -117,7 +125,11 @@
     "web": {
       "title": "Aplicații web",
       "description": "Construiește aplicații web scalabile, sigure și extrem de rapide care cresc odată cu afacerea ta. De la platforme SaaS la portaluri complexe, livrăm soluții web moderne construite cu tehnologii de vârf.",
-      "highlights": ["Cloud-native", "Extrem de scalabil", "Nivel enterprise"],
+      "highlights": [
+        "Cloud-native",
+        "Extrem de scalabil",
+        "Nivel enterprise"
+      ],
       "features": [
         "Progressive Web Apps (PWA)",
         "Dezvoltare platformă SaaS",
@@ -132,7 +144,11 @@
     "websites": {
       "title": "Site-uri web moderne",
       "description": "Creează o prezență online impresionantă care convertește vizitatorii în clienți. Proiectăm și dezvoltăm site-uri web optimizate SEO, cu încărcare rapidă, care prezintă brandul tău și conduc creșterea afacerii.",
-      "highlights": ["Optimizat SEO", "Conversie ridicată", "Extrem de rapid"],
+      "highlights": [
+        "Optimizat SEO",
+        "Conversie ridicată",
+        "Extrem de rapid"
+      ],
       "features": [
         "Design și dezvoltare site personalizat",
         "Optimizare și strategie SEO",
@@ -442,7 +458,20 @@
         "websites": "Site-uri web moderne",
         "other": "Altceva / Nu sunt sigur"
       }
-    }
+    },
+    "validation": {
+      "nameMin": "Numele trebuie să aibă cel puțin 2 caractere",
+      "emailInvalid": "Vă rugăm să introduceți o adresă de e-mail validă",
+      "phoneCodeRequired": "Vă rugăm să selectați un prefix de țară",
+      "phoneMin": "Numărul de telefon trebuie să aibă cel puțin 6 cifre",
+      "phoneDigitsOnly": "Numărul de telefon poate conține doar cifre",
+      "messageMin": "Mesajul trebuie să aibă cel puțin 10 caractere"
+    },
+    "namePlaceholder": "Ion Popescu",
+    "emailPlaceholder": "ion@exemplu.ro",
+    "companyPlaceholder": "Firma S.R.L.",
+    "phoneCodePlaceholder": "Prefix",
+    "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
     "rights": "Toate drepturile rezervate.",

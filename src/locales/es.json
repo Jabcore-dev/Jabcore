@@ -87,7 +87,11 @@
     "mobile": {
       "title": "Desarrollo de aplicaciones móviles",
       "description": "Transforme sus ideas en poderosas aplicaciones móviles nativas que los usuarios aman. Construimos aplicaciones iOS y Android de alto rendimiento con interfaces intuitivas y experiencias de usuario fluidas.",
-      "highlights": ["Rendimiento rápido", "Sensación nativa", "Arquitectura escalable"],
+      "highlights": [
+        "Rendimiento rápido",
+        "Sensación nativa",
+        "Arquitectura escalable"
+      ],
       "features": [
         "Desarrollo nativo de iOS (Swift, SwiftUI)",
         "Desarrollo nativo de Android (Kotlin, Jetpack Compose)",
@@ -102,7 +106,11 @@
     "enterprise": {
       "title": "Sistemas corporativos y empresariales",
       "description": "Optimice sus operaciones comerciales con soluciones empresariales personalizadas. Creamos sistemas potentes que automatizan flujos de trabajo, se integran con herramientas existentes y aprovechan la IA para aumentar la productividad.",
-      "highlights": ["Impulsado por IA", "Totalmente integrado", "Seguro y conforme"],
+      "highlights": [
+        "Impulsado por IA",
+        "Totalmente integrado",
+        "Seguro y conforme"
+      ],
       "features": [
         "Sistemas CRM y ERP personalizados",
         "Automatización de procesos comerciales",
@@ -117,7 +125,11 @@
     "web": {
       "title": "Aplicaciones web",
       "description": "Construya aplicaciones web escalables, seguras y ultrarrápidas que crecen con su negocio. Desde plataformas SaaS hasta portales complejos, entregamos soluciones web modernas construidas sobre tecnologías de vanguardia.",
-      "highlights": ["Cloud-nativo", "Altamente escalable", "Nivel empresarial"],
+      "highlights": [
+        "Cloud-nativo",
+        "Altamente escalable",
+        "Nivel empresarial"
+      ],
       "features": [
         "Aplicaciones web progresivas (PWA)",
         "Desarrollo de plataformas SaaS",
@@ -132,7 +144,11 @@
     "websites": {
       "title": "Sitios web modernos",
       "description": "Cree una presencia en línea impresionante que convierta visitantes en clientes. Diseñamos y desarrollamos sitios web optimizados para SEO y de carga rápida que muestran su marca e impulsan el crecimiento del negocio.",
-      "highlights": ["Optimizado para SEO", "Alta conversión", "Ultrarrápido"],
+      "highlights": [
+        "Optimizado para SEO",
+        "Alta conversión",
+        "Ultrarrápido"
+      ],
       "features": [
         "Diseño y desarrollo de sitios web personalizados",
         "Optimización y estrategia SEO",
@@ -417,7 +433,20 @@
     "successTitle": "¡Mensaje enviado con éxito!",
     "successDesc": "Responderemos dentro de 24 horas con los próximos pasos para su proyecto.",
     "errorTitle": "Algo salió mal",
-    "errorDesc": "No se pudo enviar el mensaje. Inténtelo de nuevo o contáctenos directamente."
+    "errorDesc": "No se pudo enviar el mensaje. Inténtelo de nuevo o contáctenos directamente.",
+    "validation": {
+      "nameMin": "El nombre debe tener al menos 2 caracteres",
+      "emailInvalid": "Por favor, introduce una dirección de correo válida",
+      "phoneCodeRequired": "Por favor, selecciona un código de país",
+      "phoneMin": "El número de teléfono debe tener al menos 6 dígitos",
+      "phoneDigitsOnly": "El número de teléfono solo puede contener dígitos",
+      "messageMin": "El mensaje debe tener al menos 10 caracteres"
+    },
+    "namePlaceholder": "Juan García",
+    "emailPlaceholder": "juan@ejemplo.com",
+    "companyPlaceholder": "Mi Empresa S.L.",
+    "phoneCodePlaceholder": "Código",
+    "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
     "description": "Desarrollo de software con integración de IA. Creamos productos digitales de clase mundial que transforman negocios.",

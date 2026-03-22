@@ -87,7 +87,11 @@
     "mobile": {
       "title": "Développement d'applications mobiles",
       "description": "Transformez vos idées en applications mobiles natives puissantes que les utilisateurs adorent. Nous créons des applications iOS et Android haute performance avec des interfaces intuitives et des expériences utilisateur fluides.",
-      "highlights": ["Performance rapide", "Sensation native", "Architecture évolutive"],
+      "highlights": [
+        "Performance rapide",
+        "Sensation native",
+        "Architecture évolutive"
+      ],
       "features": [
         "Développement iOS natif (Swift, SwiftUI)",
         "Développement Android natif (Kotlin, Jetpack Compose)",
@@ -102,7 +106,11 @@
     "enterprise": {
       "title": "Systèmes d'entreprise et corporatifs",
       "description": "Rationalisez vos opérations commerciales avec des solutions d'entreprise personnalisées. Nous créons des systèmes puissants qui automatisent les flux de travail, s'intègrent aux outils existants et exploitent l'IA pour augmenter la productivité.",
-      "highlights": ["Alimenté par l'IA", "Entièrement intégré", "Sécurisé et conforme"],
+      "highlights": [
+        "Alimenté par l'IA",
+        "Entièrement intégré",
+        "Sécurisé et conforme"
+      ],
       "features": [
         "Systèmes CRM et ERP personnalisés",
         "Automatisation des processus métier",
@@ -117,7 +125,11 @@
     "web": {
       "title": "Applications web",
       "description": "Créez des applications web évolutives, sécurisées et ultra-rapides qui grandissent avec votre entreprise. Des plateformes SaaS aux portails complexes, nous livrons des solutions web modernes construites sur des technologies de pointe.",
-      "highlights": ["Cloud-Native", "Hautement évolutif", "Niveau entreprise"],
+      "highlights": [
+        "Cloud-Native",
+        "Hautement évolutif",
+        "Niveau entreprise"
+      ],
       "features": [
         "Applications web progressives (PWA)",
         "Développement de plateformes SaaS",
@@ -132,7 +144,11 @@
     "websites": {
       "title": "Sites web modernes",
       "description": "Créez une présence en ligne époustouflante qui convertit les visiteurs en clients. Nous concevons et développons des sites web optimisés pour le référencement, à chargement rapide qui mettent en valeur votre marque et stimulent la croissance de l'entreprise.",
-      "highlights": ["Optimisé SEO", "Haute conversion", "Ultra-rapide"],
+      "highlights": [
+        "Optimisé SEO",
+        "Haute conversion",
+        "Ultra-rapide"
+      ],
       "features": [
         "Conception et développement de sites web personnalisés",
         "Optimisation et stratégie SEO",
@@ -417,7 +433,20 @@
     "successTitle": "Message envoyé avec succès !",
     "successDesc": "Nous répondrons dans les 24 heures avec les prochaines étapes pour votre projet.",
     "errorTitle": "Une erreur s'est produite",
-    "errorDesc": "Échec de l'envoi du message. Veuillez réessayer ou nous contacter directement."
+    "errorDesc": "Échec de l'envoi du message. Veuillez réessayer ou nous contacter directement.",
+    "validation": {
+      "nameMin": "Le nom doit comporter au moins 2 caractères",
+      "emailInvalid": "Veuillez saisir une adresse e-mail valide",
+      "phoneCodeRequired": "Veuillez sélectionner un indicatif de pays",
+      "phoneMin": "Le numéro de téléphone doit comporter au moins 6 chiffres",
+      "phoneDigitsOnly": "Le numéro de téléphone ne doit contenir que des chiffres",
+      "messageMin": "Le message doit comporter au moins 10 caractères"
+    },
+    "namePlaceholder": "Jean Dupont",
+    "emailPlaceholder": "jean@exemple.fr",
+    "companyPlaceholder": "Acme SARL",
+    "phoneCodePlaceholder": "Code",
+    "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
     "description": "Développement logiciel avec intégration IA. Nous créons des produits numériques de classe mondiale qui transforment les entreprises.",

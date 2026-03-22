@@ -71,11 +71,7 @@ export default function StackPage() {
       description: t('stack.technologies.mobileApps.description'),
       features: t('stack.technologies.mobileApps.features', { returnObjects: true }) as string[],
       techs: [
-        { name: 'iOS' },
-        { name: 'Android' },
-        { name: 'Capacitor JS' },
-        { name: 'Swift' },
-        { name: 'Kotlin' }
+        { name: 'Capacitor JS' }
       ]
     },
     {

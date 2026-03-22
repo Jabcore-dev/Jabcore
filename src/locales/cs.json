@@ -433,7 +433,20 @@
     "successTitle": "Zpráva úspěšně odeslána!",
     "successDesc": "Odpovíme do 24 hodin s dalšími kroky ohledně vašeho projektu.",
     "errorTitle": "Něco se pokazilo",
-    "errorDesc": "Nepodařilo se odeslat zprávu. Zkuste to prosím znovu nebo nás kontaktujte přímo."
+    "errorDesc": "Nepodařilo se odeslat zprávu. Zkuste to prosím znovu nebo nás kontaktujte přímo.",
+    "validation": {
+      "nameMin": "Jméno musí mít alespoň 2 znaky",
+      "emailInvalid": "Zadejte prosím platnou e-mailovou adresu",
+      "phoneCodeRequired": "Prosím vyberte kód země",
+      "phoneMin": "Telefonní číslo musí mít alespoň 6 číslic",
+      "phoneDigitsOnly": "Telefonní číslo smí obsahovat pouze číslice",
+      "messageMin": "Zpráva musí mít alespoň 10 znaků"
+    },
+    "namePlaceholder": "Jan Novák",
+    "emailPlaceholder": "jan@priklad.cz",
+    "companyPlaceholder": "Vaše firma s.r.o.",
+    "phoneCodePlaceholder": "Kód",
+    "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
     "description": "Vývoj softwaru s integrací AI. Vytváříme digitální produkty světové úrovně, které transformují podnikání.",

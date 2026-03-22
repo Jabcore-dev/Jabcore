@@ -7,6 +7,7 @@ import {
   SiApple,
   SiAndroid,
   SiUbuntu,
+  SiCapacitor,
 } from 'react-icons/si'
 import { FaDocker } from 'react-icons/fa6'
 import {
@@ -31,9 +32,6 @@ const devIconUrls: Record<string, string> = {
   'Vue.js': `${CDN_BASE}/vuejs/vuejs-original.svg`,
   'Node.js': `${CDN_BASE}/nodejs/nodejs-original.svg`,
   'C#': `${CDN_BASE}/csharp/csharp-original.svg`,
-  'Capacitor JS': `${CDN_BASE}/capacitorjs/capacitorjs-original.svg`,
-  'Swift': `${CDN_BASE}/swift/swift-original.svg`,
-  'Kotlin': `${CDN_BASE}/kotlin/kotlin-original.svg`,
   'CI/CD': `${CDN_BASE}/githubactions/githubactions-original.svg`,
   'Python': `${CDN_BASE}/python/python-original.svg`,
   'Figma': `${CDN_BASE}/figma/figma-original.svg`,
@@ -54,6 +52,7 @@ const simpleIcons: Record<string, {
   'Android': { icon: SiAndroid, color: '#3DDC84' },
   'Ubuntu Server': { icon: SiUbuntu, color: '#E95420' },
   'Docker': { icon: FaDocker, color: '#2496ED' },
+  'Capacitor JS': { icon: SiCapacitor, color: '#119EFF' },
 }
 
 // Speciální ikony pro design/UX služby

@@ -87,7 +87,11 @@
     "mobile": {
       "title": "Mobile App-Entwicklung",
       "description": "Verwandeln Sie Ihre Ideen in leistungsstarke native mobile Anwendungen, die Benutzer lieben. Wir entwickeln hochperformante iOS- und Android-Apps mit intuitiven Benutzeroberflächen und nahtlosen Benutzererlebnissen.",
-      "highlights": ["Schnelle Leistung", "Natives Gefühl", "Skalierbare Architektur"],
+      "highlights": [
+        "Schnelle Leistung",
+        "Natives Gefühl",
+        "Skalierbare Architektur"
+      ],
       "features": [
         "Native iOS-Entwicklung (Swift, SwiftUI)",
         "Native Android-Entwicklung (Kotlin, Jetpack Compose)",
@@ -102,7 +106,11 @@
     "enterprise": {
       "title": "Unternehmens- & Enterprise-Systeme",
       "description": "Optimieren Sie Ihre Geschäftsprozesse mit maßgeschneiderten Unternehmenslösungen. Wir erstellen leistungsstarke Systeme, die Workflows automatisieren, sich in bestehende Tools integrieren und KI nutzen, um die Produktivität zu steigern.",
-      "highlights": ["KI-gesteuert", "Vollständig integriert", "Sicher & konform"],
+      "highlights": [
+        "KI-gesteuert",
+        "Vollständig integriert",
+        "Sicher & konform"
+      ],
       "features": [
         "Maßgeschneiderte CRM- und ERP-Systeme",
         "Automatisierung von Geschäftsprozessen",
@@ -117,7 +125,11 @@
     "web": {
       "title": "Webanwendungen",
       "description": "Erstellen Sie skalierbare, sichere und blitzschnelle Webanwendungen, die mit Ihrem Unternehmen wachsen. Von SaaS-Plattformen bis hin zu komplexen Portalen liefern wir moderne Weblösungen auf Basis modernster Technologien.",
-      "highlights": ["Cloud-nativ", "Hochskalierbar", "Enterprise-Grade"],
+      "highlights": [
+        "Cloud-nativ",
+        "Hochskalierbar",
+        "Enterprise-Grade"
+      ],
       "features": [
         "Progressive Web Apps (PWA)",
         "SaaS-Plattform-Entwicklung",
@@ -132,7 +144,11 @@
     "websites": {
       "title": "Moderne Websites",
       "description": "Schaffen Sie eine beeindruckende Online-Präsenz, die Besucher in Kunden verwandelt. Wir entwerfen und entwickeln SEO-optimierte, schnell ladende Websites, die Ihre Marke präsentieren und das Unternehmenswachstum fördern.",
-      "highlights": ["SEO-optimiert", "Hohe Konversion", "Blitzschnell"],
+      "highlights": [
+        "SEO-optimiert",
+        "Hohe Konversion",
+        "Blitzschnell"
+      ],
       "features": [
         "Individuelles Website-Design und -Entwicklung",
         "SEO-Optimierung und -Strategie",
@@ -417,7 +433,20 @@
     "successTitle": "Nachricht erfolgreich gesendet!",
     "successDesc": "Wir werden innerhalb von 24 Stunden mit den nächsten Schritten für Ihr Projekt antworten.",
     "errorTitle": "Etwas ist schiefgelaufen",
-    "errorDesc": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt."
+    "errorDesc": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.",
+    "validation": {
+      "nameMin": "Name muss mindestens 2 Zeichen lang sein",
+      "emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+      "phoneCodeRequired": "Bitte wählen Sie eine Ländervorwahl",
+      "phoneMin": "Telefonnummer muss mindestens 6 Ziffern haben",
+      "phoneDigitsOnly": "Telefonnummer darf nur Ziffern enthalten",
+      "messageMin": "Nachricht muss mindestens 10 Zeichen lang sein"
+    },
+    "namePlaceholder": "Max Mustermann",
+    "emailPlaceholder": "max@beispiel.de",
+    "companyPlaceholder": "Muster GmbH",
+    "phoneCodePlaceholder": "Vorwahl",
+    "phoneNumberPlaceholder": "1234567890"
   },
   "footer": {
     "description": "Softwareentwicklung mit KI-Integration. Wir bauen digitale Produkte von Weltklasse, die Unternehmen transformieren.",

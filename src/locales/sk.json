@@ -87,7 +87,11 @@
     "mobile": {
       "title": "Vývoj mobilných aplikácií",
       "description": "Premeňte svoje nápady na výkonné natívne mobilné aplikácie, ktoré používatelia milujú. Vytvárame vysoko výkonné iOS a Android aplikácie s intuitívnymi rozhraniami a bezproblémovou používateľskou skúsenosťou.",
-      "highlights": ["Rýchly výkon", "Natívny pocit", "Škálovateľná architektúra"],
+      "highlights": [
+        "Rýchly výkon",
+        "Natívny pocit",
+        "Škálovateľná architektúra"
+      ],
       "features": [
         "Natívny iOS vývoj (Swift, SwiftUI)",
         "Natívny Android vývoj (Kotlin, Jetpack Compose)",
@@ -102,7 +106,11 @@
     "enterprise": {
       "title": "Firemné & podnikové systémy",
       "description": "Zefektívnite svoje obchodné operácie pomocou firemných riešení na mieru. Vytvárame výkonné systémy, ktoré automatizujú pracovné postupy, integrujú sa s existujúcimi nástrojmi a využívajú AI na zvýšenie produktivity.",
-      "highlights": ["Poháňané AI", "Plne integrované", "Bezpečné a kompatibilné"],
+      "highlights": [
+        "Poháňané AI",
+        "Plne integrované",
+        "Bezpečné a kompatibilné"
+      ],
       "features": [
         "Vlastné CRM a ERP systémy",
         "Automatizácia obchodných procesov",
@@ -117,7 +125,11 @@
     "web": {
       "title": "Webové aplikácie",
       "description": "Vytvárajte škálovateľné, bezpečné a bleskovo rýchle webové aplikácie, ktoré rastú s vaším podnikaním. Od SaaS platforiem po zložité portály dodávame moderné webové riešenia postavené na najmodernejších technológiách.",
-      "highlights": ["Cloud-natívne", "Vysoko škálovateľné", "Podnikovej úrovne"],
+      "highlights": [
+        "Cloud-natívne",
+        "Vysoko škálovateľné",
+        "Podnikovej úrovne"
+      ],
       "features": [
         "Progressive Web Apps (PWA)",
         "Vývoj SaaS platforiem",
@@ -132,7 +144,11 @@
     "websites": {
       "title": "Moderné webové stránky",
       "description": "Vytvorte úžasnú online prítomnosť, ktorá konvertuje návštevníkov na zákazníkov. Navrhujeme a vyvíjame SEO optimalizované, rýchlo sa načítavajúce webové stránky, ktoré prezentujú vašu značku a podporujú rast podnikania.",
-      "highlights": ["SEO optimalizované", "Vysoká konverzia", "Bleskovo rýchle"],
+      "highlights": [
+        "SEO optimalizované",
+        "Vysoká konverzia",
+        "Bleskovo rýchle"
+      ],
       "features": [
         "Vlastný dizajn a vývoj webových stránok",
         "SEO optimalizácia a stratégia",
@@ -179,7 +195,20 @@
     "successTitle": "Správa úspešne odoslaná!",
     "successDesc": "Odpovieme do 24 hodín s ďalšími krokmi pre váš projekt.",
     "errorTitle": "Niečo sa pokazilo",
-    "errorDesc": "Nepodarilo sa odoslať správu. Skúste to prosím znova alebo nás kontaktujte priamo."
+    "errorDesc": "Nepodarilo sa odoslať správu. Skúste to prosím znova alebo nás kontaktujte priamo.",
+    "validation": {
+      "nameMin": "Meno musí mať aspoň 2 znaky",
+      "emailInvalid": "Zadajte prosím platnú e-mailovú adresu",
+      "phoneCodeRequired": "Prosím vyberte kód krajiny",
+      "phoneMin": "Telefónne číslo musí mať aspoň 6 číslic",
+      "phoneDigitsOnly": "Telefónne číslo smie obsahovať iba číslice",
+      "messageMin": "Správa musí mať aspoň 10 znakov"
+    },
+    "namePlaceholder": "Ján Novák",
+    "emailPlaceholder": "jan@priklad.sk",
+    "companyPlaceholder": "Vaša firma s.r.o.",
+    "phoneCodePlaceholder": "Kód",
+    "phoneNumberPlaceholder": "123456789"
   },
   "stack": {
     "title": "Náš moderný stack",

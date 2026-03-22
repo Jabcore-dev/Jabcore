@@ -7,24 +7,26 @@ import * as z from 'zod'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, useFormField } from '@/components/ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { toast } from 'sonner'
 import { PaperPlaneRight } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import { sendContactEmail } from '@/lib/emailjs'
+import { cn } from '@/lib/utils'
 
-const formSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  phonePrefix: z.string().min(1, 'Please select a country code'),
-  phoneNumber: z.string().min(6, 'Phone number must be at least 6 digits').regex(/^[0-9]+$/, 'Phone number must contain only digits'),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
-  company: z.string().optional(),
-})
-
-type FormData = z.infer<typeof formSchema>
+// Renders the error message translated via i18n — error.message stores the i18n key
+function TranslatedFormMessage({ className }: { className?: string }) {
+  const { error, formMessageId } = useFormField()
+  const { t } = useTranslation()
+  if (!error?.message) return null
+  return (
+    <p id={formMessageId} className={cn('text-destructive text-sm', className)}>
+      {t(error.message)}
+    </p>
+  )
+}
 
 const phoneCountries = [
   { code: '+420', country: 'Czech Republic', flag: '🇨🇿' },
@@ -48,6 +50,27 @@ interface ContactModalProps {
   onOpenChange: (open: boolean) => void
 }
 
+type FormData = {
+  name: string
+  email: string
+  phonePrefix: string
+  phoneNumber: string
+  message: string
+  company?: string
+}
+
+// i18n keys as error messages — translated at render time by TranslatedFormMessage
+const formSchema = z.object({
+  name: z.string().min(2, 'contact.validation.nameMin'),
+  email: z.string().email('contact.validation.emailInvalid'),
+  phonePrefix: z.string().min(1, 'contact.validation.phoneCodeRequired'),
+  phoneNumber: z.string()
+    .min(6, 'contact.validation.phoneMin')
+    .regex(/^[0-9]+$/, 'contact.validation.phoneDigitsOnly'),
+  message: z.string().min(10, 'contact.validation.messageMin'),
+  company: z.string().optional(),
+})
+
 export default function ContactModal({ open, onOpenChange }: ContactModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { t, i18n } = useTranslation()
@@ -64,14 +87,13 @@ export default function ContactModal({ open, onOpenChange }: ContactModalProps) 
     },
   })
 
-  // Update phonePrefix when language changes
   useEffect(() => {
     form.setValue('phonePrefix', t('contact.phonePrefix'))
   }, [i18n.language, form, t])
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
-    
+
     const success = await sendContactEmail({
       name: data.name,
       email: data.email,
@@ -80,7 +102,7 @@ export default function ContactModal({ open, onOpenChange }: ContactModalProps) 
       message: data.message,
       language: i18n.language,
     })
-    
+
     if (success) {
       toast.success(t('contact.successTitle'), {
         description: t('contact.successDesc'),
@@ -92,22 +114,23 @@ export default function ContactModal({ open, onOpenChange }: ContactModalProps) 
         description: t('contact.errorDesc'),
       })
     }
-    
+
     setIsSubmitting(false)
   }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
+      <DialogContent className="max-w-2xl flex flex-col max-h-[90vh] overflow-hidden p-0 gap-0">
+        <DialogHeader className="px-6 pt-6 pb-4 border-b shrink-0">
           <DialogTitle className="text-2xl">{t('contact.formTitle')}</DialogTitle>
           <DialogDescription>
             {t('contact.formDesc')}
           </DialogDescription>
         </DialogHeader>
-        
+
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col flex-1 min-h-0">
+            <div className="overflow-y-auto flex-1 px-6 py-6 space-y-6">
             <FormField
               control={form.control}
               name="name"
@@ -115,13 +138,13 @@ export default function ContactModal({ open, onOpenChange }: ContactModalProps) 
                 <FormItem>
                   <FormLabel>{t('contact.name')} *</FormLabel>
                   <FormControl>
-                    <Input 
-                      placeholder="John Doe" 
+                    <Input
+                      placeholder={t('contact.namePlaceholder')}
                       {...field}
                       className="h-12"
                     />
                   </FormControl>
-                  <FormMessage />
+                  <TranslatedFormMessage />
                 </FormItem>
               )}
             />
@@ -133,14 +156,14 @@ export default function ContactModal({ open, onOpenChange }: ContactModalProps) 
                 <FormItem>
                   <FormLabel>{t('contact.email')} *</FormLabel>
                   <FormControl>
-                    <Input 
+                    <Input
                       type="email"
-                      placeholder="john@example.com" 
+                      placeholder={t('contact.emailPlaceholder')}
                       {...field}
                       className="h-12"
                     />
                   </FormControl>
-                  <FormMessage />
+                  <TranslatedFormMessage />
                 </FormItem>
               )}
             />
@@ -152,13 +175,13 @@ export default function ContactModal({ open, onOpenChange }: ContactModalProps) 
                 <FormItem>
                   <FormLabel>{t('contact.company')}</FormLabel>
                   <FormControl>
-                    <Input 
-                      placeholder="Acme Corporation" 
+                    <Input
+                      placeholder={t('contact.companyPlaceholder')}
                       {...field}
                       className="h-12"
                     />
                   </FormControl>
-                  <FormMessage />
+                  <TranslatedFormMessage />
                 </FormItem>
               )}
             />
@@ -173,7 +196,7 @@ export default function ContactModal({ open, onOpenChange }: ContactModalProps) 
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger className="h-12">
-                          <SelectValue placeholder="Code" />
+                          <SelectValue placeholder={t('contact.phoneCodePlaceholder')} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -187,7 +210,7 @@ export default function ContactModal({ open, onOpenChange }: ContactModalProps) 
                         ))}
                       </SelectContent>
                     </Select>
-                    <FormMessage />
+                    <TranslatedFormMessage />
                   </FormItem>
                 )}
               />
@@ -199,14 +222,14 @@ export default function ContactModal({ open, onOpenChange }: ContactModalProps) 
                   <FormItem>
                     <FormLabel>{t('contact.phoneNumber')} *</FormLabel>
                     <FormControl>
-                      <Input 
+                      <Input
                         type="tel"
-                        placeholder="123456789" 
+                        placeholder={t('contact.phoneNumberPlaceholder')}
                         {...field}
                         className="h-12"
                       />
                     </FormControl>
-                    <FormMessage />
+                    <TranslatedFormMessage />
                   </FormItem>
                 )}
               />
@@ -219,34 +242,38 @@ export default function ContactModal({ open, onOpenChange }: ContactModalProps) 
                 <FormItem>
                   <FormLabel>{t('contact.message')} *</FormLabel>
                   <FormControl>
-                    <Textarea 
+                    <Textarea
                       placeholder={t('contact.messagePlaceholder')}
                       className="min-h-[150px] resize-y"
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <TranslatedFormMessage />
                 </FormItem>
               )}
             />
 
-            <Button
-              type="submit"
-              size="lg"
-              disabled={isSubmitting}
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-base"
-            >
-              {isSubmitting ? (
-                <>
-                  <span className="animate-pulse">{t('contact.sending')}</span>
-                </>
-              ) : (
-                <>
-                  {t('contact.sendMessage')}
-                  <PaperPlaneRight className="ml-2" weight="bold" />
-                </>
-              )}
-            </Button>
+            </div>
+
+            <div className="px-6 py-4 border-t shrink-0">
+              <Button
+                type="submit"
+                size="lg"
+                disabled={isSubmitting}
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-base"
+              >
+                {isSubmitting ? (
+                  <>
+                    <span className="animate-pulse">{t('contact.sending')}</span>
+                  </>
+                ) : (
+                  <>
+                    {t('contact.sendMessage')}
+                    <PaperPlaneRight className="ml-2" weight="bold" />
+                  </>
+                )}
+              </Button>
+            </div>
           </form>
         </Form>
       </DialogContent>

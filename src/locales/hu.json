@@ -87,7 +87,11 @@
     "mobile": {
       "title": "Mobilalkalmazás fejlesztés",
       "description": "Alakítsd át ötleteidet olyan natív mobilalkalmazásokká, amelyeket a felhasználók imádnak. Nagy teljesítményű iOS és Android alkalmazásokat építünk intuitív felületekkel és zökkenőmentes felhasználói élménnyel.",
-      "highlights": ["Gyors teljesítmény", "Natív érzés", "Skálázható architektúra"],
+      "highlights": [
+        "Gyors teljesítmény",
+        "Natív érzés",
+        "Skálázható architektúra"
+      ],
       "features": [
         "Natív iOS fejlesztés (Swift, SwiftUI)",
         "Natív Android fejlesztés (Kotlin, Jetpack Compose)",
@@ -102,7 +106,11 @@
     "enterprise": {
       "title": "Üzleti és vállalati rendszerek",
       "description": "Egyszerűsítsd üzleti műveleteidet egyedi vállalati megoldásokkal. Hatékony rendszereket hozunk létre, amelyek automatizálják a munkafolyamatokat, integrálódnak a meglévő eszközökkel és MI-t használnak a termelékenység növelésére.",
-      "highlights": ["MI-vezérelt", "Teljesen integrált", "Biztonságos és megfelelő"],
+      "highlights": [
+        "MI-vezérelt",
+        "Teljesen integrált",
+        "Biztonságos és megfelelő"
+      ],
       "features": [
         "Egyedi CRM és ERP rendszerek",
         "Üzleti folyamatok automatizálása",
@@ -117,7 +125,11 @@
     "web": {
       "title": "Webalkalmazások",
       "description": "Építs skálázható, biztonságos és villámgyors webalkalmazásokat, amelyek együtt nőnek az üzleteddel. SaaS platformoktól összetett portálokig modern webes megoldásokat szállítunk élvonalbeli technológiákkal.",
-      "highlights": ["Felhő-natív", "Rendkívül skálázható", "Vállalati szintű"],
+      "highlights": [
+        "Felhő-natív",
+        "Rendkívül skálázható",
+        "Vállalati szintű"
+      ],
       "features": [
         "Progressive Web Apps (PWA)",
         "SaaS platform fejlesztés",
@@ -132,7 +144,11 @@
     "websites": {
       "title": "Modern weboldalak",
       "description": "Hozz létre lenyűgöző online jelenlétet, amely látogatókat vásárlókká alakít. SEO-optimalizált, gyors betöltésű weboldalakat tervezünk és fejlesztünk, amelyek bemutatják márkádat és üzleti növekedést hajtanak.",
-      "highlights": ["SEO-optimalizált", "Magas konverzió", "Villámgyors"],
+      "highlights": [
+        "SEO-optimalizált",
+        "Magas konverzió",
+        "Villámgyors"
+      ],
       "features": [
         "Egyedi weboldal tervezés és fejlesztés",
         "SEO optimalizálás és stratégia",
@@ -442,7 +458,20 @@
         "websites": "Modern weboldalak",
         "other": "Más / Nem vagyok biztos benne"
       }
-    }
+    },
+    "validation": {
+      "nameMin": "A névnek legalább 2 karakterből kell állnia",
+      "emailInvalid": "Kérjük, adjon meg egy érvényes e-mail címet",
+      "phoneCodeRequired": "Kérjük, válasszon országhívószámot",
+      "phoneMin": "A telefonszámnak legalább 6 számjegyből kell állnia",
+      "phoneDigitsOnly": "A telefonszám csak számjegyeket tartalmazhat",
+      "messageMin": "Az üzenetnek legalább 10 karakterből kell állnia"
+    },
+    "namePlaceholder": "Kovács János",
+    "emailPlaceholder": "kovacs@pelda.hu",
+    "companyPlaceholder": "Cégem Kft.",
+    "phoneCodePlaceholder": "Kód",
+    "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
     "rights": "Minden jog fenntartva.",

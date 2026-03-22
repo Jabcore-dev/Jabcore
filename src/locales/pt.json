@@ -87,7 +87,11 @@
     "mobile": {
       "title": "Desenvolvimento de aplicativos móveis",
       "description": "Transforme suas ideias em aplicativos móveis nativos poderosos que os usuários adoram. Construímos aplicativos iOS e Android de alto desempenho com interfaces intuitivas e experiências de usuário perfeitas.",
-      "highlights": ["Desempenho rápido", "Sensação nativa", "Arquitetura escalável"],
+      "highlights": [
+        "Desempenho rápido",
+        "Sensação nativa",
+        "Arquitetura escalável"
+      ],
       "features": [
         "Desenvolvimento iOS nativo (Swift, SwiftUI)",
         "Desenvolvimento Android nativo (Kotlin, Jetpack Compose)",
@@ -102,7 +106,11 @@
     "enterprise": {
       "title": "Sistemas empresariais e corporativos",
       "description": "Simplifique as operações do seu negócio com soluções empresariais personalizadas. Criamos sistemas poderosos que automatizam fluxos de trabalho, integram-se com ferramentas existentes e aproveitam a IA para aumentar a produtividade.",
-      "highlights": ["Impulsionado por IA", "Totalmente integrado", "Seguro e em conformidade"],
+      "highlights": [
+        "Impulsionado por IA",
+        "Totalmente integrado",
+        "Seguro e em conformidade"
+      ],
       "features": [
         "Sistemas CRM e ERP personalizados",
         "Automação de processos de negócios",
@@ -117,7 +125,11 @@
     "web": {
       "title": "Aplicações web",
       "description": "Construa aplicações web escaláveis, seguras e extremamente rápidas que crescem com seu negócio. De plataformas SaaS a portais complexos, entregamos soluções web modernas construídas com tecnologias de ponta.",
-      "highlights": ["Nativo da nuvem", "Altamente escalável", "Nível empresarial"],
+      "highlights": [
+        "Nativo da nuvem",
+        "Altamente escalável",
+        "Nível empresarial"
+      ],
       "features": [
         "Progressive Web Apps (PWA)",
         "Desenvolvimento de plataforma SaaS",
@@ -132,7 +144,11 @@
     "websites": {
       "title": "Sites modernos",
       "description": "Crie uma presença online impressionante que converte visitantes em clientes. Projetamos e desenvolvemos sites otimizados para SEO e de carregamento rápido que exibem sua marca e impulsionam o crescimento dos negócios.",
-      "highlights": ["Otimizado para SEO", "Alta conversão", "Extremamente rápido"],
+      "highlights": [
+        "Otimizado para SEO",
+        "Alta conversão",
+        "Extremamente rápido"
+      ],
       "features": [
         "Design e desenvolvimento de site personalizado",
         "Otimização e estratégia de SEO",
@@ -442,7 +458,20 @@
         "websites": "Sites modernos",
         "other": "Outro / Não tenho certeza"
       }
-    }
+    },
+    "validation": {
+      "nameMin": "O nome deve ter pelo menos 2 caracteres",
+      "emailInvalid": "Por favor, insira um endereço de e-mail válido",
+      "phoneCodeRequired": "Por favor, selecione um código de país",
+      "phoneMin": "O número de telefone deve ter pelo menos 6 dígitos",
+      "phoneDigitsOnly": "O número de telefone só pode conter dígitos",
+      "messageMin": "A mensagem deve ter pelo menos 10 caracteres"
+    },
+    "namePlaceholder": "João Silva",
+    "emailPlaceholder": "joao@exemplo.pt",
+    "companyPlaceholder": "Empresa Lda.",
+    "phoneCodePlaceholder": "Código",
+    "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
     "rights": "Todos os direitos reservados.",
