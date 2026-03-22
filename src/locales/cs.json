@@ -51,32 +51,32 @@
   "about": {
     "title": "Kdo jsme",
     "intro1": "Jabcore je místo, kde se inovace setkává s realizací.",
-    "intro1Content": "Jsme malý tým tří nadšených vývojářů specializujících se na vytváření digitálních produktů světové úrovně pro firmy všech velikostí. Od ambiciózních startupů po zavedené podniky dodáváme řešení, která podporují exponenciální růst, zefektivňují složité operace a vytvářejí trvalé konkurenční výhody na rychle se vyvíjejících trzích.",
+    "intro1Content": "Jsme malý tým tří vývojářů specializovaných na digitální produkty pro firmy všech velikostí. Pracujeme pro startupy i zavedené firmy — pomáháme jim růst, zefektivňovat procesy a získávat náskok před konkurencí.",
     "intro2": "Naše vývojářská filosofie je jednoduchá:",
     "intro2Bold": "postavit to správně, postavit to jednou.",
-    "intro2Content": "Kombinujeme nejmodernější technologie s prověřenými inženýrskými postupy, abychom vytvořili software, který není jen funkční, ale udržovatelný, nekonečně škálovatelný a připravený do budoucnosti. Nepíšeme jen kód—navrhujeme elegantní řešení, která obstojí ve zkoušce času a přizpůsobí se vašim měnícím se potřebám.",
-    "intro3": "Jsme tým tří—žádní manažeři, žádná režie.",
-    "intro3Content": "Tato štíhlá struktura znamená, že každý člen je hluboce zapojen do vašeho projektu od začátku do konce a máte přímý přístup k lidem, kteří váš produkt skutečně vytvářejí. Ještě důležitější je, že nám to umožňuje nabídnout",
+    "intro2Content": "Kombinujeme moderní technologie s prověřenými postupy, abychom vytvořili software, který je funkční, udržovatelný a připravený na růst. Nepíšeme jen kód — navrhujeme řešení, která fungují dlouhodobě.",
+    "intro3": "Jsme tým tří — žádní manažeři, žádná režie.",
+    "intro3Content": "Každý z nás je u vašeho projektu od první konzultace po finální dodání — vždy víte, s kým mluvíte a kdo váš produkt tvoří. A zároveň nám to umožňuje nabídnout",
     "intro3Pricing": "vysoce konkurenční ceny",
     "intro3End": "bez kompromisů v kvalitě. Platíte za výjimečný inženýrský talent, ne za korporátní byrokracii.",
-    "intro4": "Kromě práce pro klienty kultivujeme kulturu neúnavného učení a nebojácného experimentování. Náš tým zůstává na špici technologie, pravidelně přispívá do open source projektů a vytváří vlastní inovativní produkty. Integrujeme AI schopnosti do našich řešení pro automatizaci pracovních postupů, vylepšení uživatelských zkušeností a odemknutí inteligentních poznatků. Tento závazek k inovacím zajišťuje, že každý projekt těží z nejnovějších průlomových nápadů a osvědčených postupů.",
+    "intro4": "Mimo klientské projekty se neustále vzděláváme, zkoušíme nové technologie a občas tvoříme vlastní produkty. AI pro nás není módní slovo — integrujeme ji tam, kde skutečně přináší hodnotu. Díky tomu jsou naše řešení vždy aktuální a prověřená praxí.",
     "valuesTitle": "Naše hodnoty",
     "values": {
       "mission": {
         "title": "Dokonalost řízená posláním",
-        "description": "Existujeme proto, abychom transformovali ambiciózní nápady a vizionářské koncepty do výjimečných digitálních produktů, které vytvářejí měřitelnou obchodní hodnotu, podporují smysluplné zapojení uživatelů a generují trvalý dopad na konkurenčních trzích. Každý projekt, který podnikáme, je veden neúnavným úsilím o dokonalost a závazkem poskytovat výsledky, které překonávají očekávání."
+        "description": "Každý projekt vedeme s cílem dodat výsledek, který dává smysl — technicky i obchodně. Žádné kompromisy v kvalitě, žádné zkratky."
       },
       "quality": {
         "title": "Nekompromisní kvalita",
-        "description": "Každý jediný řádek kódu, každý pečlivě zvážený pixel, každá promyšleně navržená interakce je vytvořena s posedlou pozorností k detailu, architektonickou elegancí a dlouhodobou udržovatelností. Věříme, že kvalita není jen o vyhýbání se chybám—je o vytváření softwaru, který je intuitivní, výkonný, bezpečný, škálovatelný a skutečně příjemný k používání."
+        "description": "Kvalita pro nás neznamená jen absenci chyb. Znamená intuitivní rozhraní, výkonný kód, bezpečnost a software, který je příjemný k používání i po letech."
       },
       "partnership": {
         "title": "Skutečné partnerství",
-        "description": "Váš úspěch je zásadně náš úspěch. Pracujeme jako bezproblémové, spolupracující rozšíření vašeho týmu, plně investováni do pochopení vašich jedinečných výzev, dosažení vaší strategické vize a slavení vašich vítězství. Budujeme trvalé vztahy založené na transparentnosti, důvěře, otevřené komunikaci a sdíleném závazku k dokonalosti."
+        "description": "Váš úspěch je i náš úspěch. Nejsme jen dodavatel — zapojujeme se, chápeme vaši situaci a táhneme za jeden provaz. Stavíme na transparentnosti, přímé komunikaci a dlouhodobých vztazích."
       },
       "innovation": {
         "title": "Neúnavná inovace",
-        "description": "Zůstáváme před rychle se vyvíjející technologickou křivkou, neustále zkoumáme nově vznikající frameworky, metodologie a průlomové technologie. Integrujeme nejmodernější AI schopnosti, experimentujeme s novými přístupy, přispíváme do open-source komunit a neustále zdokonalujeme naše řemeslo, abychom dodávali zítřejší inovativní řešení dnes a zajistili, že váš produkt zůstane konkurenceschopný po mnoho let."
+        "description": "Sledujeme vývoj technologií, zkoušíme nové přístupy a přispíváme do open-source komunit. Díky tomu jsou naše řešení vždy aktuální a konkurenceschopná."
       }
     }
   },
@@ -86,17 +86,17 @@
     "whatsIncluded": "Co je zahrnuto",
     "mobile": {
       "title": "Vývoj mobilních aplikací",
-      "description": "Přeměňte své nápady ve výkonné nativní mobilní aplikace, které uživatelé milují. Vytváříme vysoce výkonné iOS a Android aplikace s intuitivními rozhraními a bezproblémovou uživatelskou zkušeností.",
+      "description": "Vyvíjíme mobilní aplikace primárně s Ionic + Capacitor — jednou kódovou základnou pokryjeme iOS i Android a sdílíme logiku s webem. Výsledkem je nativní výkon, rychlejší vývoj a konzistentní zážitek na všech platformách.",
       "highlights": ["Rychlý výkon", "Nativní pocit", "Škálovatelná architektura"],
       "features": [
-        "Nativní iOS vývoj (Swift, SwiftUI)",
-        "Nativní Android vývoj (Kotlin, Jetpack Compose)",
-        "Cross-platform řešení (React Native, Flutter)",
-        "Mobilní UI/UX design a prototypování",
-        "Optimalizace a nasazení do App Store",
-        "Push notifikace a real-time funkce",
-        "Offline-first architektura",
-        "In-app nákupy a monetizace"
+        "Ionic + Capacitor (iOS + Android z jedné kódové základny)",
+        "Sdílení kódu s webovou aplikací",
+        "Nativní pluginy — kamera, GPS, biometrika, push notifikace",
+        "Nativní výkon díky Capacitor bridge",
+        "Offline podpora a lokální storage",
+        "App Store & Google Play nasazení",
+        "CI/CD pipeline pro mobilní nasazení",
+        "Nativní iOS (Swift) a Android (Kotlin) pro speciální edge cases"
       ]
     },
     "enterprise": {
@@ -172,7 +172,7 @@
       },
       "mobileApps": {
         "title": "Mobilní aplikace",
-        "description": "Nativní a cross-platform mobilní aplikace, které poskytují výjimečné uživatelské zkušenosti. Specializujeme se na iOS, Android a cross-platform řešení s produkcí připravenými šablonami pro rychlé nasazení.",
+        "description": "Mobilní aplikace vyvíjíme primárně s Ionic + Capacitor — jedna kódová základna, plné pokrytí iOS i Android, sdílený kód s webem. Pro nativní edge cases máme zkušenosti se Swift (iOS) a Kotlin (Android).",
         "features": [
           "Připravené mobilní šablony k nasazení",
           "Vlastní design & branding",
@@ -214,7 +214,7 @@
       },
       "mobileApps": {
         "title": "Mobilní aplikace",
-        "description": "Nativní a cross-platform mobilní aplikace, které poskytují výjimečné uživatelské zkušenosti. Specializujeme se na iOS, Android a cross-platform řešení s produkcí připravenými šablonami pro rychlé nasazení.",
+        "description": "Mobilní aplikace vyvíjíme primárně s Ionic + Capacitor — jedna kódová základna, plné pokrytí iOS i Android, sdílený kód s webem. Pro nativní edge cases máme zkušenosti se Swift (iOS) a Kotlin (Android).",
         "features": [
           "Připravené mobilní šablony k nasazení",
           "Vlastní design & branding",
@@ -245,7 +245,7 @@
     "pillsee": {
       "name": "Pillsee",
       "tagline": "Váš osobní asistent pro léky",
-      "description": "Pillsee je inovativní aplikace pro skenování a správu léků, která revolucionuje způsob, jakým sledujete a spravujete své recepty bez námahy. Jednoduše naskenujte štítky léků pomocí pokročilého optického rozpoznávání znaků poháněného AI pro okamžitý přístup ke komplexním informacím o lécích včetně pokynů k dávkování, možných vedlejších účinků a důležitých varování. Nastavte si inteligentní připomínky, které se přizpůsobí vašemu rozvrhu a zajistí, že nikdy nezmeškáte užití léku ve správný čas. Sledujte historii léků v čase, monitorujte vzorce dodržování, dostávejte upozornění na potenciální lékové interakce při přidávání nových receptů a sdílejte podrobné zprávy se svými poskytovateli zdravotní péče. S intuitivním rozhraním navrženým pro všechny věkové kategorie a bezproblémovou synchronizací napříč všemi vašimi zařízeními se Pillsee stává vaším důvěryhodným společníkem pro udržení souladu s léky a převzetí kontroly nad vaší zdravotní cestou.",
+      "description": "Pillsee je aplikace pro správu léků, která vám usnadní orientaci v receptech a dávkování. Stačí naskenovat štítek léku a okamžitě získáte přehled o způsobu užívání, vedlejších účincích a varováních. Nastavte si připomínky přizpůsobené vašemu rozvrhu, sledujte historii léků a dostávejte upozornění na potenciální lékové interakce. Pillsee funguje na všech vašich zařízeních a je navržena tak, aby ji pohodlně používali lidé všech věkových skupin.",
       "available": "Dostupné",
       "keyFeatures": "Klíčové funkce",
       "features": [
@@ -270,21 +270,21 @@
   },
   "collaboration": {
     "title": "Jak společně pracujeme",
-    "subtitle": "Od první poptávky po finální dodání a dlouhodobou podporu—transparentní proces, kde máte úplnou viditelnost a kontrolu v každé fázi.",
+    "subtitle": "Od první poptávky po finální dodání a dlouhodobou podporu — transparentní proces, kde máte úplnou viditelnost a kontrolu v každé fázi.",
     "note": "Přesný proces se může lišit v závislosti na vašich konkrétních požadavcích a rozsahu projektu.",
     "afterLaunch": "Co se stane po spuštění?",
     "afterLaunchDesc": "Vývoj aplikací je živý proces. Po nasazení začínají uživatelé pracovat s vaším řešením, objevují se nové nápady, funkce se vyvíjejí a optimalizace odemykají nové příležitosti pro růst a inovace.",
-    "longTerm": "Proto jsme tu na dlouhou dobu—nabízíme průběžnou podporu, strategické rozšiřování funkcí a neustálé vylepšování. Vaše aplikace se může neustále vyvíjet a škálovat spolu s vaším podnikáním, přizpůsobovat se novým výzvám a příležitostem, jak se objevují.",
+    "longTerm": "Proto jsme tu na dlouhou dobu — nabízíme průběžnou podporu, strategické rozšiřování funkcí a neustálé vylepšování. Vaše aplikace se může neustále vyvíjet a škálovat spolu s vaším podnikáním, přizpůsobovat se novým výzvám a příležitostem, jak se objevují.",
     "steps": {
       "inquiry": {
         "number": "01",
         "title": "Úvodní dotaz – bez závazku",
-        "description": "Sdílejte svou projektovou vizi prostřednictvím našeho kontaktního formuláře nebo rychlého hovoru. Odpovíme promyšlenými otázkami a postřehy—žádné závazky, žádný tlak, jen zkoumání možností a určování vhodnosti."
+        "description": "Sdílejte svou projektovou vizi prostřednictvím našeho kontaktního formuláře nebo rychlého hovoru. Odpovíme promyšlenými otázkami a postřehy — žádné závazky, žádný tlak, jen zkoumání možností a určování vhodnosti."
       },
       "discovery": {
         "number": "02",
         "title": "Objevná schůzka – porozumění vaší vizi",
-        "description": "Setkáme se online nebo osobně, abychom se ponořili hluboko do vašich cílů, cílového publika a požadovaných výsledků. Společně objasníme priority, identifikujeme výzvy a doporučíme strategická řešení přizpůsobená vašim potřebám."
+        "description": "Setkáme se online nebo osobně a pořádně si probereme vaše cíle, cílové uživatele a očekávané výsledky. Společně určíme priority, pojmenujeme výzvy a navrhneme konkrétní řešení šitá na míru."
       },
       "proposal": {
         "number": "03",
@@ -294,7 +294,7 @@
       "kickoff": {
         "number": "04",
         "title": "Schválení & oficiální zahájení vývoje",
-        "description": "Po schválení začneme pracovat s vývojářskou mapou, sprintovými fázemi a nástroji pro řízení projektů. Získáte viditelnost v reálném čase do toho, co vytváříme a proč—při každém kroku."
+        "description": "Po schválení začneme pracovat s vývojářskou mapou, sprintovými fázemi a nástroji pro řízení projektů. Získáte viditelnost v reálném čase do toho, co vytváříme a proč — při každém kroku."
       },
       "prototype": {
         "number": "05",
@@ -310,7 +310,7 @@
   },
   "whyChooseUs": {
     "title": "Proč zvolit Jabcore?",
-    "subtitle": "Kombinujeme technickou excelenci se skutečným partnerstvím a poskytujeme řešení, která nejen splňují očekávání—ale je překonávají. Toto nás odlišuje od ostatních.",
+    "subtitle": "Kombinujeme technickou excelenci se skutečným partnerstvím a poskytujeme řešení, která nejen splňují očekávání — ale je překonávají. Toto nás odlišuje od ostatních.",
     "reasons": {
       "speed": {
         "title": "Bleskově rychlé dodání",
@@ -344,7 +344,7 @@
   },
   "techStack": {
     "title": "Náš technologický stack",
-    "subtitle": "Využíváme nejmodernější technologie k vytváření řešení, která jsou rychlá, škálovatelná a připravená do budoucnosti. Naše expertíza pokrývá celý vývojový ekosystém—od frontendu po backend, mobile po cloud a všechno mezi tím.",
+    "subtitle": "Využíváme nejmodernější technologie k vytváření řešení, která jsou rychlá, škálovatelná a připravená do budoucnosti. Naše expertíza pokrývá celý vývojový ekosystém — od frontendu po backend, mobile po cloud a všechno mezi tím.",
     "notSeeingYourTech": "Nevidíte svůj oblíbený tech stack?",
     "notSeeingDesc": "Neustále se učíme a přizpůsobujeme. Pokud máte specifické technologické požadavky nebo preference, vyhodnotíme je a integrujeme nejlepší nástroje pro unikátní potřeby vašeho projektu. Náš závazek je ke správnému řešení, ne jen k známému.",
     "categories": {
@@ -358,7 +358,7 @@
       },
       "mobile": {
         "title": "Vývoj mobilních aplikací",
-        "description": "Nativní a multiplatformní mobilní aplikace"
+        "description": "Mobilní aplikace vyvíjíme primárně s Ionic + Capacitor — jedna kódová základna, plné pokrytí iOS i Android, sdílený kód s webem. Pro nativní edge cases máme zkušenosti se Swift (iOS) a Kotlin (Android)."
       },
       "cloud": {
         "title": "Cloud & DevOps",
@@ -377,7 +377,7 @@
   "cta": {
     "badge": "Připraveni začít?",
     "title": "Pojďme společně vytvořit něco úžasného",
-    "description": "Ať už jste startup s průlomovým nápadem, podnik hledající modernizaci vašich systémů, nebo kdekoliv mezi tím—jsme tu, abychom transformovali vaši vizi do výkonné digitální reality. Pojďme si popovídat o tom, co je možné.",
+    "description": "Ať jste startup s novým nápadem nebo firma, která potřebuje modernizovat systémy — jsme tu. Pojďme si popovídat o tom, co chcete vytvořit.",
     "startProject": "Zahajte svůj projekt",
     "exploreServices": "Prozkoumejte naše služby",
     "learnAboutUs": "Více o nás",
