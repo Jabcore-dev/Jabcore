@@ -409,8 +409,8 @@
   },
   "techStack": {
     "title": "Náš technologický stack",
-    "subtitle": "Využívame najpokročilejšie, moderné technológie na vytváranie riešení, ktoré sú rýchle, škálovateľné a pripravené do budúcnosti. Naša odbornosť pokrýva celý ekosystém vývoja—od frontendu po backend, mobilného po cloud a všetko medzi tým.",
-    "notSeeingYourTech": "Nevidíte váš preferovaný technologický stack?",
+    "subtitle": "Využívame najpokročilejšie, moderné technológie na vytváranie riešení, ktoré sú rýchle, škálovateľné a pripravené na budúcnosť. Naša odbornosť pokrýva celý ekosystém vývoja — od frontendu po backend, od mobilných aplikácií po cloud a všetko medzi tým.",
+    "notSeeingYourTech": "Nevidíte váš obľúbený tech stack?",
     "notSeeingDesc": "Vždy sa učíme a adaptujeme. Ak máte konkrétne technologické požiadavky alebo preferencie, vyhodnotíme ich a integrujeme najlepšie nástroje pre jedinečné potreby vášho projektu. Náš záväzok je k správnemu riešeniu, nie len k známemu.",
     "categories": {
       "frontend": {

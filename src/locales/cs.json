@@ -162,8 +162,8 @@
     }
   },
   "stack": {
-    "title": "Náš moderní stack",
-    "subtitle": "Nejmodernější technologie a osvědčené metodologie, které pohánějí výjimečná digitální řešení. Kombinujeme nejlepší nástroje s hlubokými znalostmi pro vytváření produktů, které škálují.",
+    "title": "Náš tech stack",
+    "subtitle": "Špičkové technologie a osvědčené postupy stojící za výjimečnými digitálními řešeními. Kombinujeme nejlepší nástroje s hlubokou odborností pro tvorbu produktů, které škálují.",
     "readyToBuild": "Připraveni vytvořit něco úžasného?",
     "readyDesc": "Pojďme probrat, jak může náš technologický stack oživit vaši vizi. Pomůžeme vám vybrat správné nástroje a vytvořit řešení, které překoná očekávání.",
     "getStarted": "Začněte ještě dnes",
@@ -360,9 +360,9 @@
   },
   "techStack": {
     "title": "Náš technologický stack",
-    "subtitle": "Využíváme nejmodernější technologie k vytváření řešení, která jsou rychlá, škálovatelná a připravená do budoucnosti. Naše expertíza pokrývá celý vývojový ekosystém — od frontendu po backend, mobile po cloud a všechno mezi tím.",
+    "subtitle": "Využíváme nejmodernější technologie pro tvorbu řešení, která jsou rychlá, škálovatelná a připravená na budoucnost. Naše odbornost pokrývá celý vývojový ekosystém — od frontendu po backend, od mobilních aplikací po cloud a vše mezi tím.",
     "notSeeingYourTech": "Nevidíte svůj oblíbený tech stack?",
-    "notSeeingDesc": "Neustále se učíme a přizpůsobujeme. Pokud máte specifické technologické požadavky nebo preference, vyhodnotíme je a integrujeme nejlepší nástroje pro unikátní potřeby vašeho projektu. Náš závazek je ke správnému řešení, ne jen k známému.",
+    "notSeeingDesc": "Neustále se učíme a přizpůsobujeme. Pokud máte specifické technologické požadavky nebo preference, vyhodnotíme je a zapojíme nejlepší nástroje pro jedinečné potřeby vašeho projektu. Záleží nám na správném řešení, ne jen na tom zavedeném.",
     "categories": {
       "frontend": {
         "title": "Frontend technologie",
@@ -370,7 +370,7 @@
       },
       "backend": {
         "title": "Backend & API",
-        "description": "Robustní server-side architektura a škálovatelný vývoj API"
+        "description": "Robustní serverová architektura a škálovatelný vývoj API"
       },
       "mobile": {
         "title": "Vývoj mobilních aplikací",
@@ -386,7 +386,7 @@
       },
       "design": {
         "title": "Design & prototypování",
-        "description": "Design zaměřený na uživatele a vizuální excelence"
+        "description": "Design zaměřený na uživatele a vizuální dokonalost"
       }
     }
   },

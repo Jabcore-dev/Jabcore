@@ -211,10 +211,10 @@
     "phoneNumberPlaceholder": "123456789"
   },
   "stack": {
-    "title": "Nasz nowoczesny stos",
+    "title": "Nasz nowoczesny stack",
     "subtitle": "Najnowocześniejsze technologie i sprawdzone metodologie, które zasilają wyjątkowe rozwiązania cyfrowe. Łączymy najlepsze narzędzia z głęboką wiedzą, aby budować produkty, które skalują się.",
     "readyToBuild": "Gotowy zbudować coś niesamowitego?",
-    "readyDesc": "Porozmawiajmy o tym, jak nasz stos technologiczny może ożywić Twoją wizję. Pomożemy Ci wybrać odpowiednie narzędzia i zbudować rozwiązanie, które przekroczy oczekiwania.",
+    "readyDesc": "Porozmawiajmy o tym, jak nasz stack technologiczny może ożywić Twoją wizję. Pomożemy Ci wybrać odpowiednie narzędzia i zbudować rozwiązanie, które przekroczy oczekiwania.",
     "getStarted": "Zacznij dzisiaj",
     "technologies": {
       "solutionArchitecture": {
@@ -408,9 +408,9 @@
     }
   },
   "techStack": {
-    "title": "Nasz stos technologiczny",
-    "subtitle": "Wykorzystujemy najpotężniejsze, nowoczesne technologie do budowania rozwiązań, które są szybkie, skalowalne i przyszłościowe. Nasza wiedza obejmuje cały ekosystem rozwoju—od frontendu do backendu, mobilnego do chmury i wszystkiego pomiędzy.",
-    "notSeeingYourTech": "Nie widzisz swojego preferowanego stosu technologicznego?",
+    "title": "Nasz stack technologiczny",
+    "subtitle": "Wykorzystujemy najpotężniejsze, nowoczesne technologie do budowania rozwiązań, które są szybkie, skalowalne i przyszłościowe. Nasza wiedza obejmuje cały ekosystem deweloperski — od frontendu do backendu, od mobilnych aplikacji do chmury i wszystkiego pomiędzy.",
+    "notSeeingYourTech": "Nie widzisz swojego preferowanego tech stacku?",
     "notSeeingDesc": "Zawsze się uczymy i adaptujemy. Jeśli masz konkretne wymagania lub preferencje technologiczne, ocenimy je i zintegrujemy najlepsze narzędzia dla unikalnych potrzeb Twojego projektu. Naszym zobowiązaniem jest właściwe rozwiązanie, nie tylko znajome.",
     "categories": {
       "frontend": {

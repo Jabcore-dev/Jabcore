@@ -163,7 +163,7 @@
   },
   "stack": {
     "title": "Modern stack-ünk",
-    "subtitle": "Élvonalbeli technológiák és bevált módszertanok, amelyek kivételes digitális megoldásokat tesznek lehetővé. A legjobb eszközöket kombináljuk mély szakértelemmel, hogy skálázódó termékeket építsünk.",
+    "subtitle": "Élvonalbeli technológiák és bevált módszertanok, amelyek kivételes digitális megoldásokat tesznek lehetővé. A legjobb eszközöket kombináljuk mély szakértelemmel, hogy skálázható termékeket építsünk.",
     "readyToBuild": "Készen állsz valami nagyszerű építésére?",
     "readyDesc": "Beszéljük meg, hogyan keltheti életre technológiai stack-ünk az elképzelésedet. Segítünk kiválasztani a megfelelő eszközöket és olyan megoldást építeni, amely meghaladja az elvárásokat.",
     "getStarted": "Kezdd el ma",
@@ -360,9 +360,9 @@
   },
   "techStack": {
     "title": "Technológiai stack-ünk",
-    "subtitle": "A legerősebb, legmodernebb technológiákat használjuk, hogy gyors, skálázható és jövőbiztos megoldásokat építsünk. Szakértelmünk az egész fejlesztési ökoszisztémára kiterjed—frontenddel backendre, mobiltól felhőig és minden köztes területre.",
+    "subtitle": "A legerősebb, legmodernebb technológiákat használjuk, hogy gyors, skálázható és jövőbiztos megoldásokat építsünk. Szakértelmünk lefedi a teljes fejlesztési ökoszisztémát — a frontendtől a backendig, a mobilos alkalmazásoktól a felhőig és minden köztes területre.",
     "notSeeingYourTech": "Nem látod az előnyben részesített technológiai stack-ed?",
-    "notSeeingDesc": "Mindig tanulunk és alkalmazkodunk. Ha konkrét technológiai követelményeid vagy preferenciáid vannak, értékeljük és integráljuk a legjobb eszközöket a projekted egyedi igényeihez. Elkötelezettségünk a helyes megoldás mellett áll, nem csak az ismerős mellett.",
+    "notSeeingDesc": "Mindig tanulunk és alkalmazkodunk. Ha konkrét technológiai követelményeid vagy preferenciáid vannak, értékeljük és integráljuk a legjobb eszközöket a projekted egyedi igényeihez. Számunkra a megfelelő megoldás a fontos, nem csupán az ismerős.",
     "categories": {
       "frontend": {
         "title": "Frontend technológiák",
