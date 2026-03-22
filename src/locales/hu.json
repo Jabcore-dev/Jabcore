@@ -2,27 +2,33 @@
   "seo": {
     "home": {
       "description": "A Jabcore professzionális webfejlesztést, modern digitális megoldásokat és tanácsadást kínál. React, TypeScript és modern technológiákra specializálódunk.",
-      "keywords": "webfejlesztés, React, TypeScript, digitális megoldások, Jabcore, programozás, szoftver"
+      "keywords": "webfejlesztés, React, TypeScript, digitális megoldások, Jabcore, programozás, szoftver",
+      "title": "Jabcore — Az új alkalmazásod alapja."
     },
     "services": {
       "description": "Teljes körű webfejlesztési szolgáltatásokat, mobilalkalmazás-fejlesztést, AI integrációt, felhőmegoldásokat és UX/UI designt kínálunk.",
-      "keywords": "webfejlesztés, mobilalkalmazások, AI integráció, felhőmegoldások, UX design, UI design, React, TypeScript"
+      "keywords": "webfejlesztés, mobilalkalmazások, AI integráció, felhőmegoldások, UX design, UI design, React, TypeScript",
+      "title": "Szolgáltatások | Jabcore"
     },
     "products": {
       "description": "Fedezze fel saját termékeinket és alkalmazásainkat. PillSee és más innovatív megoldások a Jabcore csapattól.",
-      "keywords": "termékek, alkalmazások, PillSee, mobilalkalmazások, Jabcore"
+      "keywords": "termékek, alkalmazások, PillSee, mobilalkalmazások, Jabcore",
+      "title": "Termékek | Jabcore"
     },
     "stack": {
       "description": "A legmodernebb technológiákkal dolgozunk: React, TypeScript, Node.js, Python, AI integráció, felhőmegoldások és még több.",
-      "keywords": "technológia, stack, React, TypeScript, Node.js, Python, AI, felhő, Docker, Azure"
+      "keywords": "technológia, stack, React, TypeScript, Node.js, Python, AI, felhő, Docker, Azure",
+      "title": "Mit használunk | Jabcore"
     },
     "about": {
       "description": "Ismerje meg a Jabcore csapatot. Lelkes fejlesztők és designerek vagyunk, akik modern digitális megoldásokat hoznak létre.",
-      "keywords": "rólunk, csapat, Jabcore, fejlesztők, designerek, cégtörténet"
+      "keywords": "rólunk, csapat, Jabcore, fejlesztők, designerek, cégtörténet",
+      "title": "Rólunk | Jabcore"
     },
     "contact": {
       "description": "Lépjen kapcsolatba velünk ingyenes konzultációért. Segítünk webfejlesztésben, mobilalkalmazásokban vagy AI megoldásokban.",
-      "keywords": "kapcsolat, konzultáció, projekt, együttműködés, Jabcore"
+      "keywords": "kapcsolat, konzultáció, projekt, együttműködés, Jabcore",
+      "title": "Kapcsolat | Jabcore"
     }
   },
   "navigation": {
@@ -174,7 +180,7 @@
         "features": [
           "Technikai elemzés és stratégiai tervezés",
           "Proof of concept fejlesztés",
-          "Folyamatos architektúra tulajdonlás",
+          "Folyamatos architektúra-felügyelet",
           "Méretezhetőség és teljesítmény optimalizálás"
         ]
       },
@@ -216,7 +222,7 @@
         "features": [
           "Technikai elemzés és stratégiai tervezés",
           "Proof of concept fejlesztés",
-          "Folyamatos architektúra tulajdonlás",
+          "Folyamatos architektúra-felügyelet",
           "Méretezhetőség és teljesítmény optimalizálás"
         ]
       },
@@ -334,7 +340,7 @@
       },
       "security": {
         "title": "Vállalati szintű biztonság",
-        "description": "Biztonság minden kódsorba beépítve. GDPR-kompatibilis, OWASP-tanúsítvánnyal, teljesen védett."
+        "description": "Biztonság minden kódsorba beépítve. GDPR-kompatibilis, OWASP-kompatibilis, teljesen védett."
       },
       "scalability": {
         "title": "Végtelen skálázhatóság",

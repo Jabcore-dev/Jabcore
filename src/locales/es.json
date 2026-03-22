@@ -2,27 +2,33 @@
   "seo": {
     "home": {
       "description": "Jabcore ofrece desarrollo web profesional, soluciones digitales modernas y consultoría. Nos especializamos en React, TypeScript y tecnologías modernas.",
-      "keywords": "desarrollo web, React, TypeScript, soluciones digitales, Jabcore, programación, software"
+      "keywords": "desarrollo web, React, TypeScript, soluciones digitales, Jabcore, programación, software",
+      "title": "Jabcore — El núcleo de tu nueva app."
     },
     "services": {
       "description": "Ofrecemos servicios completos de desarrollo web, desarrollo de aplicaciones móviles, integración de IA, soluciones en la nube y diseño UX/UI.",
-      "keywords": "desarrollo web, aplicaciones móviles, integración IA, soluciones cloud, UX design, UI design, React, TypeScript"
+      "keywords": "desarrollo web, aplicaciones móviles, integración IA, soluciones cloud, UX design, UI design, React, TypeScript",
+      "title": "Servicios | Jabcore"
     },
     "products": {
       "description": "Descubre nuestros propios productos y aplicaciones. PillSee y otras soluciones innovadoras creadas por el equipo de Jabcore.",
-      "keywords": "productos, aplicaciones, PillSee, aplicaciones móviles, Jabcore"
+      "keywords": "productos, aplicaciones, PillSee, aplicaciones móviles, Jabcore",
+      "title": "Productos | Jabcore"
     },
     "stack": {
       "description": "Trabajamos con las tecnologías más modernas: React, TypeScript, Node.js, Python, integración de IA, soluciones en la nube y más.",
-      "keywords": "tecnología, stack, React, TypeScript, Node.js, Python, IA, cloud, Docker, Azure"
+      "keywords": "tecnología, stack, React, TypeScript, Node.js, Python, IA, cloud, Docker, Azure",
+      "title": "Qué usamos | Jabcore"
     },
     "about": {
       "description": "Conoce al equipo de Jabcore. Somos un grupo de desarrolladores y diseñadores apasionados creando soluciones digitales modernas.",
-      "keywords": "sobre nosotros, equipo, Jabcore, desarrolladores, diseñadores, historia de la empresa"
+      "keywords": "sobre nosotros, equipo, Jabcore, desarrolladores, diseñadores, historia de la empresa",
+      "title": "Sobre nosotros | Jabcore"
     },
     "contact": {
       "description": "Contáctanos para una consulta gratuita sobre tu proyecto. Te ayudaremos con desarrollo web, aplicaciones móviles o soluciones de IA.",
-      "keywords": "contacto, consulta, proyecto, colaboración, Jabcore"
+      "keywords": "contacto, consulta, proyecto, colaboración, Jabcore",
+      "title": "Contacto | Jabcore"
     }
   },
   "navigation": {
@@ -171,7 +177,7 @@
       },
       "security": {
         "title": "Seguridad de nivel empresarial",
-        "description": "Seguridad integrada en cada línea de código. Conforme con GDPR, certificado OWASP, totalmente protegido."
+        "description": "Seguridad integrada en cada línea de código. Conforme con GDPR, conforme con OWASP, totalmente protegido."
       },
       "scalability": {
         "title": "Escalabilidad infinita",
@@ -240,7 +246,7 @@
         "features": [
           "Análisis técnico y planificación estratégica",
           "Desarrollo de prueba de concepto",
-          "Propiedad continua de la arquitectura",
+          "Gestión continua de la arquitectura",
           "Optimización de escalabilidad y rendimiento"
         ]
       },
@@ -272,7 +278,7 @@
       },
       "uxui": {
         "title": "Diseño UX/UI",
-        "description": "Interfaces hermosas e intuitivas que los usuarios aman. Mezclamos excelencia estética con investigación de usabilidad para crear diseños pixel-perfect que guían a los usuarios de forma natural e impulsan el compromiso."
+        "description": "Interfaces hermosas e intuitivas que los usuarios aman. Combinamos excelencia estética con investigación de usabilidad para crear diseños pixel-perfect que guían a los usuarios de forma natural e impulsan el compromiso."
       }
     },
     "categories": {
@@ -282,7 +288,7 @@
         "features": [
           "Análisis técnico y planificación estratégica",
           "Desarrollo de prueba de concepto",
-          "Propiedad continua de la arquitectura",
+          "Gestión continua de la arquitectura",
           "Optimización de escalabilidad y rendimiento"
         ]
       },
@@ -314,7 +320,7 @@
       },
       "uxui": {
         "title": "Diseño UX/UI",
-        "description": "Interfaces hermosas e intuitivas que los usuarios aman. Mezclamos excelencia estética con investigación de usabilidad para crear diseños pixel-perfect que guían a los usuarios de forma natural e impulsan el compromiso."
+        "description": "Interfaces hermosas e intuitivas que los usuarios aman. Combinamos excelencia estética con investigación de usabilidad para crear diseños pixel-perfect que guían a los usuarios de forma natural e impulsan el compromiso."
       }
     }
   },

@@ -2,27 +2,33 @@
   "seo": {
     "home": {
       "description": "Rozwój oprogramowania z integracją AI. Tworzymy cyfrowe produkty światowej klasy, które transformują biznes.",
-      "keywords": "tworzenie stron, React, TypeScript, rozwiązania cyfrowe, Jabcore, programowanie, oprogramowanie, integracja AI"
+      "keywords": "tworzenie stron, React, TypeScript, rozwiązania cyfrowe, Jabcore, programowanie, oprogramowanie, integracja AI",
+      "title": "Jabcore — Rdzeń Twojej nowej aplikacji."
     },
     "services": {
       "description": "Oferujemy kompleksowe usługi tworzenia stron, aplikacji mobilnych, integracji AI, rozwiązań chmurowych i projektowania UX/UI.",
-      "keywords": "tworzenie stron, aplikacje mobilne, integracja AI, rozwiązania chmurowe, UX design, UI design, React, TypeScript"
+      "keywords": "tworzenie stron, aplikacje mobilne, integracja AI, rozwiązania chmurowe, UX design, UI design, React, TypeScript",
+      "title": "Usługi | Jabcore"
     },
     "products": {
       "description": "Odkryj nasze własne produkty i aplikacje. PillSee i inne innowacyjne rozwiązania stworzone przez zespół Jabcore.",
-      "keywords": "produkty, aplikacje, PillSee, aplikacje mobilne, Jabcore"
+      "keywords": "produkty, aplikacje, PillSee, aplikacje mobilne, Jabcore",
+      "title": "Produkty | Jabcore"
     },
     "stack": {
       "description": "Pracujemy z najnowocześniejszymi technologiami: React, TypeScript, Node.js, Python, integracja AI, rozwiązania chmurowe i więcej.",
-      "keywords": "technologia, stack, React, TypeScript, Node.js, Python, AI, chmura, Docker, Azure"
+      "keywords": "technologia, stack, React, TypeScript, Node.js, Python, AI, chmura, Docker, Azure",
+      "title": "Czego używamy | Jabcore"
     },
     "about": {
       "description": "Poznaj zespół Jabcore. Jesteśmy grupą pasjonatów programistów i projektantów tworzących nowoczesne rozwiązania cyfrowe.",
-      "keywords": "o nas, zespół, Jabcore, programiści, projektanci, historia firmy"
+      "keywords": "o nas, zespół, Jabcore, programiści, projektanci, historia firmy",
+      "title": "O nas | Jabcore"
     },
     "contact": {
       "description": "Skontaktuj się z nami w sprawie bezpłatnej konsultacji projektu. Pomożemy Ci w tworzeniu stron, aplikacji mobilnych lub rozwiązań AI.",
-      "keywords": "kontakt, konsultacja, projekt, współpraca, Jabcore"
+      "keywords": "kontakt, konsultacja, projekt, współpraca, Jabcore",
+      "title": "Kontakt | Jabcore"
     }
   },
   "navigation": {
@@ -223,7 +229,7 @@
         "features": [
           "Analiza techniczna i planowanie strategiczne",
           "Rozwój proof of concept",
-          "Ciągłe właścicielstwo architektury",
+          "Ciągłe zarządzanie architekturą",
           "Optymalizacja skalowalności i wydajności"
         ]
       },
@@ -265,7 +271,7 @@
         "features": [
           "Analiza techniczna i planowanie strategiczne",
           "Rozwój proof of concept",
-          "Ciągłe właścicielstwo architektury",
+          "Ciągłe zarządzanie architekturą",
           "Optymalizacja skalowalności i wydajności"
         ]
       },
@@ -383,7 +389,7 @@
       },
       "security": {
         "title": "Bezpieczeństwo klasy enterprise",
-        "description": "Bezpieczeństwo wbudowane w każdą linię kodu. Zgodność z GDPR, certyfikat OWASP, w pełni chronione."
+        "description": "Bezpieczeństwo wbudowane w każdą linię kodu. Zgodność z GDPR, zgodność ze standardami OWASP, w pełni chronione."
       },
       "scalability": {
         "title": "Nieskończona skalowalność",

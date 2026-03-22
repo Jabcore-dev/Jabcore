@@ -2,27 +2,33 @@
   "seo": {
     "home": {
       "description": "Jabcore oferă dezvoltare web profesională, soluții digitale moderne și consultanță. Ne specializăm în React, TypeScript și tehnologii moderne.",
-      "keywords": "dezvoltare web, React, TypeScript, soluții digitale, Jabcore, programare, software"
+      "keywords": "dezvoltare web, React, TypeScript, soluții digitale, Jabcore, programare, software",
+      "title": "Jabcore — Nucleul noii tale aplicații."
     },
     "services": {
       "description": "Oferim servicii complete de dezvoltare web, dezvoltare de aplicații mobile, integrare AI, soluții cloud și design UX/UI.",
-      "keywords": "dezvoltare web, aplicații mobile, integrare AI, soluții cloud, UX design, UI design, React, TypeScript"
+      "keywords": "dezvoltare web, aplicații mobile, integrare AI, soluții cloud, UX design, UI design, React, TypeScript",
+      "title": "Servicii | Jabcore"
     },
     "products": {
       "description": "Descoperiți produsele și aplicațiile noastre. PillSee și alte soluții inovatoare create de echipa Jabcore.",
-      "keywords": "produse, aplicații, PillSee, aplicații mobile, Jabcore"
+      "keywords": "produse, aplicații, PillSee, aplicații mobile, Jabcore",
+      "title": "Produse | Jabcore"
     },
     "stack": {
       "description": "Lucrăm cu cele mai moderne tehnologii: React, TypeScript, Node.js, Python, integrare AI, soluții cloud și multe altele.",
-      "keywords": "tehnologie, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure"
+      "keywords": "tehnologie, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure",
+      "title": "Ce folosim | Jabcore"
     },
     "about": {
       "description": "Cunoașteți echipa Jabcore. Suntem un grup de dezvoltatori și designeri pasionați care creează soluții digitale moderne.",
-      "keywords": "despre noi, echipă, Jabcore, dezvoltatori, designeri, istoria companiei"
+      "keywords": "despre noi, echipă, Jabcore, dezvoltatori, designeri, istoria companiei",
+      "title": "Despre noi | Jabcore"
     },
     "contact": {
       "description": "Contactați-ne pentru o consultație gratuită despre proiectul dvs. Vă ajutăm cu dezvoltare web, aplicații mobile sau soluții AI.",
-      "keywords": "contact, consultație, proiect, colaborare, Jabcore"
+      "keywords": "contact, consultație, proiect, colaborare, Jabcore",
+      "title": "Contact | Jabcore"
     }
   },
   "navigation": {
@@ -174,7 +180,7 @@
         "features": [
           "Analiză tehnică și planificare strategică",
           "Dezvoltare proof of concept",
-          "Proprietate continuă asupra arhitecturii",
+          "Gestionare continuă a arhitecturii",
           "Scalabilitate și optimizare performanță"
         ]
       },
@@ -216,7 +222,7 @@
         "features": [
           "Analiză tehnică și planificare strategică",
           "Dezvoltare proof of concept",
-          "Proprietate continuă asupra arhitecturii",
+          "Gestionare continuă a arhitecturii",
           "Scalabilitate și optimizare performanță"
         ]
       },
@@ -334,7 +340,7 @@
       },
       "security": {
         "title": "Securitate de nivel enterprise",
-        "description": "Securitate încorporată în fiecare linie de cod. Conform GDPR, certificat OWASP, complet protejat."
+        "description": "Securitate încorporată în fiecare linie de cod. Conform GDPR, conform standardelor OWASP, complet protejat."
       },
       "scalability": {
         "title": "Scalabilitate infinită",

@@ -5,17 +5,23 @@ import Providers from '@/components/providers/Providers'
 import Navigation from '@/components/sections/Navigation'
 import Footer from '@/components/sections/Footer'
 import { Toaster } from '@/components/ui/sonner'
+import DynamicSeoTitle from '@/components/DynamicSeoTitle'
 
 const GA_MEASUREMENT_ID = 'G-ENB3YT49GT'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Jabcore — Build it right, build it once.',
+    default: 'Jabcore — Jádro vaší nové aplikace.',
     template: '%s | Jabcore',
   },
   description: 'Vývoj softwaru na míru — mobilní aplikace, enterprise systémy, webové aplikace. Lean tým, AI-first přístup, konkurenční ceny.',
   metadataBase: new URL('https://jabcore.cz'),
   alternates: { canonical: 'https://jabcore.cz' },
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
   openGraph: {
     siteName: 'Jabcore',
     locale: 'cs_CZ',
@@ -25,7 +31,7 @@ export const metadata: Metadata = {
         url: 'https://jabcore.cz/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Jabcore — Build it right, build it once.',
+        alt: 'Jabcore — Jádro vaší nové aplikace.',
       },
     ],
   },
@@ -54,6 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Script>
 
         <Providers>
+          <DynamicSeoTitle />
           <div className="min-h-screen bg-background text-foreground">
             <Navigation />
             <main>{children}</main>

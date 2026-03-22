@@ -2,27 +2,33 @@
   "seo": {
     "home": {
       "description": "Vývoj softvéru s integráciou AI. Vytvárame digitálne produkty svetovej úrovne, ktoré transformujú podnikanie.",
-      "keywords": "webový vývoj, React, TypeScript, digitálne riešenia, Jabcore, programovanie, softvér, AI integrácia"
+      "keywords": "webový vývoj, React, TypeScript, digitálne riešenia, Jabcore, programovanie, softvér, AI integrácia",
+      "title": "Jabcore — Jadro vašej novej aplikácie."
     },
     "services": {
       "description": "Ponúkame kompletné služby webového vývoja, tvorbu mobilných aplikácií, AI integrácie, cloudové riešenia a UX/UI dizajn.",
-      "keywords": "webový vývoj, mobilné aplikácie, AI integrácia, cloudové riešenia, UX dizajn, UI dizajn, React, TypeScript"
+      "keywords": "webový vývoj, mobilné aplikácie, AI integrácia, cloudové riešenia, UX dizajn, UI dizajn, React, TypeScript",
+      "title": "Služby | Jabcore"
     },
     "products": {
       "description": "Objavte naše vlastné produkty a aplikácie. PillSee a ďalšie inovatívne riešenia vytvorené tímom Jabcore.",
-      "keywords": "produkty, aplikácie, PillSee, mobilné aplikácie, Jabcore"
+      "keywords": "produkty, aplikácie, PillSee, mobilné aplikácie, Jabcore",
+      "title": "Produkty | Jabcore"
     },
     "stack": {
       "description": "Pracujeme s najmodernejšími technológiami: React, TypeScript, Node.js, Python, AI integrácia, cloudové riešenia a ďalšie.",
-      "keywords": "technológia, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure"
+      "keywords": "technológia, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure",
+      "title": "Čo používame | Jabcore"
     },
     "about": {
       "description": "Spoznajte tím Jabcore. Sme skupina nadšených vývojárov a dizajnérov, ktorí vytvárajú moderné digitálne riešenia.",
-      "keywords": "o nás, tím, Jabcore, vývojári, dizajnéri, príbeh firmy"
+      "keywords": "o nás, tím, Jabcore, vývojári, dizajnéri, príbeh firmy",
+      "title": "O nás | Jabcore"
     },
     "contact": {
       "description": "Kontaktujte nás pre bezplatnú konzultáciu vášho projektu. Pomôžeme vám s webovým vývojom, mobilnými aplikáciami alebo AI riešeniami.",
-      "keywords": "kontakt, konzultácia, projekt, spolupráca, Jabcore"
+      "keywords": "kontakt, konzultácia, projekt, spolupráca, Jabcore",
+      "title": "Kontakt | Jabcore"
     }
   },
   "navigation": {
@@ -109,7 +115,7 @@
       "highlights": [
         "Poháňané AI",
         "Plne integrované",
-        "Bezpečné a kompatibilné"
+        "Bezpečné a v súlade s predpismi"
       ],
       "features": [
         "Vlastné CRM a ERP systémy",
@@ -223,7 +229,7 @@
         "features": [
           "Technická analýza & strategické plánovanie",
           "Vývoj proof of concept",
-          "Priebežné vlastníctvo architektúry",
+          "Priebežná správa architektúry",
           "Optimalizácia škálovateľnosti a výkonu"
         ]
       },
@@ -265,7 +271,7 @@
         "features": [
           "Technická analýza & strategické plánovanie",
           "Vývoj proof of concept",
-          "Priebežné vlastníctvo architektúry",
+          "Priebežná správa architektúry",
           "Optimalizácia škálovateľnosti a výkonu"
         ]
       },
@@ -383,7 +389,7 @@
       },
       "security": {
         "title": "Bezpečnosť podnikovej úrovne",
-        "description": "Bezpečnosť zabudovaná v každom riadku kódu. Kompatibilné s GDPR, certifikované OWASP, plne chránené."
+        "description": "Bezpečnosť zabudovaná v každom riadku kódu. V súlade s GDPR, v súlade so štandardmi OWASP, plne chránené."
       },
       "scalability": {
         "title": "Nekonečná škálovateľnosť",

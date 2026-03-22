@@ -2,27 +2,33 @@
   "seo": {
     "home": {
       "description": "A Jabcore oferece desenvolvimento web profissional, soluções digitais modernas e consultoria. Especializamo-nos em React, TypeScript e tecnologias modernas.",
-      "keywords": "desenvolvimento web, React, TypeScript, soluções digitais, Jabcore, programação, software"
+      "keywords": "desenvolvimento web, React, TypeScript, soluções digitais, Jabcore, programação, software",
+      "title": "Jabcore — O núcleo da sua nova app."
     },
     "services": {
       "description": "Oferecemos serviços completos de desenvolvimento web, desenvolvimento de aplicações móveis, integração de IA, soluções cloud e design UX/UI.",
-      "keywords": "desenvolvimento web, aplicações móveis, integração IA, soluções cloud, UX design, UI design, React, TypeScript"
+      "keywords": "desenvolvimento web, aplicações móveis, integração IA, soluções cloud, UX design, UI design, React, TypeScript",
+      "title": "Serviços | Jabcore"
     },
     "products": {
       "description": "Descubra os nossos próprios produtos e aplicações. PillSee e outras soluções inovadoras criadas pela equipa Jabcore.",
-      "keywords": "produtos, aplicações, PillSee, aplicações móveis, Jabcore"
+      "keywords": "produtos, aplicações, PillSee, aplicações móveis, Jabcore",
+      "title": "Produtos | Jabcore"
     },
     "stack": {
       "description": "Trabalhamos com as tecnologias mais modernas: React, TypeScript, Node.js, Python, integração de IA, soluções cloud e mais.",
-      "keywords": "tecnologia, stack, React, TypeScript, Node.js, Python, IA, cloud, Docker, Azure"
+      "keywords": "tecnologia, stack, React, TypeScript, Node.js, Python, IA, cloud, Docker, Azure",
+      "title": "O que usamos | Jabcore"
     },
     "about": {
       "description": "Conheça a equipa Jabcore. Somos um grupo de desenvolvedores e designers apaixonados criando soluções digitais modernas.",
-      "keywords": "sobre nós, equipa, Jabcore, desenvolvedores, designers, história da empresa"
+      "keywords": "sobre nós, equipa, Jabcore, desenvolvedores, designers, história da empresa",
+      "title": "Sobre nós | Jabcore"
     },
     "contact": {
       "description": "Contacte-nos para uma consulta gratuita sobre o seu projeto. Ajudamos com desenvolvimento web, aplicações móveis ou soluções de IA.",
-      "keywords": "contacto, consulta, projeto, colaboração, Jabcore"
+      "keywords": "contacto, consulta, projeto, colaboração, Jabcore",
+      "title": "Contacto | Jabcore"
     }
   },
   "navigation": {
@@ -174,7 +180,7 @@
         "features": [
           "Análise técnica e planejamento estratégico",
           "Desenvolvimento de prova de conceito",
-          "Propriedade contínua da arquitetura",
+          "Gestão contínua da arquitetura",
           "Escalabilidade e otimização de desempenho"
         ]
       },
@@ -216,7 +222,7 @@
         "features": [
           "Análise técnica e planejamento estratégico",
           "Desenvolvimento de prova de conceito",
-          "Propriedade contínua da arquitetura",
+          "Gestão contínua da arquitetura",
           "Escalabilidade e otimização de desempenho"
         ]
       },
@@ -334,7 +340,7 @@
       },
       "security": {
         "title": "Segurança de nível empresarial",
-        "description": "Segurança incorporada em cada linha de código. Compatível com GDPR, certificado OWASP, totalmente protegido."
+        "description": "Segurança incorporada em cada linha de código. Compatível com GDPR, em conformidade com OWASP, totalmente protegido."
       },
       "scalability": {
         "title": "Escalabilidade infinita",

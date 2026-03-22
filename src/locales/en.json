@@ -2,27 +2,33 @@
   "seo": {
     "home": {
       "description": "Software development with AI integration. We create world-class digital products that transform businesses.",
-      "keywords": "web development, React, TypeScript, digital solutions, Jabcore, programming, software, AI integration"
+      "keywords": "web development, React, TypeScript, digital solutions, Jabcore, programming, software, AI integration",
+      "title": "Jabcore — Build it right, build it once."
     },
     "services": {
       "description": "We offer complete web development services, mobile app development, AI integration, cloud solutions and UX/UI design.",
-      "keywords": "web development, mobile apps, AI integration, cloud solutions, UX design, UI design, React, TypeScript"
+      "keywords": "web development, mobile apps, AI integration, cloud solutions, UX design, UI design, React, TypeScript",
+      "title": "Services | Jabcore"
     },
     "products": {
       "description": "Discover our own products and applications. PillSee and other innovative solutions created by the Jabcore team.",
-      "keywords": "products, applications, PillSee, mobile apps, Jabcore"
+      "keywords": "products, applications, PillSee, mobile apps, Jabcore",
+      "title": "Products | Jabcore"
     },
     "stack": {
       "description": "We work with the most modern technologies: React, TypeScript, Node.js, Python, AI integration, cloud solutions and more.",
-      "keywords": "technology, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure"
+      "keywords": "technology, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure",
+      "title": "What We Use | Jabcore"
     },
     "about": {
       "description": "Meet the Jabcore team. We are a group of passionate developers and designers creating modern digital solutions.",
-      "keywords": "about us, team, Jabcore, developers, designers, company story"
+      "keywords": "about us, team, Jabcore, developers, designers, company story",
+      "title": "About Us | Jabcore"
     },
     "contact": {
       "description": "Contact us for a free consultation on your project. We'll help you with web development, mobile apps or AI solutions.",
-      "keywords": "contact, consultation, project, collaboration, Jabcore"
+      "keywords": "contact, consultation, project, collaboration, Jabcore",
+      "title": "Contact | Jabcore"
     }
   },
   "navigation": {
@@ -334,7 +340,7 @@
       },
       "security": {
         "title": "Enterprise-Grade Security",
-        "description": "Security built into every line of code. GDPR compliant, OWASP certified, fully protected."
+        "description": "Security built into every line of code. GDPR compliant, OWASP-compliant, fully protected."
       },
       "scalability": {
         "title": "Infinite Scalability",

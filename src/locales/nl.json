@@ -2,27 +2,33 @@
   "seo": {
     "home": {
       "description": "Jabcore biedt professionele webontwikkeling, moderne digitale oplossingen en advies. Wij specialiseren in React, TypeScript en moderne technologieën.",
-      "keywords": "webontwikkeling, React, TypeScript, digitale oplossingen, Jabcore, programmeren, software"
+      "keywords": "webontwikkeling, React, TypeScript, digitale oplossingen, Jabcore, programmeren, software",
+      "title": "Jabcore — De kern van uw nieuwe app."
     },
     "services": {
       "description": "Wij bieden complete webontwikkelingsdiensten, mobiele app-ontwikkeling, AI-integratie, cloudoplossingen en UX/UI-design.",
-      "keywords": "webontwikkeling, mobiele apps, AI-integratie, cloudoplossingen, UX design, UI design, React, TypeScript"
+      "keywords": "webontwikkeling, mobiele apps, AI-integratie, cloudoplossingen, UX design, UI design, React, TypeScript",
+      "title": "Diensten | Jabcore"
     },
     "products": {
       "description": "Ontdek onze eigen producten en applicaties. PillSee en andere innovatieve oplossingen gemaakt door het Jabcore-team.",
-      "keywords": "producten, applicaties, PillSee, mobiele apps, Jabcore"
+      "keywords": "producten, applicaties, PillSee, mobiele apps, Jabcore",
+      "title": "Producten | Jabcore"
     },
     "stack": {
       "description": "Wij werken met de meest moderne technologieën: React, TypeScript, Node.js, Python, AI-integratie, cloudoplossingen en meer.",
-      "keywords": "technologie, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure"
+      "keywords": "technologie, stack, React, TypeScript, Node.js, Python, AI, cloud, Docker, Azure",
+      "title": "Wat wij gebruiken | Jabcore"
     },
     "about": {
       "description": "Maak kennis met het Jabcore-team. Wij zijn een groep gepassioneerde ontwikkelaars en designers die moderne digitale oplossingen creëren.",
-      "keywords": "over ons, team, Jabcore, ontwikkelaars, designers, bedrijfsverhaal"
+      "keywords": "over ons, team, Jabcore, ontwikkelaars, designers, bedrijfsverhaal",
+      "title": "Over ons | Jabcore"
     },
     "contact": {
       "description": "Neem contact met ons op voor een gratis consultatie over uw project. Wij helpen u met webontwikkeling, mobiele apps of AI-oplossingen.",
-      "keywords": "contact, consultatie, project, samenwerking, Jabcore"
+      "keywords": "contact, consultatie, project, samenwerking, Jabcore",
+      "title": "Contact | Jabcore"
     }
   },
   "navigation": {
@@ -174,7 +180,7 @@
         "features": [
           "Technische analyse & strategische planning",
           "Proof of concept ontwikkeling",
-          "Continue architectuureigendom",
+          "Continu architectuurbeheer",
           "Schaalbaarheid & prestatie-optimalisatie"
         ]
       },
@@ -216,7 +222,7 @@
         "features": [
           "Technische analyse & strategische planning",
           "Proof of concept ontwikkeling",
-          "Continue architectuureigendom",
+          "Continu architectuurbeheer",
           "Schaalbaarheid & prestatie-optimalisatie"
         ]
       },
@@ -334,7 +340,7 @@
       },
       "security": {
         "title": "Enterprise-grade beveiliging",
-        "description": "Beveiliging ingebouwd in elke coderegel. GDPR-compliant, OWASP-gecertificeerd, volledig beschermd."
+        "description": "Beveiliging ingebouwd in elke coderegel. AVG-compliant, OWASP-conform, volledig beschermd."
       },
       "scalability": {
         "title": "Oneindige schaalbaarheid",

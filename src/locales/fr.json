@@ -2,27 +2,33 @@
   "seo": {
     "home": {
       "description": "Jabcore propose un développement web professionnel, des solutions numériques modernes et du conseil. Nous nous spécialisons dans React, TypeScript et les technologies modernes.",
-      "keywords": "développement web, React, TypeScript, solutions numériques, Jabcore, programmation, logiciel"
+      "keywords": "développement web, React, TypeScript, solutions numériques, Jabcore, programmation, logiciel",
+      "title": "Jabcore — Le cœur de votre nouvelle app."
     },
     "services": {
       "description": "Nous offrons des services complets de développement web, développement d'applications mobiles, intégration IA, solutions cloud et design UX/UI.",
-      "keywords": "développement web, applications mobiles, intégration IA, solutions cloud, UX design, UI design, React, TypeScript"
+      "keywords": "développement web, applications mobiles, intégration IA, solutions cloud, UX design, UI design, React, TypeScript",
+      "title": "Services | Jabcore"
     },
     "products": {
       "description": "Découvrez nos propres produits et applications. PillSee et d'autres solutions innovantes créées par l'équipe Jabcore.",
-      "keywords": "produits, applications, PillSee, applications mobiles, Jabcore"
+      "keywords": "produits, applications, PillSee, applications mobiles, Jabcore",
+      "title": "Produits | Jabcore"
     },
     "stack": {
       "description": "Nous travaillons avec les technologies les plus modernes: React, TypeScript, Node.js, Python, intégration IA, solutions cloud et plus.",
-      "keywords": "technologie, stack, React, TypeScript, Node.js, Python, IA, cloud, Docker, Azure"
+      "keywords": "technologie, stack, React, TypeScript, Node.js, Python, IA, cloud, Docker, Azure",
+      "title": "Ce que nous utilisons | Jabcore"
     },
     "about": {
       "description": "Rencontrez l'équipe Jabcore. Nous sommes un groupe de développeurs et designers passionnés créant des solutions numériques modernes.",
-      "keywords": "à propos, équipe, Jabcore, développeurs, designers, histoire de l'entreprise"
+      "keywords": "à propos, équipe, Jabcore, développeurs, designers, histoire de l'entreprise",
+      "title": "À propos | Jabcore"
     },
     "contact": {
       "description": "Contactez-nous pour une consultation gratuite sur votre projet. Nous vous aiderons avec le développement web, les applications mobiles ou les solutions IA.",
-      "keywords": "contact, consultation, projet, collaboration, Jabcore"
+      "keywords": "contact, consultation, projet, collaboration, Jabcore",
+      "title": "Contact | Jabcore"
     }
   },
   "navigation": {
@@ -174,7 +180,7 @@
         "features": [
           "Analyse technique et planification stratégique",
           "Développement de proof of concept",
-          "Propriété continue de l'architecture",
+          "Gestion continue de l'architecture",
           "Optimisation de l'évolutivité et des performances"
         ]
       },
@@ -206,7 +212,7 @@
       },
       "uxui": {
         "title": "Design UX/UI",
-        "description": "Interfaces belles et intuitives que les utilisateurs adorent. Nous mélangeons l'excellence esthétique avec la recherche d'utilisabilité pour créer des designs au pixel près qui guident les utilisateurs naturellement et favorisent l'engagement."
+        "description": "Interfaces belles et intuitives que les utilisateurs adorent. Nous allions l'excellence esthétique avec la recherche d'utilisabilité pour créer des designs au pixel près qui guident les utilisateurs naturellement et favorisent l'engagement."
       }
     },
     "categories": {
@@ -216,7 +222,7 @@
         "features": [
           "Analyse technique et planification stratégique",
           "Développement de proof of concept",
-          "Propriété continue de l'architecture",
+          "Gestion continue de l'architecture",
           "Optimisation de l'évolutivité et des performances"
         ]
       },
@@ -248,7 +254,7 @@
       },
       "uxui": {
         "title": "Design UX/UI",
-        "description": "Interfaces belles et intuitives que les utilisateurs adorent. Nous mélangeons l'excellence esthétique avec la recherche d'utilisabilité pour créer des designs au pixel près qui guident les utilisateurs naturellement et favorisent l'engagement."
+        "description": "Interfaces belles et intuitives que les utilisateurs adorent. Nous allions l'excellence esthétique avec la recherche d'utilisabilité pour créer des designs au pixel près qui guident les utilisateurs naturellement et favorisent l'engagement."
       }
     }
   },
@@ -334,7 +340,7 @@
       },
       "security": {
         "title": "Sécurité de niveau entreprise",
-        "description": "Sécurité intégrée dans chaque ligne de code. Conforme RGPD, certifié OWASP, entièrement protégé."
+        "description": "Sécurité intégrée dans chaque ligne de code. Conforme RGPD, conforme OWASP, entièrement protégé."
       },
       "scalability": {
         "title": "Évolutivité infinie",
