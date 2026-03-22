@@ -130,7 +130,7 @@ export default function StackPage() {
             className="text-center max-w-3xl mx-auto mb-20"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold mb-6">
-              {t('stack.title').split(' ').slice(0, -2).join(' ')} <span className="gradient-text">{t('stack.title').split(' ').slice(-2).join(' ')}</span>
+              {t('stack.title').split(' ').slice(0, -2).join(' ')} <span>{t('stack.title').split(' ').slice(-2).join(' ')}</span>
             </h1>
             <p className="text-lg text-muted-foreground">
               {t('stack.subtitle')}

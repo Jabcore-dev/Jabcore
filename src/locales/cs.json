@@ -109,7 +109,7 @@
       "highlights": [
         "Poháněno AI",
         "Plně integrováno",
-        "Bezpečné a kompatibilní"
+        "Bezpečné a spolehlivé"
       ],
       "features": [
         "Vlastní CRM a ERP systémy",
@@ -127,7 +127,7 @@
       "description": "Vytvářejte škálovatelné, bezpečné a bleskově rychlé webové aplikace, které rostou s vaším podnikáním. Od SaaS platforem po složité portály dodáváme moderní webová řešení postavená na nejmodernějších technologiích.",
       "highlights": [
         "Cloud-nativní",
-        "Vysoce škálovatelné",
+        "Škálovatelné",
         "Podnikové úrovně"
       ],
       "features": [
@@ -174,7 +174,7 @@
         "features": [
           "Technická analýza & strategické plánování",
           "Vývoj proof of concept",
-          "Průběžné vlastnictví architektury",
+          "Průběžná správa architektury",
           "Optimalizace škálovatelnosti a výkonu"
         ]
       },
@@ -206,7 +206,7 @@
       },
       "uxui": {
         "title": "UX/UI design",
-        "description": "Krásná, intuitivní rozhraní, která uživatelé milují. Mícháme estetickou dokonalost s výzkumem použitelnosti pro vytvoření pixel-perfektních designů, které uživatele vedou přirozeně a podporují zapojení."
+        "description": "Krásná, intuitivní rozhraní, která uživatelé milují. Spojujeme estetickou dokonalost s výzkumem použitelnosti pro vytvoření pixel-perfektních designů, které uživatele vedou přirozeně a podporují zapojení."
       }
     },
     "categories": {
@@ -216,7 +216,7 @@
         "features": [
           "Technická analýza & strategické plánování",
           "Vývoj proof of concept",
-          "Průběžné vlastnictví architektury",
+          "Průběžná správa architektury",
           "Optimalizace škálovatelnosti a výkonu"
         ]
       },
@@ -248,7 +248,7 @@
       },
       "uxui": {
         "title": "UX/UI design",
-        "description": "Krásná, intuitivní rozhraní, která uživatelé milují. Mícháme estetickou dokonalost s výzkumem použitelnosti pro vytvoření pixel-perfektních designů, které uživatele vedou přirozeně a podporují zapojení."
+        "description": "Krásná, intuitivní rozhraní, která uživatelé milují. Spojujeme estetickou dokonalost s výzkumem použitelnosti pro vytvoření pixel-perfektních designů, které uživatele vedou přirozeně a podporují zapojení."
       }
     }
   },
@@ -286,7 +286,7 @@
   },
   "collaboration": {
     "title": "Jak společně pracujeme",
-    "subtitle": "Od první poptávky po finální dodání a dlouhodobou podporu — transparentní proces, kde máte úplnou viditelnost a kontrolu v každé fázi.",
+    "subtitle": "Od první poptávky po finální dodání a dlouhodobou podporu — transparentní proces, kde máte úplný přehled a kontrolu v každé fázi.",
     "note": "Přesný proces se může lišit v závislosti na vašich konkrétních požadavcích a rozsahu projektu.",
     "afterLaunch": "Co se stane po spuštění?",
     "afterLaunchDesc": "Vývoj aplikací je živý proces. Po nasazení začínají uživatelé pracovat s vaším řešením, objevují se nové nápady, funkce se vyvíjejí a optimalizace odemykají nové příležitosti pro růst a inovace.",
@@ -310,17 +310,17 @@
       "kickoff": {
         "number": "04",
         "title": "Schválení & oficiální zahájení vývoje",
-        "description": "Po schválení začneme pracovat s vývojářskou mapou, sprintovými fázemi a nástroji pro řízení projektů. Získáte viditelnost v reálném čase do toho, co vytváříme a proč — při každém kroku."
+        "description": "Po schválení začneme pracovat s vývojářskou mapou, sprintovými fázemi a nástroji pro řízení projektů. Získáte přehled v reálném čase o tom, co vytváříme a proč — při každém kroku."
       },
       "prototype": {
         "number": "05",
         "title": "První prototyp – společné zdokonalování",
-        "description": "Dodáme funkční prototyp, který oživí vaši vizi. Prostřednictvím kontrolních seancí a zpětné vazby zdokonalujeme interakce a funkce, abychom zajistili, že finální produkt překoná očekávání."
+        "description": "Dodáme funkční prototyp, který oživí vaši vizi. Prostřednictvím kontrolních schůzek a zpětné vazby zdokonalujeme interakce a funkce, abychom zajistili, že finální produkt překoná očekávání."
       },
       "delivery": {
         "number": "06",
         "title": "Finální dodání – vaše řešení je spuštěno",
-        "description": "Obdržíte produkčně připravené řešení testované napříč zařízeními a prohlížeči. Poskytujeme průvodní seance, dokumentaci a v případě potřeby nastavíme hosting, smlouvy o podpoře a integrace pro dlouhodobý úspěch."
+        "description": "Obdržíte produkčně připravené řešení testované napříč zařízeními a prohlížeči. Poskytujeme průvodní školení, dokumentaci a v případě potřeby nastavíme hosting, smlouvy o podpoře a integrace pro dlouhodobý úspěch."
       }
     }
   },
@@ -334,7 +334,7 @@
       },
       "security": {
         "title": "Bezpečnost podnikové úrovně",
-        "description": "Bezpečnost zabudovaná v každém řádku kódu. V souladu s GDPR, certifikováno OWASP, plně chráněno."
+        "description": "Bezpečnost zabudovaná v každém řádku kódu. V souladu s GDPR a standardy OWASP, plně chráněno."
       },
       "scalability": {
         "title": "Nekonečná škálovatelnost",
@@ -411,7 +411,7 @@
     "phoneValue": "+420 792 219 454",
     "phonePrefix": "+420",
     "phoneDesc": "Po-Pá, 9:00 - 18:00 CET",
-    "ourLocation": "Naše lokace",
+    "ourLocation": "Naše sídlo",
     "locationDesc": "Praha, Česká republika",
     "locationNote": "Remote-first tým dostupný po celém světě",
     "businessHours": "Pracovní doba",
@@ -425,7 +425,7 @@
     "country": "Země",
     "phoneNumber": "Telefonní číslo",
     "message": "Zpráva",
-    "messagePlaceholder": "Řekněte nám o vizi vašeho projektu, cílech a co byste chtěli vytvořit...",
+    "messagePlaceholder": "Popište nám vizi svého projektu, vaše cíle a co byste chtěli vytvořit...",
     "sendMessage": "Odeslat zprávu",
     "sending": "Odesílání...",
     "copied": "Zkopírováno",
