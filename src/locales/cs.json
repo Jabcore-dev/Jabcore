@@ -455,9 +455,14 @@
     "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
-    "description": "Vývoj softwaru s integrací AI. Vytváříme digitální produkty světové úrovně, které transformují podnikání.",
+    "description": "Softwarové studio z Prahy. Tvoříme mobilní a webové aplikace, podnikové systémy a AI řešení na míru.",
     "quickLinks": "Rychlé odkazy",
     "contactUs": "Kontaktujte nás",
-    "copyright": "Všechna práva vyhrazena. Vytvořeno s precizností a vášní."
+    "copyright": "Všechna práva vyhrazena. Vytvořeno s precizností a vášní.",
+    "homeLink": "Úvodní stránka",
+    "servicesLink": "Naše služby",
+    "stackLink": "Náš tech stack",
+    "aboutLink": "O firmě",
+    "contactLink": "Kontaktujte nás"
   }
 }

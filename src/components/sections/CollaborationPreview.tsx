@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { useLocalePath } from '@/hooks/useLocale'
 import { 
   ChatCircleDots, 
   Handshake, 
@@ -48,6 +49,8 @@ const steps = [
 ]
 
 export default function CollaborationPreview() {
+  const localePath = useLocalePath()
+
   return (
     <section className="py-24 bg-muted/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -108,7 +111,7 @@ export default function CollaborationPreview() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-center"
           >
-            <Link href="/about">
+            <Link href={localePath('/about')}>
               <Button size="lg" className="gap-2 group">
                 See Our Full Process
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" weight="bold" />

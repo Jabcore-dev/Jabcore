@@ -97,9 +97,9 @@ export default function WhyChooseUs() {
                     <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${reason.gradient} flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
                       <Icon className="w-8 h-8 text-white" weight="duotone" />
                     </div>
-                    <h3 className="font-bold text-xl mb-3" style={{ fontFamily: 'var(--font-display)' }}>
+                    <div className="font-bold text-xl mb-3" style={{ fontFamily: 'var(--font-display)' }}>
                       {reason.title}
-                    </h3>
+                    </div>
                     <p className="text-muted-foreground leading-relaxed">
                       {reason.description}
                     </p>
@@ -126,9 +126,9 @@ export default function WhyChooseUs() {
                     <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${reason.gradient} flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
                       <Icon className="w-8 h-8 text-white" weight="duotone" />
                     </div>
-                    <h3 className="font-bold text-xl mb-3" style={{ fontFamily: 'var(--font-display)' }}>
+                    <div className="font-bold text-xl mb-3" style={{ fontFamily: 'var(--font-display)' }}>
                       {reason.title}
-                    </h3>
+                    </div>
                     <p className="text-muted-foreground leading-relaxed">
                       {reason.description}
                     </p>

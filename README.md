@@ -1,202 +1,107 @@
-# Jabcore - Premium Software Development Company Website
+# Jabcore — Jádro vaší nové aplikace.
 
-> **"The core of your new app."**
+> Premium software development company website — [jabcore.cz](https://jabcore.cz)
 
-A modern, fully responsive multi-page website for Jabcore, a premium software development company specializing in enterprise solutions and innovative digital products.
+A modern, fully responsive, SEO-optimized multi-language website for **Jabcore**, a Prague-based software studio specializing in mobile & web apps, enterprise systems, and AI-powered solutions.
 
-## ✨ Features
+## Features
 
-### Core Functionality
-- **Multi-Page Architecture** - Separate routes for Home, Services, Studio, About, and Contact pages using React Router
-- **Dynamic Logo System** - Logos automatically switch based on theme (dark.png/light.png in navigation, black.png/white.png in footer)
-- **Light/Dark Theme Toggle** - Seamless theme switching with localStorage persistence
-- **Fully Responsive Design** - Optimized for mobile, tablet, and desktop (including ultrawide displays)
-- **Smooth Page Transitions** - Instant navigation with automatic scroll-to-top
-- **Working Contact Form** - Full validation with success/error handling
-- **Sticky Navigation** - Always accessible header with active route indicators
-- **Mobile Menu** - Slide-in drawer navigation for mobile devices
+- **12 Languages** — Czech, English, German, Spanish, Polish, Slovak, French, Italian, Dutch, Portuguese, Hungarian, Romanian
+- **i18n URL Routing** — `/{locale}/` prefix pattern with server-rendered meta tags per language (`/cs/services`, `/en/about`, …)
+- **Full SEO** — hreflang alternates, canonical URLs, Open Graph, Twitter Cards, JSON-LD structured data, dynamic sitemap, robots.txt
+- **Static Export** — 83 pre-rendered HTML pages deployed to GitHub Pages
+- **Light/Dark Theme** — system preference detection, localStorage persistence, theme-aware logos
+- **Contact Form** — validated with React Hook Form + Zod, sent via EmailJS
+- **Animations** — scroll-triggered, physics-based motion via Framer Motion
+- **Responsive** — mobile-first, optimized for all screen sizes
 
-### Pages
-1. **Home (/)** - Animated hero section with floating particles and dual CTAs
-2. **Services (/services)** - Four premium service cards:
-   - Mobile App Development
-   - Corporate & Enterprise Systems
-   - Web Applications
-   - Websites
-3. **Studio (/studio)** - Showcase of Jabcore's internal products:
-   - TaskFlow AI
-   - DevPulse
-   - CloudSync Pro
-4. **About (/about)** - Company mission, values, and development philosophy
-5. **Contact (/contact)** - Fully functional contact form with validation
+## Pages
 
-### Components
-- **Navigation** - Sticky header with theme-aware logo switching and active route highlighting
-- **Footer** - Social links, quick navigation, theme-aware logo, and theme toggle
+| Route | Description |
+|-------|-------------|
+| `/{locale}/` | Homepage — hero, services preview, why choose us, collaboration process, tech stack, CTA |
+| `/{locale}/services` | Full services breakdown — mobile apps, enterprise systems, web apps, websites |
+| `/{locale}/products` | Jabcore's own products and applications |
+| `/{locale}/stack` | Technology stack and tools used |
+| `/{locale}/about` | Company mission, values, and philosophy |
+| `/{locale}/contact` | Contact form with validation |
 
-## 🎨 Design Philosophy
+Old routes (`/services`, `/about`, etc.) automatically redirect to the locale-prefixed version.
 
-- **Modern Tech Aesthetic** - Clean, professional, and cutting-edge
-- **Premium Quality** - Enterprise-grade design with attention to detail
-- **Purposeful Animation** - Smooth, physics-based motion that enhances UX
-- **Accessible** - WCAG AA compliant color contrasts, semantic HTML, ARIA attributes
-- **Brand Consistency** - Logos adapt to theme for optimal visibility and professionalism
+## Tech Stack
 
-## 🖼️ Logo System
+| Category | Technologies |
+|----------|-------------|
+| Framework | Next.js 15, React 19, TypeScript |
+| Styling | Tailwind CSS v4, CSS custom properties |
+| i18n | i18next, react-i18next, per-locale JSON files |
+| UI | shadcn/ui, Radix UI primitives |
+| Forms | React Hook Form, Zod, EmailJS |
+| Animation | Framer Motion |
+| Icons | Phosphor Icons |
+| Deployment | Static export → GitHub Pages |
 
-The application includes 4 logo variants that automatically switch based on the active theme:
-
-- **dark.png** - Used in navigation during light mode (dark logo on light background)
-- **light.png** - Used in navigation during dark mode (light logo on dark background)
-- **black.png** - Used in footer during light mode
-- **white.png** - Used in footer during dark mode
-
-All logos are imported as assets and render with smooth transitions when theme changes.
-
-## 🎨 Color Palette
-
-- **Primary**: Deep electric blue (`oklch(0.45 0.15 255)`) - Technology and trust
-- **Accent**: Bright cyan (`oklch(0.75 0.15 195)`) - Innovation and energy
-- **Backgrounds**: Clean whites and deep blacks with subtle grays
-- All color pairings exceed WCAG AA contrast requirements
-
-## 🔤 Typography
-
-- **Headlines**: Space Grotesk (Bold, 600, 500) - Modern, technical character
-- **Body**: Inter (Regular, Medium, Semibold, Bold) - Clean, highly legible
-- **Hierarchy**: Clear visual distinction from 72px hero titles to 14px captions
-
-## 🛠️ Tech Stack
-
-- **React 19** with TypeScript
-- **React Router DOM** for client-side routing
-- **Tailwind CSS v4** for styling
-- **Framer Motion** for animations
-- **shadcn/ui** component library
-- **React Hook Form + Zod** for form validation
-- **Phosphor Icons** for iconography
-- **Sonner** for toast notifications
-
-## 📦 Installation
-
-```bash
-npm install
-```
-
-## 🚀 Development
-
-```bash
-npm run dev
-```
-
-The site is built as a multi-page application with React Router for navigation.
-
-### Key Files
+## Project Structure
 
 ```
 src/
-├── App.tsx                          # Main app with theme management and routing
-├── index.css                        # Custom styles and theme variables
-├── pages/
-│   ├── HomePage.tsx                 # Home page with hero
-│   ├── ServicesPage.tsx             # Services page
-│   ├── StudioPage.tsx               # Studio page
-│   ├── AboutPage.tsx                # About page
-│   └── ContactPage.tsx              # Contact page
+├── app/
+│   ├── layout.tsx              # Root layout (html/body, GA scripts)
+│   ├── [locale]/
+│   │   ├── layout.tsx          # Locale layout (metadata, providers, nav, footer)
+│   │   ├── page.tsx            # Homepage
+│   │   ├── services/page.tsx
+│   │   ├── products/page.tsx
+│   │   ├── stack/page.tsx
+│   │   ├── about/page.tsx
+│   │   └── contact/page.tsx
+│   ├── sitemap.ts              # 72 URLs (12 locales × 6 pages)
+│   └── robots.ts
 ├── components/
-│   ├── ScrollToTop.tsx              # Auto scroll to top on route change
-│   ├── sections/
-│   │   ├── Navigation.tsx           # Sticky header with dynamic logos
-│   │   ├── Hero.tsx                 # Hero section with animations
-│   │   ├── Services.tsx             # B2B services showcase
-│   │   ├── Studio.tsx               # Internal products
-│   │   ├── About.tsx                # Company information
-│   │   ├── Contact.tsx              # Contact form
-│   │   └── Footer.tsx               # Footer with dynamic logos
-│   └── ui/                          # shadcn components
-├── assets/
-│   └── images/
-│       ├── dark.png                 # Logo for light mode nav
-│       ├── light.png                # Logo for dark mode nav
-│       ├── black.png                # Logo for light mode footer
-│       └── white.png                # Logo for dark mode footer
+│   ├── sections/               # Page sections (Hero, Footer, Navigation, …)
+│   ├── providers/              # I18nProvider, Providers (theme, i18n)
+│   └── ui/                     # shadcn/ui components
+├── hooks/                      # useLocale, useSEO, useMobile
+├── lib/                        # i18n config, metadata generator, utils
+├── locales/                    # 12 translation JSON files
+└── views/                      # Page view compositions
 ```
 
-### Routing Structure
+## Getting Started
 
-```typescript
-<Routes>
-  <Route path="/" element={<HomePage />} />
-  <Route path="/services" element={<ServicesPage />} />
-  <Route path="/studio" element={<StudioPage />} />
-  <Route path="/about" element={<AboutPage />} />
-  <Route path="/contact" element={<ContactPage />} />
-</Routes>
+```bash
+npm install
+npm run dev
 ```
 
-## 📝 Contact Form
+## Build & Deploy
 
-The contact form includes:
-- **Client-side validation** using Zod schema
-- **Real-time error messages** for better UX
-- **Loading states** during submission
-- **Success toast** notification
-- **Auto-reset** after successful submission
-
-### Backend Integration
-
-Currently, the form submission is simulated with a 1.5-second delay. To integrate with a real backend:
-
-1. Replace the simulated delay in `Contact.tsx`:
-```typescript
-const onSubmit = async (data: FormData) => {
-  setIsSubmitting(true)
-  
-  try {
-    const response = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
-    
-    if (!response.ok) throw new Error('Failed to send message')
-    
-    toast.success('Message sent successfully!', {
-      description: "We'll get back to you within 24 hours.",
-    })
-    form.reset()
-  } catch (error) {
-    toast.error('Failed to send message', {
-      description: 'Please try again later.',
-    })
-  } finally {
-    setIsSubmitting(false)
-  }
-}
+```bash
+npm run build      # Static export to out/
 ```
 
-2. Create an API endpoint that accepts:
-```json
-{
-  "name": "string",
-  "company": "string",
-  "email": "string",
-  "message": "string"
-}
-```
+The site is deployed to **GitHub Pages** at [jabcore.cz](https://jabcore.cz) via the `CNAME` file.
 
-## 🎯 Theme System
+## SEO
 
-The theme system uses:
-- **localStorage** for persistence across sessions
-- **CSS custom properties** for smooth transitions
-- **System preference detection** on first visit
-- **Instant theme switching** with no flash
-- **Dynamic logo switching** based on active theme
+- Per-locale `<title>`, `<meta description>`, `<meta keywords>`
+- `hreflang` alternates for all 12 languages + `x-default`
+- Canonical URLs with locale prefix
+- Open Graph tags (`og:title`, `og:description`, `og:locale`, `og:image`)
+- Twitter Card meta tags
+- JSON-LD Organization/LocalBusiness structured data
+- Dynamic sitemap with priority and change frequency per page
+- Client-side `DynamicSeoTitle` component for SPA navigation updates
 
-Toggle locations:
-- Navigation bar (desktop/mobile)
-- Footer section
+## Design
+
+- **Typography** — Space Grotesk (headlines), Inter (body)
+- **Colors** — Primary: deep electric blue `oklch(0.45 0.15 255)`, Accent: bright cyan `oklch(0.75 0.15 195)`
+- **Contrast** — WCAG AA compliant
+
+## License
+
+See [LICENSE](LICENSE).
 
 Logo switching logic:
 ```typescript

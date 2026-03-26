@@ -1,22 +1,26 @@
-import { generatePageMetadata } from '@/lib/metadata'
-import { buildOrganizationJsonLd } from '@/lib/jsonld'
-import HomePage from '@/views/HomePage'
+'use client'
 
-export const metadata = generatePageMetadata({
-  title: 'Jabcore — Build it right, build it once.',
-  description: 'Vývoj softwaru na míru — mobilní aplikace, enterprise systémy, webové aplikace. Lean tým, AI-first přístup, konkurenční ceny.',
-  path: '/',
-  isHome: true,
-})
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { SUPPORTED_LANGUAGES, STORAGE_KEY } from '@/lib/i18n'
+import { defaultLocale } from '@/lib/i18n-config'
 
-export default function Page() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrganizationJsonLd()) }}
-      />
-      <HomePage />
-    </>
-  )
+/**
+ * Root page — detects preferred language and redirects to /{locale}/
+ */
+export default function RootPage() {
+  const router = useRouter()
+
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    const browserLng = navigator.language.split('-')[0]
+    const preferred = stored ?? browserLng
+    const locale = (SUPPORTED_LANGUAGES as readonly string[]).includes(preferred)
+      ? preferred
+      : defaultLocale
+
+    router.replace(`/${locale}`)
+  }, [router])
+
+  return null
 }

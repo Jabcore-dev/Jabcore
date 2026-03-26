@@ -455,9 +455,14 @@
     "phoneNumberPlaceholder": "1234567890"
   },
   "footer": {
-    "description": "Softwareentwicklung mit KI-Integration. Wir bauen digitale Produkte von Weltklasse, die Unternehmen transformieren.",
+    "description": "Ein Softwarestudio aus Prag. Wir entwickeln mobile und Web-Apps, Unternehmenssysteme und maßgeschneiderte KI-Lösungen.",
     "quickLinks": "Schnelllinks",
     "contactUs": "Kontaktieren Sie uns",
-    "copyright": "Alle Rechte vorbehalten. Mit Präzision und Leidenschaft entwickelt."
+    "copyright": "Alle Rechte vorbehalten. Mit Präzision und Leidenschaft entwickelt.",
+    "homeLink": "Startseite",
+    "servicesLink": "Unsere Leistungen",
+    "stackLink": "Unser Tech Stack",
+    "aboutLink": "Über uns",
+    "contactLink": "Kontaktieren Sie uns"
   }
 }

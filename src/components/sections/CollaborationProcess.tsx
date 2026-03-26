@@ -99,9 +99,9 @@ export default function CollaborationProcess() {
                         <span className="text-5xl font-bold text-primary/20" style={{ fontFamily: 'var(--font-display)' }}>
                           {step.number}
                         </span>
-                        <h3 className="text-2xl font-semibold flex-1 pt-2" style={{ fontFamily: 'var(--font-display)' }}>
+                        <div className="text-2xl font-semibold flex-1 pt-2" style={{ fontFamily: 'var(--font-display)' }}>
                           {step.title}
-                        </h3>
+                        </div>
                       </div>
                       <p className="text-muted-foreground leading-relaxed">
                         {step.description}
@@ -124,9 +124,9 @@ export default function CollaborationProcess() {
           <Card className="p-8 sm:p-12 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5 border-2">
             <div className="flex items-center justify-center gap-3 mb-4">
               <ArrowRight className="w-6 h-6 text-accent" weight="bold" />
-              <h3 className="text-2xl sm:text-3xl font-bold" style={{ fontFamily: 'var(--font-display)' }}>
+              <div className="text-2xl sm:text-3xl font-bold" style={{ fontFamily: 'var(--font-display)' }}>
                 {t('collaboration.afterLaunch')}
-              </h3>
+              </div>
             </div>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-6">
               {t('collaboration.afterLaunchDesc')}

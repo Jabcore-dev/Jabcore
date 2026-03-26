@@ -12,6 +12,7 @@ import ContactModal from '@/components/ContactModal'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import logoTransparent from '@/assets/images/transparent.png'
 import { useTranslation } from 'react-i18next'
+import { useLocalePath } from '@/hooks/useLocale'
 
 // Module-level flag — persists across re-mounts, ensures animation plays only on first load
 let navbarHasAnimated = false
@@ -22,6 +23,7 @@ const Navigation = memo(function Navigation() {
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
   const { t } = useTranslation()
+  const localePath = useLocalePath()
 
   const shouldAnimate = !navbarHasAnimated
 
@@ -32,13 +34,13 @@ const Navigation = memo(function Navigation() {
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
 
   const navItems = useMemo(() => [
-    { label: t('navigation.home'), href: '/' },
-    { label: t('navigation.services'), href: '/services' },
-    // { label: t('navigation.products'), href: '/products' },
-    { label: t('navigation.stack'), href: '/stack' },
-    { label: t('navigation.about'), href: '/about' },
-    { label: t('navigation.contact'), href: '/contact' },
-  ], [t])
+    { label: t('navigation.home'), href: localePath('/') },
+    { label: t('navigation.services'), href: localePath('/services') },
+    // { label: t('navigation.products'), href: localePath('/products') },
+    { label: t('navigation.stack'), href: localePath('/stack') },
+    { label: t('navigation.about'), href: localePath('/about') },
+    { label: t('navigation.contact'), href: localePath('/contact') },
+  ], [t, localePath])
 
   const socialLinks = useMemo(() => [
     { icon: GithubLogo, label: 'GitHub', href: 'https://github.com/Jabcore-dev' },
@@ -66,7 +68,7 @@ const Navigation = memo(function Navigation() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          <Link href="/" className="flex items-center gap-3">
+          <Link href={localePath('/')} className="flex items-center gap-3">
             <img src={logoTransparent.src} alt="Jabcore" className="w-10 h-10 rounded-lg object-contain" />
             <span className="text-xl font-display font-bold gradient-text">Jabcore</span>
           </Link>

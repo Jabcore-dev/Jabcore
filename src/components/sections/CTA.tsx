@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import ContactModal from '@/components/ContactModal'
 import { useTranslation } from 'react-i18next'
+import { useLocalePath } from '@/hooks/useLocale'
 
 interface CTAProps {
   variant?: 'default' | 'services'
@@ -15,6 +16,7 @@ interface CTAProps {
 export default function CTA({ variant = 'default' }: CTAProps) {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
   const { t } = useTranslation()
+  const localePath = useLocalePath()
   return (
     <section className="py-24 sm:py-32 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10" />
@@ -69,7 +71,7 @@ export default function CTA({ variant = 'default' }: CTAProps) {
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" weight="bold" />
             </Button>
             {variant === 'default' ? (
-              <Link href="/services">
+              <Link href={localePath('/services')}>
                 <Button
                   size="lg"
                   variant="outline"
@@ -79,7 +81,7 @@ export default function CTA({ variant = 'default' }: CTAProps) {
                 </Button>
               </Link>
             ) : (
-              <Link href="/about">
+              <Link href={localePath('/about')}>
                 <Button
                   size="lg"
                   variant="outline"

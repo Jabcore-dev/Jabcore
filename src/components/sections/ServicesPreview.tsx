@@ -8,11 +8,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { DeviceMobile, Database, Globe, Layout, ArrowRight } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
+import { useLocalePath } from '@/hooks/useLocale'
 
 export default function ServicesPreview() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const { t } = useTranslation()
+  const localePath = useLocalePath()
 
   const services = [
     {
@@ -86,7 +88,7 @@ export default function ServicesPreview() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center"
         >
-          <Link href="/services">
+          <Link href={localePath('/services')}>
             <Button size="lg" className="group">
               {t('servicesPreview.exploreAll')}
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

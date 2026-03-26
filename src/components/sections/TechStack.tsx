@@ -97,9 +97,9 @@ export default function TechStack() {
             >
               <Card className="h-full hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/30">
                 <CardContent className="pt-6">
-                  <h3 className="font-bold text-xl mb-2" style={{ fontFamily: 'var(--font-display)' }}>
+                  <div className="font-bold text-xl mb-2" style={{ fontFamily: 'var(--font-display)' }}>
                     {category.title}
-                  </h3>
+                  </div>
                   <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
                     {category.description}
                   </p>

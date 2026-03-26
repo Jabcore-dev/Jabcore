@@ -1,10 +1,18 @@
-import { generatePageMetadata } from '@/lib/metadata'
-import ServicesPage from '@/views/ServicesPage'
+'use client'
 
-export const metadata = generatePageMetadata({
-  title: 'Služby',
-  description: 'Vyvíjíme mobilní aplikace, enterprise systémy a webové aplikace na míru. Prozkoumejte naše služby.',
-  path: '/services',
-})
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { SUPPORTED_LANGUAGES, STORAGE_KEY } from '@/lib/i18n'
+import { defaultLocale } from '@/lib/i18n-config'
 
-export default ServicesPage
+export default function RedirectServices() {
+  const router = useRouter()
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    const browserLng = navigator.language.split('-')[0]
+    const preferred = stored ?? browserLng
+    const locale = (SUPPORTED_LANGUAGES as readonly string[]).includes(preferred) ? preferred : defaultLocale
+    router.replace(`/${locale}/services`)
+  }, [router])
+  return null
+}

@@ -483,6 +483,12 @@
     "rights": "Alle rechten voorbehouden.",
     "company": "Jabcore Solutions s.r.o.",
     "tagline": "Moderne softwareontwikkeling die je bedrijf transformeert.",
-    "address": "Žižkova 747/29, 370 01 České Budějovice, Tsjechië"
+    "address": "Žižkova 747/29, 370 01 České Budějovice, Tsjechië",
+    "description": "Een softwarestudio uit Praag. We bouwen mobiele en web-apps, bedrijfssystemen en op maat gemaakte AI-oplossingen.",
+    "homeLink": "Startpagina",
+    "servicesLink": "Onze diensten",
+    "stackLink": "Onze tech stack",
+    "aboutLink": "Over ons",
+    "contactLink": "Neem contact op"
   }
 }

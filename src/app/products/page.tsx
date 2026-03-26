@@ -1,10 +1,18 @@
-import { generatePageMetadata } from '@/lib/metadata'
-import ProductsPage from '@/views/ProductsPage'
+'use client'
 
-export const metadata = generatePageMetadata({
-  title: 'Produkty',
-  description: 'Naše vlastní produkty a nástroje — Pillse a další.',
-  path: '/products',
-})
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { SUPPORTED_LANGUAGES, STORAGE_KEY } from '@/lib/i18n'
+import { defaultLocale } from '@/lib/i18n-config'
 
-export default ProductsPage
+export default function Redirect() {
+  const router = useRouter()
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    const browserLng = navigator.language.split('-')[0]
+    const preferred = stored ?? browserLng
+    const locale = (SUPPORTED_LANGUAGES as readonly string[]).includes(preferred) ? preferred : defaultLocale
+    router.replace(`/${locale}/products`)
+  }, [router])
+  return null
+}

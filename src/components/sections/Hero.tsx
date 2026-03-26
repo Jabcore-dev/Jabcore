@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import ContactModal from '@/components/ContactModal'
 import { useTranslation } from 'react-i18next'
+import { useLocalePath } from '@/hooks/useLocale'
 
 type Dot = {
   left: number
@@ -18,6 +19,7 @@ type Dot = {
 export default function Hero() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
   const { t } = useTranslation()
+  const localePath = useLocalePath()
   const [dots, setDots] = useState<Dot[]>([])
 
   useEffect(() => {
@@ -127,21 +129,16 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-6xl sm:text-7xl lg:text-8xl font-bold mb-8 gradient-text leading-tight"
+            className="mb-8"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            {t('hero.title')}
+            <span className="block text-6xl sm:text-7xl lg:text-8xl font-bold gradient-text leading-tight">
+              {t('hero.title')}
+            </span>
+            <span className="block text-2xl sm:text-3xl lg:text-4xl font-semibold text-foreground/90 mt-4">
+              {t('hero.subtitle')}
+            </span>
           </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-foreground/90 mb-6"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            {t('hero.subtitle')}
-          </motion.p>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -166,7 +163,7 @@ export default function Hero() {
               {t('hero.getInTouch')}
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" weight="bold" />
             </Button>
-            <Link href="/services">
+            <Link href={localePath('/services')}>
               <Button
                 size="lg"
                 variant="outline"

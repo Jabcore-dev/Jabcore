@@ -7,11 +7,13 @@ import logoBlack from '@/assets/images/black.png'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { useTranslation } from 'react-i18next'
+import { useLocalePath } from '@/hooks/useLocale'
 
 const Footer = memo(function Footer() {
   const currentYear = useMemo(() => new Date().getFullYear(), [])
   const { resolvedTheme } = useTheme()
   const { t } = useTranslation()
+  const localePath = useLocalePath()
 
   const socialLinks = useMemo(() => [
     { icon: GithubLogo, label: 'GitHub', href: 'https://github.com/Jabcore-dev' },
@@ -31,7 +33,7 @@ const Footer = memo(function Footer() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
-            <Link href="/" className="inline-flex items-center gap-3 mb-4">
+            <Link href={localePath('/')} className="inline-flex items-center gap-3 mb-4">
               <img
                 src={resolvedTheme === 'light' ? logoBlack.src : logoWhite.src}
                 alt="Jabcore"
@@ -57,11 +59,11 @@ const Footer = memo(function Footer() {
             <h4 className="font-semibold text-lg mb-4">{t('footer.quickLinks')}</h4>
             <ul className="space-y-2">
               {[
-                { href: '/', label: t('navigation.home') },
-                { href: '/services', label: t('navigation.services') },
-                { href: '/stack', label: t('navigation.stack') },
-                { href: '/about', label: t('navigation.about') },
-                { href: '/contact', label: t('navigation.contact') },
+                { href: localePath('/'), label: t('footer.homeLink', t('navigation.home')) },
+                { href: localePath('/services'), label: t('footer.servicesLink', t('navigation.services')) },
+                { href: localePath('/stack'), label: t('footer.stackLink', t('navigation.stack')) },
+                { href: localePath('/about'), label: t('footer.aboutLink', t('navigation.about')) },
+                { href: localePath('/contact'), label: t('footer.contactLink', t('navigation.contact')) },
               ].map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">

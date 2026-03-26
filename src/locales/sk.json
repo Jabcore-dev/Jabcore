@@ -365,7 +365,7 @@
       "kickoff": {
         "number": "04",
         "title": "Schválenie & oficiálne zahájenie vývoja",
-"description": "Po schválení začneme pracovať s vývojárskou mapou, šprintovými fázami a nástrojmi pre riadenie projektov. Získate prehľad v reálnom čase o tom, čo vytvárame a prečo—pri každom kroku."
+        "description": "Po schválení začneme pracovať s vývojárskou mapou, šprintovými fázami a nástrojmi pre riadenie projektov. Získate prehľad v reálnom čase o tom, čo vytvárame a prečo—pri každom kroku."
       },
       "prototype": {
         "number": "05",
@@ -455,9 +455,14 @@
     "note": "Bez záväzku • Bezplatná úvodná konzultácia • Rýchly čas odozvy"
   },
   "footer": {
-    "description": "Vývoj softvéru s integráciou AI. Vytvárame digitálne produkty svetovej úrovne, ktoré transformujú podnikanie.",
+    "description": "Softvérové štúdio z Prahy. Tvoríme mobilné a webové aplikácie, podnikové systémy a AI riešenia na mieru.",
     "quickLinks": "Rýchle odkazy",
     "contactUs": "Kontaktujte nás",
-    "copyright": "Všetky práva vyhradené. Vytvorené s presnosťou a vášňou."
+    "copyright": "Všetky práva vyhradené. Vytvorené s presnosťou a vášňou.",
+    "homeLink": "Úvodná stránka",
+    "servicesLink": "Naše služby",
+    "stackLink": "Náš tech stack",
+    "aboutLink": "O firme",
+    "contactLink": "Kontaktujte nás"
   }
 }

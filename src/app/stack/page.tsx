@@ -1,10 +1,18 @@
-import { generatePageMetadata } from '@/lib/metadata'
-import StackPage from '@/views/StackPage'
+'use client'
 
-export const metadata = generatePageMetadata({
-  title: 'Technologie',
-  description: 'Technologie a nástroje, které používáme — Vue, React, Next.js, Node.js, .NET, Kubernetes a další.',
-  path: '/stack',
-})
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { SUPPORTED_LANGUAGES, STORAGE_KEY } from '@/lib/i18n'
+import { defaultLocale } from '@/lib/i18n-config'
 
-export default StackPage
+export default function Redirect() {
+  const router = useRouter()
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    const browserLng = navigator.language.split('-')[0]
+    const preferred = stored ?? browserLng
+    const locale = (SUPPORTED_LANGUAGES as readonly string[]).includes(preferred) ? preferred : defaultLocale
+    router.replace(`/${locale}/stack`)
+  }, [router])
+  return null
+}

@@ -455,9 +455,14 @@
     "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
-    "description": "Développement logiciel avec intégration IA. Nous créons des produits numériques de classe mondiale qui transforment les entreprises.",
+    "description": "Un studio logiciel basé à Prague. Nous créons des applications mobiles et web, des systèmes d'entreprise et des solutions IA sur mesure.",
     "quickLinks": "Liens rapides",
     "contactUs": "Contactez-nous",
-    "copyright": "Tous droits réservés. Conçu avec précision et passion."
+    "copyright": "Tous droits réservés. Conçu avec précision et passion.",
+    "homeLink": "Page d'accueil",
+    "servicesLink": "Nos services",
+    "stackLink": "Notre stack technique",
+    "aboutLink": "À propos",
+    "contactLink": "Contactez-nous"
   }
 }

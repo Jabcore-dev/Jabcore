@@ -455,9 +455,14 @@
     "note": "Bez zobowiązań • Bezpłatna wstępna konsultacja • Szybki czas odpowiedzi"
   },
   "footer": {
-    "description": "Rozwój oprogramowania z integracją AI. Budujemy produkty cyfrowe światowej klasy, które transformują firmy.",
+    "description": "Studio programistyczne z Pragi. Tworzymy aplikacje mobilne i webowe, systemy firmowe oraz rozwiązania AI na zamówienie.",
     "quickLinks": "Szybkie linki",
     "contactUs": "Skontaktuj się z nami",
-    "copyright": "Wszelkie prawa zastrzeżone. Zaprojektowane z precyzją i pasją."
+    "copyright": "Wszelkie prawa zastrzeżone. Zaprojektowane z precyzją i pasją.",
+    "homeLink": "Strona główna",
+    "servicesLink": "Nasze usługi",
+    "stackLink": "Nasz stack technologiczny",
+    "aboutLink": "O firmie",
+    "contactLink": "Skontaktuj się"
   }
 }

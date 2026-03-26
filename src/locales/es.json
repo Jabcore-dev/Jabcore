@@ -455,9 +455,14 @@
     "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
-    "description": "Desarrollo de software con integración de IA. Creamos productos digitales de clase mundial que transforman negocios.",
+    "description": "Un estudio de software en Praga. Creamos aplicaciones móviles y web, sistemas empresariales y soluciones de IA a medida.",
     "quickLinks": "Enlaces rápidos",
     "contactUs": "Contáctenos",
-    "copyright": "Todos los derechos reservados. Diseñado con precisión y pasión."
+    "copyright": "Todos los derechos reservados. Diseñado con precisión y pasión.",
+    "homeLink": "Página principal",
+    "servicesLink": "Nuestros servicios",
+    "stackLink": "Nuestro stack tecnológico",
+    "aboutLink": "Sobre nosotros",
+    "contactLink": "Contáctenos"
   }
 }

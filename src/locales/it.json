@@ -455,9 +455,14 @@
     "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
-    "description": "Sviluppo software con integrazione AI. Creiamo prodotti digitali di livello mondiale che trasformano le aziende.",
+    "description": "Uno studio software con sede a Praga. Creiamo app mobile e web, sistemi aziendali e soluzioni AI personalizzate.",
     "quickLinks": "Link rapidi",
     "contactUs": "Contattaci",
-    "copyright": "Tutti i diritti riservati. Progettato con precisione e passione."
+    "copyright": "Tutti i diritti riservati. Progettato con precisione e passione.",
+    "homeLink": "Pagina principale",
+    "servicesLink": "I nostri servizi",
+    "stackLink": "Il nostro stack tecnologico",
+    "aboutLink": "Chi siamo",
+    "contactLink": "Contattaci"
   }
 }

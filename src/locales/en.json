@@ -455,9 +455,14 @@
     "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
-    "description": "Software development with AI integration. Building world-class digital products that transform businesses.",
+    "description": "A Prague-based software studio. We build mobile & web apps, enterprise systems, and custom AI solutions.",
     "quickLinks": "Quick Links",
     "contactUs": "Contact Us",
-    "copyright": "All rights reserved. Engineered with precision and passion."
+    "copyright": "All rights reserved. Engineered with precision and passion.",
+    "homeLink": "Homepage",
+    "servicesLink": "Our services",
+    "stackLink": "Our tech stack",
+    "aboutLink": "About us",
+    "contactLink": "Get in touch"
   }
 }

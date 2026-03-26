@@ -1,68 +1,72 @@
 import type { Metadata } from 'next'
+import { locales, ogLocales, type Locale } from './i18n-config'
+import { t } from './server-i18n'
 
 const BASE_URL = 'https://jabcore.cz'
 const OG_IMAGE = `${BASE_URL}/og-image.png`
 
+type PageKey = 'home' | 'services' | 'products' | 'stack' | 'about' | 'contact'
+
 interface PageMetadataProps {
-  /** Název stránky — zobrazí se jako "{title} | Jabcore" */
-  title: string
-  /** Meta description stránky */
-  description: string
-  /** URL cesta stránky, napr. "/services" */
+  /** SEO key — used to read seo.{page}.title / description / keywords from locale JSON */
+  page: PageKey
+  /** URL path without locale prefix, e.g. "/services" */
   path: string
-  /** Pokud true, použije se title bez suffixu "| Jabcore" */
+  /** Current locale */
+  locale: Locale
+  /** If true, use title without "| Jabcore" suffix */
   isHome?: boolean
-  /** Locale pro OG tagy, default "cs_CZ" */
-  locale?: string
 }
 
 /**
- * Generuje Next.js Metadata objekt pro stránku.
- *
- * Použití v page.tsx:
- * ```ts
- * export const metadata = generatePageMetadata({
- *   title: 'Služby',
- *   description: 'Popis stránky...',
- *   path: '/services',
- * })
- * ```
+ * Generates Next.js Metadata with hreflang alternates for every supported locale.
  */
 export function generatePageMetadata({
-  title,
-  description,
+  page,
   path,
+  locale,
   isHome = false,
-  locale = 'cs_CZ',
 }: PageMetadataProps): Metadata {
-  const url = `${BASE_URL}${path}`
-  const fullTitle = isHome ? title : `${title} | Jabcore`
+  const title = t(locale, `seo.${page}.title`)
+  const description = t(locale, `seo.${page}.description`)
+  const keywords = t(locale, `seo.${page}.keywords`)
+  const url = `${BASE_URL}/${locale}${path}`
+  const ogLocale = ogLocales[locale] ?? 'cs_CZ'
+
+  // Build hreflang alternates for all locales
+  const languageAlternates: Record<string, string> = {}
+  for (const loc of locales) {
+    languageAlternates[loc] = `${BASE_URL}/${loc}${path}`
+  }
+  languageAlternates['x-default'] = `${BASE_URL}/${locale}${path}`
 
   return {
     title: isHome ? { absolute: title } : title,
     description,
+    keywords,
     alternates: {
       canonical: url,
+      languages: languageAlternates,
     },
     openGraph: {
-      title: fullTitle,
+      title,
       description,
       url,
       siteName: 'Jabcore',
-      locale,
+      locale: ogLocale,
       type: 'website',
       images: [
         {
           url: OG_IMAGE,
           width: 1200,
           height: 630,
-          alt: 'Jabcore — Build it right, build it once.',
+          alt: 'Jabcore',
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: fullTitle,
+      title,
       description,
       images: [OG_IMAGE],
     },

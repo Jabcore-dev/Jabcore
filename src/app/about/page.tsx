@@ -1,10 +1,18 @@
-import { generatePageMetadata } from '@/lib/metadata'
-import AboutPage from '@/views/AboutPage'
+'use client'
 
-export const metadata = generatePageMetadata({
-  title: 'O nás',
-  description: 'Poznejte tým Jabcore — lean tým vývojářů s AI-first přístupem. Build it right, build it once.',
-  path: '/about',
-})
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { SUPPORTED_LANGUAGES, STORAGE_KEY } from '@/lib/i18n'
+import { defaultLocale } from '@/lib/i18n-config'
 
-export default AboutPage
+export default function Redirect() {
+  const router = useRouter()
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    const browserLng = navigator.language.split('-')[0]
+    const preferred = stored ?? browserLng
+    const locale = (SUPPORTED_LANGUAGES as readonly string[]).includes(preferred) ? preferred : defaultLocale
+    router.replace(`/${locale}/about`)
+  }, [router])
+  return null
+}
