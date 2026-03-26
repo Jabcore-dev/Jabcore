@@ -1,7 +1,16 @@
 import Script from 'next/script'
+import type { Metadata } from 'next'
 import './globals.css'
 
 const GA_MEASUREMENT_ID = 'G-ENB3YT49GT'
+
+export const metadata: Metadata = {
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
