@@ -17,6 +17,7 @@ export default function TechStack() {
       description: t('techStack.categories.frontend.description'),
       technologies: [
         'React',
+        'Next.js',
         'TypeScript',
         'JavaScript',
         'Vue.js',
@@ -109,7 +110,7 @@ export default function TechStack() {
                         key={tech}
                         className="flex items-center gap-2 px-3 py-2 rounded-lg bg-muted/50 hover:bg-muted transition-colors duration-150 group"
                       >
-                        <TechIcon name={tech} className="w-5 h-5 group-hover:scale-105 transition-transform duration-150" />
+                        <TechIcon name={tech} className="w-5 h-5" />
                         <span className="text-sm font-medium text-foreground/80">{tech}</span>
                       </div>
                     ))}

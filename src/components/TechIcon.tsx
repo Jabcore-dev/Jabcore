@@ -29,6 +29,7 @@ const devIconUrls: Record<string, string> = {
   'TypeScript': `${CDN_BASE}/typescript/typescript-original.svg`,
   'JavaScript': `${CDN_BASE}/javascript/javascript-original.svg`,
   'React': `${CDN_BASE}/react/react-original.svg`,
+  'Next.js': `${CDN_BASE}/nextjs/nextjs-original.svg`,
   'Vue.js': `${CDN_BASE}/vuejs/vuejs-original.svg`,
   'Node.js': `${CDN_BASE}/nodejs/nodejs-original.svg`,
   'C#': `${CDN_BASE}/csharp/csharp-original.svg`,

@@ -46,6 +46,7 @@ export default function StackPage() {
         { name: 'TypeScript' },
         { name: 'JavaScript' },
         { name: 'React' },
+        { name: 'Next.js' },
         { name: 'Vue.js' }
       ]
     },
@@ -150,7 +151,7 @@ export default function StackPage() {
                   <div className="bg-card border border-border rounded-2xl p-8 lg:p-12 hover:border-primary/50 transition-all duration-300 hover:shadow-xl">
                     <div className="flex flex-col lg:flex-row gap-8">
                       <div className="flex-shrink-0">
-                        <div className={`${tech.bgColor} ${tech.color} w-16 h-16 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                        <div className={`${tech.bgColor} ${tech.color} w-16 h-16 rounded-xl flex items-center justify-center`}>
                           <Icon className="w-8 h-8" weight="duotone" />
                         </div>
                       </div>
@@ -179,14 +180,13 @@ export default function StackPage() {
                         {tech.techs.length > 0 && (
                           <div className="flex flex-wrap gap-3">
                             {tech.techs.map((item, idx) => (
-                              <motion.div
+                              <div
                                 key={idx}
-                                whileHover={{ scale: 1.05, y: -2 }}
-                                className="bg-secondary/50 hover:bg-secondary px-4 py-2 rounded-lg flex items-center gap-2 border border-border/50 hover:border-primary/30 transition-all duration-200"
+                                className="bg-secondary/50 hover:bg-secondary px-4 py-2 rounded-lg flex items-center gap-2 border border-border/50 hover:border-primary/30 transition-colors duration-200"
                               >
                                 <TechIcon name={item.name} className="w-5 h-5" />
                                 <span className="font-medium text-sm">{item.name}</span>
-                              </motion.div>
+                              </div>
                             ))}
                           </div>
                         )}
