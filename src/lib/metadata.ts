@@ -36,16 +36,24 @@ export function generatePageMetadata({
   // Build hreflang alternates for all locales
   const languageAlternates: Record<string, string> = {}
   for (const loc of locales) {
-    languageAlternates[loc] = `${BASE_URL}/${loc}${path}`
+    // Czech homepage canonical is the root URL
+    languageAlternates[loc] = loc === 'cs' && path === ''
+      ? BASE_URL
+      : `${BASE_URL}/${loc}${path}`
   }
-  languageAlternates['x-default'] = `${BASE_URL}/${locale}${path}`
+  languageAlternates['x-default'] = path === '' ? BASE_URL : `${BASE_URL}/${locale}${path}`
+
+  // Czech homepage canonical → root URL to avoid duplicate content
+  const canonical = locale === 'cs' && path === ''
+    ? BASE_URL
+    : url
 
   return {
     title: isHome ? { absolute: title } : title,
     description,
     keywords,
     alternates: {
-      canonical: url,
+      canonical,
       languages: languageAlternates,
     },
     openGraph: {

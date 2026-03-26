@@ -23,19 +23,22 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const description = t(locale, 'seo.home.description')
   const ogLocale = ogLocales[locale] ?? 'cs_CZ'
 
-  // hreflang alternates
+  // hreflang alternates — Czech homepage points to root URL
   const languageAlternates: Record<string, string> = {}
   for (const loc of locales) {
-    languageAlternates[loc] = `${BASE_URL}/${loc}`
+    languageAlternates[loc] = loc === 'cs' ? BASE_URL : `${BASE_URL}/${loc}`
   }
-  languageAlternates['x-default'] = `${BASE_URL}/${defaultLocale}`
+  languageAlternates['x-default'] = BASE_URL
+
+  // Czech homepage canonical → root URL to avoid duplicate content
+  const canonical = locale === 'cs' ? BASE_URL : `${BASE_URL}/${locale}`
 
   return {
     title: { default: title, template: '%s | Jabcore' },
     description,
     metadataBase: new URL(BASE_URL),
     alternates: {
-      canonical: `${BASE_URL}/${locale}`,
+      canonical,
       languages: languageAlternates,
     },
     icons: {

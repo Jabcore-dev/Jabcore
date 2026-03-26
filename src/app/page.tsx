@@ -1,20 +1,27 @@
 import type { Metadata } from 'next'
 import { locales, defaultLocale } from '@/lib/i18n-config'
 import { t } from '@/lib/server-i18n'
+import { buildOrganizationJsonLd } from '@/lib/jsonld'
+import Providers from '@/components/providers/Providers'
+import Navigation from '@/components/sections/Navigation'
+import Footer from '@/components/sections/Footer'
+import { Toaster } from '@/components/ui/sonner'
+import DynamicSeoTitle from '@/components/DynamicSeoTitle'
+import HomePage from '@/views/HomePage'
 import RootRedirect from './RootRedirect'
 
 const BASE_URL = 'https://jabcore.cz'
 
 export const metadata: Metadata = {
-  title: 'Jabcore — Jádro vaší nové aplikace.',
+  title: t(defaultLocale, 'seo.home.title'),
   description: t(defaultLocale, 'seo.home.description'),
   keywords: t(defaultLocale, 'seo.home.keywords'),
   metadataBase: new URL(BASE_URL),
   alternates: {
     canonical: BASE_URL,
     languages: Object.fromEntries([
-      ...locales.map((loc) => [loc, `${BASE_URL}/${loc}`]),
-      ['x-default', `${BASE_URL}/${defaultLocale}`],
+      ...locales.map((loc) => [loc, loc === 'cs' ? BASE_URL : `${BASE_URL}/${loc}`]),
+      ['x-default', BASE_URL],
     ]),
   },
   icons: {
@@ -23,7 +30,7 @@ export const metadata: Metadata = {
     apple: '/favicon.png',
   },
   openGraph: {
-    title: 'Jabcore — Jádro vaší nové aplikace.',
+    title: t(defaultLocale, 'seo.home.title'),
     description: t(defaultLocale, 'seo.home.description'),
     url: BASE_URL,
     siteName: 'Jabcore',
@@ -33,41 +40,33 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Jabcore — Jádro vaší nové aplikace.',
+    title: t(defaultLocale, 'seo.home.title'),
     description: t(defaultLocale, 'seo.home.description'),
     images: [`${BASE_URL}/og-image.png`],
   },
 }
 
 /**
- * Root page — SEO-friendly landing with redirect to locale.
- * Renders real HTML content so crawlers see title, H1, description, and links.
+ * Root page — full Czech homepage for crawlers.
+ * JS users get redirected to their preferred locale by RootRedirect.
  */
 export default function RootPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background text-foreground p-8">
+    <Providers locale="cs">
       <RootRedirect />
-      <div className="max-w-2xl text-center">
-        <h1 className="text-4xl font-bold mb-4">Jabcore — Jádro vaší nové aplikace</h1>
-        <p className="text-lg text-muted-foreground mb-8">
-          {t(defaultLocale, 'seo.home.description')}
-        </p>
-        <nav aria-label="Language selection">
-          <p className="text-sm text-muted-foreground mb-4">Choose your language:</p>
-          <ul className="flex flex-wrap justify-center gap-3">
-            {locales.map((loc) => (
-              <li key={loc}>
-                <a
-                  href={`/${loc}`}
-                  className="inline-block px-4 py-2 rounded-lg border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors text-sm font-medium"
-                >
-                  {loc.toUpperCase()}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+      <DynamicSeoTitle />
+      <div className="min-h-screen bg-background text-foreground">
+        <Navigation />
+        <main>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrganizationJsonLd()) }}
+          />
+          <HomePage />
+        </main>
+        <Footer />
       </div>
-    </div>
+      <Toaster position="bottom-right" />
+    </Providers>
   )
 }
