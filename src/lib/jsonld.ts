@@ -57,7 +57,7 @@ export function buildOrganizationJsonLd(): OrganizationJsonLd {
     telephone: '+420792219454',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Praha',
+      addressLocality: 'Jablonec nad Nisou',
       addressCountry: 'CZ',
     },
     sameAs: [

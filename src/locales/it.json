@@ -418,11 +418,11 @@
     "phonePrefix": "+39",
     "phoneDesc": "Lun-Ven, 9:00 - 18:00 CET",
     "ourLocation": "La nostra sede",
-    "locationDesc": "Praga, Repubblica Ceca",
+    "locationDesc": "Jablonec nad Nisou, Repubblica Ceca",
     "locationNote": "Team remote-first disponibile in tutto il mondo",
     "businessHours": "Orari di lavoro",
     "businessHoursDesc": "Lunedì - Venerdì: 9:00 - 18:00",
-    "businessHoursNote": "CET/CEST (Ora di Praga)",
+    "businessHoursNote": "CET/CEST (Ora dell'Europa centrale)",
     "formTitle": "Inizia la conversazione",
     "formDesc": "Condividi i dettagli del tuo progetto qui sotto e il nostro team risponderà entro 24 ore con i prossimi passi.",
     "name": "Nome",
@@ -455,7 +455,7 @@
     "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
-    "description": "Uno studio software con sede a Praga. Creiamo app mobile e web, sistemi aziendali e soluzioni AI personalizzate.",
+    "description": "Uno studio software con sede a Jablonec nad Nisou. Creiamo app mobile e web, sistemi aziendali e soluzioni AI personalizzate.",
     "quickLinks": "Link rapidi",
     "contactUs": "Contattaci",
     "copyright": "Tutti i diritti riservati. Progettato con precisione e passione.",

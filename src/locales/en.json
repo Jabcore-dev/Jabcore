@@ -418,11 +418,11 @@
     "phonePrefix": "+420",
     "phoneDesc": "Mon-Fri, 9:00 AM - 6:00 PM CET",
     "ourLocation": "Our Location",
-    "locationDesc": "Prague, Czech Republic",
+    "locationDesc": "Jablonec nad Nisou, Czech Republic",
     "locationNote": "Remote-first team available worldwide",
     "businessHours": "Business Hours",
     "businessHoursDesc": "Monday - Friday: 9:00 AM - 6:00 PM",
-    "businessHoursNote": "CET/CEST (Prague Time)",
+    "businessHoursNote": "CET/CEST (Central European Time)",
     "formTitle": "Start the Conversation",
     "formDesc": "Share your project details below and our team will respond within 24 hours with next steps.",
     "name": "Name",
@@ -455,7 +455,7 @@
     "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
-    "description": "A Prague-based software studio. We build mobile & web apps, enterprise systems, and custom AI solutions.",
+    "description": "A Jablonec nad Nisou-based software studio. We build mobile & web apps, enterprise systems, and custom AI solutions.",
     "quickLinks": "Quick Links",
     "contactUs": "Contact Us",
     "copyright": "All rights reserved. Engineered with precision and passion.",

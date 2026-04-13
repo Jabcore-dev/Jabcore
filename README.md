@@ -2,7 +2,7 @@
 
 > Premium software development company website — [jabcore.cz](https://jabcore.cz)
 
-A modern, fully responsive, SEO-optimized multi-language website for **Jabcore**, a Prague-based software studio specializing in mobile & web apps, enterprise systems, and AI-powered solutions.
+A modern, fully responsive, SEO-optimized multi-language website for **Jabcore**, a Jablonec nad Nisou-based software studio specializing in mobile & web apps, enterprise systems, and AI-powered solutions.
 
 ## Features
 

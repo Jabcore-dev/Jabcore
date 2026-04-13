@@ -180,11 +180,11 @@
     "phonePrefix": "+48",
     "phoneDesc": "Pon-Pt, 9:00 - 18:00 CET",
     "ourLocation": "Nasza lokalizacja",
-    "locationDesc": "Praga, Czechy",
+    "locationDesc": "Jablonec nad Nisou, Czechy",
     "locationNote": "Zespół pracujący zdalnie dostępny na całym świecie",
     "businessHours": "Godziny pracy",
     "businessHoursDesc": "Poniedziałek - Piątek: 9:00 - 18:00",
-    "businessHoursNote": "CET/CEST (Czas praski)",
+    "businessHoursNote": "CET/CEST (Czas środkowoeuropejski)",
     "formTitle": "Rozpocznij rozmowę",
     "formDesc": "Podziel się szczegółami swojego projektu poniżej, a nasz zespół odpowie w ciągu 24 godzin z kolejnymi krokami.",
     "name": "Imię",
@@ -455,7 +455,7 @@
     "note": "Bez zobowiązań • Bezpłatna wstępna konsultacja • Szybki czas odpowiedzi"
   },
   "footer": {
-    "description": "Studio programistyczne z Pragi. Tworzymy aplikacje mobilne i webowe, systemy firmowe oraz rozwiązania AI na zamówienie.",
+    "description": "Studio programistyczne z Jablonce nad Nisou. Tworzymy aplikacje mobilne i webowe, systemy firmowe oraz rozwiązania AI na zamówienie.",
     "quickLinks": "Szybkie linki",
     "contactUs": "Skontaktuj się z nami",
     "copyright": "Wszelkie prawa zastrzeżone. Zaprojektowane z precyzją i pasją.",

@@ -418,11 +418,11 @@
     "phonePrefix": "+420",
     "phoneDesc": "Po-Pá, 9:00 - 18:00 CET",
     "ourLocation": "Naše sídlo",
-    "locationDesc": "Praha, Česká republika",
+    "locationDesc": "Jablonec nad Nisou, Česká republika",
     "locationNote": "Remote-first tým dostupný po celém světě",
     "businessHours": "Pracovní doba",
     "businessHoursDesc": "Pondělí - Pátek: 9:00 - 18:00",
-    "businessHoursNote": "CET/CEST (Pražský čas)",
+    "businessHoursNote": "CET/CEST (Středoevropský čas)",
     "formTitle": "Začněte konverzaci",
     "formDesc": "Sdílejte detaily vašeho projektu níže a náš tým odpoví do 24 hodin s dalšími kroky.",
     "name": "Jméno",
@@ -455,7 +455,7 @@
     "phoneNumberPlaceholder": "123456789"
   },
   "footer": {
-    "description": "Softwarové studio z Prahy. Tvoříme mobilní a webové aplikace, podnikové systémy a AI řešení na míru.",
+    "description": "Softwarové studio z Jablonce nad Nisou. Tvoříme mobilní a webové aplikace, podnikové systémy a AI řešení na míru.",
     "quickLinks": "Rychlé odkazy",
     "contactUs": "Kontaktujte nás",
     "copyright": "Všechna práva vyhrazena. Vytvořeno s precizností a vášní.",

@@ -180,11 +180,11 @@
     "phonePrefix": "+421",
     "phoneDesc": "Pon-Pia, 9:00 - 18:00 CET",
     "ourLocation": "Naše sídlo",
-    "locationDesc": "Praha, Česká republika",
+    "locationDesc": "Jablonec nad Nisou, Česká republika",
     "locationNote": "Remote-first tím dostupný po celom svete",
     "businessHours": "Pracovné hodiny",
     "businessHoursDesc": "Pondelok - Piatok: 9:00 - 18:00",
-    "businessHoursNote": "CET/CEST (Pražský čas)",
+    "businessHoursNote": "CET/CEST (Středoevropský čas)",
     "formTitle": "Začnite konverzáciu",
     "formDesc": "Zdieľajte detaily svojho projektu nižšie a náš tím odpovie do 24 hodín s ďalšími krokmi.",
     "name": "Meno",
@@ -455,7 +455,7 @@
     "note": "Bez záväzku • Bezplatná úvodná konzultácia • Rýchly čas odozvy"
   },
   "footer": {
-    "description": "Softvérové štúdio z Prahy. Tvoríme mobilné a webové aplikácie, podnikové systémy a AI riešenia na mieru.",
+    "description": "Softvérové štúdio z Jablonca nad Nisou. Tvoríme mobilné a webové aplikácie, podnikové systémy a AI riešenia na mieru.",
     "quickLinks": "Rýchle odkazy",
     "contactUs": "Kontaktujte nás",
     "copyright": "Všetky práva vyhradené. Vytvorené s presnosťou a vášňou.",
