@@ -60,8 +60,8 @@
     "intro1Content": "Somos uma equipe enxuta de desenvolvimento de software de três engenheiros apaixonados especializados em criar produtos digitais de classe mundial para empresas de todos os tamanhos. De startups ambiciosas a empresas estabelecidas, entregamos soluções que impulsionam o crescimento exponencial, otimizam operações complexas e criam vantagens competitivas duradouras em mercados em rápida evolução.",
     "intro2": "Nossa filosofia de desenvolvimento é simples:",
     "intro2Bold": "construir certo, construir uma vez.",
-    "intro2Content": "Combinamos tecnologia de ponta com práticas de engenharia testadas em batalha para criar software que não é apenas funcional, mas manutenível, infinitamente escalável e preparado para o futuro. Não apenas escrevemos código—arquitetamos soluções elegantes que resistem ao teste do tempo e se adaptam às suas necessidades em evolução.",
-    "intro3": "Somos uma equipe de três—sem gerentes, sem despesas gerais.",
+    "intro2Content": "Combinamos tecnologia de ponta com práticas de engenharia testadas em batalha para criar software que não é apenas funcional, mas manutenível, infinitamente escalável e preparado para o futuro. Não apenas escrevemos código, arquitetamos soluções elegantes que resistem ao teste do tempo e se adaptam às suas necessidades em evolução.",
+    "intro3": "Somos uma equipe de três, sem gerentes, sem despesas gerais.",
     "intro3Content": "Esta estrutura enxuta significa que cada membro está profundamente envolvido em seu projeto do início ao fim, e você tem acesso direto às pessoas que estão realmente construindo seu produto. Mais importante, isso nos permite oferecer",
     "intro3Pricing": "preços altamente competitivos",
     "intro3End": "sem comprometer a qualidade. Você paga por talento de engenharia excepcional, não por burocracia corporativa.",
@@ -74,7 +74,7 @@
       },
       "quality": {
         "title": "Qualidade sem compromissos",
-        "description": "Cada linha de código, cada pixel cuidadosamente considerado, cada interação cuidadosamente projetada é criada com atenção obsessiva aos detalhes, elegância arquitetônica e manutenibilidade de longo prazo. Acreditamos que qualidade não é apenas evitar bugs—é construir software intuitivo, performático, seguro, escalável e genuinamente agradável de usar."
+        "description": "Cada linha de código, cada pixel cuidadosamente considerado, cada interação cuidadosamente projetada é criada com atenção obsessiva aos detalhes, elegância arquitetônica e manutenibilidade de longo prazo. Acreditamos que qualidade não é apenas evitar bugs, é construir software intuitivo, performático, seguro, escalável e genuinamente agradável de usar."
       },
       "partnership": {
         "title": "Parceria verdadeira",

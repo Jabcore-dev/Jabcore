@@ -60,8 +60,8 @@
     "intro1Content": "Siamo un team snello di sviluppo software di tre ingegneri appassionati specializzati nella creazione di prodotti digitali di livello mondiale per aziende di tutte le dimensioni. Dalle startup ambiziose alle imprese consolidate, forniamo soluzioni che guidano la crescita esponenziale, razionalizzano operazioni complesse e creano vantaggi competitivi duraturi nei mercati in rapida evoluzione.",
     "intro2": "La nostra filosofia di sviluppo è semplice:",
     "intro2Bold": "costruirlo bene, costruirlo una volta.",
-    "intro2Content": "Combiniamo tecnologie all'avanguardia con pratiche ingegneristiche testate sul campo per creare software che non è solo funzionale, ma manutenibile, infinitamente scalabile e a prova di futuro. Non scriviamo solo codice—progettiamo soluzioni eleganti che resistono alla prova del tempo e si adattano alle tue esigenze in evoluzione.",
-    "intro3": "Siamo un team di tre—nessun manager, nessun overhead.",
+    "intro2Content": "Combiniamo tecnologie all'avanguardia con pratiche ingegneristiche testate sul campo per creare software che non è solo funzionale, ma manutenibile, infinitamente scalabile e a prova di futuro. Non scriviamo solo codice, progettiamo soluzioni eleganti che resistono alla prova del tempo e si adattano alle tue esigenze in evoluzione.",
+    "intro3": "Siamo un team di tre, nessun manager, nessun overhead.",
     "intro3Content": "Questa struttura snella significa che ogni membro è profondamente coinvolto nel tuo progetto dall'inizio alla fine, e hai accesso diretto alle persone che stanno effettivamente costruendo il tuo prodotto. Ancora più importante, ci permette di offrire",
     "intro3Pricing": "prezzi altamente competitivi",
     "intro3End": "senza compromettere la qualità. Stai pagando per un talento ingegneristico eccezionale, non per la burocrazia aziendale.",
@@ -74,7 +74,7 @@
       },
       "quality": {
         "title": "Qualità senza compromessi",
-        "description": "Ogni singola riga di codice, ogni pixel attentamente considerato, ogni interazione progettata con cura è realizzata con un'attenzione ossessiva ai dettagli, eleganza architetturale e manutenibilità a lungo termine. Crediamo che la qualità non riguardi solo l'evitare bug—si tratta di costruire software intuitivo, performante, sicuro, scalabile e genuinamente piacevole da usare."
+        "description": "Ogni singola riga di codice, ogni pixel attentamente considerato, ogni interazione progettata con cura è realizzata con un'attenzione ossessiva ai dettagli, eleganza architetturale e manutenibilità a lungo termine. Crediamo che la qualità non riguardi solo l'evitare bug, si tratta di costruire software intuitivo, performante, sicuro, scalabile e genuinamente piacevole da usare."
       },
       "partnership": {
         "title": "Vera partnership",

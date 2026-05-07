@@ -60,8 +60,8 @@
     "intro1Content": "We zijn een lean softwareontwikkelingsteam van drie gepassioneerde ingenieurs gespecialiseerd in het bouwen van digitale producten van wereldklasse voor bedrijven van elke omvang. Van ambitieuze startups tot gevestigde ondernemingen, we leveren oplossingen die exponentiële groei stimuleren, complexe operaties stroomlijnen en blijvende concurrentievoordelen creëren in snel evoluerende markten.",
     "intro2": "Onze ontwikkelingsfilosofie is eenvoudig:",
     "intro2Bold": "bouw het goed, bouw het eenmaal.",
-    "intro2Content": "We combineren geavanceerde technologie met beproefde engineering-praktijken om software te creëren die niet alleen functioneel is, maar ook onderhoudbaar, oneindig schaalbaar en toekomstbestendig. We schrijven niet alleen code—we ontwerpen elegante oplossingen die de tand des tijds doorstaan en zich aanpassen aan je veranderende behoeften.",
-    "intro3": "We zijn een team van drie—geen managers, geen overhead.",
+    "intro2Content": "We combineren geavanceerde technologie met beproefde engineering-praktijken om software te creëren die niet alleen functioneel is, maar ook onderhoudbaar, oneindig schaalbaar en toekomstbestendig. We schrijven niet alleen code, we ontwerpen elegante oplossingen die de tand des tijds doorstaan en zich aanpassen aan je veranderende behoeften.",
+    "intro3": "We zijn een team van drie, geen managers, geen overhead.",
     "intro3Content": "Deze lean structuur betekent dat elk lid diep betrokken is bij je project van begin tot eind, en je hebt directe toegang tot de mensen die je product daadwerkelijk bouwen. Nog belangrijker, het stelt ons in staat om",
     "intro3Pricing": "zeer concurrerende prijzen",
     "intro3End": "aan te bieden zonder in te boeten op kwaliteit. Je betaalt voor uitzonderlijk engineering-talent, niet voor bedrijfsbureaucratie.",
@@ -74,7 +74,7 @@
       },
       "quality": {
         "title": "Compromisloze kwaliteit",
-        "description": "Elke regel code, elke zorgvuldig overwogen pixel, elke doordacht ontworpen interactie wordt gemaakt met obsessieve aandacht voor detail, architectonische elegantie en langetermijnonderhoudbaarheid. We geloven dat kwaliteit niet alleen gaat over het vermijden van bugs—het gaat over het bouwen van software die intuïtief, performant, veilig, schaalbaar en oprecht prettig te gebruiken is."
+        "description": "Elke regel code, elke zorgvuldig overwogen pixel, elke doordacht ontworpen interactie wordt gemaakt met obsessieve aandacht voor detail, architectonische elegantie en langetermijnonderhoudbaarheid. We geloven dat kwaliteit niet alleen gaat over het vermijden van bugs, het gaat over het bouwen van software die intuïtief, performant, veilig, schaalbaar en oprecht prettig te gebruiken is."
       },
       "partnership": {
         "title": "Echt partnerschap",

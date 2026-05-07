@@ -60,8 +60,8 @@
     "intro1Content": "Suntem o echipă compactă de dezvoltare software formată din trei ingineri pasionați, specializați în construirea de produse digitale de clasă mondială pentru companii de toate dimensiunile. De la startup-uri ambițioase la întreprinderi consolidate, livrăm soluții care conduc la creștere exponențială, simplifică operațiuni complexe și creează avantaje competitive durabile pe piețe în rapidă evoluție.",
     "intro2": "Filosofia noastră de dezvoltare este simplă:",
     "intro2Bold": "construiește-l corect, construiește-l o dată.",
-    "intro2Content": "Combinăm tehnologia de vârf cu practici de inginerie testate în luptă pentru a crea software care nu este doar funcțional, ci și ușor de întreținut, scalabil la infinit și pregătit pentru viitor. Nu scriem doar cod—proiectăm soluții elegante care rezistă testului timpului și se adaptează la nevoile tale în evoluție.",
-    "intro3": "Suntem o echipă de trei—fără manageri, fără cheltuieli generale.",
+    "intro2Content": "Combinăm tehnologia de vârf cu practici de inginerie testate în luptă pentru a crea software care nu este doar funcțional, ci și ușor de întreținut, scalabil la infinit și pregătit pentru viitor. Nu scriem doar cod, proiectăm soluții elegante care rezistă testului timpului și se adaptează la nevoile tale în evoluție.",
+    "intro3": "Suntem o echipă de trei, fără manageri, fără cheltuieli generale.",
     "intro3Content": "Această structură compactă înseamnă că fiecare membru este profund implicat în proiectul tău de la început până la sfârșit, și ai acces direct la oamenii care îți construiesc efectiv produsul. Mai important, ne permite să oferim",
     "intro3Pricing": "prețuri extrem de competitive",
     "intro3End": "fără a face compromisuri la calitate. Plătești pentru talent de inginerie excepțional, nu pentru birocrație corporativă.",
@@ -74,7 +74,7 @@
       },
       "quality": {
         "title": "Calitate fără compromisuri",
-        "description": "Fiecare linie de cod, fiecare pixel atent considerat, fiecare interacțiune gândită cu atenție este creată cu atenție obsesivă la detalii, eleganță arhitecturală și mentenabilitate pe termen lung. Credem că calitatea nu înseamnă doar evitarea bug-urilor—înseamnă construirea de software care este intuitiv, performant, sigur, scalabil și cu adevărat plăcut de utilizat."
+        "description": "Fiecare linie de cod, fiecare pixel atent considerat, fiecare interacțiune gândită cu atenție este creată cu atenție obsesivă la detalii, eleganță arhitecturală și mentenabilitate pe termen lung. Credem că calitatea nu înseamnă doar evitarea bug-urilor, înseamnă construirea de software care este intuitiv, performant, sigur, scalabil și cu adevărat plăcut de utilizat."
       },
       "partnership": {
         "title": "Parteneriat adevărat",

@@ -60,8 +60,8 @@
     "intro1Content": "Somos un equipo ágil de desarrollo de software de tres ingenieros apasionados especializados en la construcción de productos digitales de clase mundial para empresas de todos los tamaños. Desde startups ambiciosas hasta empresas establecidas, entregamos soluciones que impulsan el crecimiento exponencial, optimizan operaciones complejas y crean ventajas competitivas duraderas en mercados en rápida evolución.",
     "intro2": "Nuestra filosofía de desarrollo es simple:",
     "intro2Bold": "construirlo bien, construirlo una vez.",
-    "intro2Content": "Combinamos tecnología de vanguardia con prácticas de ingeniería probadas en batalla para crear software que no solo es funcional, sino mantenible, infinitamente escalable y preparado para el futuro. No solo escribimos código—diseñamos soluciones elegantes que resisten la prueba del tiempo y se adaptan a sus necesidades en evolución.",
-    "intro3": "Somos un equipo de tres—sin gerentes, sin gastos generales.",
+    "intro2Content": "Combinamos tecnología de vanguardia con prácticas de ingeniería probadas en batalla para crear software que no solo es funcional, sino mantenible, infinitamente escalable y preparado para el futuro. No solo escribimos código, diseñamos soluciones elegantes que resisten la prueba del tiempo y se adaptan a sus necesidades en evolución.",
+    "intro3": "Somos un equipo de tres, sin gerentes, sin gastos generales.",
     "intro3Content": "Esta estructura ágil significa que cada miembro está profundamente involucrado en su proyecto de principio a fin, y usted tiene acceso directo a las personas que realmente están construyendo su producto. Más importante aún, nos permite ofrecer",
     "intro3Pricing": "precios altamente competitivos",
     "intro3End": "sin comprometer la calidad. Usted paga por talento de ingeniería excepcional, no por burocracia corporativa.",
@@ -74,7 +74,7 @@
       },
       "quality": {
         "title": "Calidad sin compromisos",
-        "description": "Cada línea de código, cada píxel cuidadosamente considerado, cada interacción diseñada con atención se elabora con atención obsesiva al detalle, elegancia arquitectónica y mantenibilidad a largo plazo. Creemos que la calidad no se trata solo de evitar errores—se trata de construir software que sea intuitivo, eficiente, seguro, escalable y genuinamente agradable de usar."
+        "description": "Cada línea de código, cada píxel cuidadosamente considerado, cada interacción diseñada con atención se elabora con atención obsesiva al detalle, elegancia arquitectónica y mantenibilidad a largo plazo. Creemos que la calidad no se trata solo de evitar errores, se trata de construir software que sea intuitivo, eficiente, seguro, escalable y genuinamente agradable de usar."
       },
       "partnership": {
         "title": "Asociación verdadera",

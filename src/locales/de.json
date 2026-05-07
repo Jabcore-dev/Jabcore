@@ -60,8 +60,8 @@
     "intro1Content": "Wir sind ein schlankes Softwareentwicklungsteam aus drei leidenschaftlichen Ingenieuren, die sich auf die Entwicklung erstklassiger digitaler Produkte für Unternehmen jeder Größe spezialisiert haben. Von ambitionierten Startups bis hin zu etablierten Unternehmen liefern wir Lösungen, die exponentielles Wachstum fördern, komplexe Abläufe rationalisieren und dauerhafte Wettbewerbsvorteile in sich schnell entwickelnden Märkten schaffen.",
     "intro2": "Unsere Entwicklungsphilosophie ist einfach:",
     "intro2Bold": "richtig bauen, einmal bauen.",
-    "intro2Content": "Wir kombinieren modernste Technologie mit bewährten Engineering-Praktiken, um Software zu erstellen, die nicht nur funktional, sondern wartbar, unendlich skalierbar und zukunftssicher ist. Wir schreiben nicht nur Code—wir entwerfen elegante Lösungen, die dem Test der Zeit standhalten und sich Ihren sich entwickelnden Bedürfnissen anpassen.",
-    "intro3": "Wir sind ein Team von drei—keine Manager, keine Gemeinkosten.",
+    "intro2Content": "Wir kombinieren modernste Technologie mit bewährten Engineering-Praktiken, um Software zu erstellen, die nicht nur funktional, sondern wartbar, unendlich skalierbar und zukunftssicher ist. Wir schreiben nicht nur Code, wir entwerfen elegante Lösungen, die dem Test der Zeit standhalten und sich Ihren sich entwickelnden Bedürfnissen anpassen.",
+    "intro3": "Wir sind ein Team von drei, keine Manager, keine Gemeinkosten.",
     "intro3Content": "Diese schlanke Struktur bedeutet, dass jedes Mitglied vom Anfang bis zum Ende tief in Ihr Projekt involviert ist, und Sie direkten Zugang zu den Leuten haben, die Ihr Produkt tatsächlich entwickeln. Noch wichtiger ist, dass wir dadurch",
     "intro3Pricing": "hochkompetitive Preise",
     "intro3End": "ohne Qualitätseinbußen anbieten können. Sie zahlen für außergewöhnliches Engineering-Talent, nicht für Unternehmensbürokratie.",
@@ -74,7 +74,7 @@
       },
       "quality": {
         "title": "Kompromisslose Qualität",
-        "description": "Jede einzelne Codezeile, jedes sorgfältig durchdachte Pixel, jede bedacht gestaltete Interaktion wird mit obsessiver Liebe zum Detail, architektonischer Eleganz und langfristiger Wartbarkeit gefertigt. Wir glauben, dass Qualität nicht nur darin besteht, Fehler zu vermeiden—es geht darum, Software zu entwickeln, die intuitiv, leistungsstark, sicher, skalierbar und wirklich angenehm zu verwenden ist."
+        "description": "Jede einzelne Codezeile, jedes sorgfältig durchdachte Pixel, jede bedacht gestaltete Interaktion wird mit obsessiver Liebe zum Detail, architektonischer Eleganz und langfristiger Wartbarkeit gefertigt. Wir glauben, dass Qualität nicht nur darin besteht, Fehler zu vermeiden, es geht darum, Software zu entwickeln, die intuitiv, leistungsstark, sicher, skalierbar und wirklich angenehm zu verwenden ist."
       },
       "partnership": {
         "title": "Echte Partnerschaft",

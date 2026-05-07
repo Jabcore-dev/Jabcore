@@ -60,8 +60,8 @@
     "intro1Content": "Sme malý tím troch nadšených vývojárov špecializujúcich sa na vytváranie digitálnych produktov svetovej úrovne pre firmy všetkých veľkostí. Od ambicióznych startupov po zavedené podniky dodávame riešenia, ktoré podporujú exponenciálny rast, zefektívňujú zložité operácie a vytvárajú trvalé konkurenčné výhody na rýchlo sa vyvíjajúcich trhoch.",
     "intro2": "Naša vývojárska filozofia je jednoduchá:",
     "intro2Bold": "postaviť to správne, postaviť to raz.",
-    "intro2Content": "Kombinujeme najmodernejšie technológie s osvedčenými inžinierskymi postupmi, aby sme vytvorili software, ktorý nie je len funkčný, ale udržateľný, nekonečne škálovateľný a pripravený do budúcnosti. Nepíšeme len kód—navrhujeme elegantné riešenia, ktoré obstoja v skúške času a prispôsobia sa vašim meniacim sa potrebám.",
-    "intro3": "Sme tím troch—žiadni manažéri, žiadna réžia.",
+    "intro2Content": "Kombinujeme najmodernejšie technológie s osvedčenými inžinierskymi postupmi, aby sme vytvorili software, ktorý nie je len funkčný, ale udržateľný, nekonečne škálovateľný a pripravený do budúcnosti. Nepíšeme len kód, navrhujeme elegantné riešenia, ktoré obstoja v skúške času a prispôsobia sa vašim meniacim sa potrebám.",
+    "intro3": "Sme tím troch, žiadni manažéri, žiadna réžia.",
     "intro3Content": "Táto štíhla štruktúra znamená, že každý člen je hlboko zapojený do vášho projektu od začiatku do konca a máte priamy prístup k ľuďom, ktorí váš produkt skutočne vytvárajú. Ešte dôležitejšie je, že nám to umožňuje ponúknuť",
     "intro3Pricing": "vysoko konkurenčné ceny",
     "intro3End": "bez kompromisov v kvalite. Platíte za výnimočný inžiniersky talent, nie za korporátnu byrokraciu.",
@@ -74,7 +74,7 @@
       },
       "quality": {
         "title": "Nekompromisná kvalita",
-        "description": "Každý jediný riadok kódu, každý starostlivo zvážený pixel, každá premyslene navrhnutá interakcia je vytvorená s posadnutou pozornosťou na detail, architektonickou eleganciou a dlhodobou udržateľnosťou. Veríme, že kvalita nie je len o vyhýbaní sa chybám—je o vytváraní softvéru, ktorý je intuitívny, výkonný, bezpečný, škálovateľný a skutočne príjemný na používanie."
+        "description": "Každý jediný riadok kódu, každý starostlivo zvážený pixel, každá premyslene navrhnutá interakcia je vytvorená s posadnutou pozornosťou na detail, architektonickou eleganciou a dlhodobou udržateľnosťou. Veríme, že kvalita nie je len o vyhýbaní sa chybám, je o vytváraní softvéru, ktorý je intuitívny, výkonný, bezpečný, škálovateľný a skutočne príjemný na používanie."
       },
       "partnership": {
         "title": "Skutočné partnerstvo",

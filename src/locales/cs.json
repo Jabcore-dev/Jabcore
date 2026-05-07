@@ -57,20 +57,20 @@
   "about": {
     "title": "Kdo jsme",
     "intro1": "Jabcore je místo, kde se inovace setkává s realizací.",
-    "intro1Content": "Jsme malý tým tří vývojářů specializovaných na digitální produkty pro firmy všech velikostí. Pracujeme pro startupy i zavedené firmy — pomáháme jim růst, zefektivňovat procesy a získávat náskok před konkurencí.",
+    "intro1Content": "Jsme malý tým tří vývojářů specializovaných na digitální produkty pro firmy všech velikostí. Pracujeme pro startupy i zavedené firmy, pomáháme jim růst, zefektivňovat procesy a získávat náskok před konkurencí.",
     "intro2": "Naše vývojářská filosofie je jednoduchá:",
     "intro2Bold": "postavit to správně, postavit to jednou.",
-    "intro2Content": "Kombinujeme moderní technologie s prověřenými postupy, abychom vytvořili software, který je funkční, udržovatelný a připravený na růst. Nepíšeme jen kód — navrhujeme řešení, která fungují dlouhodobě.",
-    "intro3": "Jsme tým tří — žádní manažeři, žádná režie.",
-    "intro3Content": "Každý z nás je u vašeho projektu od první konzultace po finální dodání — vždy víte, s kým mluvíte a kdo váš produkt tvoří. A zároveň nám to umožňuje nabídnout",
+    "intro2Content": "Kombinujeme moderní technologie s prověřenými postupy, abychom vytvořili software, který je funkční, udržovatelný a připravený na růst. Nepíšeme jen kód, navrhujeme řešení, která fungují dlouhodobě.",
+    "intro3": "Jsme tým tří, žádní manažeři, žádná režie.",
+    "intro3Content": "Každý z nás je u vašeho projektu od první konzultace po finální dodání, vždy víte, s kým mluvíte a kdo váš produkt tvoří. A zároveň nám to umožňuje nabídnout",
     "intro3Pricing": "vysoce konkurenční ceny",
     "intro3End": "bez kompromisů v kvalitě. Platíte za výjimečný inženýrský talent, ne za korporátní byrokracii.",
-    "intro4": "Mimo klientské projekty se neustále vzděláváme, zkoušíme nové technologie a občas tvoříme vlastní produkty. AI pro nás není módní slovo — integrujeme ji tam, kde skutečně přináší hodnotu. Díky tomu jsou naše řešení vždy aktuální a prověřená praxí.",
+    "intro4": "Mimo klientské projekty se neustále vzděláváme, zkoušíme nové technologie a občas tvoříme vlastní produkty. AI pro nás není módní slovo, integrujeme ji tam, kde skutečně přináší hodnotu. Díky tomu jsou naše řešení vždy aktuální a prověřená praxí.",
     "valuesTitle": "Naše hodnoty",
     "values": {
       "mission": {
         "title": "Dokonalost řízená posláním",
-        "description": "Každý projekt vedeme s cílem dodat výsledek, který dává smysl — technicky i obchodně. Žádné kompromisy v kvalitě, žádné zkratky."
+        "description": "Každý projekt vedeme s cílem dodat výsledek, který dává smysl, technicky i obchodně. Žádné kompromisy v kvalitě, žádné zkratky."
       },
       "quality": {
         "title": "Nekompromisní kvalita",
@@ -78,7 +78,7 @@
       },
       "partnership": {
         "title": "Skutečné partnerství",
-        "description": "Váš úspěch je i náš úspěch. Nejsme jen dodavatel — zapojujeme se, chápeme vaši situaci a táhneme za jeden provaz. Stavíme na transparentnosti, přímé komunikaci a dlouhodobých vztazích."
+        "description": "Váš úspěch je i náš úspěch. Nejsme jen dodavatel, zapojujeme se, chápeme vaši situaci a táhneme za jeden provaz. Stavíme na transparentnosti, přímé komunikaci a dlouhodobých vztazích."
       },
       "innovation": {
         "title": "Neúnavná inovace",

@@ -60,8 +60,8 @@
     "intro1Content": "We're a lean software development team of three passionate engineers specializing in building world-class digital products for businesses of all sizes. From ambitious startups to established enterprises, we deliver solutions that drive exponential growth, streamline complex operations, and create lasting competitive advantages in rapidly evolving markets.",
     "intro2": "Our development philosophy is simple:",
     "intro2Bold": "build it right, build it once.",
-    "intro2Content": "We combine cutting-edge technology with battle-tested engineering practices to create software that's not just functional, but maintainable, infinitely scalable, and future-proof. We don't just write code—we architect elegant solutions that stand the test of time and adapt to your evolving needs.",
-    "intro3": "We're a team of three—no managers, no overhead.",
+    "intro2Content": "We combine cutting-edge technology with battle-tested engineering practices to create software that's not just functional, but maintainable, infinitely scalable, and future-proof. We don't just write code, we architect elegant solutions that stand the test of time and adapt to your evolving needs.",
+    "intro3": "We're a team of three, no managers, no overhead.",
     "intro3Content": "This lean structure means every member is deeply involved in your project from start to finish, and you get direct access to the people actually building your product. More importantly, it allows us to offer",
     "intro3Pricing": "highly competitive pricing",
     "intro3End": "without compromising on quality. You're paying for exceptional engineering talent, not corporate bureaucracy.",
@@ -74,7 +74,7 @@
       },
       "quality": {
         "title": "Uncompromising Quality",
-        "description": "Every single line of code, every carefully considered pixel, every thoughtfully designed interaction is crafted with obsessive attention to detail, architectural elegance, and long-term maintainability. We believe quality is not just about avoiding bugs—it's about building software that is intuitive, performant, secure, scalable, and genuinely delightful to use."
+        "description": "Every single line of code, every carefully considered pixel, every thoughtfully designed interaction is crafted with obsessive attention to detail, architectural elegance, and long-term maintainability. We believe quality is not just about avoiding bugs, it's about building software that is intuitive, performant, secure, scalable, and genuinely delightful to use."
       },
       "partnership": {
         "title": "True Partnership",

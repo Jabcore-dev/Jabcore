@@ -60,8 +60,8 @@
     "intro1Content": "Három szenvedélyes mérnökből álló karcsú szoftverfejlesztő csapat vagyunk, akik világszínvonalú digitális termékek készítésére szakosodtak minden méretű vállalkozás számára. Az ambiciózus startupokától a megalapozott vállalkozásokig olyan megoldásokat szállítunk, amelyek exponenciális növekedést hajtanak, összetett műveleteket egyszerűsítenek és tartós versenyelőnyöket teremtenek a gyorsan fejlődő piacokon.",
     "intro2": "A fejlesztési filozófiánk egyszerű:",
     "intro2Bold": "építsd meg jól, építsd meg egyszer.",
-    "intro2Content": "A legmodernebb technológiát ötvözzük a csatában kipróbált mérnöki gyakorlatokkal, hogy olyan szoftvert hozzunk létre, amely nemcsak funkcionális, hanem karbantartható, végtelenül skálázható és jövőbiztos. Nem csak kódot írunk—elegáns megoldásokat tervezünk, amelyek kiállják az idő próbáját és alkalmazkodnak változó igényeidhez.",
-    "intro3": "Hárman vagyunk—nincsenek menedzserek, nincs rezsi.",
+    "intro2Content": "A legmodernebb technológiát ötvözzük a csatában kipróbált mérnöki gyakorlatokkal, hogy olyan szoftvert hozzunk létre, amely nemcsak funkcionális, hanem karbantartható, végtelenül skálázható és jövőbiztos. Nem csak kódot írunk, elegáns megoldásokat tervezünk, amelyek kiállják az idő próbáját és alkalmazkodnak változó igényeidhez.",
+    "intro3": "Hárman vagyunk, nincsenek menedzserek, nincs rezsi.",
     "intro3Content": "Ez a karcsú struktúra azt jelenti, hogy minden tag mélyen benne van a projektedben az elejétől a végéig, és közvetlen hozzáférésed van azokhoz, akik ténylegesen építik a termékedet. Ami még fontosabb, ez lehetővé teszi számunkra, hogy",
     "intro3Pricing": "rendkívül versenyképes árakat",
     "intro3End": "kínáljunk minőségi kompromisszumok nélkül. Kivételes mérnöki tehetségért fizetsz, nem vállalati bürokráciáért.",
@@ -74,7 +74,7 @@
       },
       "quality": {
         "title": "Kompromisszummentes minőség",
-        "description": "Minden egyes kódsor, minden gondosan mérlegelt pixel, minden átgondoltan tervezett interakció megszállott részletességgel, építészeti eleganciával és hosszú távú karbantarthatósággal készül. Hisszük, hogy a minőség nem csak a hibák elkerüléséről szól—arról szól, hogy olyan szoftvert építsünk, amely intuitív, teljesítményorientált, biztonságos, skálázható és valóban kellemes használni."
+        "description": "Minden egyes kódsor, minden gondosan mérlegelt pixel, minden átgondoltan tervezett interakció megszállott részletességgel, építészeti eleganciával és hosszú távú karbantarthatósággal készül. Hisszük, hogy a minőség nem csak a hibák elkerüléséről szól, arról szól, hogy olyan szoftvert építsünk, amely intuitív, teljesítményorientált, biztonságos, skálázható és valóban kellemes használni."
       },
       "partnership": {
         "title": "Valódi partnerség",

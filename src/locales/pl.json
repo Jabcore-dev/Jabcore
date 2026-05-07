@@ -60,8 +60,8 @@
     "intro1Content": "Jesteśmy sprawnym zespołem trzech pasjonatów inżynierii specjalizującym się w tworzeniu światowej klasy produktów cyfrowych dla firm każdej wielkości. Od ambitnych startupów po ugruntowane przedsiębiorstwa, dostarczamy rozwiązania, które napędzają wykładniczy wzrost, usprawniają złożone operacje i tworzą trwałe przewagi konkurencyjne na szybko rozwijających się rynkach.",
     "intro2": "Nasza filozofia rozwoju jest prosta:",
     "intro2Bold": "zbudować to dobrze, zbudować to raz.",
-    "intro2Content": "Łączymy najnowocześniejszą technologię z sprawdzonymi w boju praktykami inżynieryjnymi, aby tworzyć oprogramowanie, które nie jest tylko funkcjonalne, ale łatwe w utrzymaniu, nieskończenie skalowalne i przyszłościowe. Nie tylko piszemy kod—projektujemy eleganckie rozwiązania, które wytrzymują próbę czasu i dostosowują się do Twoich zmieniających się potrzeb.",
-    "intro3": "Jesteśmy zespołem trzech osób—bez menedżerów, bez narzutów.",
+    "intro2Content": "Łączymy najnowocześniejszą technologię z sprawdzonymi w boju praktykami inżynieryjnymi, aby tworzyć oprogramowanie, które nie jest tylko funkcjonalne, ale łatwe w utrzymaniu, nieskończenie skalowalne i przyszłościowe. Nie tylko piszemy kod, projektujemy eleganckie rozwiązania, które wytrzymują próbę czasu i dostosowują się do Twoich zmieniających się potrzeb.",
+    "intro3": "Jesteśmy zespołem trzech osób, bez menedżerów, bez narzutów.",
     "intro3Content": "Ta sprawna struktura oznacza, że każdy członek jest głęboko zaangażowany w Twój projekt od początku do końca, a Ty masz bezpośredni dostęp do osób faktycznie budujących Twój produkt. Co ważniejsze, pozwala nam to oferować",
     "intro3Pricing": "wysoce konkurencyjne ceny",
     "intro3End": "bez kompromisów w jakości. Płacisz za wyjątkowy talent inżynieryjny, a nie za korporacyjną biurokrację.",
@@ -74,7 +74,7 @@
       },
       "quality": {
         "title": "Niekompromisowa jakość",
-        "description": "Każda pojedyncza linia kodu, każdy starannie przemyślany piksel, każda przemyślanie zaprojektowana interakcja jest tworzona z obsesyjną uwagą na szczegóły, architektoniczną elegancją i długoterminową łatwością utrzymania. Wierzymy, że jakość to nie tylko unikanie błędów—to budowanie oprogramowania, które jest intuicyjne, wydajne, bezpieczne, skalowalne i naprawdę przyjemne w użyciu."
+        "description": "Każda pojedyncza linia kodu, każdy starannie przemyślany piksel, każda przemyślanie zaprojektowana interakcja jest tworzona z obsesyjną uwagą na szczegóły, architektoniczną elegancją i długoterminową łatwością utrzymania. Wierzymy, że jakość to nie tylko unikanie błędów, to budowanie oprogramowania, które jest intuicyjne, wydajne, bezpieczne, skalowalne i naprawdę przyjemne w użyciu."
       },
       "partnership": {
         "title": "Prawdziwe partnerstwo",

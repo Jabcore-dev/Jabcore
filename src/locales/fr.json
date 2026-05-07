@@ -60,8 +60,8 @@
     "intro1Content": "Nous sommes une équipe de développement logiciel agile de trois ingénieurs passionnés spécialisés dans la création de produits numériques de classe mondiale pour les entreprises de toutes tailles. Des startups ambitieuses aux entreprises établies, nous livrons des solutions qui stimulent la croissance exponentielle, rationalisent les opérations complexes et créent des avantages concurrentiels durables sur des marchés en évolution rapide.",
     "intro2": "Notre philosophie de développement est simple :",
     "intro2Bold": "bien le construire, le construire une fois.",
-    "intro2Content": "Nous combinons une technologie de pointe avec des pratiques d'ingénierie éprouvées pour créer des logiciels qui ne sont pas seulement fonctionnels, mais maintenables, infiniment évolutifs et pérennes. Nous n'écrivons pas seulement du code—nous concevons des solutions élégantes qui résistent à l'épreuve du temps et s'adaptent à vos besoins évolutifs.",
-    "intro3": "Nous sommes une équipe de trois—pas de managers, pas de frais généraux.",
+    "intro2Content": "Nous combinons une technologie de pointe avec des pratiques d'ingénierie éprouvées pour créer des logiciels qui ne sont pas seulement fonctionnels, mais maintenables, infiniment évolutifs et pérennes. Nous n'écrivons pas seulement du code, nous concevons des solutions élégantes qui résistent à l'épreuve du temps et s'adaptent à vos besoins évolutifs.",
+    "intro3": "Nous sommes une équipe de trois, pas de managers, pas de frais généraux.",
     "intro3Content": "Cette structure agile signifie que chaque membre est profondément impliqué dans votre projet du début à la fin, et vous avez un accès direct aux personnes qui construisent réellement votre produit. Plus important encore, cela nous permet d'offrir",
     "intro3Pricing": "des prix hautement compétitifs",
     "intro3End": "sans compromettre la qualité. Vous payez pour un talent d'ingénierie exceptionnel, pas pour la bureaucratie d'entreprise.",
@@ -74,7 +74,7 @@
       },
       "quality": {
         "title": "Qualité sans compromis",
-        "description": "Chaque ligne de code, chaque pixel soigneusement réfléchi, chaque interaction conçue avec attention est créée avec une attention obsessionnelle aux détails, une élégance architecturale et une maintenabilité à long terme. Nous croyons que la qualité ne consiste pas seulement à éviter les bugs—il s'agit de créer des logiciels intuitifs, performants, sécurisés, évolutifs et véritablement agréables à utiliser."
+        "description": "Chaque ligne de code, chaque pixel soigneusement réfléchi, chaque interaction conçue avec attention est créée avec une attention obsessionnelle aux détails, une élégance architecturale et une maintenabilité à long terme. Nous croyons que la qualité ne consiste pas seulement à éviter les bugs, il s'agit de créer des logiciels intuitifs, performants, sécurisés, évolutifs et véritablement agréables à utiliser."
       },
       "partnership": {
         "title": "Véritable partenariat",
