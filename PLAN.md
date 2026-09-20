@@ -221,6 +221,49 @@ Celý řetězec je ověřený proti dočasnému prostředí: Postgres naběhne, 
 proběhnou jako viditelný one-shot, web se sestaví a nahlásí healthy,
 `deploy/backup.sh` vyrobí dump i archiv obrázků.
 
+## SEO
+
+Stav po auditu a opravách:
+
+- obsah všech 12 jazyků je server-rendered, hreflang včetně `x-default`
+- `<html lang>` odpovídá jazyku stránky — kvůli tomu je kořenový layout
+  rozdělený na čtyři (`(root)`, `[locale]`, `portfolio/[locale]`, `admin`),
+  protože `<html>` musí být nad segmentem `[locale]`
+- česká homepage má canonical na holé doméně a **sitemapa nabízí tutéž URL**;
+  `/cs` dělá 308 na `/`, aby stejný obsah nežil na dvou adresách
+- `CreativeWork` JSON-LD u každé reference, `Organization` na homepage
+- host-aware sitemapa a robots, testovací instance na noindex
+- admin je `noindex` a bez Google Analytics
+
+Homepage zůstává dynamická (`ƒ`), protože čte reference z databáze. Změřeno:
+TTFB 7 ms proti 2 ms u statické stránky — proti latenci sítě je to šum.
+Statickou by ji udělalo až PPR, které ve stabilním Next 15 není.
+
+## Výběr jazyka
+
+Priorita v [middleware.ts](src/middleware.ts):
+
+1. **cookie** `jabcore_locale` — ruční volba z přepínače vždy vyhrává
+2. **IP adresa** — CZ → čeština, SK → slovenština
+3. **Accept-Language**
+4. čeština
+
+Bod 2 existuje proto, že Čech s anglicky nastaveným prohlížečem posílá
+`Accept-Language: en-US,en` a dostal by angličtinu na webu české firmy.
+
+Rozsahy jsou v [src/lib/geo/ranges.ts](src/lib/geo/ranges.ts) — 1472 českých
+a 390 slovenských IPv4 rozsahů z RIPE NCC, plus IPv6. Žádný MaxMind ani externí
+služba: tabulka dvou zemí se vejde do edge middlewaru, nepotřebuje licenci ani
+čtení souboru. Aktualizace `npm run geo:update`, stačí jednou za rok.
+
+**Geolokace se uplatní jen na URL bez prefixu.** `/en/services` se nepřesměruje
+nikdy, takže hreflang funguje a crawler se dostane na všechny jazyky bez ohledu
+na to, odkud leze.
+
+Caddy musí `X-Forwarded-For` **přepisovat**, ne rozšiřovat — jinak si ji
+návštěvník podvrhne a vybere si jazyk cizí adresou. Je to v
+[deploy/Caddyfile](deploy/Caddyfile).
+
 ## Co nezapomenout
 
 - `backup.sh` zálohuje **i volume s obrázky**, ne jen `pg_dump` — nahrané fotky

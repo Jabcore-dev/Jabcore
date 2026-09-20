@@ -10,7 +10,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { usePathname, useRouter } from 'next/navigation'
 import { languages, STORAGE_KEY } from '@/lib/i18n'
-import { locales } from '@/lib/i18n-config'
+import { locales, LOCALE_COOKIE, LOCALE_COOKIE_MAX_AGE } from '@/lib/i18n-config'
 
 /** Strip /{locale} prefix from pathname */
 function stripLocalePrefix(pathname: string): string {
@@ -29,6 +29,13 @@ export default function LanguageSwitcher() {
   const handleLanguageChange = (value: string) => {
     i18n.changeLanguage(value)
     localStorage.setItem(STORAGE_KEY, value)
+
+    /*
+     * Zapsat i do cookie: middleware rozhoduje o jazyce ještě před renderem a
+     * do localStorage nevidí. Bez tohohle by návštěvníka z české IP hned
+     * vrátila geolokace zpátky do češtiny, i když si právě vybral angličtinu.
+     */
+    document.cookie = `${LOCALE_COOKIE}=${value}; path=/; max-age=${LOCALE_COOKIE_MAX_AGE}; samesite=lax`
 
     // Navigate to the same page in the new locale
     const pathWithoutLocale = stripLocalePrefix(pathname)

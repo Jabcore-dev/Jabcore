@@ -1,6 +1,9 @@
 import { ThemeProvider } from 'next-themes'
 import type { Metadata } from 'next'
+import '../../globals.css'
+import RootHtml from '@/components/RootHtml'
 import { PORTFOLIO_URL } from '@/lib/site-config'
+import { locales, defaultLocale } from '@/lib/i18n-config'
 
 /**
  * Layout of the portfolio site (portfolio.jabcore.cz).
@@ -20,10 +23,21 @@ export const metadata: Metadata = {
   },
 }
 
-export default function PortfolioLayout({ children }: { children: React.ReactNode }) {
+export default async function PortfolioLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: Promise<{ locale: string }>
+}) {
+  const { locale: rawLocale } = await params
+  const locale = (locales as readonly string[]).includes(rawLocale) ? rawLocale : defaultLocale
+
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <div className="min-h-screen bg-background text-foreground">{children}</div>
-    </ThemeProvider>
+    <RootHtml lang={locale}>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <div className="min-h-screen bg-background text-foreground">{children}</div>
+      </ThemeProvider>
+    </RootHtml>
   )
 }

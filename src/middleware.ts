@@ -1,7 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { locales, defaultLocale } from '@/lib/i18n-config'
+import { locales, defaultLocale, LOCALE_COOKIE } from '@/lib/i18n-config'
 import { PORTFOLIO_HOST, SITE_URL, PORTFOLIO_URL } from '@/lib/site-config'
 import { SESSION_COOKIE, readSessionToken } from '@/lib/auth/session'
+import { clientIp, countryOfIp } from '@/lib/geo'
 
 /**
  * Host and locale routing.
@@ -21,8 +22,34 @@ import { SESSION_COOKIE, readSessionToken } from '@/lib/auth/session'
  * visitor loaded a blank page first and crawlers saw a client-side hop.
  */
 
-/** Best supported locale from the Accept-Language header, or the default. */
+/** Country → language, for the two countries we can recognise by IP. */
+const COUNTRY_LOCALE: Record<string, string> = { CZ: 'cs', SK: 'sk' }
+
+/**
+ * Which language to show someone who asked for an unprefixed URL.
+ *
+ * In priority order:
+ *
+ *   1. the cookie the language switcher writes — an explicit choice always
+ *      wins, otherwise geolocation would undo it on the next click,
+ *   2. the country the IP belongs to,
+ *   3. Accept-Language,
+ *   4. Czech.
+ *
+ * Step 2 exists because a Czech visitor with an English-language browser sends
+ * `Accept-Language: en-US,en` and would otherwise be served English on a Czech
+ * company's site. It only ever applies to unprefixed URLs: /en/services is
+ * never redirected, so hreflang keeps working and crawlers reach every
+ * language regardless of where they crawl from.
+ */
 function preferredLocale(request: NextRequest): string {
+  const chosen = request.cookies.get(LOCALE_COOKIE)?.value
+  if (chosen && (locales as readonly string[]).includes(chosen)) return chosen
+
+  const country = countryOfIp(clientIp(request.headers))
+  const byCountry = country ? COUNTRY_LOCALE[country] : undefined
+  if (byCountry && (locales as readonly string[]).includes(byCountry)) return byCountry
+
   const header = request.headers.get('accept-language')
   if (!header) return defaultLocale
 
@@ -141,6 +168,21 @@ export async function middleware(request: NextRequest) {
   // the one-pager would also live at jabcore.cz/portfolio/cs.
   if (pathname === '/portfolio' || pathname.startsWith('/portfolio/')) {
     return NextResponse.redirect(new URL(PORTFOLIO_URL), 308)
+  }
+
+  /*
+   * The Czech homepage lives at the bare domain — that is what its canonical
+   * and the cs hreflang point at. /cs renders the same thing, so it is moved
+   * rather than left as a second address for identical content.
+   *
+   * Safe only because the language switcher writes a cookie: without it, a
+   * visitor picking Czech from an English IP would land on /, be sent back to
+   * /en, and bounce.
+   */
+  if (pathname === `/${defaultLocale}`) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/'
+    return NextResponse.redirect(url, 308)
   }
 
   if (prefix) return NextResponse.next()

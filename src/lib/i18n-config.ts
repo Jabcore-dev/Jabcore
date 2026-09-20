@@ -19,3 +19,18 @@ export const ogLocales: Record<string, string> = {
   hu: 'hu_HU',
   ro: 'ro_RO',
 }
+
+/**
+ * Ručně vybraný jazyk, uložený do cookie.
+ *
+ * Middleware rozhoduje o jazyce ještě před renderem a do localStorage nevidí,
+ * takže volba z přepínače musí být v cookie — jinak by ji geolokace při další
+ * navigaci přebila.
+ *
+ * Konstanty jsou tady, a ne v lib/i18n.ts: ten importuje react-i18next a
+ * jakmile na něj sáhne middleware, skončí celá knihovna v edge bundlu.
+ */
+export const LOCALE_COOKIE = 'jabcore_locale'
+
+/** Rok — volba jazyka není nic, co by se mělo zapomínat za týden. */
+export const LOCALE_COOKIE_MAX_AGE = 60 * 60 * 24 * 365

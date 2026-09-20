@@ -35,7 +35,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const locale of locales) {
     for (const page of pages) {
       entries.push({
-        url: `${SITE_URL}/${locale}${page.path}`,
+        /*
+         * The Czech homepage declares the bare domain as its canonical (see
+         * generatePageMetadata), so the sitemap has to offer that same URL.
+         * Listing /cs here would hand crawlers an address that points
+         * somewhere else the moment they load it.
+         */
+        url:
+          locale === defaultLocale && page.path === ''
+            ? SITE_URL
+            : `${SITE_URL}/${locale}${page.path}`,
         lastModified: now,
         changeFrequency: page.changeFrequency,
         priority: page.priority,

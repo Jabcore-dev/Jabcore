@@ -12,7 +12,8 @@
         "db:migrate": "tsx src/db/migrate.ts",
         "db:studio": "drizzle-kit studio",
         "db:seed": "tsx src/db/seed.ts",
-        "admin:create": "tsx src/db/create-admin.ts"
+        "admin:create": "tsx src/db/create-admin.ts",
+        "geo:update": "node scripts/update-geo.mjs"
     },
     "dependencies": {
         "@emailjs/browser": "^4.4.1",

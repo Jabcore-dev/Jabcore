@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import Hero from '@/components/sections/Hero'
 import CollaborationProcess from '@/components/sections/CollaborationProcess'
 import ServicesPreview from '@/components/sections/ServicesPreview'
@@ -12,10 +13,20 @@ export default function HomePage({ locale }: { locale: Locale }) {
     <div>
       <Hero />
       <ServicesPreview />
-      {/* Reads the database, so it is rendered on the server. It returns null
-          when nothing is published yet, and the homepage keeps working if the
-          database is down. */}
-      <ReferencesPreview locale={locale} />
+      {/*
+        Wrapped in Suspense so the database read does not hold up the rest of
+        the page: everything around it is prerendered and served from the
+        cache, and only this section is streamed in per request. Without it the
+        whole homepage becomes dynamic and every visitor waits for Postgres
+        before seeing anything.
+
+        No fallback markup on purpose — the section renders nothing at all when
+        there is nothing published, so a placeholder would be a box that
+        sometimes collapses to zero height after loading.
+      */}
+      <Suspense fallback={null}>
+        <ReferencesPreview locale={locale} />
+      </Suspense>
       <WhyChooseUs />
       <CollaborationProcess />
       <TechStack />

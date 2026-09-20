@@ -9,6 +9,16 @@
 # Obě domény míří na TENTÝŽ port. Je to jedna aplikace; který web se naservíruje
 # rozhoduje až src/middleware.ts podle hlavičky Host, proto ji musí Caddy poslat
 # dál nezměněnou (reverse_proxy to dělá sám, neměň Host hlavičku).
+#
+# X-Forwarded-For se PŘEPISUJE, ne rozšiřuje. Caddy ve výchozím stavu k té
+# hlavičce připojuje, takže kdyby si ji poslal sám návštěvník, zůstala by jeho
+# podvržená adresa vlevo — a podle ní middleware vybírá jazyk (src/lib/geo).
+# Snippet níž se vkládá do každého bloku.
+(jabcore-proxy) {
+    reverse_proxy {args[0]} {
+        header_up X-Forwarded-For {remote_host}
+    }
+}
 
 # --- Produkce ----------------------------------------------------------------
 # DNS A/AAAA záznamy: jabcore.cz, www.jabcore.cz, portfolio.jabcore.cz → IP serveru
@@ -18,18 +28,18 @@ jabcore.cz, www.jabcore.cz {
     @www host www.jabcore.cz
     redir @www https://jabcore.cz{uri} permanent
 
-    reverse_proxy 127.0.0.1:13100
+    import jabcore-proxy 127.0.0.1:13100
 }
 
 portfolio.jabcore.cz {
-    reverse_proxy 127.0.0.1:13100
+    import jabcore-proxy 127.0.0.1:13100
 }
 
 # --- Test --------------------------------------------------------------------
 # DNS A/AAAA záznamy: jabcore.jabcore.cloud, portfolio.jabcore.jabcore.cloud
 
 jabcore.jabcore.cloud, portfolio.jabcore.jabcore.cloud {
-    reverse_proxy 127.0.0.1:13101
+    import jabcore-proxy 127.0.0.1:13101
 
     # Testovací instance nemá být veřejná. robots.txt už zakazuje indexaci
     # (src/app/robots.ts), tohle je druhá vrstva pro náhodné návštěvníky.

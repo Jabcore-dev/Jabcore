@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { ThemeProvider } from 'next-themes'
+import '../globals.css'
+import RootHtml from '@/components/RootHtml'
 import { Toaster } from '@/components/ui/sonner'
 
 /**
@@ -17,9 +19,12 @@ export const metadata: Metadata = {
 
 export default function AdminRootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <div className="min-h-screen bg-background text-foreground">{children}</div>
-      <Toaster position="bottom-right" />
-    </ThemeProvider>
+    // Bez analytiky: za přihlášením není co měřit.
+    <RootHtml lang="cs" analytics={false}>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <div className="min-h-screen bg-background text-foreground">{children}</div>
+        <Toaster position="bottom-right" />
+      </ThemeProvider>
+    </RootHtml>
   )
 }

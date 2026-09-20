@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { locales, defaultLocale, ogLocales, type Locale } from '@/lib/i18n-config'
 import { t } from '@/lib/server-i18n'
+import '../globals.css'
+import RootHtml from '@/components/RootHtml'
 import Providers from '@/components/providers/Providers'
 import Navigation from '@/components/sections/Navigation'
 import Footer from '@/components/sections/Footer'
@@ -81,14 +83,16 @@ export default async function LocaleLayout({
     : defaultLocale
 
   return (
-    <Providers locale={locale}>
-      <DynamicSeoTitle />
-      <div className="min-h-screen bg-background text-foreground">
-        <Navigation />
-        <main>{children}</main>
-        <Footer />
-      </div>
-      <Toaster position="bottom-right" />
-    </Providers>
+    <RootHtml lang={locale}>
+      <Providers locale={locale}>
+        <DynamicSeoTitle />
+        <div className="min-h-screen bg-background text-foreground">
+          <Navigation />
+          <main>{children}</main>
+          <Footer />
+        </div>
+        <Toaster position="bottom-right" />
+      </Providers>
+    </RootHtml>
   )
 }
