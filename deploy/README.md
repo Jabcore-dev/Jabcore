@@ -70,6 +70,19 @@ když se heslo zapomene.
 Role: `owner` spravuje i účty, `editor` jen obsah. Poslední vlastník nejde
 smazat ani degradovat, jinak by se ze správy účtů nikdo nedostal zpět.
 
+## Obrázky referencí
+
+Ideální rozměr je **1920 × 1080 px**, tedy poměr 16:9. Napsané je to i v adminu
+u pole pro nahrání a při nahrání nevhodného obrázku se objeví upozornění.
+
+Proč zrovna 16:9: obrázek se zobrazuje na třech místech s různými poměry -
+karta v seznamu 16:10, detail reference 16:9 a náhled při sdílení 1,91:1.
+Všude se ořezává na střed, takže 16:9 leží mezi nimi a z každé strany zmizí
+jen pár procent. Proto **důležité nech blíž středu**.
+
+Minimum je 1200 × 675 px, strop 12 MB. Převod do WebP a zmenšení na 2000 px
+proběhne automaticky při nahrání.
+
 ## Zálohy
 
 ```bash

@@ -33,7 +33,14 @@ export default function ImageField({
 
       setPreview(result.url)
       onChange(result.url)
-      toast.success('Obrázek nahrán.')
+
+      // Nevhodny rozmer nahrani neblokuje, jen se rekne nahlas - jinak by se
+      // na to prislo az podle rozmazaneho obrazku na webu.
+      if (result.warning) {
+        toast.warning(result.warning, { duration: 8000 })
+      } else {
+        toast.success('Obrázek nahrán.')
+      }
     })
   }
 
@@ -67,6 +74,17 @@ export default function ImageField({
           {pending ? 'Nahrávám…' : 'Nahrát obrázek'}
         </button>
       )}
+
+      {/* Rozmer je tu napsany schvalne u pole, ne v dokumentaci: je to jedina
+          chvile, kdy to nekdo potrebuje vedet. */}
+      <p className="text-xs text-muted-foreground">
+        Ideálně <strong>1920 × 1080 px</strong> (poměr 16:9), minimálně 1200 × 675 px, do 12 MB.
+        JPG, PNG, WebP nebo AVIF. Převod do WebP a zmenšení proběhne automaticky.
+      </p>
+      <p className="text-xs text-muted-foreground">
+        Důležité nechej blíž středu - na kartách a při sdílení se okraje ořezávají
+        (zhruba 5 % po stranách a 4 % nahoře a dole).
+      </p>
 
       <input
         ref={inputRef}

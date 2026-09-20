@@ -15,7 +15,26 @@ export interface UploadResult {
   ok: boolean
   url?: string
   error?: string
+  /** Obrazek se ulozil, ale na webu nebude vypadat idealne. */
+  warning?: string
 }
+
+/**
+ * Doporuceny pomer stran.
+ *
+ * Obrazek se zobrazuje na trech mistech s ruznymi pomery: karta v seznamu je
+ * 16:10, detail reference 16:9 a nahled pri sdileni na socialnich sitich
+ * 1,91:1. Vsude se orezava na stred, takze 16:9 je jediny pomer, ktery lezi
+ * mezi nimi - z kazde strany se ustrihne par procent misto ctvrtiny obrazku.
+ */
+const TARGET_RATIO = 16 / 9
+
+/** Nejuzsi a nejsirsi pomer, ktery jeste orez prezije bez ztraty obsahu. */
+const MIN_RATIO = 1.5
+const MAX_RATIO = 2.0
+
+/** Detail reference se vykresluje 1024 px siroky, na retine tedy 2048. */
+const MIN_WIDTH = 1200
 
 /**
  * Stores one image and returns its public URL.
@@ -45,6 +64,18 @@ export async function uploadImage(formData: FormData): Promise<UploadResult> {
   try {
     const input = Buffer.from(await file.arrayBuffer())
 
+    const { width = 0, height = 0 } = await sharp(input).metadata()
+    const ratio = height > 0 ? width / height : TARGET_RATIO
+
+    // Nahrani nikdy neblokujeme - editor vi nejlip, jaky obrazek ma. Jen
+    // rekneme nahlas, co se s nim na webu stane.
+    let warning: string | undefined
+    if (ratio < MIN_RATIO || ratio > MAX_RATIO) {
+      warning = `Obrázek má poměr ${ratio.toFixed(2)}:1, doporučený je 1,78:1 (16:9). Na kartách a při sdílení se z něj ořízne víc, než je zdrávo.`
+    } else if (width > 0 && width < MIN_WIDTH) {
+      warning = `Obrázek je široký jen ${width} px. Na detailu reference se roztáhne na 1024 px, takže bude rozmazaný. Doporučeno alespoň ${MIN_WIDTH} px.`
+    }
+
     const output = await sharp(input)
       // withoutEnlargement: a smaller image stays as it is instead of being
       // upscaled into a blurry 2000px version.
@@ -60,7 +91,7 @@ export async function uploadImage(formData: FormData): Promise<UploadResult> {
     await mkdir(UPLOADS_DIR, { recursive: true })
     await writeFile(target, output)
 
-    return { ok: true, url: uploadUrl(filename) }
+    return { ok: true, url: uploadUrl(filename), warning }
   } catch (error) {
     console.error('upload obrázku selhal', error)
     return { ok: false, error: 'Obrázek se nepodařilo zpracovat.' }
