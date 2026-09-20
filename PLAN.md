@@ -3,7 +3,7 @@
 Migrace webu jabcore.cz ze statického exportu na GitHub Pages na vlastní server
 s databází, administrací obsahu a druhou doménou pro portfolio.
 
-Stav: **fáze 1, 2, 4 a 5 hotové** — zbývá fáze 3 (admin panel) a volitelná fáze 6.
+Stav: **fáze 1–5 hotové.** Zbývá nasazení na server a volitelná fáze 6.
 
 ---
 
@@ -160,17 +160,19 @@ src/
 - [x] `src/db/client.ts` — connection pool pro server komponenty
 - [x] `src/db/seed.ts` — ukázková data pro vývoj
 
-### Fáze 3 — Admin panel  `~3–5 dní`  ← **další na řadě**
+### Fáze 3 — Admin panel  `~3–5 dní`  ✅ hotovo
 
-- [ ] Auth.js (credentials), uživatelé v DB, argon2, session v HTTP-only cookie
-- [ ] middleware hlídá `/admin`
-- [ ] seznam referencí — řazení drag&drop, publikovat/skrýt
-- [ ] editor s tabem pro každý jazyk, čeština povinná, odznak „hotovo / chybí"
-- [ ] upload obrázků na volume, varianty přes `sharp`, cesta do DB
-- [ ] `revalidatePath()` po uložení
-
-> Na tab s jazyky si dát pozor — bez odznaků a fallbacku na češtinu se
-> z dvanácti jazyků stane peklo a rozdělaný překlad rozbije web.
+- [x] přihlášení — session jako podepsaný JWT (`jose`) v httpOnly cookie, hesla bcrypt
+- [x] role **vlastník** (spravuje účty) / **editor** (jen obsah), poslední vlastník nejde smazat
+- [x] middleware hlídá `/admin`, každá server akce ověřuje session znovu
+- [x] reference — seznam, řazení, publikovat/skrýt, zvýraznit, mazání s potvrzením
+- [x] editor v modalu s tabem pro každý z 12 jazyků a tečkou „přeloženo / chybí"
+- [x] upload obrázků na volume, převod do WebP přes `sharp`, servírování přes `/uploads`
+- [x] poptávky — inbox se stavy, interní poznámkou a detailem v modalu
+- [x] uživatelé — přidání, role, reset hesla, změna vlastního hesla
+- [x] dashboard s čísly a posledními poptávkami
+- [x] `revalidatePath()` po uložení — změna je na webu hned
+- [x] `deploy/admin.sh` pro založení účtu na serveru
 
 ### Fáze 4 — Reference na hlavním webu  `~1–2 dny`  ✅ hotovo
 
@@ -190,7 +192,7 @@ src/
 - [x] host-aware `sitemap.ts` a `robots.ts`
 - [x] canonical na portfolio doménu, hreflang, `CreativeWork` JSON-LD u každé položky
 - [x] Caddy blok v [deploy/Caddyfile](deploy/Caddyfile)
-- [ ] DNS záznam `portfolio.jabcore.cz` → IP serveru *(až bude server)*
+- [ ] DNS záznam `portfolio.jabcore.cz` → `169.58.250.48` *(viz níž)*
 
 ### Fáze 6 — Port zbytku obsahu  `~2–3 dny`  *(volitelné)*
 
@@ -210,7 +212,10 @@ npm run dev
 
 # nasazení (na serveru)
 ./build.sh production
+./deploy/admin.sh production admin@jabcore.cz "Jméno" owner   # první účet
 ```
+
+Administrace je na `/admin`.
 
 Celý řetězec je ověřený proti dočasnému prostředí: Postgres naběhne, migrace
 proběhnou jako viditelný one-shot, web se sestaví a nahlásí healthy,
@@ -238,6 +243,34 @@ proběhnou jako viditelný one-shot, web se sestaví a nahlásí healthy,
   takové se servírovaly z cache až do další revalidace.
 - Caddy nesmí přepisovat hlavičku `Host`, jinak portfolio doména spadne zpátky
   na hlavní web.
+- Nahrané obrázky leží v `/app/uploads` (volume), **ne** v `public/` — ten je
+  součástí image, takže cokoliv se do něj zapíše za běhu zmizí s deployem.
+- Migrační vrstva image kopíruje `src/db` **i** `src/lib`; bez druhého skončí
+  `deploy/admin.sh` na „Cannot find module" až uvnitř kontejneru.
+- Hesla jsou bcrypt, ne argon2: argon2 je nativní modul a dostat `.node`
+  binárku do Next standalone na Alpine je zbytečné riziko při nasazení.
+
+## Nasazení na server
+
+Server: **kraken**, `169.58.250.48`, Ubuntu 24.04, Docker už běží.
+
+DNS (TTL sniž na 300 předem, ať přepnutí není slepé):
+
+| Záznam | Hodnota |
+|---|---|
+| `jabcore.cz` A | `169.58.250.48` — nahradí **čtyři** GitHub Pages A záznamy |
+| `portfolio.jabcore.cz` A | `169.58.250.48` — přidat |
+| `www.jabcore.cz` CNAME | `jabcore.cz` — teď míří na michalpetricek.github.io |
+
+Beze změny zůstává pošta (MX, `domainkey` CNAME, SPF, DMARC) a
+`google-site-verification`.
+
+Caddy potřebuje otevřený **port 80 i 443** — Let's Encrypt ověřuje přes HTTP.
+Před přepnutím DNS ověř server přes `/etc/hosts`. Po ověření vypni GitHub Pages.
+
+> Mimochodem: `szn1.domainkey.jabcore.cz` a `dmarc.jabcore.cz` mají chybět
+> podtržítka (`szn1._domainkey`, `_dmarc`), takže DKIM a DMARC nejspíš
+> nefungují. S migrací nesouvisí, ale stojí za ověření.
 
 ## Mimo rozsah
 

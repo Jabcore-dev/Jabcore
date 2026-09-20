@@ -15,6 +15,7 @@ import { toast } from 'sonner'
 import { PaperPlaneRight, EnvelopeSimple, Phone, MapPin, Clock, Copy, Check } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import { sendContactEmail } from '@/lib/emailjs'
+import { submitContactMessage } from '@/app/admin/actions/contacts'
 import { cn } from '@/lib/utils'
 
 function TranslatedFormMessage({ className }: { className?: string }) {
@@ -113,16 +114,32 @@ export default function Contact() {
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
-    
+
+    const phone = `${data.phonePrefix} ${data.phoneNumber}`
+
+    /*
+     * Stored first, then e-mailed. The record is what survives a full mailbox,
+     * a deleted message or an EmailJS outage, so it must not depend on the
+     * mail going out — and a failed insert must not stop the mail either.
+     */
+    void submitContactMessage({
+      name: data.name,
+      email: data.email,
+      company: data.company,
+      phone,
+      message: data.message,
+      locale: i18n.language,
+    }).catch((error) => console.error('uložení poptávky selhalo', error))
+
     const success = await sendContactEmail({
       name: data.name,
       email: data.email,
       company: data.company,
-      phone: `${data.phonePrefix} ${data.phoneNumber}`,
+      phone,
       message: data.message,
       language: i18n.language,
     })
-    
+
     if (success) {
       toast.success(t('contact.successTitle'), {
         description: t('contact.successDesc'),

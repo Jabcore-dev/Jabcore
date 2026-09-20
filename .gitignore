@@ -46,3 +46,6 @@ backups/
 # Local dev environment
 .env.local
 *.tsbuildinfo
+
+# Locally uploaded images (on the server these live in a Docker volume)
+/uploads

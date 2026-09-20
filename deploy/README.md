@@ -55,6 +55,21 @@ $EDITOR deploy/secrets.production.env
 Pak přidat bloky z `deploy/Caddyfile` do `/etc/caddy/Caddyfile`
 a `systemctl reload caddy`.
 
+## Administrace
+
+Panel je na `/admin`. První účet se zakládá z příkazové řádky, protože panel
+sám registraci nemá:
+
+```bash
+./deploy/admin.sh production admin@jabcore.cz "Michal Petříček" owner
+```
+
+Stejný příkaz na existující e-mail **změní heslo** — tak se dá panel odemknout,
+když se heslo zapomene.
+
+Role: `owner` spravuje i účty, `editor` jen obsah. Poslední vlastník nejde
+smazat ani degradovat, jinak by se ze správy účtů nikdo nedostal zpět.
+
 ## Zálohy
 
 ```bash

@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { locales, defaultLocale } from '@/lib/i18n-config'
 import { PORTFOLIO_HOST, SITE_URL, PORTFOLIO_URL } from '@/lib/site-config'
+import { SESSION_COOKIE, readSessionToken } from '@/lib/auth/session'
 
 /**
  * Host and locale routing.
@@ -81,8 +82,40 @@ function handlePortfolioHost(request: NextRequest) {
   return NextResponse.redirect(new URL(pathname, SITE_URL), 308)
 }
 
-export function middleware(request: NextRequest) {
+/**
+ * Keeps anonymous visitors out of the panel.
+ *
+ * This is the redirect that sends a human to the login screen; it is not the
+ * authorisation check. Every admin page and server action verifies the session
+ * again server-side, because an action is reachable by POST on its own.
+ */
+async function handleAdmin(request: NextRequest) {
+  const { pathname } = request.nextUrl
+  const isLogin = pathname === '/admin/login'
+  const session = await readSessionToken(request.cookies.get(SESSION_COOKIE)?.value)
+
+  if (session && isLogin) {
+    return NextResponse.redirect(new URL('/admin', request.url))
+  }
+
+  if (!session && !isLogin) {
+    const url = new URL('/admin/login', request.url)
+    // Where to come back to once they are in — a bookmarked reference should
+    // not drop the visitor on the dashboard after logging in.
+    if (pathname !== '/admin') url.searchParams.set('next', pathname)
+    return NextResponse.redirect(url)
+  }
+
+  return NextResponse.next()
+}
+
+export async function middleware(request: NextRequest) {
   const host = request.headers.get('host')?.toLowerCase() ?? ''
+
+  // The panel is served from the main host only, and is never localised.
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    return handleAdmin(request)
+  }
 
   // Compared without the port so it also works locally, where the same host
   // answers on :3000.
@@ -137,5 +170,5 @@ export const config = {
    * Without the extension guard the redirect would also catch /og-image.png
    * and the rest of public/.
    */
-  matcher: ['/((?!_next|api|admin|.*\\.).*)'],
+  matcher: ['/((?!_next|api|.*\\.).*)'],
 }

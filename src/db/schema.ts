@@ -114,13 +114,65 @@ export const referenceLocales = pgTable(
  */
 export const adminUsers = pgTable('admin_users', {
   id: serial('id').primaryKey(),
+
+  /** Lowercased on write, so logging in is not case sensitive. */
   email: varchar('email', { length: 190 }).notNull().unique(),
-  /** argon2 hash. Never the password. */
+
+  /** bcrypt hash. Never the password. */
   passwordHash: text('password_hash').notNull(),
+
   name: varchar('name', { length: 120 }),
+
+  /**
+   * 'owner' may add and remove other accounts; 'editor' may only edit content.
+   * The last remaining owner cannot be deleted or demoted — otherwise the panel
+   * locks everyone out of user management with no way back in from the UI.
+   */
+  role: varchar('role', { length: 20 }).notNull().default('editor'),
+
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   lastLoginAt: timestamp('last_login_at', { withTimezone: true }),
 })
+
+/**
+ * Messages from the contact form.
+ *
+ * The form used to go straight to EmailJS from the browser, so an inquiry that
+ * failed to send, or that someone deleted from the mailbox, left no trace at
+ * all. Storing it first means the record survives whatever happens to the mail.
+ */
+export const contactMessages = pgTable(
+  'contact_messages',
+  {
+    id: serial('id').primaryKey(),
+
+    name: varchar('name', { length: 160 }).notNull(),
+    email: varchar('email', { length: 190 }).notNull(),
+    company: varchar('company', { length: 190 }),
+    phone: varchar('phone', { length: 40 }),
+    message: text('message').notNull(),
+
+    /** Which language the site was in when they wrote — answer in that one. */
+    locale: varchar('locale', { length: 5 }),
+
+    /** 'new' | 'in_progress' | 'done' | 'spam' */
+    status: varchar('status', { length: 20 }).notNull().default('new'),
+
+    /** Internal note, never shown to the sender. */
+    note: text('note'),
+
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    handledAt: timestamp('handled_at', { withTimezone: true }),
+  },
+  (table) => [
+    // The inbox is always "newest first, optionally filtered by status".
+    index('contact_messages_status_created_idx').on(table.status, table.createdAt),
+  ],
+)
+
+export type AdminRole = 'owner' | 'editor'
+export type ContactMessage = typeof contactMessages.$inferSelect
+export type NewContactMessage = typeof contactMessages.$inferInsert
 
 export const referencesRelations = relations(references, ({ many }) => ({
   locales: many(referenceLocales),

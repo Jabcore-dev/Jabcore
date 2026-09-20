@@ -56,7 +56,7 @@ mv "$DEST/db_$STAMP.dump.tmp" "$DEST/db_$STAMP.dump"
 # tiše vyrobil zálohu bez obrázků.
 if docker inspect "$WEB" >/dev/null 2>&1; then
   log "Zálohuji nahrané soubory → $DEST/uploads_$STAMP.tar.gz"
-  docker exec "$WEB" tar -czf - -C /app/public uploads > "$DEST/uploads_$STAMP.tar.gz.tmp"
+  docker exec "$WEB" tar -czf - -C /app uploads > "$DEST/uploads_$STAMP.tar.gz.tmp"
   mv "$DEST/uploads_$STAMP.tar.gz.tmp" "$DEST/uploads_$STAMP.tar.gz"
 else
   printf '\033[1;33m!  Kontejner %s neběží — obrázky NEJSOU v téhle záloze.\033[0m\n' "$WEB" >&2
@@ -81,6 +81,6 @@ cat <<EOF
     docker exec -i $DB pg_restore -U jabcore -d jabcore --clean --if-exists < $DEST/db_<stamp>.dump
 
   Obnova souborů:
-    docker exec -i $WEB tar -xzf - -C /app/public < $DEST/uploads_<stamp>.tar.gz
+    docker exec -i $WEB tar -xzf - -C /app < $DEST/uploads_<stamp>.tar.gz
 
 EOF

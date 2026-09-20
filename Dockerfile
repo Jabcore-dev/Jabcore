@@ -42,6 +42,9 @@ ENV NODE_ENV=development
 COPY --from=deps /app/node_modules ./node_modules
 COPY package.json tsconfig.json drizzle.config.ts ./
 COPY src/db ./src/db
+# create-admin.ts sahá na src/lib/auth/password.ts — bez něj skončí na
+# "Cannot find module" až uvnitř kontejneru.
+COPY src/lib ./src/lib
 CMD ["npx", "tsx", "src/db/migrate.ts"]
 
 # ------------------------------------------------------------------
@@ -64,10 +67,11 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Nahrané obrázky referencí. Mountuje se sem volume, takže přežijí redeploy —
-# v image nejsou a do gitu nepatří. Adresář musí existovat i prázdný, jinak by
-# next/image na čerstvé instalaci hlásil 404 dřív, než se nahraje první soubor.
-RUN mkdir -p /app/public/uploads && chown -R nextjs:nodejs /app/public/uploads
+# Nahrané obrázky referencí. Mountuje se sem volume, takže přežijí redeploy.
+# Záměrně MIMO public/ — ten je součástí image, takže cokoliv se do něj zapíše
+# za běhu zmizí s příštím nasazením. Servíruje je route /uploads.
+ENV UPLOADS_DIR=/app/uploads
+RUN mkdir -p /app/uploads && chown -R nextjs:nodejs /app/uploads
 
 USER nextjs
 EXPOSE 3000

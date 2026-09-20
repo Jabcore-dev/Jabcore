@@ -67,6 +67,7 @@ services:
       NEXT_PUBLIC_SITE_URL: ${PUBLIC_BASE_URL}
       NEXT_PUBLIC_PORTFOLIO_URL: ${PORTFOLIO_BASE_URL}
       NEXT_PUBLIC_SITE_ENV: ${ENVIRONMENT}
+      UPLOADS_DIR: /app/uploads
       # Identita buildu, kterou servíruje /api/health — aby se deploy dal ověřit
       # zvenku místo předpokládání.
       APP_VERSION: ${APP_VERSION:-unknown}
@@ -77,7 +78,7 @@ services:
         condition: service_healthy
     volumes:
       # Nahrané obrázky referencí. Mimo image, takže přežijí redeploy.
-      - uploads:/app/public/uploads
+      - uploads:/app/uploads
     ports:
       # Jen loopback. Ven všechno pouští reverse proxy, která terminuje TLS;
       # publikace na 0.0.0.0 by web vystavila po HTTP na veřejné IP serveru.

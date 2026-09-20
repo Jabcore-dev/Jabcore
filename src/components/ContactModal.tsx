@@ -14,6 +14,7 @@ import { toast } from 'sonner'
 import { PaperPlaneRight } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import { sendContactEmail } from '@/lib/emailjs'
+import { submitContactMessage } from '@/app/admin/actions/contacts'
 import { cn } from '@/lib/utils'
 
 // Renders the error message translated via i18n — error.message stores the i18n key
@@ -94,11 +95,24 @@ export default function ContactModal({ open, onOpenChange }: ContactModalProps) 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
 
+    const phone = `${data.phonePrefix} ${data.phoneNumber}`
+
+    // Same as the contact page: the record is kept regardless of what the
+    // mail does — see Contact.tsx.
+    void submitContactMessage({
+      name: data.name,
+      email: data.email,
+      company: data.company,
+      phone,
+      message: data.message,
+      locale: i18n.language,
+    }).catch((error) => console.error('uložení poptávky selhalo', error))
+
     const success = await sendContactEmail({
       name: data.name,
       email: data.email,
       company: data.company,
-      phone: `${data.phonePrefix} ${data.phoneNumber}`,
+      phone,
       message: data.message,
       language: i18n.language,
     })
