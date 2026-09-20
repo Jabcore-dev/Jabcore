@@ -1,16 +1,23 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { locales, defaultLocale } from '@/lib/i18n-config'
+import { PORTFOLIO_HOST, SITE_URL, PORTFOLIO_URL } from '@/lib/site-config'
 
 /**
- * Locale routing.
+ * Host and locale routing.
  *
- * Under the old static export this could not run on the server, so every
- * unprefixed path had its own page.tsx that redirected from a useEffect —
- * the visitor loaded a blank page first and crawlers saw a client-side hop.
- * With a Node runtime the redirect happens before anything is rendered.
+ * One application serves two sites:
  *
- * Host-based routing for portfolio.jabcore.cz is added in phase 5; it belongs
- * in this same matcher.
+ *   jabcore.cz            the marketing site  (/[locale]/…)
+ *   portfolio.jabcore.cz  the portfolio one-pager (/portfolio/[locale])
+ *
+ * The portfolio host is rewritten, not redirected, so the visible URL stays
+ * portfolio.jabcore.cz/ while Next renders an internal path. Caddy must pass
+ * the Host header through untouched or everything here falls back to the main
+ * site — see deploy/Caddyfile.
+ *
+ * Under the old static export none of this could run on the server, so every
+ * unprefixed path had its own page.tsx redirecting from a useEffect: the
+ * visitor loaded a blank page first and crawlers saw a client-side hop.
  */
 
 /** Best supported locale from the Accept-Language header, or the default. */
@@ -31,14 +38,79 @@ function preferredLocale(request: NextRequest): string {
   return defaultLocale
 }
 
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
-
-  // Already prefixed with a known locale — nothing to do.
-  const hasLocale = locales.some(
-    (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`),
+/** The locale a path starts with, or null. */
+function localePrefix(pathname: string): string | null {
+  return (
+    locales.find((locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)) ?? null
   )
-  if (hasLocale) return NextResponse.next()
+}
+
+function handlePortfolioHost(request: NextRequest) {
+  const { pathname } = request.nextUrl
+  const prefix = localePrefix(pathname)
+
+  // /cs, /en … → the one-pager in that language.
+  if (prefix && pathname === `/${prefix}`) {
+    const url = request.nextUrl.clone()
+    url.pathname = `/portfolio/${prefix}`
+    return NextResponse.rewrite(url)
+  }
+
+  // The bare domain is the Czech one-pager and its canonical address, so it is
+  // rewritten rather than redirected — the same rule the main site uses for
+  // its own root.
+  if (pathname === '/') {
+    const locale = preferredLocale(request)
+    const url = request.nextUrl.clone()
+
+    if (locale === defaultLocale) {
+      url.pathname = `/portfolio/${defaultLocale}`
+      return NextResponse.rewrite(url)
+    }
+
+    url.pathname = `/${locale}`
+    return NextResponse.redirect(url, 307)
+  }
+
+  /*
+   * Anything else on this host belongs to the main site — an old link, or a
+   * path someone typed. Sending it to jabcore.cz is more useful than a 404,
+   * and it keeps the portfolio host from answering on URLs it has no content
+   * for, which is what would get them indexed under the wrong domain.
+   */
+  return NextResponse.redirect(new URL(pathname, SITE_URL), 308)
+}
+
+export function middleware(request: NextRequest) {
+  const host = request.headers.get('host')?.toLowerCase() ?? ''
+
+  // Compared without the port so it also works locally, where the same host
+  // answers on :3000.
+  if (host.split(':')[0] === PORTFOLIO_HOST.split(':')[0]) {
+    return handlePortfolioHost(request)
+  }
+
+  const { pathname } = request.nextUrl
+  const prefix = localePrefix(pathname)
+
+  /*
+   * The portfolio lives on its own domain. Serving it from the main one too
+   * would put identical content at two addresses, so the main host only ever
+   * points at the other domain. 308 keeps the method and tells search engines
+   * the move is permanent.
+   */
+  if (prefix && (pathname === `/${prefix}/portfolio` || pathname.startsWith(`/${prefix}/portfolio/`))) {
+    const target = prefix === defaultLocale ? PORTFOLIO_URL : `${PORTFOLIO_URL}/${prefix}`
+    return NextResponse.redirect(new URL(target), 308)
+  }
+
+  // Internal path of the portfolio site; it must not be reachable directly, or
+  // the one-pager would also live at jabcore.cz/portfolio/cs.
+  if (pathname === '/portfolio' || pathname.startsWith('/portfolio/')) {
+    return NextResponse.redirect(new URL(PORTFOLIO_URL), 308)
+  }
+
+  if (prefix) return NextResponse.next()
 
   const locale = preferredLocale(request)
 

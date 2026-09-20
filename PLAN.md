@@ -3,7 +3,7 @@
 Migrace webu jabcore.cz ze statického exportu na GitHub Pages na vlastní server
 s databází, administrací obsahu a druhou doménou pro portfolio.
 
-Stav: **fáze 1 a 2 hotové**, pokračuje se fází 3 (admin panel).
+Stav: **fáze 1, 2, 4 a 5 hotové** — zbývá fáze 3 (admin panel) a volitelná fáze 6.
 
 ---
 
@@ -160,7 +160,7 @@ src/
 - [x] `src/db/client.ts` — connection pool pro server komponenty
 - [x] `src/db/seed.ts` — ukázková data pro vývoj
 
-### Fáze 3 — Admin panel  `~3–5 dní`
+### Fáze 3 — Admin panel  `~3–5 dní`  ← **další na řadě**
 
 - [ ] Auth.js (credentials), uživatelé v DB, argon2, session v HTTP-only cookie
 - [ ] middleware hlídá `/admin`
@@ -172,23 +172,25 @@ src/
 > Na tab s jazyky si dát pozor — bez odznaků a fallbacku na češtinu se
 > z dvanácti jazyků stane peklo a rozdělaný překlad rozbije web.
 
-### Fáze 4 — Reference na hlavním webu  `~1–2 dny`
+### Fáze 4 — Reference na hlavním webu  `~1–2 dny`  ✅ hotovo
 
-- [ ] `/[locale]/reference` a `/[locale]/reference/[slug]` jako **server komponenty**
-- [ ] metadata přes [metadata.ts](src/lib/metadata.ts), `generateStaticParams` nad publikovanými slugy
-- [ ] doplnit do [sitemap.ts](src/app/sitemap.ts)
-- [ ] preview sekce „Reference" na homepage
+- [x] `/[locale]/reference` a `/[locale]/reference/[slug]` jako **server komponenty**
+- [x] `src/lib/references.ts` — čtení s fallbackem překladů **po polích**
+- [x] metadata a hreflang pro detail, `generateStaticParams` nad publikovanými slugy
+- [x] `CreativeWork` JSON-LD na detailu
+- [x] doplněno do [sitemap.ts](src/app/sitemap.ts)
+- [x] preview sekce na homepage (server komponenta, přežije výpadek DB)
+- [x] odkaz v navigaci + aktivní stav i na detailu
 
-### Fáze 5 — portfolio.jabcore.cz  `~1,5–2 dny`
+### Fáze 5 — portfolio.jabcore.cz  `~1,5–2 dny`  ✅ hotovo
 
-Až po fázi 4 — čte stejná data, dřív by neměla co zobrazovat.
-
-- [ ] middleware: host routing + 301 z hlavní domény
-- [ ] route group `(portfolio)` s vlastním layoutem
-- [ ] onepager — filtr podle oboru a technologií
-- [ ] host-aware `sitemap.ts` a `robots.ts`
-- [ ] canonical, hreflang, `CreativeWork` JSON-LD
-- [ ] Caddy blok + DNS záznam
+- [x] middleware: routing podle `Host`, rewrite portfolio domény, 308 z hlavní
+- [x] `src/app/portfolio/[locale]` s vlastním layoutem (bez i18next v prohlížeči)
+- [x] onepager s filtrem podle oboru + plné case studies s kotvami
+- [x] host-aware `sitemap.ts` a `robots.ts`
+- [x] canonical na portfolio doménu, hreflang, `CreativeWork` JSON-LD u každé položky
+- [x] Caddy blok v [deploy/Caddyfile](deploy/Caddyfile)
+- [ ] DNS záznam `portfolio.jabcore.cz` → IP serveru *(až bude server)*
 
 ### Fáze 6 — Port zbytku obsahu  `~2–3 dny`  *(volitelné)*
 
@@ -227,6 +229,15 @@ proběhnou jako viditelný one-shot, web se sestaví a nahlásí healthy,
   image je Next standalone a `tsx` ani `src/` v něm nejsou.
 - Root `/` záměrně **neredirektuje** češtinu: je to canonical adresa české
   homepage (viz hreflang v `metadata.ts`). Middleware přesouvá jen ostatní jazyky.
+- Tabulka se jmenuje `project_references`, ne `references` — to je v SQL
+  rezervované slovo a ruční dotaz bez uvozovek spadne na nesrozumitelné
+  „syntax error at or near". V kódu zůstává `references`.
+- `next build` běží uvnitř Docker image, kde databáze není. Proto je připojení
+  v [src/db/client.ts](src/db/client.ts) líné a stránky čtoucí DB volají
+  `skipPrerenderWithoutDatabase()` — jinak by se předgenerovaly prázdné a
+  takové se servírovaly z cache až do další revalidace.
+- Caddy nesmí přepisovat hlavičku `Host`, jinak portfolio doména spadne zpátky
+  na hlavní web.
 
 ## Mimo rozsah
 

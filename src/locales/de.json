@@ -29,6 +29,11 @@
       "description": "Kontaktieren Sie uns für eine kostenlose Beratung zu Ihrem Projekt. Wir helfen Ihnen bei Webentwicklung, Mobile Apps oder KI-Lösungen.",
       "keywords": "Kontakt, Beratung, Projekt, Zusammenarbeit, Jabcore",
       "title": "Kontakt | Jabcore"
+    },
+    "references": {
+      "title": "References — delivered projects | Jabcore",
+      "description": "Selected projects we have delivered. Websites, mobile apps and enterprise systems for companies and the public sector.",
+      "keywords": "references, portfolio, case studies, delivered projects, Jabcore"
     }
   },
   "navigation": {
@@ -38,7 +43,8 @@
     "stack": "Technologien",
     "about": "Über uns",
     "contact": "Kontakt",
-    "followUs": "Folgen Sie uns"
+    "followUs": "Folgen Sie uns",
+    "references": "References"
   },
   "hero": {
     "badge": "Schnell. Zuverlässig. Erschwinglich.",
@@ -464,5 +470,39 @@
     "stackLink": "Unser Tech Stack",
     "aboutLink": "Über uns",
     "contactLink": "Kontaktieren Sie uns"
+  },
+  "references": {
+    "title": "References",
+    "subtitle": "Selected projects we have delivered.",
+    "empty": "Nothing here yet. We are working on it.",
+    "viewProject": "View project",
+    "viewDetail": "View case study",
+    "backToList": "Back to references",
+    "client": "Client",
+    "year": "Year",
+    "industry": "Industry",
+    "technologies": "Technologies",
+    "allIndustries": "All industries",
+    "previewTitle": "Our work",
+    "previewSubtitle": "Some of the projects we left behind.",
+    "previewCta": "All references",
+    "industries": {
+      "verejna-sprava": "Public sector",
+      "zdravotnictvi": "Healthcare",
+      "vyroba": "Manufacturing",
+      "ecommerce": "E-commerce",
+      "sluzby": "Services",
+      "doprava": "Transport",
+      "vzdelavani": "Education"
+    }
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "What we have built. Websites, apps and systems that people use every day.",
+    "backToSite": "Back to jabcore.cz",
+    "cta": "Want something similar?",
+    "ctaButton": "Get in touch",
+    "seoTitle": "Portfolio | Jabcore",
+    "seoDescription": "Projects delivered by Jabcore — websites, mobile apps and enterprise systems."
   }
 }

@@ -64,7 +64,7 @@ export default function RootPage() {
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrganizationJsonLd()) }}
           />
-          <HomePage />
+          <HomePage locale={defaultLocale} />
         </main>
         <Footer />
       </div>

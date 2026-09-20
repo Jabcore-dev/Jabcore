@@ -21,14 +21,19 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   })
 }
 
-export default function Page() {
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: rawLocale } = await params
+  const locale = (locales as readonly string[]).includes(rawLocale)
+    ? (rawLocale as Locale)
+    : defaultLocale
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrganizationJsonLd()) }}
       />
-      <HomePage />
+      <HomePage locale={locale} />
     </>
   )
 }

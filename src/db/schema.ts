@@ -19,7 +19,11 @@ import { relations } from 'drizzle-orm'
  * is then a row, not a migration — see PLAN.md.
  */
 export const references = pgTable(
-  'references',
+  // "references" alone is a reserved word in SQL: Drizzle quotes identifiers
+  // so the app would work, but every hand-written query, psql session and
+  // restore would need the quotes too, and the error it gives when they are
+  // missing ("syntax error at or near") points nowhere near the cause.
+  'project_references',
   {
     id: serial('id').primaryKey(),
 
@@ -66,7 +70,7 @@ export const references = pgTable(
   (table) => [
     // The public listing is always "published, in order" — without this it is
     // a sequential scan plus a sort on every request.
-    index('references_published_order_idx').on(table.published, table.sortOrder),
+    index('project_references_published_order_idx').on(table.published, table.sortOrder),
   ],
 )
 

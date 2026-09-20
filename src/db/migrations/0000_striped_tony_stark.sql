@@ -20,7 +20,7 @@ CREATE TABLE "reference_locales" (
 	CONSTRAINT "reference_locales_reference_id_locale_pk" PRIMARY KEY("reference_id","locale")
 );
 --> statement-breakpoint
-CREATE TABLE "references" (
+CREATE TABLE "project_references" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"slug" varchar(120) NOT NULL,
 	"client_name" varchar(160) NOT NULL,
@@ -34,8 +34,8 @@ CREATE TABLE "references" (
 	"featured" boolean DEFAULT false NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL,
-	CONSTRAINT "references_slug_unique" UNIQUE("slug")
+	CONSTRAINT "project_references_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
-ALTER TABLE "reference_locales" ADD CONSTRAINT "reference_locales_reference_id_references_id_fk" FOREIGN KEY ("reference_id") REFERENCES "public"."references"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-CREATE INDEX "references_published_order_idx" ON "references" USING btree ("published","sort_order");
+ALTER TABLE "reference_locales" ADD CONSTRAINT "reference_locales_reference_id_project_references_id_fk" FOREIGN KEY ("reference_id") REFERENCES "public"."project_references"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+CREATE INDEX "project_references_published_order_idx" ON "project_references" USING btree ("published","sort_order");

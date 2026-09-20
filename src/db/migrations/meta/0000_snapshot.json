@@ -1,5 +1,5 @@
 {
-  "id": "e4b221d4-4ba8-4b18-b333-d95ea9542148",
+  "id": "c069faa9-a362-4162-b613-817a908fc1dc",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -118,10 +118,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "reference_locales_reference_id_references_id_fk": {
-          "name": "reference_locales_reference_id_references_id_fk",
+        "reference_locales_reference_id_project_references_id_fk": {
+          "name": "reference_locales_reference_id_project_references_id_fk",
           "tableFrom": "reference_locales",
-          "tableTo": "references",
+          "tableTo": "project_references",
           "columnsFrom": [
             "reference_id"
           ],
@@ -146,8 +146,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.references": {
-      "name": "references",
+    "public.project_references": {
+      "name": "project_references",
       "schema": "",
       "columns": {
         "id": {
@@ -236,8 +236,8 @@
         }
       },
       "indexes": {
-        "references_published_order_idx": {
-          "name": "references_published_order_idx",
+        "project_references_published_order_idx": {
+          "name": "project_references_published_order_idx",
           "columns": [
             {
               "expression": "published",
@@ -261,8 +261,8 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "references_slug_unique": {
-          "name": "references_slug_unique",
+        "project_references_slug_unique": {
+          "name": "project_references_slug_unique",
           "nullsNotDistinct": false,
           "columns": [
             "slug"

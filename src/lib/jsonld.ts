@@ -77,3 +77,48 @@ export function buildOrganizationJsonLd(): OrganizationJsonLd {
     },
   }
 }
+
+interface CreativeWorkJsonLd {
+  '@context': 'https://schema.org'
+  '@type': 'CreativeWork'
+  name: string
+  url: string
+  description?: string
+  dateCreated?: string
+  image?: string
+  keywords?: string
+  creator: { '@type': 'Organization'; name: string; url: string }
+  about?: { '@type': 'Organization'; name: string }
+}
+
+/**
+ * Structured data for one reference.
+ *
+ * Used by the detail pages and, on the portfolio one-pager, for every item on
+ * the page — there the whole portfolio is a single URL, so without a node per
+ * reference a crawler sees one long document instead of a list of projects.
+ */
+export function buildReferenceJsonLd(reference: {
+  slug: string
+  title: string
+  summary: string | null
+  clientName: string
+  year: number | null
+  coverImage: string | null
+  tech: string[]
+}, url: string): CreativeWorkJsonLd {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: reference.title,
+    url,
+    ...(reference.summary ? { description: reference.summary } : {}),
+    // Year only — schema.org accepts a partial date and the exact day of a
+    // handover is not something we track.
+    ...(reference.year ? { dateCreated: String(reference.year) } : {}),
+    ...(reference.coverImage ? { image: `${BASE_URL}${reference.coverImage}` } : {}),
+    ...(reference.tech.length > 0 ? { keywords: reference.tech.join(', ') } : {}),
+    creator: { '@type': 'Organization', name: 'Jabcore', url: BASE_URL },
+    about: { '@type': 'Organization', name: reference.clientName },
+  }
+}

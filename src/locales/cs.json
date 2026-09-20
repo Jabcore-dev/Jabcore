@@ -29,6 +29,11 @@
       "description": "Kontaktujte nás pro nezávaznou konzultaci vašeho projektu. Rádi vám pomůžeme s webovým vývojem, mobilními aplikacemi nebo AI řešeními.",
       "keywords": "kontakt, konzultace, projekt, spolupráce, Jabcore",
       "title": "Kontakt | Jabcore"
+    },
+    "references": {
+      "title": "Reference — realizované projekty | Jabcore",
+      "description": "Vybrané projekty, které jsme dodali. Weby, mobilní aplikace a podniková řešení pro firmy i veřejnou správu.",
+      "keywords": "reference, portfolio, realizace, případové studie, Jabcore"
     }
   },
   "navigation": {
@@ -38,7 +43,8 @@
     "stack": "Technologie",
     "about": "O nás",
     "contact": "Kontakt",
-    "followUs": "Sledujte nás"
+    "followUs": "Sledujte nás",
+    "references": "Reference"
   },
   "hero": {
     "badge": "Rychle. Spolehlivě. Dostupně.",
@@ -464,5 +470,39 @@
     "stackLink": "Náš tech stack",
     "aboutLink": "O firmě",
     "contactLink": "Kontaktujte nás"
+  },
+  "references": {
+    "title": "Reference",
+    "subtitle": "Vybrané projekty, které jsme dodali.",
+    "empty": "Zatím tu nic není. Pracujeme na tom.",
+    "viewProject": "Zobrazit projekt",
+    "viewDetail": "Detail reference",
+    "backToList": "Zpět na reference",
+    "client": "Klient",
+    "year": "Rok",
+    "industry": "Obor",
+    "technologies": "Technologie",
+    "allIndustries": "Všechny obory",
+    "previewTitle": "Naše práce",
+    "previewSubtitle": "Část projektů, které za námi zůstaly.",
+    "previewCta": "Všechny reference",
+    "industries": {
+      "verejna-sprava": "Veřejná správa",
+      "zdravotnictvi": "Zdravotnictví",
+      "vyroba": "Výroba",
+      "ecommerce": "E-commerce",
+      "sluzby": "Služby",
+      "doprava": "Doprava",
+      "vzdelavani": "Vzdělávání"
+    }
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Co jsme postavili. Weby, aplikace a systémy, které někomu denně slouží.",
+    "backToSite": "Zpět na jabcore.cz",
+    "cta": "Chcete něco podobného?",
+    "ctaButton": "Napište nám",
+    "seoTitle": "Portfolio | Jabcore",
+    "seoDescription": "Realizované projekty Jabcore — weby, mobilní aplikace a podniková řešení."
   }
 }

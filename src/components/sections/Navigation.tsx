@@ -36,6 +36,7 @@ const Navigation = memo(function Navigation() {
   const navItems = useMemo(() => [
     { label: t('navigation.home'), href: localePath('/') },
     { label: t('navigation.services'), href: localePath('/services') },
+    { label: t('navigation.references'), href: localePath('/reference') },
     // { label: t('navigation.products'), href: localePath('/products') },
     { label: t('navigation.stack'), href: localePath('/stack') },
     { label: t('navigation.about'), href: localePath('/about') },
@@ -49,7 +50,16 @@ const Navigation = memo(function Navigation() {
     { icon: InstagramLogo, label: 'Instagram', href: 'https://www.instagram.com/jabcore.dev/' },
   ], [])
 
-  const isActive = useCallback((href: string) => pathname === href, [pathname])
+  const isActive = useCallback(
+    (href: string) => {
+      // The home link is the locale root, and every other path starts with it,
+      // so it only ever matches exactly. Section links also stay highlighted on
+      // their detail pages (/reference → /reference/<slug>).
+      if (href === localePath('/')) return pathname === href
+      return pathname === href || pathname.startsWith(`${href}/`)
+    },
+    [pathname, localePath],
+  )
 
   const handleContactClick = useCallback(() => {
     setIsOpen(false)
