@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { locales, ogLocales, type Locale } from './i18n-config'
+import { locales, defaultLocale, ogLocales, type Locale } from './i18n-config'
 import { t } from './server-i18n'
 
 import { SITE_URL } from '@/lib/site-config'
@@ -38,17 +38,17 @@ export function generatePageMetadata({
   // Build hreflang alternates for all locales
   const languageAlternates: Record<string, string> = {}
   for (const loc of locales) {
-    // Czech homepage canonical is the root URL
-    languageAlternates[loc] = loc === 'cs' && path === ''
-      ? BASE_URL
-      : `${BASE_URL}/${loc}${path}`
+    languageAlternates[loc] = `${BASE_URL}/${loc}${path}`
   }
-  languageAlternates['x-default'] = path === '' ? BASE_URL : `${BASE_URL}/${locale}${path}`
 
-  // Czech homepage canonical → root URL to avoid duplicate content
-  const canonical = locale === 'cs' && path === ''
-    ? BASE_URL
-    : url
+  /*
+   * x-default miri na holou domenu, protoze presne to dela: middleware tam
+   * navstevnika roztridi podle cookie, IP a jazyka prohlizece. Je to jedina
+   * adresa, ktera neni svazana s konkretnim jazykem.
+   */
+  languageAlternates['x-default'] = path === '' ? BASE_URL : `${BASE_URL}/${defaultLocale}${path}`
+
+  const canonical = url
 
   return {
     title: isHome ? { absolute: title } : title,

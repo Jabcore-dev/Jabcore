@@ -122,7 +122,7 @@ export default function StackPage() {
 
   return (
     <div className="min-h-screen pt-16">
-      <section className="py-20 lg:py-32">
+      <section className="pt-10 pb-20 sm:pt-14 lg:pb-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

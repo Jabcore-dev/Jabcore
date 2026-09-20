@@ -155,7 +155,7 @@ export default function Contact() {
   }
 
   return (
-    <section ref={ref} className="py-24 sm:py-32">
+    <section ref={ref} className="pt-10 pb-24 sm:pt-14 sm:pb-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -163,9 +163,10 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+          {/* Hlavni nadpis stranky /contact, proto h1: sekce se nikde jinde nepouziva. */}
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4" style={{ fontFamily: 'var(--font-display)' }}>
             {t('contact.title')}
-          </h2>
+          </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             {t('contact.subtitle')}
           </p>

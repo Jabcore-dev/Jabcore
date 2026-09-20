@@ -45,13 +45,13 @@ export default function Services() {
   ]
 
   return (
-    <section ref={ref} className="py-24 sm:py-32">
+    <section ref={ref} className="pt-10 pb-24 sm:pt-14 sm:pb-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="text-center mb-12"
         >
           <h1 className="text-5xl sm:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-display)' }}>
             {t('services.title')}

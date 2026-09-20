@@ -125,9 +125,9 @@ export default async function PortfolioPage({
         </div>
       </header>
 
-      <section className="py-20 sm:py-28">
+      <section className="pt-10 pb-20 sm:pt-14 sm:pb-28">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-16 text-center">
+          <div className="mb-12 text-center">
             <h1
               className="mb-6 text-5xl font-bold sm:text-6xl"
               style={{ fontFamily: 'var(--font-display)' }}

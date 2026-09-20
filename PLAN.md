@@ -233,8 +233,9 @@ Stav po auditu a opravách:
 - `<html lang>` odpovídá jazyku stránky - kvůli tomu je kořenový layout
   rozdělený na čtyři (`(root)`, `[locale]`, `portfolio/[locale]`, `admin`),
   protože `<html>` musí být nad segmentem `[locale]`
-- česká homepage má canonical na holé doméně a **sitemapa nabízí tutéž URL**;
-  `/cs` dělá 308 na `/`, aby stejný obsah nežil na dvou adresách
+- každý jazyk včetně češtiny žije pod svým prefixem (`/cs`, `/en`, …) a holá
+  doména je jen rozcestník; canonical míří na `/<jazyk>`, `x-default` na holou
+  doménu, protože právě tam se návštěvník roztřídí podle cookie, IP a prohlížeče
 - `CreativeWork` JSON-LD u každé reference, `Organization` na homepage
 - host-aware sitemapa a robots, testovací instance na noindex
 - admin je `noindex` a bez Google Analytics
@@ -295,8 +296,12 @@ návštěvník podvrhne a vybere si jazyk cizí adresou. Je to v
 - Vývojová databáze jede na **portu 5434**, ne 5432 - ten drží jabcore-finance.
 - Migrace běží z vlastní Docker vrstvy (`target: migrator`), protože produkční
   image je Next standalone a `tsx` ani `src/` v něm nejsou.
-- Root `/` záměrně **neredirektuje** češtinu: je to canonical adresa české
-  homepage (viz hreflang v `metadata.ts`). Middleware přesouvá jen ostatní jazyky.
+- **Veřejný web musí mít jediný kořenový layout.** Čeština kdysi běžela přímo
+  na `/` a měla tam canonical, což vypadalo lépe v adresním řádku, ale
+  znamenalo to dva kořenové layouty (`(root)` a `[locale]`) - a mezi těmi Next
+  při každém prokliku znovu načítá celou stránku. Skupina `(root)` proto
+  neobsahuje žádnou stránku, jen globální 404, pro kterou Next potřebuje
+  `<html>` a `<body>`.
 - Tabulka se jmenuje `project_references`, ne `references` - to je v SQL
   rezervované slovo a ruční dotaz bez uvozovek spadne na nesrozumitelné
   „syntax error at or near". V kódu zůstává `references`.

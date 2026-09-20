@@ -3,7 +3,7 @@ import CTA from '@/components/sections/CTA'
 
 export default function ServicesPage() {
   return (
-    <div className="pt-20">
+    <div className="pt-16">
       <Services />
       <CTA variant="services" />
     </div>

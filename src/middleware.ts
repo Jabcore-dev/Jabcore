@@ -170,33 +170,20 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(PORTFOLIO_URL), 308)
   }
 
-  /*
-   * The Czech homepage lives at the bare domain - that is what its canonical
-   * and the cs hreflang point at. /cs renders the same thing, so it is moved
-   * rather than left as a second address for identical content.
-   *
-   * Safe only because the language switcher writes a cookie: without it, a
-   * visitor picking Czech from an English IP would land on /, be sent back to
-   * /en, and bounce.
-   */
-  if (pathname === `/${defaultLocale}`) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/'
-    return NextResponse.redirect(url, 308)
-  }
-
   if (prefix) return NextResponse.next()
 
-  const locale = preferredLocale(request)
-
   /*
-   * The root URL is the canonical address of the Czech homepage (see
-   * generatePageMetadata and the hreflang alternates, where cs points at
-   * BASE_URL and not at /cs). Redirecting a Czech visitor away from it would
-   * send every crawler to a URL that declares a different one as canonical,
-   * so "/" is served as-is and only other languages are moved to their prefix.
+   * Kazdy jazyk vcetne cestiny zije pod svym prefixem a "/" je jen rozcestnik.
+   *
+   * Drive cestina bezela primo na "/" a mela tam svuj canonical. Vypadalo to
+   * lip v adresnim radku, ale znamenalo to dva korenove layouty - jeden pro
+   * "/" a druhy pro "/<jazyk>" - a mezi temi Next pri kazdem prokliku
+   * znovu nacita celou stranku. Za jednu hezci adresu to nestalo.
+   *
+   * Bare domena zustava adresou pro hreflang x-default: prave tady se
+   * navstevnik roztridi podle cookie, IP a prohlizece.
    */
-  if (pathname === '/' && locale === defaultLocale) return NextResponse.next()
+  const locale = preferredLocale(request)
 
   const url = request.nextUrl.clone()
   url.pathname = pathname === '/' ? `/${locale}` : `/${locale}${pathname}`

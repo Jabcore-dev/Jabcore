@@ -28,15 +28,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const description = t(locale, 'seo.home.description')
   const ogLocale = ogLocales[locale] ?? 'cs_CZ'
 
-  // hreflang alternates - Czech homepage points to root URL
   const languageAlternates: Record<string, string> = {}
   for (const loc of locales) {
-    languageAlternates[loc] = loc === 'cs' ? BASE_URL : `${BASE_URL}/${loc}`
+    languageAlternates[loc] = `${BASE_URL}/${loc}`
   }
+  // Holá doména je rozcestník podle cookie, IP a jazyka prohlížeče.
   languageAlternates['x-default'] = BASE_URL
 
-  // Czech homepage canonical → root URL to avoid duplicate content
-  const canonical = locale === 'cs' ? BASE_URL : `${BASE_URL}/${locale}`
+  const canonical = `${BASE_URL}/${locale}`
 
   return {
     title: { default: title, template: '%s | Jabcore' },

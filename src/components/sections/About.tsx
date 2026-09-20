@@ -35,7 +35,7 @@ export default function About() {
   ]
 
   return (
-    <section ref={ref} className="py-24 sm:py-32 bg-secondary/30">
+    <section ref={ref} className="pt-10 pb-24 sm:pt-14 sm:pb-32 bg-secondary/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -43,9 +43,10 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6" style={{ fontFamily: 'var(--font-display)' }}>
+          {/* Hlavni nadpis stranky /about, proto h1: sekce se nikde jinde nepouziva. */}
+          <h1 className="text-4xl sm:text-5xl font-bold mb-6" style={{ fontFamily: 'var(--font-display)' }}>
             {t('about.title')}
-          </h2>
+          </h1>
         </motion.div>
 
         <div className="max-w-4xl mx-auto">

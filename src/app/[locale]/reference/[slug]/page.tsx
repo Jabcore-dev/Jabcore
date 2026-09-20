@@ -130,7 +130,7 @@ export default async function ReferenceDetailPage({
   const jsonLd = buildReferenceJsonLd(reference, `${SITE_URL}/${locale}/reference/${slug}`)
 
   return (
-    <article className="pt-20">
+    <article className="pt-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -39,10 +39,10 @@ export default async function ReferencesPage({
   const references = await getPublishedReferences(locale)
 
   return (
-    <div className="pt-20">
-      <section className="py-24 sm:py-32">
+    <div className="pt-16">
+      <section className="pt-10 pb-24 sm:pt-14 sm:pb-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-20 text-center">
+          <div className="mb-12 text-center">
             <h1
               className="mb-6 text-5xl font-bold sm:text-6xl"
               style={{ fontFamily: 'var(--font-display)' }}
