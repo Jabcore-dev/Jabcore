@@ -35,3 +35,14 @@ pids
 .next
 next-env.d.ts
 out
+
+# Per-environment secrets, created on the server (see deploy/README.md).
+deploy/secrets.*.env
+!deploy/secrets.env.template
+
+# Local backups made by deploy/backup.sh
+backups/
+
+# Local dev environment
+.env.local
+*.tsbuildinfo

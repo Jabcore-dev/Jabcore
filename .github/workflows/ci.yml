@@ -1,0 +1,36 @@
+# Kontrola, že se web přeloží a projde typy.
+#
+# Nenasazuje. Deploy se dělá na serveru spuštěním ./build.sh <prostředí>,
+# stejně jako u ostatních projektů — viz deploy/README.md.
+
+name: CI
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Build
+        # Produkční adresy, aby se kontrolovalo to, co se opravdu nasazuje.
+        env:
+          NEXT_PUBLIC_SITE_URL: https://jabcore.cz
+          NEXT_PUBLIC_PORTFOLIO_URL: https://portfolio.jabcore.cz
+          NEXT_PUBLIC_SITE_ENV: production
+        run: npm run build

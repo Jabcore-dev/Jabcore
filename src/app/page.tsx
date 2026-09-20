@@ -8,9 +8,10 @@ import Footer from '@/components/sections/Footer'
 import { Toaster } from '@/components/ui/sonner'
 import DynamicSeoTitle from '@/components/DynamicSeoTitle'
 import HomePage from '@/views/HomePage'
-import RootRedirect from './RootRedirect'
 
-const BASE_URL = 'https://jabcore.cz'
+import { SITE_URL } from '@/lib/site-config'
+
+const BASE_URL = SITE_URL
 
 export const metadata: Metadata = {
   title: t(defaultLocale, 'seo.home.title'),
@@ -47,13 +48,14 @@ export const metadata: Metadata = {
 }
 
 /**
- * Root page — full Czech homepage for crawlers.
- * JS users get redirected to their preferred locale by RootRedirect.
+ * Root page — the Czech homepage, and its canonical URL.
+ *
+ * Visitors who prefer another language are moved to /<locale> by the
+ * middleware before this renders; Czech visitors and crawlers stay here.
  */
 export default function RootPage() {
   return (
     <Providers locale="cs">
-      <RootRedirect />
       <DynamicSeoTitle />
       <div className="min-h-screen bg-background text-foreground">
         <Navigation />

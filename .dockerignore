@@ -1,0 +1,9 @@
+node_modules
+.next
+out
+.git
+.github
+*.log
+.DS_Store
+deploy/secrets.*.env
+PLAN.md

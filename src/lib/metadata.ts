@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 import { locales, ogLocales, type Locale } from './i18n-config'
 import { t } from './server-i18n'
 
-const BASE_URL = 'https://jabcore.cz'
+import { SITE_URL } from '@/lib/site-config'
+
+const BASE_URL = SITE_URL
 const OG_IMAGE = `${BASE_URL}/og-image.png`
 
 type PageKey = 'home' | 'services' | 'products' | 'stack' | 'about' | 'contact'

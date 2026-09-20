@@ -10,7 +10,9 @@ interface SEOProps {
   type?: string;
 }
 
-const BASE_URL = 'https://jabcore.cz';
+import { SITE_URL } from '@/lib/site-config'
+
+const BASE_URL = SITE_URL
 
 export function useSEO({
   page,

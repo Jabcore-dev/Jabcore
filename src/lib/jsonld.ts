@@ -12,7 +12,9 @@
  * ```
  */
 
-const BASE_URL = 'https://jabcore.cz'
+import { SITE_URL } from '@/lib/site-config'
+
+const BASE_URL = SITE_URL
 
 export interface OrganizationJsonLd {
   '@context': 'https://schema.org'

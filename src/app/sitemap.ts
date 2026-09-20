@@ -1,10 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { locales } from '@/lib/i18n-config'
-
-// Required for output: 'export' — forces static generation
-export const dynamic = 'force-static'
-
-const BASE_URL = 'https://jabcore.cz'
+import { SITE_URL } from '@/lib/site-config'
 
 const pages = [
   { path: '', changeFrequency: 'weekly' as const, priority: 1.0 },
@@ -21,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const locale of locales) {
     for (const page of pages) {
       entries.push({
-        url: `${BASE_URL}/${locale}${page.path}`,
+        url: `${SITE_URL}/${locale}${page.path}`,
         lastModified: new Date(),
         changeFrequency: page.changeFrequency,
         priority: page.priority,

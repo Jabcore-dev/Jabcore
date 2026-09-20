@@ -1,0 +1,40 @@
+# Reverse-proxy bloky pro Jabcore — přidej blok toho prostředí, které na daném
+# serveru běží, do globálního /etc/caddy/Caddyfile a reloadni Caddy
+# (`systemctl reload caddy`). Certifikáty si Caddy vyřídí sám.
+#
+# Domény musí sedět s PUBLIC_BASE_URL / PORTFOLIO_BASE_URL v deploy/<env>.env,
+# porty s WEB_PORT tamtéž. Kontejner publikuje port jen na 127.0.0.1, takže
+# Caddy je jediná cesta dovnitř.
+#
+# Obě domény míří na TENTÝŽ port. Je to jedna aplikace; který web se naservíruje
+# rozhoduje až src/middleware.ts podle hlavičky Host, proto ji musí Caddy poslat
+# dál nezměněnou (reverse_proxy to dělá sám, neměň Host hlavičku).
+
+# --- Produkce ----------------------------------------------------------------
+# DNS A/AAAA záznamy: jabcore.cz, www.jabcore.cz, portfolio.jabcore.cz → IP serveru
+
+jabcore.cz, www.jabcore.cz {
+    # www → apex, ať se obsah neindexuje na dvou adresách.
+    @www host www.jabcore.cz
+    redir @www https://jabcore.cz{uri} permanent
+
+    reverse_proxy 127.0.0.1:13100
+}
+
+portfolio.jabcore.cz {
+    reverse_proxy 127.0.0.1:13100
+}
+
+# --- Test --------------------------------------------------------------------
+# DNS A/AAAA záznamy: jabcore.jabcore.cloud, portfolio.jabcore.jabcore.cloud
+
+jabcore.jabcore.cloud, portfolio.jabcore.jabcore.cloud {
+    reverse_proxy 127.0.0.1:13101
+
+    # Testovací instance nemá být veřejná. robots.txt už zakazuje indexaci
+    # (src/app/robots.ts), tohle je druhá vrstva pro náhodné návštěvníky.
+    # Hash vyrob: caddy hash-password
+    # basic_auth {
+    #     jabcore <bcrypt-hash>
+    # }
+}

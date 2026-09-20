@@ -5,7 +5,9 @@ import { useTranslation } from 'react-i18next'
 import { usePathname } from 'next/navigation'
 import { locales } from '@/lib/i18n-config'
 
-const BASE_URL = 'https://jabcore.cz'
+import { SITE_URL } from '@/lib/site-config'
+
+const BASE_URL = SITE_URL
 
 const PAGE_ROUTES = ['', '/services', '/products', '/stack', '/about', '/contact'] as const
 const ROUTE_TO_PAGE: Record<string, string> = {

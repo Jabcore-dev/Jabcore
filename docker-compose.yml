@@ -1,0 +1,35 @@
+# Vývojové prostředí — jen databáze.
+#
+# Next.js běží lokálně přes `npm run dev` proti téhle databázi, aby fungoval
+# hot reload. Produkční stack je v docker-compose.prod.yml.
+#
+#   docker compose up -d
+#   npm run dev
+
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: jabcore-db-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: jabcore
+      POSTGRES_USER: jabcore
+      POSTGRES_PASSWORD: jabcore
+    ports:
+      # Publikováno na loopback, ať se na něj dostane `npm run dev` i psql.
+      # Je to vývojová databáze s vývojovým heslem, nic víc.
+      #
+      # 5434, ne 5432: na vývojovém stroji běží i databáze ostatních projektů
+      # (jabcore-finance drží 5432, eleven 5435) a kolize portu se projeví až
+      # při `docker compose up` jako nesrozumitelná hláška o bind failed.
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - pgdata-dev:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U jabcore -d jabcore']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata-dev:

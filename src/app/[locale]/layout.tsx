@@ -7,7 +7,9 @@ import Footer from '@/components/sections/Footer'
 import { Toaster } from '@/components/ui/sonner'
 import DynamicSeoTitle from '@/components/DynamicSeoTitle'
 
-const BASE_URL = 'https://jabcore.cz'
+import { SITE_URL } from '@/lib/site-config'
+
+const BASE_URL = SITE_URL
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
