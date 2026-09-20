@@ -8,7 +8,7 @@ import { PORTFOLIO_HOST } from './site-config'
  * have to look at the Host header. Everything else routes in middleware, which
  * cannot help here: paths containing a dot are excluded from its matcher.
  *
- * Reading headers() opts the route out of static rendering — which is the
+ * Reading headers() opts the route out of static rendering - which is the
  * point, since one prerendered copy could only ever describe one of the hosts.
  */
 export async function isPortfolioHost(): Promise<boolean> {

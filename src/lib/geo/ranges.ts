@@ -4,7 +4,7 @@
  *
  * Záměrně ne MaxMind ani externí služba: k rozhodnutí „je tenhle návštěvník
  * z Česka?" stačí seznam dvou zemí, který se vejde do middleware a nepotřebuje
- * licenci, stahování při deployi ani čtení souboru — middleware běží v edge
+ * licenci, stahování při deployi ani čtení souboru - middleware běží v edge
  * runtime, kde by se databáze stejně otevřít nedala.
  *
  * Rozsahy jsou setříděné a sloučené, uložené naplocho jako

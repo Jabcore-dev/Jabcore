@@ -137,7 +137,7 @@ export default function ReferencesManager({ references }: { references: AdminRef
                   </TableCell>
 
                   <TableCell>
-                    {/* Count, not a list of twelve flags — the editor shows
+                    {/* Count, not a list of twelve flags - the editor shows
                         which ones are missing. */}
                     <Badge variant={reference.filledLocales.length === locales.length ? 'default' : 'secondary'}>
                       {reference.filledLocales.length} / {locales.length}

@@ -17,7 +17,7 @@ import { sendContactEmail } from '@/lib/emailjs'
 import { submitContactMessage } from '@/app/admin/actions/contacts'
 import { cn } from '@/lib/utils'
 
-// Renders the error message translated via i18n — error.message stores the i18n key
+// Renders the error message translated via i18n - error.message stores the i18n key
 function TranslatedFormMessage({ className }: { className?: string }) {
   const { error, formMessageId } = useFormField()
   const { t } = useTranslation()
@@ -60,7 +60,7 @@ type FormData = {
   company?: string
 }
 
-// i18n keys as error messages — translated at render time by TranslatedFormMessage
+// i18n keys as error messages - translated at render time by TranslatedFormMessage
 const formSchema = z.object({
   name: z.string().min(2, 'contact.validation.nameMin'),
   email: z.string().email('contact.validation.emailInvalid'),
@@ -98,7 +98,7 @@ export default function ContactModal({ open, onOpenChange }: ContactModalProps) 
     const phone = `${data.phonePrefix} ${data.phoneNumber}`
 
     // Same as the contact page: the record is kept regardless of what the
-    // mail does — see Contact.tsx.
+    // mail does - see Contact.tsx.
     void submitContactMessage({
       name: data.name,
       email: data.email,

@@ -27,7 +27,7 @@ export async function setMessageStatus(id: number, status: MessageStatus) {
     .update(contactMessages)
     .set({
       status,
-      // Stamped when it leaves the inbox, cleared if it comes back — so the
+      // Stamped when it leaves the inbox, cleared if it comes back - so the
       // column always means "when was this actually dealt with".
       handledAt: status === 'new' ? null : new Date(),
     })
@@ -64,7 +64,7 @@ export async function deleteMessage(id: number) {
  * Stores an inquiry from the public contact form.
  *
  * Not behind the login: this is the one action the site itself calls. The
- * limits below are what stops the table filling up with junk — the form is
+ * limits below are what stops the table filling up with junk - the form is
  * public, so whatever arrives here is untrusted.
  */
 const publicMessageSchema = z.object({
@@ -96,7 +96,7 @@ export async function submitContactMessage(input: unknown) {
   } catch (error) {
     /*
      * The visitor's e-mail is already on its way via EmailJS at this point, so
-     * a database problem must not turn into an error on the form — it would
+     * a database problem must not turn into an error on the form - it would
      * tell them the message did not go through when it did.
      */
     console.error('uložení poptávky selhalo', error)

@@ -90,7 +90,7 @@ export default async function AdminDashboard() {
             Publikované reference se objeví na <strong>jabcore.cz/cs/reference</strong>, na
             homepage a na <strong>portfolio.jabcore.cz</strong>.
           </p>
-          <p>Změny se projeví hned po uložení — cache se sama zneplatní.</p>
+          <p>Změny se projeví hned po uložení - cache se sama zneplatní.</p>
         </CardContent>
       </Card>
     </div>

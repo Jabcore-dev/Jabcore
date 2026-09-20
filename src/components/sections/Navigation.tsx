@@ -14,7 +14,7 @@ import logoTransparent from '@/assets/images/transparent.png'
 import { useTranslation } from 'react-i18next'
 import { useLocalePath } from '@/hooks/useLocale'
 
-// Module-level flag — persists across re-mounts, ensures animation plays only on first load
+// Module-level flag - persists across re-mounts, ensures animation plays only on first load
 let navbarHasAnimated = false
 
 const Navigation = memo(function Navigation() {

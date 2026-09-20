@@ -265,7 +265,7 @@ export default function MessagesManager({ messages }: { messages: ContactMessage
                   Zavřít
                 </Button>
                 <Button asChild>
-                  <a href={`mailto:${open.email}?subject=Re: Poptávka — Jabcore`}>Odpovědět</a>
+                  <a href={`mailto:${open.email}?subject=Re: Poptávka - Jabcore`}>Odpovědět</a>
                 </Button>
               </DialogFooter>
             </>

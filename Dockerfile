@@ -16,7 +16,7 @@ WORKDIR /app
 
 # Adresy obou webů se do buildu zapékají, protože proměnné s prefixem
 # NEXT_PUBLIC_ Next dosazuje už při kompilaci. Test a produkce proto mají
-# vlastní image — viz src/lib/site-config.ts.
+# vlastní image - viz src/lib/site-config.ts.
 ARG NEXT_PUBLIC_SITE_URL=https://jabcore.cz
 ARG NEXT_PUBLIC_PORTFOLIO_URL=https://portfolio.jabcore.cz
 ARG NEXT_PUBLIC_SITE_ENV=production
@@ -30,19 +30,19 @@ COPY . .
 RUN npm run build
 
 # ------------------------------------------------------------------
-# 2b) Migrátor — jednorázový kontejner, který pustí build.sh před startem webu
+# 2b) Migrátor - jednorázový kontejner, který pustí build.sh před startem webu
 # ------------------------------------------------------------------
 # Runtime image níž je Next standalone: nese jen to, co server opravdu
 # importuje, takže v něm není ani tsx, ani drizzle-kit, ani src/. Migrace proto
 # běží z vlastní vrstvy s kompletními node_modules. Je to obraz navíc, ale
-# nesestavuje se při každém requestu — spustí se jednou za deploy a zmizí.
+# nesestavuje se při každém requestu - spustí se jednou za deploy a zmizí.
 FROM node:22-alpine AS migrator
 WORKDIR /app
 ENV NODE_ENV=development
 COPY --from=deps /app/node_modules ./node_modules
 COPY package.json tsconfig.json drizzle.config.ts ./
 COPY src/db ./src/db
-# create-admin.ts sahá na src/lib/auth/password.ts — bez něj skončí na
+# create-admin.ts sahá na src/lib/auth/password.ts - bez něj skončí na
 # "Cannot find module" až uvnitř kontejneru.
 COPY src/lib ./src/lib
 CMD ["npx", "tsx", "src/db/migrate.ts"]
@@ -68,7 +68,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # Nahrané obrázky referencí. Mountuje se sem volume, takže přežijí redeploy.
-# Záměrně MIMO public/ — ten je součástí image, takže cokoliv se do něj zapíše
+# Záměrně MIMO public/ - ten je součástí image, takže cokoliv se do něj zapíše
 # za běhu zmizí s příštím nasazením. Servíruje je route /uploads.
 ENV UPLOADS_DIR=/app/uploads
 RUN mkdir -p /app/uploads && chown -R nextjs:nodejs /app/uploads

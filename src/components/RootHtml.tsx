@@ -6,8 +6,8 @@ const GA_MEASUREMENT_ID = 'G-ENB3YT49GT'
  * The <html> and <body> shell, shared by every root layout.
  *
  * It takes `lang` as a prop because the site has four independent root layouts
- * — the Czech homepage, the localised site, the portfolio domain and the admin
- * panel — and each knows its own language. A single root layout could only
+ * - the Czech homepage, the localised site, the portfolio domain and the admin
+ * panel - and each knows its own language. A single root layout could only
  * ever hardcode one, which is how /en/services ended up declaring Czech.
  */
 export default function RootHtml({
@@ -17,7 +17,7 @@ export default function RootHtml({
 }: {
   lang: string
   children: React.ReactNode
-  /** Off in the admin panel — there is nothing to measure behind a login. */
+  /** Off in the admin panel - there is nothing to measure behind a login. */
   analytics?: boolean
 }) {
   return (

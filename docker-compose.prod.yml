@@ -1,4 +1,4 @@
-# Jabcore — produkční stack. Server potřebuje jen Docker.
+# Jabcore - produkční stack. Server potřebuje jen Docker.
 #
 #   db    PostgreSQL 17        (stateful, nepublikuje port)
 #   web   Next.js standalone   (jabcore.cz i portfolio.jabcore.cz, rozlišuje middleware)
@@ -30,7 +30,7 @@ services:
     environment:
       POSTGRES_DB: jabcore
       POSTGRES_USER: jabcore
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD není nastavené — spusť ./build.sh, ne compose přímo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD není nastavené - spusť ./build.sh, ne compose přímo}
     # Bez publikovaného portu záměrně: databáze je dosažitelná jen z compose
     # sítě. Zálohy jdou přes `docker exec` (viz deploy/backup.sh).
     volumes:
@@ -53,7 +53,7 @@ services:
     container_name: ${STACK_PREFIX:-jabcore}-web
     restart: unless-stopped
     logging: *logging
-    # AUTH_SECRET a heslo k databázi. Žije na serveru, nikdy v gitu —
+    # AUTH_SECRET a heslo k databázi. Žije na serveru, nikdy v gitu -
     # viz deploy/README.md.
     env_file:
       - ${SECRETS_FILE:-.env}
@@ -68,7 +68,7 @@ services:
       NEXT_PUBLIC_PORTFOLIO_URL: ${PORTFOLIO_BASE_URL}
       NEXT_PUBLIC_SITE_ENV: ${ENVIRONMENT}
       UPLOADS_DIR: /app/uploads
-      # Identita buildu, kterou servíruje /api/health — aby se deploy dal ověřit
+      # Identita buildu, kterou servíruje /api/health - aby se deploy dal ověřit
       # zvenku místo předpokládání.
       APP_VERSION: ${APP_VERSION:-unknown}
       BUILD_COMMIT: ${BUILD_COMMIT:-unknown}

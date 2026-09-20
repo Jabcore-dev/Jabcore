@@ -6,7 +6,9 @@ import {
   varchar,
   boolean,
   timestamp,
+  date,
   primaryKey,
+  unique,
   index,
 } from 'drizzle-orm/pg-core'
 import { relations } from 'drizzle-orm'
@@ -16,7 +18,7 @@ import { relations } from 'drizzle-orm'
  *
  * Split in two on purpose: everything language-neutral lives here, every
  * translatable string lives in referenceLocales. Adding a thirteenth language
- * is then a row, not a migration — see PLAN.md.
+ * is then a row, not a migration - see PLAN.md.
  */
 export const references = pgTable(
   // "references" alone is a reserved word in SQL: Drizzle quotes identifiers
@@ -30,7 +32,7 @@ export const references = pgTable(
     /** URL segment, e.g. "mestska-knihovna". Unique across the site. */
     slug: varchar('slug', { length: 120 }).notNull().unique(),
 
-    /** Shown as-is in every language — company names are not translated. */
+    /** Shown as-is in every language - company names are not translated. */
     clientName: varchar('client_name', { length: 160 }).notNull(),
 
     /** Year the project shipped. Null while it is still running. */
@@ -64,11 +66,18 @@ export const references = pgTable(
     /** Pinned to the top of the portfolio one-pager. */
     featured: boolean('featured').notNull().default(false),
 
+    /**
+     * Visible on the site but kept out of search results. For a reference the
+     * client agreed to show but not to advertise - hiding it entirely would
+     * mean unpublishing, which also takes it off the portfolio page.
+     */
+    noindex: boolean('noindex').notNull().default(false),
+
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
-    // The public listing is always "published, in order" — without this it is
+    // The public listing is always "published, in order" - without this it is
     // a sequential scan plus a sort on every request.
     index('project_references_published_order_idx').on(table.published, table.sortOrder),
   ],
@@ -87,7 +96,7 @@ export const referenceLocales = pgTable(
       // would silently keep them out of every listing but inside every backup.
       .references(() => references.id, { onDelete: 'cascade' }),
 
-    /** 'cs' | 'en' | … — validated against locales in i18n-config. */
+    /** 'cs' | 'en' | … - validated against locales in i18n-config. */
     locale: varchar('locale', { length: 5 }).notNull(),
 
     title: varchar('title', { length: 200 }).notNull(),
@@ -101,6 +110,15 @@ export const referenceLocales = pgTable(
     testimonial: text('testimonial'),
     testimonialAuthor: varchar('testimonial_author', { length: 160 }),
 
+    /*
+     * Search-result text, separate from title/summary on purpose: the perex is
+     * written for someone already looking at the card, the meta description is
+     * written to make someone click from a results page. Empty means "derive
+     * it from title/summary", which is what the site did before these existed.
+     */
+    metaTitle: varchar('meta_title', { length: 200 }),
+    metaDescription: varchar('meta_description', { length: 320 }),
+
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
@@ -109,7 +127,83 @@ export const referenceLocales = pgTable(
 )
 
 /**
- * Admin accounts. Deliberately tiny — this is a handful of people editing a
+ * Old URLs that must keep working.
+ *
+ * Filled automatically when a slug changes in the admin: the previous address
+ * is already linked from elsewhere and indexed, and letting it 404 throws away
+ * both the visitors and the ranking it earned. A 301 hands both to the new URL.
+ */
+export const slugRedirects = pgTable(
+  'slug_redirects',
+  {
+    id: serial('id').primaryKey(),
+
+    /** The slug that used to exist. Unique - one old slug, one destination. */
+    fromSlug: varchar('from_slug', { length: 120 }).notNull().unique(),
+
+    referenceId: integer('reference_id')
+      .notNull()
+      .references(() => references.id, { onDelete: 'cascade' }),
+
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [index('slug_redirects_from_idx').on(table.fromSlug)],
+)
+
+/**
+ * Page views, aggregated per day.
+ *
+ * Counted by a beacon from the browser rather than on the server, because
+ * pages are served from the ISR cache and never re-render per visit. A welcome
+ * side effect: crawlers do not run the script, so the numbers are people
+ * rather than bots.
+ *
+ * No cookies and no identifier of any kind - one row per day per combination,
+ * incremented. Nothing here can be traced back to a person, so it needs no
+ * consent banner.
+ */
+export const pageViews = pgTable(
+  'page_views',
+  {
+    id: serial('id').primaryKey(),
+
+    /** Path without the locale prefix, e.g. "/reference/mestska-knihovna". */
+    path: varchar('path', { length: 255 }).notNull(),
+
+    /** Set when the page is a reference, so the admin can rank them. */
+    referenceId: integer('reference_id').references(() => references.id, {
+      onDelete: 'cascade',
+    }),
+
+    locale: varchar('locale', { length: 5 }).notNull(),
+
+    /** Date only - hourly detail is noise at this traffic. */
+    day: date('day').notNull(),
+
+    /** Referrer host, or 'direct'. Never the full URL. */
+    source: varchar('source', { length: 120 }).notNull().default('direct'),
+
+    /** 'CZ' | 'SK' | 'other' - the three our IP table can tell apart. */
+    country: varchar('country', { length: 10 }).notNull().default('other'),
+
+    count: integer('count').notNull().default(1),
+  },
+  (table) => [
+    // The upsert target: one row per combination per day, incremented.
+    unique('page_views_unique').on(
+      table.path,
+      table.locale,
+      table.day,
+      table.source,
+      table.country,
+    ),
+    index('page_views_day_idx').on(table.day),
+    index('page_views_reference_idx').on(table.referenceId, table.day),
+  ],
+)
+
+/**
+ * Admin accounts. Deliberately tiny - this is a handful of people editing a
  * marketing site, not a user system.
  */
 export const adminUsers = pgTable('admin_users', {
@@ -125,7 +219,7 @@ export const adminUsers = pgTable('admin_users', {
 
   /**
    * 'owner' may add and remove other accounts; 'editor' may only edit content.
-   * The last remaining owner cannot be deleted or demoted — otherwise the panel
+   * The last remaining owner cannot be deleted or demoted - otherwise the panel
    * locks everyone out of user management with no way back in from the UI.
    */
   role: varchar('role', { length: 20 }).notNull().default('editor'),
@@ -152,7 +246,7 @@ export const contactMessages = pgTable(
     phone: varchar('phone', { length: 40 }),
     message: text('message').notNull(),
 
-    /** Which language the site was in when they wrote — answer in that one. */
+    /** Which language the site was in when they wrote - answer in that one. */
     locale: varchar('locale', { length: 5 }),
 
     /** 'new' | 'in_progress' | 'done' | 'spam' */
@@ -170,6 +264,8 @@ export const contactMessages = pgTable(
   ],
 )
 
+export type SlugRedirect = typeof slugRedirects.$inferSelect
+export type PageView = typeof pageViews.$inferSelect
 export type AdminRole = 'owner' | 'editor'
 export type ContactMessage = typeof contactMessages.$inferSelect
 export type NewContactMessage = typeof contactMessages.$inferInsert

@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { eq, and } from 'drizzle-orm'
 import { z } from 'zod'
 import { db } from '@/db/client'
-import { references, referenceLocales } from '@/db/schema'
+import { references, referenceLocales, slugRedirects } from '@/db/schema'
 import { requireUser } from '@/lib/auth/guard'
 import { locales, defaultLocale } from '@/lib/i18n-config'
 
@@ -22,6 +22,8 @@ const translationSchema = z.object({
   body: z.string().optional().nullable(),
   testimonial: z.string().optional().nullable(),
   testimonialAuthor: z.string().trim().max(160).optional().nullable(),
+  metaTitle: z.string().trim().max(200).optional().nullable(),
+  metaDescription: z.string().trim().max(320).optional().nullable(),
 })
 
 const referenceSchema = z.object({
@@ -31,7 +33,7 @@ const referenceSchema = z.object({
     .trim()
     .min(1, 'Slug nesmí být prázdný.')
     // The slug is part of a public URL, so it is restricted here rather than
-    // cleaned up silently — a surprise rename breaks links that already exist.
+    // cleaned up silently - a surprise rename breaks links that already exist.
     .max(120)
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Slug smí obsahovat jen malá písmena, číslice a pomlčky.'),
   clientName: z.string().trim().min(1, 'Vyplň klienta.').max(160),
@@ -43,6 +45,7 @@ const referenceSchema = z.object({
   sortOrder: z.number().int().min(0).max(9999),
   published: z.boolean(),
   featured: z.boolean(),
+  noindex: z.boolean(),
   translations: z.record(z.string(), translationSchema),
 })
 
@@ -83,7 +86,7 @@ export async function saveReference(input: ReferenceInput): Promise<ActionResult
   // translation of their own.
   const czech = translations[defaultLocale]
   if (!czech?.title?.trim()) {
-    return { ok: false, error: 'Český název je povinný — ostatní jazyky se na něj odkazují.' }
+    return { ok: false, error: 'Český název je povinný - ostatní jazyky se na něj odkazují.' }
   }
 
   // A duplicate slug would make one of the two references unreachable, since
@@ -98,6 +101,14 @@ export async function saveReference(input: ReferenceInput): Promise<ActionResult
     return { ok: false, error: `Slug „${row.slug}" už používá jiná reference.` }
   }
 
+  /*
+   * Starý slug si zapamatujeme dřív, než ho přepíšeme - po updatu už se
+   * nedá zjistit a stará adresa je mezitím prolinkovaná i zaindexovaná.
+   */
+  const previousSlug = id
+    ? (await db.select({ slug: references.slug }).from(references).where(eq(references.id, id)).limit(1))[0]?.slug
+    : undefined
+
   const referenceId = id
     ? (await db
         .update(references)
@@ -107,6 +118,19 @@ export async function saveReference(input: ReferenceInput): Promise<ActionResult
     : (await db.insert(references).values(row).returning({ id: references.id }))[0]?.id
 
   if (!referenceId) return { ok: false, error: 'Referenci se nepodařilo uložit.' }
+
+  if (previousSlug && previousSlug !== row.slug) {
+    // Stará adresa bude 301 mířit na novou. onConflictDoUpdate kvůli tomu,
+    // že se slug může přejmenovat tam a zpátky.
+    await db
+      .insert(slugRedirects)
+      .values({ fromSlug: previousSlug, referenceId })
+      .onConflictDoUpdate({ target: slugRedirects.fromSlug, set: { referenceId } })
+
+    // Kdyby nový slug byl dřív něčí starou adresou, přesměrování by ho
+    // přebilo - reference sama má přednost.
+    await db.delete(slugRedirects).where(eq(slugRedirects.fromSlug, row.slug))
+  }
 
   for (const locale of locales) {
     const translation = translations[locale]
@@ -132,6 +156,8 @@ export async function saveReference(input: ReferenceInput): Promise<ActionResult
       body: translation.body?.trim() || null,
       testimonial: translation.testimonial?.trim() || null,
       testimonialAuthor: translation.testimonialAuthor?.trim() || null,
+      metaTitle: translation.metaTitle?.trim() || null,
+      metaDescription: translation.metaDescription?.trim() || null,
       updatedAt: new Date(),
     }
 
@@ -164,7 +190,7 @@ export async function deleteReference(id: number): Promise<ActionResult> {
   return { ok: true }
 }
 
-/** The publish switch in the list — one field, no round trip through the editor. */
+/** The publish switch in the list - one field, no round trip through the editor. */
 export async function setPublished(id: number, published: boolean): Promise<ActionResult> {
   await requireUser()
 

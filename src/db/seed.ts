@@ -3,7 +3,7 @@
  *
  *   npm run db:seed
  *
- * Jen pro vývoj — smaže a znovu vytvoří obsah tabulek. Na produkci ho nespouštěj.
+ * Jen pro vývoj - smaže a znovu vytvoří obsah tabulek. Na produkci ho nespouštěj.
  */
 import { db } from './client'
 import { references, referenceLocales } from './schema'
@@ -46,7 +46,7 @@ const data = [
     featured: false,
     locales: {
       cs: {
-        title: 'Pillsee — hlídání užívání léků',
+        title: 'Pillsee - hlídání užívání léků',
         summary: 'Vlastní produkt: mobilní aplikace, která připomíná léky a hlídá interakce.',
         body: '## Proč vznikl\n\nZ vlastní potřeby…',
       },

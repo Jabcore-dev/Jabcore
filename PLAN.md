@@ -14,7 +14,7 @@ Dnešní stav ([next.config.ts](next.config.ts) s `output: 'export'`) znamená:
 - obsah se dá měnit jen commitem do gitu,
 - reference/portfolio nemá kde žít,
 - všechny views jsou `'use client'` a texty tahají přes `useTranslation()`, takže
-  [src/lib/i18n.ts](src/lib/i18n.ts) importuje všech 12 jazyků najednou —
+  [src/lib/i18n.ts](src/lib/i18n.ts) importuje všech 12 jazyků najednou -
   každý návštěvník stahuje **~356 KB překladů** včetně jedenácti, které neuvidí,
 - zdvojený strom rout (`src/app/about` + `src/app/[locale]/about`) existuje jen
   proto, že statický export neumí přesměrovat na serveru.
@@ -29,7 +29,7 @@ serveru, portfolio na samostatné doméně.
 ### Databáze: vlastní Postgres, ne Supabase
 
 Supabase *je* Postgres s auth, storage a REST vrstvou navrch. Z toho bychom
-využili prakticky jen databázi — auth řešíme pro pár lidí, realtime nepotřebujeme,
+využili prakticky jen databázi - auth řešíme pro pár lidí, realtime nepotřebujeme,
 RLS nedává smysl, když k DB sahá jen náš server. Free tier navíc projekt po týdnu
 nečinnosti uspí, takže reálně Pro ~25 USD/měs.
 
@@ -40,7 +40,7 @@ Data u sebe, nulová cena navíc, žádná latence přes internet. Zálohy řeš
 ### ORM: Drizzle
 
 SQL-like API, migrace jako čitelné `.sql` soubory, žádný codegen krok ani binárka
-navíc v Docker image (na rozdíl od Prismy, kterou používá jabcore-finance —
+navíc v Docker image (na rozdíl od Prismy, kterou používá jabcore-finance -
 tam ale běží samostatné API, tady jde o jeden Next.js kontejner).
 
 ### Překlady: oddělená tabulka, ne sloupce
@@ -69,7 +69,7 @@ a jednou překlepem v produkci rozbijeme navigaci.
 
 ### portfolio.jabcore.cz: jedna aplikace, dvě domény
 
-Ne druhá appka ani druhé repo — onepager nad stejnými daty by zdvojil build,
+Ne druhá appka ani druhé repo - onepager nad stejnými daty by zdvojil build,
 paměť i deploy surface kvůli jedné stránce a musel by se dělit o datovou vrstvu.
 
 Řeší to `middleware.ts` přepisem podle hostitele:
@@ -79,14 +79,14 @@ portfolio.jabcore.cz/          → rewrite na /[locale]/portfolio  (URL zůstáv
 jabcore.cz/[locale]/portfolio  → 301 na portfolio.jabcore.cz     (žádný duplicate content)
 ```
 
-Route group `(portfolio)` má vlastní layout — jiná navigace, jiná patička, žádné
+Route group `(portfolio)` má vlastní layout - jiná navigace, jiná patička, žádné
 služby ani produkty. Obě domény míří v Caddy na stejný port, rozhodnutí padá až
 v middleware.
 
 **Tři věci, které s jednou appkou na dvou doménách snadno ujedou:**
 
 1. [sitemap.ts](src/app/sitemap.ts) a [robots.ts](src/app/robots.ts) musí být
-   host-aware — jinak portfolio doména naservíruje sitemapu hlavního webu.
+   host-aware - jinak portfolio doména naservíruje sitemapu hlavního webu.
 2. Canonical na portfolio stránce míří na subdoménu, hreflang přes všech
    12 locales (navazuje na [metadata.ts](src/lib/metadata.ts)).
 3. Onepager potřebuje `CreativeWork` JSON-LD u každé reference přes
@@ -95,7 +95,7 @@ v middleware.
 
 ### Devops: konvence z jabcore-finance + profiartstudio-web
 
-`build.sh` v rootu dělá všechno — git pull, build, migrace, healthcheck, výpis
+`build.sh` v rootu dělá všechno - git pull, build, migrace, healthcheck, výpis
 kam se nasadilo. Prostředí jsou soubory v `deploy/`, secrets mimo git, kontejnery
 poslouchají jen na `127.0.0.1`, ven je pouští Caddy. Výstup česky.
 
@@ -139,52 +139,56 @@ src/
 
 ## Fáze
 
-### Fáze 1 — Server a runtime  `~1–1,5 dne`  ✅ hotovo
+### Fáze 1 - Server a runtime  `~1–1,5 dne`  ✅ hotovo
 
 - [x] `output: 'export'` → `output: 'standalone'`, zrušit `images.unoptimized`
-- [x] `src/app/api/health/route.ts` — hlásí commit, build time a ping na DB
-- [x] `Dockerfile` — node:22-alpine, multi-stage, tini, nextjs uživatel, HEALTHCHECK
+- [x] `src/app/api/health/route.ts` - hlásí commit, build time a ping na DB
+- [x] `Dockerfile` - node:22-alpine, multi-stage, tini, nextjs uživatel, HEALTHCHECK
 - [x] `docker-compose.yml` (dev) a `docker-compose.prod.yml`
-- [x] `build.sh` — prostředí, git pull s re-exec, validace konfigurace, migrace, healthcheck
-- [x] `deploy/` — README, Caddyfile, production.env, test.env, secrets.env.template, backup.sh
-- [x] `.gitignore` — `deploy/secrets.*.env`
-- [x] `middleware.ts` — detekce locale, zrušen zdvojený strom rout
+- [x] `build.sh` - prostředí, git pull s re-exec, validace konfigurace, migrace, healthcheck
+- [x] `deploy/` - README, Caddyfile, production.env, test.env, secrets.env.template, backup.sh
+- [x] `.gitignore` - `deploy/secrets.*.env`
+- [x] `middleware.ts` - detekce locale, zrušen zdvojený strom rout
 - [x] odstraněn nepoužívaný `react-router-dom`
 - [x] `.github/workflows/ci.yml` místo GitHub Pages deploye
 
-### Fáze 2 — Datová vrstva  `~1 den`  ✅ hotovo
+### Fáze 2 - Datová vrstva  `~1 den`  ✅ hotovo
 
 - [x] Drizzle + `postgres` driver, `drizzle.config.ts`
-- [x] `src/db/schema.ts` — `references`, `reference_locales`, `admin_users`
+- [x] `src/db/schema.ts` - `references`, `reference_locales`, `admin_users`
 - [x] první migrace (`0000_rich_thena.sql`), zapojená do `build.sh` jako viditelný one-shot
-- [x] `src/db/client.ts` — connection pool pro server komponenty
-- [x] `src/db/seed.ts` — ukázková data pro vývoj
+- [x] `src/db/client.ts` - connection pool pro server komponenty
+- [x] `src/db/seed.ts` - ukázková data pro vývoj
 
-### Fáze 3 — Admin panel  `~3–5 dní`  ✅ hotovo
+### Fáze 3 - Admin panel  `~3–5 dní`  ✅ hotovo
 
-- [x] přihlášení — session jako podepsaný JWT (`jose`) v httpOnly cookie, hesla bcrypt
+- [x] přihlášení - session jako podepsaný JWT (`jose`) v httpOnly cookie, hesla bcrypt
 - [x] role **vlastník** (spravuje účty) / **editor** (jen obsah), poslední vlastník nejde smazat
 - [x] middleware hlídá `/admin`, každá server akce ověřuje session znovu
-- [x] reference — seznam, řazení, publikovat/skrýt, zvýraznit, mazání s potvrzením
+- [x] reference - seznam, řazení, publikovat/skrýt, zvýraznit, mazání s potvrzením
 - [x] editor v modalu s tabem pro každý z 12 jazyků a tečkou „přeloženo / chybí"
 - [x] upload obrázků na volume, převod do WebP přes `sharp`, servírování přes `/uploads`
-- [x] poptávky — inbox se stavy, interní poznámkou a detailem v modalu
-- [x] uživatelé — přidání, role, reset hesla, změna vlastního hesla
+- [x] poptávky - inbox se stavy, interní poznámkou a detailem v modalu
+- [x] uživatelé - přidání, role, reset hesla, změna vlastního hesla
 - [x] dashboard s čísly a posledními poptávkami
-- [x] `revalidatePath()` po uložení — změna je na webu hned
+- [x] `revalidatePath()` po uložení - změna je na webu hned
 - [x] `deploy/admin.sh` pro založení účtu na serveru
+- [x] SEO pole per jazyk - meta title a description s ukazatelem délky
+      a náhledem výsledku ve vyhledávání, přepínač „skrýt před vyhledávači"
+- [x] automatické 301 při změně slugu (`slug_redirects`)
+- [x] statistiky - vlastní počítadlo bez cookies
 
-### Fáze 4 — Reference na hlavním webu  `~1–2 dny`  ✅ hotovo
+### Fáze 4 - Reference na hlavním webu  `~1–2 dny`  ✅ hotovo
 
 - [x] `/[locale]/reference` a `/[locale]/reference/[slug]` jako **server komponenty**
-- [x] `src/lib/references.ts` — čtení s fallbackem překladů **po polích**
+- [x] `src/lib/references.ts` - čtení s fallbackem překladů **po polích**
 - [x] metadata a hreflang pro detail, `generateStaticParams` nad publikovanými slugy
 - [x] `CreativeWork` JSON-LD na detailu
 - [x] doplněno do [sitemap.ts](src/app/sitemap.ts)
 - [x] preview sekce na homepage (server komponenta, přežije výpadek DB)
 - [x] odkaz v navigaci + aktivní stav i na detailu
 
-### Fáze 5 — portfolio.jabcore.cz  `~1,5–2 dny`  ✅ hotovo
+### Fáze 5 - portfolio.jabcore.cz  `~1,5–2 dny`  ✅ hotovo
 
 - [x] middleware: routing podle `Host`, rewrite portfolio domény, 308 z hlavní
 - [x] `src/app/portfolio/[locale]` s vlastním layoutem (bez i18next v prohlížeči)
@@ -194,7 +198,7 @@ src/
 - [x] Caddy blok v [deploy/Caddyfile](deploy/Caddyfile)
 - [ ] DNS záznam `portfolio.jabcore.cz` → `169.58.250.48` *(viz níž)*
 
-### Fáze 6 — Port zbytku obsahu  `~2–3 dny`  *(volitelné)*
+### Fáze 6 - Port zbytku obsahu  `~2–3 dny`  *(volitelné)*
 
 - [ ] služby, produkty, tým do DB stejným vzorem
 - [ ] UI texty **zůstávají** v `src/locales/*.json`
@@ -226,7 +230,7 @@ proběhnou jako viditelný one-shot, web se sestaví a nahlásí healthy,
 Stav po auditu a opravách:
 
 - obsah všech 12 jazyků je server-rendered, hreflang včetně `x-default`
-- `<html lang>` odpovídá jazyku stránky — kvůli tomu je kořenový layout
+- `<html lang>` odpovídá jazyku stránky - kvůli tomu je kořenový layout
   rozdělený na čtyři (`(root)`, `[locale]`, `portfolio/[locale]`, `admin`),
   protože `<html>` musí být nad segmentem `[locale]`
 - česká homepage má canonical na holé doméně a **sitemapa nabízí tutéž URL**;
@@ -236,22 +240,38 @@ Stav po auditu a opravách:
 - admin je `noindex` a bez Google Analytics
 
 Homepage zůstává dynamická (`ƒ`), protože čte reference z databáze. Změřeno:
-TTFB 7 ms proti 2 ms u statické stránky — proti latenci sítě je to šum.
+TTFB 7 ms proti 2 ms u statické stránky - proti latenci sítě je to šum.
 Statickou by ji udělalo až PPR, které ve stabilním Next 15 není.
+
+## Statistiky
+
+Vlastní počítadlo, žádná externí služba. Zobrazení hlásí beacon z prohlížeče
+do `/api/view` a ukládá se do `page_views` **agregovaně po dnech** - žádná
+cookie, žádný identifikátor, takže to nepotřebuje souhlas.
+
+Beacon záměrně místo počítání na serveru: stránky se servírují z ISR cache
+a na serveru by se započítal jen ten render, který cache naplnil. Vedlejší
+efekt je užitečný - crawlery skript nespustí, takže čísla jsou lidé, ne roboti.
+
+V `/admin/statistiky` je návštěvnost za 7/30/90 dní, denní graf, žebříček
+nejčtenějších referencí, zdroje návštěv, země a jazyky.
+
+Endpoint je veřejný, takže se čísla dají nafouknout. Je to vodítko, ne
+účetnictví.
 
 ## Výběr jazyka
 
 Priorita v [middleware.ts](src/middleware.ts):
 
-1. **cookie** `jabcore_locale` — ruční volba z přepínače vždy vyhrává
-2. **IP adresa** — CZ → čeština, SK → slovenština
+1. **cookie** `jabcore_locale` - ruční volba z přepínače vždy vyhrává
+2. **IP adresa** - CZ → čeština, SK → slovenština
 3. **Accept-Language**
 4. čeština
 
 Bod 2 existuje proto, že Čech s anglicky nastaveným prohlížečem posílá
 `Accept-Language: en-US,en` a dostal by angličtinu na webu české firmy.
 
-Rozsahy jsou v [src/lib/geo/ranges.ts](src/lib/geo/ranges.ts) — 1472 českých
+Rozsahy jsou v [src/lib/geo/ranges.ts](src/lib/geo/ranges.ts) - 1472 českých
 a 390 slovenských IPv4 rozsahů z RIPE NCC, plus IPv6. Žádný MaxMind ani externí
 služba: tabulka dvou zemí se vejde do edge middlewaru, nepotřebuje licenci ani
 čtení souboru. Aktualizace `npm run geo:update`, stačí jednou za rok.
@@ -260,33 +280,39 @@ služba: tabulka dvou zemí se vejde do edge middlewaru, nepotřebuje licenci an
 nikdy, takže hreflang funguje a crawler se dostane na všechny jazyky bez ohledu
 na to, odkud leze.
 
-Caddy musí `X-Forwarded-For` **přepisovat**, ne rozšiřovat — jinak si ji
+Caddy musí `X-Forwarded-For` **přepisovat**, ne rozšiřovat - jinak si ji
 návštěvník podvrhne a vybere si jazyk cizí adresou. Je to v
 [deploy/Caddyfile](deploy/Caddyfile).
 
 ## Co nezapomenout
 
-- `backup.sh` zálohuje **i volume s obrázky**, ne jen `pg_dump` — nahrané fotky
+- `backup.sh` zálohuje **i volume s obrázky**, ne jen `pg_dump` - nahrané fotky
   referencí nejsou v gitu.
 - `PORTFOLIO_BASE_URL` se zapéká do image stejně jako `NEXT_PUBLIC_SITE_URL`
   u profiartstudia, takže test a produkce mají vlastní image.
 - Postgres si heslo uloží při prvním startu do volume; změna
   `POSTGRES_PASSWORD` v secrets ho nepřepíše.
-- Vývojová databáze jede na **portu 5434**, ne 5432 — ten drží jabcore-finance.
+- Vývojová databáze jede na **portu 5434**, ne 5432 - ten drží jabcore-finance.
 - Migrace běží z vlastní Docker vrstvy (`target: migrator`), protože produkční
   image je Next standalone a `tsx` ani `src/` v něm nejsou.
 - Root `/` záměrně **neredirektuje** češtinu: je to canonical adresa české
   homepage (viz hreflang v `metadata.ts`). Middleware přesouvá jen ostatní jazyky.
-- Tabulka se jmenuje `project_references`, ne `references` — to je v SQL
+- Tabulka se jmenuje `project_references`, ne `references` - to je v SQL
   rezervované slovo a ruční dotaz bez uvozovek spadne na nesrozumitelné
   „syntax error at or near". V kódu zůstává `references`.
 - `next build` běží uvnitř Docker image, kde databáze není. Proto je připojení
   v [src/db/client.ts](src/db/client.ts) líné a stránky čtoucí DB volají
-  `skipPrerenderWithoutDatabase()` — jinak by se předgenerovaly prázdné a
+  `skipPrerenderWithoutDatabase()` - jinak by se předgenerovaly prázdné a
   takové se servírovaly z cache až do další revalidace.
+- Vlastní meta title z adminu je **absolutní** - layout jinak přilepí šablonu
+  `%s | Jabcore` a vznikne „… | Jabcore | Jabcore".
+- `languages` a konstanty cookie patří do `i18n-config.ts`, ne do `lib/i18n.ts`:
+  ten importuje react-i18next a jakmile na něj sáhne server komponenta nebo
+  middleware, skončí celá knihovna v jejich bundlu a build spadne na
+  „createContext is not a function".
 - Caddy nesmí přepisovat hlavičku `Host`, jinak portfolio doména spadne zpátky
   na hlavní web.
-- Nahrané obrázky leží v `/app/uploads` (volume), **ne** v `public/` — ten je
+- Nahrané obrázky leží v `/app/uploads` (volume), **ne** v `public/` - ten je
   součástí image, takže cokoliv se do něj zapíše za běhu zmizí s deployem.
 - Migrační vrstva image kopíruje `src/db` **i** `src/lib`; bez druhého skončí
   `deploy/admin.sh` na „Cannot find module" až uvnitř kontejneru.
@@ -301,14 +327,14 @@ DNS (TTL sniž na 300 předem, ať přepnutí není slepé):
 
 | Záznam | Hodnota |
 |---|---|
-| `jabcore.cz` A | `169.58.250.48` — nahradí **čtyři** GitHub Pages A záznamy |
-| `portfolio.jabcore.cz` A | `169.58.250.48` — přidat |
-| `www.jabcore.cz` CNAME | `jabcore.cz` — teď míří na michalpetricek.github.io |
+| `jabcore.cz` A | `169.58.250.48` - nahradí **čtyři** GitHub Pages A záznamy |
+| `portfolio.jabcore.cz` A | `169.58.250.48` - přidat |
+| `www.jabcore.cz` CNAME | `jabcore.cz` - teď míří na michalpetricek.github.io |
 
 Beze změny zůstává pošta (MX, `domainkey` CNAME, SPF, DMARC) a
 `google-site-verification`.
 
-Caddy potřebuje otevřený **port 80 i 443** — Let's Encrypt ověřuje přes HTTP.
+Caddy potřebuje otevřený **port 80 i 443** - Let's Encrypt ověřuje přes HTTP.
 Před přepnutím DNS ověř server přes `/etc/hosts`. Po ověření vypni GitHub Pages.
 
 > Mimochodem: `szn1.domainkey.jabcore.cz` a `dmarc.jabcore.cz` mají chybět
@@ -319,4 +345,4 @@ Před přepnutím DNS ověř server přes `/etc/hosts`. Po ověření vypni GitH
 
 Kontaktní formulář jede na EmailJS z prohlížeče ([src/lib/emailjs.ts](src/lib/emailjs.ts)),
 takže nemáme historii poptávek. Se serverem a DB je to otázka jednoho API route
-a tabulky — ale je to samostatná věc, až po téhle migraci.
+a tabulky - ale je to samostatná věc, až po téhle migraci.

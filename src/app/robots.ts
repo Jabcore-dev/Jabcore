@@ -6,7 +6,7 @@ import { isPortfolioHost } from '@/lib/request-host'
  * robots.txt for whichever of the two sites was asked.
  *
  * The test deployment serves the same pages on different hosts, so it has to
- * say "do not index" — otherwise the staging copy competes with the real site
+ * say "do not index" - otherwise the staging copy competes with the real site
  * in search results.
  */
 export default async function robots(): Promise<MetadataRoute.Robots> {

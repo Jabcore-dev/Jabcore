@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 
 /*
-  Class-based dark mode — next-themes adds .dark to <html>
+  Class-based dark mode - next-themes adds .dark to <html>
   Required for dark: utilities to work with ThemeProvider attribute="class"
 */
 @custom-variant dark (&:is(.dark *));
@@ -27,6 +27,12 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.15 0 0);
   --primary: oklch(0.45 0.15 255);
+
+  /* Sloupce v grafech. Vlastní token, ne --primary: ten má v tmavém režimu
+     proti podkladu kontrast 3,10:1, což je těsně nad hranicí pro grafické
+     prvky. Tenhle je vybraný pro každý režim zvlášť - 7,54:1 a 5,79:1. */
+  --chart-bar: oklch(0.45 0.15 255);
+  --chart-track: oklch(0.93 0.02 255);
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.96 0 0);
   --secondary-foreground: oklch(0.15 0 0);
@@ -50,6 +56,8 @@
   --popover: oklch(0.18 0 0);
   --popover-foreground: oklch(0.98 0 0);
   --primary: oklch(0.50 0.15 255);
+  --chart-bar: oklch(0.65 0.15 255);
+  --chart-track: oklch(0.26 0.02 255);
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.25 0 0);
   --secondary-foreground: oklch(0.98 0 0);
@@ -66,7 +74,7 @@
 
 /* ─── Tailwind v4 theme mapping ───────────────────────────────── */
 /*
-  @theme inline — utility classes use var(--color-*) references,
+  @theme inline - utility classes use var(--color-*) references,
   which respond to dark-mode CSS variable changes at runtime.
   Required when token values change between light/dark themes.
 */

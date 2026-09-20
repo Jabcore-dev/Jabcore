@@ -7,7 +7,7 @@ import * as schema from './schema'
  *
  * Created on first use, not when the module is imported. `next build` runs
  * inside the Docker image build, where no database exists and DATABASE_URL is
- * unset — a connection opened at import time would fail there and take the
+ * unset - a connection opened at import time would fail there and take the
  * whole build with it, including the pages that never touch the database.
  *
  * Next reloads modules on every change in development, which would open a new

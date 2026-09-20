@@ -19,7 +19,7 @@ export function uploadUrl(filename: string): string {
 /**
  * Resolves a requested name to a path inside UPLOADS_DIR, or null.
  *
- * The name comes from a URL, so "../../etc/passwd" has to stop here — the
+ * The name comes from a URL, so "../../etc/passwd" has to stop here - the
  * check is on the resolved path, because a name can escape the directory
  * without containing ".." literally once it is decoded and normalised.
  */

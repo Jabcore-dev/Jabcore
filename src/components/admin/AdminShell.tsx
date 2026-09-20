@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { FileText, Inbox, Users, LayoutDashboard, LogOut, ExternalLink } from 'lucide-react'
+import { FileText, Inbox, Users, LayoutDashboard, LogOut, ExternalLink, ChartLine } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import type { SessionPayload } from '@/lib/auth/session'
@@ -10,6 +10,7 @@ import type { SessionPayload } from '@/lib/auth/session'
 const items = [
   { href: '/admin', label: 'Přehled', icon: LayoutDashboard },
   { href: '/admin/reference', label: 'Reference', icon: FileText },
+  { href: '/admin/statistiky', label: 'Statistiky', icon: ChartLine },
   { href: '/admin/kontakty', label: 'Poptávky', icon: Inbox, badgeKey: 'newMessages' as const },
   { href: '/admin/uzivatele', label: 'Uživatelé', icon: Users, ownerOnly: true },
 ]

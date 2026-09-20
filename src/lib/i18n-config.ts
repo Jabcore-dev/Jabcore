@@ -4,6 +4,28 @@ export const locales = ['cs', 'en', 'de', 'es', 'pl', 'sk', 'fr', 'it', 'nl', 'p
 
 export type Locale = (typeof locales)[number]
 
+/**
+ * Názvy a vlajky jazyků.
+ *
+ * Tady, a ne v lib/i18n.ts: ten importuje react-i18next, takže jakmile na něj
+ * sáhne server komponenta nebo middleware, skončí celá knihovna v jejich
+ * bundlu a build spadne na „createContext is not a function".
+ */
+export const languages = {
+  en: { name: 'English', flag: '🇬🇧' },
+  cs: { name: 'Čeština', flag: '🇨🇿' },
+  de: { name: 'Deutsch', flag: '🇩🇪' },
+  es: { name: 'Español', flag: '🇪🇸' },
+  pl: { name: 'Polski', flag: '🇵🇱' },
+  sk: { name: 'Slovenčina', flag: '🇸🇰' },
+  fr: { name: 'Français', flag: '🇫🇷' },
+  it: { name: 'Italiano', flag: '🇮🇹' },
+  nl: { name: 'Nederlands', flag: '🇳🇱' },
+  pt: { name: 'Português', flag: '🇵🇹' },
+  hu: { name: 'Magyar', flag: '🇭🇺' },
+  ro: { name: 'Română', flag: '🇷🇴' },
+}
+
 /** OG locale codes per language */
 export const ogLocales: Record<string, string> = {
   cs: 'cs_CZ',
@@ -24,7 +46,7 @@ export const ogLocales: Record<string, string> = {
  * Ručně vybraný jazyk, uložený do cookie.
  *
  * Middleware rozhoduje o jazyce ještě před renderem a do localStorage nevidí,
- * takže volba z přepínače musí být v cookie — jinak by ji geolokace při další
+ * takže volba z přepínače musí být v cookie - jinak by ji geolokace při další
  * navigaci přebila.
  *
  * Konstanty jsou tady, a ne v lib/i18n.ts: ten importuje react-i18next a
@@ -32,5 +54,5 @@ export const ogLocales: Record<string, string> = {
  */
 export const LOCALE_COOKIE = 'jabcore_locale'
 
-/** Rok — volba jazyka není nic, co by se mělo zapomínat za týden. */
+/** Rok - volba jazyka není nic, co by se mělo zapomínat za týden. */
 export const LOCALE_COOKIE_MAX_AGE = 60 * 60 * 24 * 365

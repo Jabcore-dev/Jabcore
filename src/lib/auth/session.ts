@@ -7,7 +7,7 @@ import type { AdminRole } from '@/db/schema'
  * A signed JWT in an httpOnly cookie, rather than a session table: there is no
  * server-side state to clean up, and middleware can check it without touching
  * the database on every request. The trade-off is that a session cannot be
- * revoked before it expires — acceptable for a two-week window on a panel with
+ * revoked before it expires - acceptable for a two-week window on a panel with
  * a handful of accounts, and rotating AUTH_SECRET invalidates all of them.
  *
  * jose and not jsonwebtoken because this also has to run in middleware, which
@@ -17,7 +17,7 @@ import type { AdminRole } from '@/db/schema'
 export const SESSION_COOKIE = 'jabcore_admin'
 const ISSUER = 'jabcore-admin'
 
-/** Two weeks — long enough not to annoy, short enough to bound a leaked cookie. */
+/** Two weeks - long enough not to annoy, short enough to bound a leaked cookie. */
 export const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 14
 
 export interface SessionPayload {
@@ -55,7 +55,7 @@ export async function readSessionToken(token: string | undefined): Promise<Sessi
   try {
     const { payload } = await jwtVerify(token, secretKey(), { issuer: ISSUER })
 
-    // A token can be correctly signed and still not describe a user — for
+    // A token can be correctly signed and still not describe a user - for
     // instance one issued by an older version of this payload.
     if (typeof payload.userId !== 'number' || typeof payload.email !== 'string') return null
 

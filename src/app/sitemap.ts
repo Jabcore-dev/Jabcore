@@ -59,7 +59,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
    */
   let slugs: string[] = []
   try {
-    slugs = await getPublishedSlugs()
+    slugs = await getPublishedSlugs({ forSitemap: true })
   } catch (error) {
     console.error('sitemap: reference se nepodařilo načíst, pokračuji bez nich', error)
   }

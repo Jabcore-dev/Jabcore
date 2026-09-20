@@ -102,7 +102,7 @@ export async function deleteUser(id: number): Promise<ActionResult> {
   return { ok: true }
 }
 
-/** An owner resetting somebody else's password — no old password needed. */
+/** An owner resetting somebody else's password - no old password needed. */
 export async function resetPassword(id: number, password: string): Promise<ActionResult> {
   await requireOwner()
 

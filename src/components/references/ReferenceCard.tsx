@@ -29,7 +29,7 @@ export default function ReferenceCard({
               src={reference.coverImage}
               alt=""
               fill
-              // Three columns on desktop, two on tablet, full width on phones —
+              // Three columns on desktop, two on tablet, full width on phones -
               // without this next/image would serve a full-width file to every
               // card in the grid.
               sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"

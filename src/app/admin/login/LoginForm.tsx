@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label'
 
 function SubmitButton() {
   // Reads the status of the enclosing form, so the button disables itself for
-  // exactly as long as the action runs — no separate loading state to keep
+  // exactly as long as the action runs - no separate loading state to keep
   // in sync.
   const { pending } = useFormStatus()
 

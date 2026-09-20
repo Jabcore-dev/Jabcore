@@ -53,7 +53,7 @@ export function buildOrganizationJsonLd(): OrganizationJsonLd {
     url: BASE_URL,
     logo: `${BASE_URL}/og-image.png`,
     description:
-      'Vývoj softwaru na míru — mobilní aplikace, enterprise systémy, webové aplikace. Lean tým, AI-first přístup, konkurenční ceny.',
+      'Vývoj softwaru na míru: mobilní aplikace, enterprise systémy, webové aplikace. Lean tým, AI-first přístup, konkurenční ceny.',
     slogan: 'Build it right, build it once.',
     email: 'info@jabcore.cz',
     telephone: '+420792219454',
@@ -95,7 +95,7 @@ interface CreativeWorkJsonLd {
  * Structured data for one reference.
  *
  * Used by the detail pages and, on the portfolio one-pager, for every item on
- * the page — there the whole portfolio is a single URL, so without a node per
+ * the page - there the whole portfolio is a single URL, so without a node per
  * reference a crawler sees one long document instead of a list of projects.
  */
 export function buildReferenceJsonLd(reference: {
@@ -113,7 +113,7 @@ export function buildReferenceJsonLd(reference: {
     name: reference.title,
     url,
     ...(reference.summary ? { description: reference.summary } : {}),
-    // Year only — schema.org accepts a partial date and the exact day of a
+    // Year only - schema.org accepts a partial date and the exact day of a
     // handover is not something we track.
     ...(reference.year ? { dateCreated: String(reference.year) } : {}),
     ...(reference.coverImage ? { image: `${BASE_URL}${reference.coverImage}` } : {}),

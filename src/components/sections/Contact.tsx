@@ -120,7 +120,7 @@ export default function Contact() {
     /*
      * Stored first, then e-mailed. The record is what survives a full mailbox,
      * a deleted message or an EmailJS outage, so it must not depend on the
-     * mail going out — and a failed insert must not stop the mail either.
+     * mail going out - and a failed insert must not stop the mail either.
      */
     void submitContactMessage({
       name: data.name,

@@ -1,4 +1,4 @@
-# Vývojové prostředí — jen databáze.
+# Vývojové prostředí - jen databáze.
 #
 # Next.js běží lokálně přes `npm run dev` proti téhle databázi, aby fungoval
 # hot reload. Produkční stack je v docker-compose.prod.yml.

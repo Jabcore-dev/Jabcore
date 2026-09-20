@@ -16,11 +16,11 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Switch } from '@/components/ui/switch'
-import { locales, defaultLocale } from '@/lib/i18n-config'
-import { languages } from '@/lib/i18n'
+import { locales, defaultLocale, languages } from '@/lib/i18n-config'
 import { saveReference } from '@/app/admin/actions/references'
 import type { AdminReference } from '@/lib/admin-data'
 import ImageField from './ImageField'
+import SeoFields from './SeoFields'
 
 type Translation = {
   title: string
@@ -28,6 +28,8 @@ type Translation = {
   body: string
   testimonial: string
   testimonialAuthor: string
+  metaTitle: string
+  metaDescription: string
 }
 
 const emptyTranslation: Translation = {
@@ -36,6 +38,8 @@ const emptyTranslation: Translation = {
   body: '',
   testimonial: '',
   testimonialAuthor: '',
+  metaTitle: '',
+  metaDescription: '',
 }
 
 function toFormState(reference: AdminReference | null) {
@@ -50,6 +54,8 @@ function toFormState(reference: AdminReference | null) {
           body: existing.body ?? '',
           testimonial: existing.testimonial ?? '',
           testimonialAuthor: existing.testimonialAuthor ?? '',
+          metaTitle: existing.metaTitle ?? '',
+          metaDescription: existing.metaDescription ?? '',
         }
       : { ...emptyTranslation }
   }
@@ -66,6 +72,7 @@ function toFormState(reference: AdminReference | null) {
     sortOrder: reference?.sortOrder ?? 0,
     published: reference?.published ?? false,
     featured: reference?.featured ?? false,
+    noindex: reference?.noindex ?? false,
     translations,
   }
 }
@@ -131,6 +138,7 @@ export default function ReferenceDialog({
         sortOrder: Number(form.sortOrder) || 0,
         published: form.published,
         featured: form.featured,
+        noindex: form.noindex,
         translations: form.translations,
       })
 
@@ -151,7 +159,7 @@ export default function ReferenceDialog({
         <DialogHeader>
           <DialogTitle>{form.id ? 'Upravit referenci' : 'Nová reference'}</DialogTitle>
           <DialogDescription>
-            Čeština je povinná — ostatní jazyky se na ni odkazují, když překlad chybí.
+            Čeština je povinná - ostatní jazyky se na ni odkazují, když překlad chybí.
           </DialogDescription>
         </DialogHeader>
 
@@ -253,6 +261,15 @@ export default function ReferenceDialog({
               />
               Zvýraznit (nahoře)
             </label>
+
+            <label className="flex items-center gap-2 text-sm">
+              <Switch
+                checked={form.noindex}
+                onCheckedChange={(checked) => setField('noindex', checked)}
+              />
+              Skrýt před vyhledávači
+              <span className="text-xs text-muted-foreground">(na webu zůstane)</span>
+            </label>
           </div>
 
           <Tabs value={locale} onValueChange={setLocale}>
@@ -317,6 +334,16 @@ export default function ReferenceDialog({
                   placeholder={'## Zadání\n\n…'}
                 />
               </div>
+
+              <SeoFields
+                locale={locale}
+                slug={form.slug}
+                fallbackTitle={current.title}
+                fallbackDescription={current.summary}
+                metaTitle={current.metaTitle}
+                metaDescription={current.metaDescription}
+                onChange={setTranslation}
+              />
 
               <div className="grid gap-4 sm:grid-cols-[2fr_1fr]">
                 <div className="space-y-2">

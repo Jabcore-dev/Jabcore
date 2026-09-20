@@ -10,7 +10,7 @@ export function generateStaticParams() {
 }
 
 /**
- * Rebuilt at most once an hour, and immediately when the admin saves — the
+ * Rebuilt at most once an hour, and immediately when the admin saves - the
  * admin calls revalidatePath on this route. Without the interval a reference
  * published while the server is untouched would wait for the next deploy.
  */

@@ -20,7 +20,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
         whole homepage becomes dynamic and every visitor waits for Postgres
         before seeing anything.
 
-        No fallback markup on purpose — the section renders nothing at all when
+        No fallback markup on purpose - the section renders nothing at all when
         there is nothing published, so a placeholder would be a box that
         sometimes collapses to zero height after loading.
       */}

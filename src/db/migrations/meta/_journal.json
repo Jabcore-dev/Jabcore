@@ -15,6 +15,13 @@
       "when": 1789938529084,
       "tag": "0001_lazy_veda",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789940835438,
+      "tag": "0002_damp_kingpin",
+      "breakpoints": true
     }
   ]
 }

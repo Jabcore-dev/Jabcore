@@ -10,7 +10,7 @@ import ReferenceCard from './ReferenceCard'
  * Three references on the homepage, linking through to the full listing.
  *
  * Async server component, so the cards are in the HTML the crawler gets. It
- * renders nothing at all when there is nothing published — an empty section
+ * renders nothing at all when there is nothing published - an empty section
  * with a heading and no content looks broken.
  */
 export default async function ReferencesPreview({ locale }: { locale: Locale }) {

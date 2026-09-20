@@ -1,7 +1,7 @@
 # Kontrola, že se web přeloží a projde typy.
 #
 # Nenasazuje. Deploy se dělá na serveru spuštěním ./build.sh <prostředí>,
-# stejně jako u ostatních projektů — viz deploy/README.md.
+# stejně jako u ostatních projektů - viz deploy/README.md.
 
 name: CI
 

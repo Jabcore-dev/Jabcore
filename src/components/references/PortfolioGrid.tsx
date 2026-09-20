@@ -8,7 +8,7 @@ import type { LocalizedReference } from '@/lib/reference-types'
 /**
  * The filterable grid of the portfolio one-pager.
  *
- * A client component for the filter only — every reference is rendered during
+ * A client component for the filter only - every reference is rendered during
  * SSR, so the full list is in the HTML that crawlers and no-JS visitors get.
  * Filtering hides what is already there rather than fetching anything.
  *

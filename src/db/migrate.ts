@@ -1,7 +1,7 @@
 /**
  * Applies pending migrations, then exits.
  *
- * Run as a visible one-shot by build.sh before the new web container starts —
+ * Run as a visible one-shot by build.sh before the new web container starts -
  * not from the app's boot, where the healthcheck would race it and a failure
  * would be buried in a restart loop.
  */
@@ -15,7 +15,7 @@ if (!connectionString) {
   process.exit(1)
 }
 
-// max: 1 — migrations must run in order on a single connection, and this
+// max: 1 - migrations must run in order on a single connection, and this
 // process exits the moment they are done.
 const sql = postgres(connectionString, { max: 1 })
 

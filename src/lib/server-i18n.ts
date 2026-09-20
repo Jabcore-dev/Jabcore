@@ -1,6 +1,6 @@
 /**
  * Server-safe translation helper.
- * Reads locale JSON files directly — no i18next dependency.
+ * Reads locale JSON files directly - no i18next dependency.
  * Use in server components, generateMetadata, sitemap, etc.
  */
 import type { Locale } from './i18n-config'

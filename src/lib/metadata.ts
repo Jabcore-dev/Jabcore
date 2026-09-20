@@ -10,7 +10,7 @@ const OG_IMAGE = `${BASE_URL}/og-image.png`
 type PageKey = 'home' | 'services' | 'products' | 'stack' | 'about' | 'contact' | 'references'
 
 interface PageMetadataProps {
-  /** SEO key — used to read seo.{page}.title / description / keywords from locale JSON */
+  /** SEO key - used to read seo.{page}.title / description / keywords from locale JSON */
   page: PageKey
   /** URL path without locale prefix, e.g. "/services" */
   path: string

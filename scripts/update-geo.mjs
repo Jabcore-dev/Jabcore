@@ -4,7 +4,7 @@
  *   npm run geo:update
  *
  * Alokace IP rozsahů se mění řádově jednotky procent ročně, takže tohle stačí
- * pustit jednou za rok. Výsledek se commituje — nestahuje se při buildu, aby
+ * pustit jednou za rok. Výsledek se commituje - nestahuje se při buildu, aby
  * deploy nezávisel na dostupnosti RIPE.
  */
 import { writeFile } from 'node:fs/promises'
@@ -58,7 +58,7 @@ let output = `/**
  * IP rozsahy Česka a Slovenska, vygenerované z RIPE NCC delegated-extended
  * (${today}).
  *
- * Generuje scripts/update-geo.mjs — needituj ručně.
+ * Generuje scripts/update-geo.mjs - needituj ručně.
  */
 
 `

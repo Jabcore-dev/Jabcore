@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 #
-# admin.sh — založí nebo přepíše účet do administrace.
+# admin.sh - založí nebo přepíše účet do administrace.
 #
 #   ./deploy/admin.sh production admin@jabcore.cz "Michal Petříček" owner
 #   ./deploy/admin.sh production admin@jabcore.cz              # jméno a roli se doptá
 #
 # Role: owner (může spravovat účty) | editor (jen obsah). Výchozí je owner.
 #
-# Existující e-mail znamená změnu hesla, ne chybu — tohle je i cesta, jak se
+# Existující e-mail znamená změnu hesla, ne chybu - tohle je i cesta, jak se
 # dostat zpátky do panelu, když se zapomene heslo.
 #
 # Běží v migrate kontejneru, protože produkční image je Next standalone a tsx
@@ -23,7 +23,7 @@ ENVIRONMENT="${1:-}"
 [ -n "$ENVIRONMENT" ] || die "Použití: ./deploy/admin.sh <prostředí> <e-mail> [jméno] [owner|editor]"
 
 ENV_FILE="deploy/$ENVIRONMENT.env"
-[ -f "$ENV_FILE" ] || die "Neznámé prostředí '$ENVIRONMENT' — chybí $ENV_FILE"
+[ -f "$ENV_FILE" ] || die "Neznámé prostředí '$ENVIRONMENT' - chybí $ENV_FILE"
 
 EMAIL="${2:-}"
 [ -n "$EMAIL" ] || die "Chybí e-mail."
@@ -42,7 +42,7 @@ export WEB_PORT="${WEB_PORT:-3000}"
 if [ -n "${COMPOSE_PROJECT_NAME:-}" ]; then export COMPOSE_PROJECT_NAME; fi
 
 SECRETS_FILE="${SECRETS_FILE:-deploy/secrets.$ENVIRONMENT.env}"
-[ -f "$SECRETS_FILE" ] || die "Chybí $SECRETS_FILE — viz deploy/README.md."
+[ -f "$SECRETS_FILE" ] || die "Chybí $SECRETS_FILE - viz deploy/README.md."
 export SECRETS_FILE
 
 POSTGRES_PASSWORD="$(sed -n 's/^[[:space:]]*POSTGRES_PASSWORD=//p' "$SECRETS_FILE" | tail -n1)"

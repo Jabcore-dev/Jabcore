@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button'
  *
  * The URL a visitor sees is portfolio.jabcore.cz/ (Czech) or /<locale>;
  * middleware rewrites both onto this route. Nothing links here from the main
- * domain's path space — jabcore.cz/<locale>/portfolio is redirected away, so
+ * domain's path space - jabcore.cz/<locale>/portfolio is redirected away, so
  * the same content never lives at two addresses.
  */
 export function generateStaticParams() {
@@ -51,7 +51,7 @@ export async function generateMetadata({
   return {
     title: { absolute: title },
     description,
-    // Canonical points at the portfolio domain, never at jabcore.cz — this is
+    // Canonical points at the portfolio domain, never at jabcore.cz - this is
     // the only address this content is meant to be indexed under.
     alternates: { canonical: portfolioUrl(locale), languages },
     openGraph: {
@@ -151,7 +151,7 @@ export default async function PortfolioPage({
         </div>
       </section>
 
-      {/* Full case studies, one anchor each — this is what the cards link to
+      {/* Full case studies, one anchor each - this is what the cards link to
           and what makes the one-pager worth indexing. */}
       <section className="border-t border-border">
         <div className="container mx-auto px-4 py-20 sm:px-6 lg:px-8">
@@ -204,7 +204,7 @@ export default async function PortfolioPage({
                       <p className="mb-3 italic">{reference.testimonial}</p>
                       {reference.testimonialAuthor && (
                         <footer className="text-sm text-muted-foreground">
-                          — {reference.testimonialAuthor}
+                          - {reference.testimonialAuthor}
                         </footer>
                       )}
                     </blockquote>

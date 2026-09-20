@@ -5,7 +5,7 @@ import i18n, { SUPPORTED_LANGUAGES, STORAGE_KEY } from '@/lib/i18n'
 
 interface Props {
   children: React.ReactNode
-  /** Locale from URL — has highest priority */
+  /** Locale from URL - has highest priority */
   locale?: string
 }
 

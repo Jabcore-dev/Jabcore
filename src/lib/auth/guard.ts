@@ -9,7 +9,7 @@ import { SESSION_COOKIE, readSessionToken, type SessionPayload } from './session
  * Middleware already keeps anonymous visitors out of /admin, but it only sees
  * the cookie. Every page and every server action checks again here, because a
  * server action is reachable by POST regardless of which page the caller came
- * from — the middleware check is a redirect for humans, not authorisation.
+ * from - the middleware check is a redirect for humans, not authorisation.
  */
 export async function getSession(): Promise<SessionPayload | null> {
   const token = (await cookies()).get(SESSION_COOKIE)?.value

@@ -1,7 +1,7 @@
 import { CZ_IPV4, CZ_IPV6, SK_IPV4, SK_IPV6 } from './ranges'
 
 /**
- * Hrubá geolokace podle IP — jen „je to Česko / Slovensko?".
+ * Hrubá geolokace podle IP - jen „je to Česko / Slovensko?".
  *
  * Důvod, proč tohle vůbec existuje: Čech s anglicky nastaveným prohlížečem
  * posílá `Accept-Language: en-US,en`, takže podle samotné hlavičky bychom mu
@@ -48,7 +48,7 @@ function ipv4ToNumber(ip: string): number | null {
   return result
 }
 
-/** Horních 64 bitů IPv6 adresy — na určení země to stačí. */
+/** Horních 64 bitů IPv6 adresy - na určení země to stačí. */
 function ipv6ToHigh64(ip: string): bigint | null {
   // IPv4-mapped (::ffff:1.2.3.4) řeší volající, sem se dostat nemá.
   if (!/^[0-9a-f:]+$/i.test(ip) || !ip.includes(':')) return null
@@ -104,7 +104,7 @@ export function countryOfIp(ip: string | null | undefined): Country | null {
  * IP návštěvníka za reverzní proxy.
  *
  * Caddy je nastavený tak, aby X-Forwarded-For PŘEPSAL, ne rozšířil
- * (`header_up X-Forwarded-For {remote_host}` v deploy/Caddyfile) — jinak by si
+ * (`header_up X-Forwarded-For {remote_host}` v deploy/Caddyfile) - jinak by si
  * hlavičku mohl podvrhnout sám návštěvník a vybrat si jazyk cizí adresou.
  * Kontejner navíc poslouchá jen na loopbacku, takže jiná cesta dovnitř není.
  */

@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import { marked } from 'marked'
 import { locales, defaultLocale, ogLocales, type Locale } from '@/lib/i18n-config'
 import { t } from '@/lib/server-i18n'
 import { SITE_URL } from '@/lib/site-config'
-import { getReferenceBySlug, getPublishedSlugs } from '@/lib/references'
+import { getReferenceBySlug, getPublishedSlugs, findRedirectTarget } from '@/lib/references'
 import { skipPrerenderWithoutDatabase, hasDatabase } from '@/lib/db-runtime'
 import { buildReferenceJsonLd } from '@/lib/jsonld'
 import { Badge } from '@/components/ui/badge'
@@ -44,7 +44,14 @@ export async function generateMetadata({
   if (!reference) return {}
 
   const url = `${SITE_URL}/${locale}/reference/${slug}`
-  const description = reference.summary ?? undefined
+
+  /*
+   * Vlastní texty z adminu mají přednost. Perex je psaný pro čtenáře na kartě,
+   * meta description pro někoho, kdo se rozhoduje ve výsledcích vyhledávání -
+   * když si to editor rozliší, respektujeme to.
+   */
+  const metaTitle = reference.metaTitle?.trim() || reference.title
+  const description = reference.metaDescription?.trim() || reference.summary || undefined
   const image = reference.coverImage ? `${SITE_URL}${reference.coverImage}` : `${SITE_URL}/og-image.png`
 
   /*
@@ -59,11 +66,19 @@ export async function generateMetadata({
   languages['x-default'] = `${SITE_URL}/${defaultLocale}/reference/${slug}`
 
   return {
-    title: reference.title,
+    /*
+     * Vlastní titulek z adminu je absolutní - layout na title lepí šablonu
+     * "%s | Jabcore", takže když si do něj editor napíše značku sám, vznikne
+     * "… | Jabcore | Jabcore". Když pole nechá prázdné, šablona se uplatní
+     * jako u ostatních stránek.
+     */
+    title: reference.metaTitle?.trim() ? { absolute: metaTitle } : metaTitle,
     description,
+    // Viditelné na webu, ale mimo výsledky vyhledávání.
+    ...(reference.noindex ? { robots: { index: false, follow: true } } : {}),
     alternates: { canonical: url, languages },
     openGraph: {
-      title: reference.title,
+      title: metaTitle,
       description,
       url,
       siteName: 'Jabcore',
@@ -73,7 +88,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title: reference.title,
+      title: metaTitle,
       description,
       images: [image],
     },
@@ -91,9 +106,19 @@ export default async function ReferenceDetailPage({
   await skipPrerenderWithoutDatabase()
   const reference = await getReferenceBySlug(slug, locale)
 
-  // Covers both a bad slug and an unpublished one — getReferenceBySlug filters
-  // on published, so a draft URL is a 404 rather than a preview.
-  if (!reference) notFound()
+  if (!reference) {
+    /*
+     * Než vrátíme 404: slug se mohl v adminu přejmenovat. Stará adresa je
+     * mezitím odněkud prolinkovaná a zaindexovaná, takže ji pošleme 301 na
+     * novou - jinak přijdeme o návštěvníky i o hodnocení, které si vysloužila.
+     */
+    const target = await findRedirectTarget(slug)
+    if (target) permanentRedirect(`/${locale}/reference/${target}`)
+
+    // Pokrývá neexistující i nepublikovaný slug - getReferenceBySlug filtruje
+    // na published, takže rozepsaná reference je 404, ne náhled.
+    notFound()
+  }
 
   /*
    * Markdown written by the admins in the editor. They are trusted internal
@@ -189,7 +214,7 @@ export default async function ReferenceDetailPage({
               <p className="mb-3 text-lg italic">{reference.testimonial}</p>
               {reference.testimonialAuthor && (
                 <footer className="text-sm text-muted-foreground">
-                  — {reference.testimonialAuthor}
+                  - {reference.testimonialAuthor}
                 </footer>
               )}
             </blockquote>

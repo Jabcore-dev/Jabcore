@@ -15,7 +15,7 @@ import { clientIp, countryOfIp } from '@/lib/geo'
  * The portfolio host is rewritten, not redirected, so the visible URL stays
  * portfolio.jabcore.cz/ while Next renders an internal path. Caddy must pass
  * the Host header through untouched or everything here falls back to the main
- * site — see deploy/Caddyfile.
+ * site - see deploy/Caddyfile.
  *
  * Under the old static export none of this could run on the server, so every
  * unprefixed path had its own page.tsx redirecting from a useEffect: the
@@ -30,7 +30,7 @@ const COUNTRY_LOCALE: Record<string, string> = { CZ: 'cs', SK: 'sk' }
  *
  * In priority order:
  *
- *   1. the cookie the language switcher writes — an explicit choice always
+ *   1. the cookie the language switcher writes - an explicit choice always
  *      wins, otherwise geolocation would undo it on the next click,
  *   2. the country the IP belongs to,
  *   3. Accept-Language,
@@ -85,7 +85,7 @@ function handlePortfolioHost(request: NextRequest) {
   }
 
   // The bare domain is the Czech one-pager and its canonical address, so it is
-  // rewritten rather than redirected — the same rule the main site uses for
+  // rewritten rather than redirected - the same rule the main site uses for
   // its own root.
   if (pathname === '/') {
     const locale = preferredLocale(request)
@@ -101,7 +101,7 @@ function handlePortfolioHost(request: NextRequest) {
   }
 
   /*
-   * Anything else on this host belongs to the main site — an old link, or a
+   * Anything else on this host belongs to the main site - an old link, or a
    * path someone typed. Sending it to jabcore.cz is more useful than a 404,
    * and it keeps the portfolio host from answering on URLs it has no content
    * for, which is what would get them indexed under the wrong domain.
@@ -127,7 +127,7 @@ async function handleAdmin(request: NextRequest) {
 
   if (!session && !isLogin) {
     const url = new URL('/admin/login', request.url)
-    // Where to come back to once they are in — a bookmarked reference should
+    // Where to come back to once they are in - a bookmarked reference should
     // not drop the visitor on the dashboard after logging in.
     if (pathname !== '/admin') url.searchParams.set('next', pathname)
     return NextResponse.redirect(url)
@@ -171,7 +171,7 @@ export async function middleware(request: NextRequest) {
   }
 
   /*
-   * The Czech homepage lives at the bare domain — that is what its canonical
+   * The Czech homepage lives at the bare domain - that is what its canonical
    * and the cs hreflang point at. /cs renders the same thing, so it is moved
    * rather than left as a second address for identical content.
    *

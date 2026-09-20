@@ -8,6 +8,7 @@ import Navigation from '@/components/sections/Navigation'
 import Footer from '@/components/sections/Footer'
 import { Toaster } from '@/components/ui/sonner'
 import DynamicSeoTitle from '@/components/DynamicSeoTitle'
+import ViewTracker from '@/components/ViewTracker'
 
 import { SITE_URL } from '@/lib/site-config'
 
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const description = t(locale, 'seo.home.description')
   const ogLocale = ogLocales[locale] ?? 'cs_CZ'
 
-  // hreflang alternates — Czech homepage points to root URL
+  // hreflang alternates - Czech homepage points to root URL
   const languageAlternates: Record<string, string> = {}
   for (const loc of locales) {
     languageAlternates[loc] = loc === 'cs' ? BASE_URL : `${BASE_URL}/${loc}`
@@ -86,6 +87,7 @@ export default async function LocaleLayout({
     <RootHtml lang={locale}>
       <Providers locale={locale}>
         <DynamicSeoTitle />
+        <ViewTracker />
         <div className="min-h-screen bg-background text-foreground">
           <Navigation />
           <main>{children}</main>

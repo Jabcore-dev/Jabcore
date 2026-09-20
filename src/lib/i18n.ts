@@ -1,5 +1,8 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
+import { languages } from './i18n-config'
+
+export { languages }
 
 import en from '@/locales/en.json'
 import cs from '@/locales/cs.json'
@@ -14,20 +17,6 @@ import pt from '@/locales/pt.json'
 import hu from '@/locales/hu.json'
 import ro from '@/locales/ro.json'
 
-export const languages = {
-  en: { name: 'English', flag: '🇬🇧' },
-  cs: { name: 'Čeština', flag: '🇨🇿' },
-  de: { name: 'Deutsch', flag: '🇩🇪' },
-  es: { name: 'Español', flag: '🇪🇸' },
-  pl: { name: 'Polski', flag: '🇵🇱' },
-  sk: { name: 'Slovenčina', flag: '🇸🇰' },
-  fr: { name: 'Français', flag: '🇫🇷' },
-  it: { name: 'Italiano', flag: '🇮🇹' },
-  nl: { name: 'Nederlands', flag: '🇳🇱' },
-  pt: { name: 'Português', flag: '🇵🇹' },
-  hu: { name: 'Magyar', flag: '🇭🇺' },
-  ro: { name: 'Română', flag: '🇷🇴' },
-}
 
 export const SUPPORTED_LANGUAGES = Object.keys(languages) as Array<keyof typeof languages>
 
@@ -48,7 +37,7 @@ const resources = {
   ro: { translation: ro },
 }
 
-// LanguageDetector (i18next-browser-languagedetector) je browser-only — na serveru
+// LanguageDetector (i18next-browser-languagedetector) je browser-only - na serveru
 // nemá přístup k localStorage ani navigator, proto padá na fallbackLng: 'en'.
 // Klient detekuje jazyk synchronně při init a dostane jiný výsledek → hydration mismatch.
 //

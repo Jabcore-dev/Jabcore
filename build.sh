@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# build.sh — nasazení webu Jabcore jedním příkazem.
+# build.sh - nasazení webu Jabcore jedním příkazem.
 #
 # Server potřebuje jen Docker. Nastartuje Postgres, spustí migrace jako
 # viditelný one-shot, sestaví a nastartuje web a počká, až nahlásí healthy.
@@ -74,10 +74,10 @@ list_environments() {
 }
 
 ENVIRONMENTS="$(list_environments)"
-[ -n "$ENVIRONMENTS" ] || die "Žádné prostředí — chybí deploy/<env>.env."
+[ -n "$ENVIRONMENTS" ] || die "Žádné prostředí - chybí deploy/<env>.env."
 
 # Bez prostředí na příkazové řádce: zeptat se. Neinteraktivní běh (CI, cron) ho
-# musí pojmenovat — tiché defaultování je způsob, jak se testovací konfigurace
+# musí pojmenovat - tiché defaultování je způsob, jak se testovací konfigurace
 # dostane na produkční doménu.
 if [ -z "$ENVIRONMENT" ]; then
   [ -t 0 ] || die "Nezadané prostředí. Použití: ./build.sh {$(echo $ENVIRONMENTS | tr ' ' '|')}"
@@ -98,7 +98,7 @@ if [ -z "$ENVIRONMENT" ]; then
 fi
 
 ENV_FILE="deploy/$ENVIRONMENT.env"
-[ -f "$ENV_FILE" ] || die "Neznámé prostředí '$ENVIRONMENT' — čekal jsem $ENV_FILE. Známá: $(echo $ENVIRONMENTS | tr '\n' ' ')"
+[ -f "$ENV_FILE" ] || die "Neznámé prostředí '$ENVIRONMENT' - čekal jsem $ENV_FILE. Známá: $(echo $ENVIRONMENTS | tr '\n' ' ')"
 
 command -v docker >/dev/null || die "docker není nainstalovaný"
 docker compose version >/dev/null 2>&1 || die "docker compose (v2) není k dispozici"
@@ -132,7 +132,7 @@ export SECRETS_FILE="${SECRETS_FILE:-deploy/secrets.$ENVIRONMENT.env}"
 if [ ! -f "$SECRETS_FILE" ]; then
   cat >&2 <<EOF
 
-Chybí $SECRETS_FILE — secrets prostředí "$ENVIRONMENT".
+Chybí $SECRETS_FILE - secrets prostředí "$ENVIRONMENT".
 Záměrně nejsou v gitu (heslo k databázi, AUTH_SECRET), takže se musí jednou
 vytvořit na tomhle serveru:
 
@@ -149,7 +149,7 @@ fi
 # Oba env soubory dostane i compose, aby příkazy vypsané na konci (logy, down)
 # fungovaly po zkopírování samy o sobě: bez nich compose nezná heslo k databázi
 # ani STACK_PREFIX a odmítne soubor vůbec naparsovat. Hodnoty exportované tímhle
-# skriptem stejně vyhrávají — compose dává přednost prostředí shellu před
+# skriptem stejně vyhrávají - compose dává přednost prostředí shellu před
 # --env-file.
 COMPOSE="docker compose --env-file $ENV_FILE --env-file $SECRETS_FILE -f docker-compose.prod.yml"
 
@@ -173,13 +173,13 @@ if [ "$DO_PULL" -eq 1 ] && [ -d .git ]; then
   # Neúspěšný pull se nesmí ignorovat: tiše by znovu nasadil STARÝ kód pod
   # hláškou o úspěchu. Obvyklá příčina jsou lokální změny na serveru.
   before="$(git rev-parse HEAD)"
-  git pull --ff-only || die "git pull selhal — odmítám nasadit starý kód.
+  git pull --ff-only || die "git pull selhal - odmítám nasadit starý kód.
 Vyřeš lokální změny na serveru (git status) a spusť znovu."
   after="$(git rev-parse HEAD)"
   # bash čte tenhle soubor za běhu, takže pull, který ho přepsal uprostřed, by
   # spustil směs starého a nového skriptu. Začni znovu tím novým.
   if [ "$before" != "$after" ]; then
-    log "Repozitář aktualizován ($(git rev-parse --short "$before") → $(git rev-parse --short "$after")) — restartuji build.sh"
+    log "Repozitář aktualizován ($(git rev-parse --short "$before") → $(git rev-parse --short "$after")) - restartuji build.sh"
     exec "$0" "$ENVIRONMENT" --no-pull --yes
   fi
 fi
@@ -190,7 +190,7 @@ POSTGRES_PASSWORD="$(env_value "$SECRETS_FILE" POSTGRES_PASSWORD)"
 Vygeneruj ho: openssl rand -hex 24"
 
 # compose skládá DATABASE_URL řetězcovou interpolací, takže heslo obsahující
-# @ : / ? # nebo % by tiše vyrobilo jiný connection string, než se zamýšlelo —
+# @ : / ? # nebo % by tiše vyrobilo jiný connection string, než se zamýšlelo -
 # obvykle takový, který se pořád připojí, jen jinam.
 case "$POSTGRES_PASSWORD" in
   *[!A-Za-z0-9_-]*) die "POSTGRES_PASSWORD smí obsahovat jen A-Z a-z 0-9 _ -
@@ -239,7 +239,7 @@ printf '  secrets      %s\n' "$SECRETS_FILE"
 # Zapéká se do prostředí webu, takže /api/health hlásí, co doopravdy běží.
 # BUILD_TIME je ta, která funguje vždycky: odpoví na "je tohle ten deploy, co
 # jsem právě spustil?" i když nikdo nezvedl verzi. Na deploy serveru není node
-# (všechno běží v Dockeru), proto verze padá zpátky na sed — jinak by každý
+# (všechno běží v Dockeru), proto verze padá zpátky na sed - jinak by každý
 # deploy hlásil "unknown", což je přesně ta nejednoznačnost, kvůli které tohle
 # existuje.
 APP_VERSION="$(node -p "require('./package.json').version" 2>/dev/null ||
@@ -267,7 +267,7 @@ done
 # --- 9. migrace jako viditelný one-shot --------------------------------------
 # Streamované naživo místo schování do startu webu, kde by s nimi healthcheck
 # závodil: čeká se přesně tak dlouho, jak trvají, a případná chyba je vidět
-# celá. Migrace jdou jen dopředu — vrátit kód na starší commit funguje, vrátit
+# celá. Migrace jdou jen dopředu - vrátit kód na starší commit funguje, vrátit
 # schéma ne.
 if [ -d src/db/migrations ]; then
   log "Spouštím databázové migrace"
@@ -290,7 +290,7 @@ EOF
     die "Nasazení zastaveno před startem webu."
   fi
 else
-  warn "src/db/migrations neexistuje — přeskakuji migrace (fáze 2 plánu)."
+  warn "src/db/migrations neexistuje - přeskakuji migrace (fáze 2 plánu)."
 fi
 
 # --- 10. start webu, pak čekání na healthy -----------------------------------
@@ -306,13 +306,13 @@ for i in $(seq 1 60); do
   [ "$web_status" = "healthy" ] && break
   if [ "$web_status" = "unhealthy" ]; then
     $COMPOSE logs --tail 60 web >&2
-    die "Web je unhealthy — logy výše."
+    die "Web je unhealthy - logy výše."
   fi
   sleep 5
 done
 [ "$web_status" = "healthy" ] || { $COMPOSE logs --tail 60 web >&2; die "Web nenaběhl včas"; }
 
-log "Hotovo — $ENVIRONMENT běží."
+log "Hotovo - $ENVIRONMENT běží."
 cat <<EOF
 
   Web       : $PUBLIC_BASE_URL

@@ -6,7 +6,7 @@ import { connection } from 'next/server'
  *
  * `next build` runs inside the Docker image build, with no Postgres in reach.
  * Without this, every such page would be prerendered as empty and served from
- * the cache until the next revalidation — a freshly deployed site showing no
+ * the cache until the next revalidation - a freshly deployed site showing no
  * references at all for an hour.
  *
  * At runtime DATABASE_URL is always set (docker-compose.prod.yml), so this

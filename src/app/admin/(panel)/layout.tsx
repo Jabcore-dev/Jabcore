@@ -8,7 +8,7 @@ import { signOut } from '../actions/auth'
 /**
  * Everything behind the login screen.
  *
- * The login page sits outside this group so it does not render the shell —
+ * The login page sits outside this group so it does not render the shell -
  * and so requireSession() here never runs for it, which would be a redirect
  * loop.
  */

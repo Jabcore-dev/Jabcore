@@ -36,7 +36,7 @@ const ROLE_LABELS: Record<Role, string> = {
 }
 
 function formatDate(value: Date | string | null) {
-  if (!value) return '—'
+  if (!value) return '-'
   return new Date(value).toLocaleDateString('cs-CZ', {
     day: 'numeric',
     month: 'numeric',
@@ -128,7 +128,7 @@ export default function UsersManager({
                     <span className="ml-2 text-xs text-muted-foreground">(ty)</span>
                   )}
                 </TableCell>
-                <TableCell className="text-muted-foreground">{user.name ?? '—'}</TableCell>
+                <TableCell className="text-muted-foreground">{user.name ?? '-'}</TableCell>
                 <TableCell>
                   <Badge variant={user.role === 'owner' ? 'default' : 'secondary'}>
                     {ROLE_LABELS[user.role as Role] ?? user.role}
@@ -214,8 +214,8 @@ export default function UsersManager({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="editor">Editor — jen obsah</SelectItem>
-                  <SelectItem value="owner">Vlastník — i správa účtů</SelectItem>
+                  <SelectItem value="editor">Editor - jen obsah</SelectItem>
+                  <SelectItem value="owner">Vlastník - i správa účtů</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -274,8 +274,8 @@ export default function UsersManager({
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="editor">Editor — jen obsah</SelectItem>
-                      <SelectItem value="owner">Vlastník — i správa účtů</SelectItem>
+                      <SelectItem value="editor">Editor - jen obsah</SelectItem>
+                      <SelectItem value="owner">Vlastník - i správa účtů</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

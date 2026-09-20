@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 }
 
 /**
- * Root page — the Czech homepage, and its canonical URL.
+ * Root page - the Czech homepage, and its canonical URL.
  *
  * Visitors who prefer another language are moved to /<locale> by the
  * middleware before this renders; Czech visitors and crawlers stay here.

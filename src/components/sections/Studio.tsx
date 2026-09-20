@@ -49,7 +49,7 @@ export default function Studio() {
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Beyond client projects, Jabcore builds its own cutting-edge tools and digital experiences. 
             Our innovation lab is where we explore emerging technologies, experiment with bold ideas, and turn them 
-            into real products that push the boundaries of what's possible—many powered by advanced AI.
+            into real products that push the boundaries of what's possible, many of them powered by advanced AI.
           </p>
         </motion.div>
 

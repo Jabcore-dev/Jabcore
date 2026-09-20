@@ -10,7 +10,7 @@
  *
  *   ./deploy/admin.sh production admin@jabcore.cz "Jméno" owner
  *
- * Existující e-mail znamená změnu hesla, ne chybu — tohle je i cesta, jak si
+ * Existující e-mail znamená změnu hesla, ne chybu - tohle je i cesta, jak si
  * odemknout panel, když se zapomene heslo.
  */
 import { createInterface } from 'node:readline/promises'

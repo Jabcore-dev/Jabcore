@@ -23,7 +23,7 @@ Jedna aplikace obsluhuje **obě domény**. Který web se naservíruje rozhoduje
 Proto oba bloky v `Caddyfile` míří na stejný port a Caddy nesmí `Host`
 přepisovat.
 
-Kontejnery publikují port jen na `127.0.0.1` — ven se dá jen přes Caddy,
+Kontejnery publikují port jen na `127.0.0.1` - ven se dá jen přes Caddy,
 který terminuje TLS.
 
 ## Prostředí
@@ -64,7 +64,7 @@ sám registraci nemá:
 ./deploy/admin.sh production admin@jabcore.cz "Michal Petříček" owner
 ```
 
-Stejný příkaz na existující e-mail **změní heslo** — tak se dá panel odemknout,
+Stejný příkaz na existující e-mail **změní heslo** - tak se dá panel odemknout,
 když se heslo zapomene.
 
 Role: `owner` spravuje i účty, `editor` jen obsah. Poslední vlastník nejde
@@ -76,7 +76,7 @@ smazat ani degradovat, jinak by se ze správy účtů nikdo nedostal zpět.
 ./deploy/backup.sh production
 ```
 
-Zálohuje **databázi i nahrané obrázky** — obrázky nejsou v gitu ani v image,
+Zálohuje **databázi i nahrané obrázky** - obrázky nejsou v gitu ani v image,
 takže samotný `pg_dump` web neobnoví. Do cronu:
 
 ```
@@ -91,7 +91,7 @@ takže samotný `pg_dump` web neobnoví. Do cronu:
 curl -s https://jabcore.cz/api/health | jq
 ```
 
-Vrací `commit` a `buildTime` toho, co doopravdy běží — porovnej s tím, co
+Vrací `commit` a `buildTime` toho, co doopravdy běží - porovnej s tím, co
 vypsal `build.sh`. Když se liší, běží starý kontejner.
 
 ## Když se něco pokazí
@@ -101,4 +101,4 @@ vypsal `build.sh`. Když se liší, běží starý kontejner.
 | `Authentication failed` při migracích | Postgres si heslo uložil při prvním startu do volume; změna v secrets ho nepřepíše. Návod vypíše `build.sh`. |
 | Web hlásí `unhealthy` | `docker compose -f docker-compose.prod.yml logs web` |
 | Deploy proběhl, web je starý | Caddy míří na jiný port, než je `WEB_PORT` v `<env>.env` |
-| Testovací instance v Googlu | `NEXT_PUBLIC_SITE_ENV` není `test` — kontroluj `/robots.txt` |
+| Testovací instance v Googlu | `NEXT_PUBLIC_SITE_ENV` není `test` - kontroluj `/robots.txt` |

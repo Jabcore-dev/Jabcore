@@ -21,6 +21,10 @@ export interface LocalizedReference {
   body: string | null
   testimonial: string | null
   testimonialAuthor: string | null
-  /** Locales this reference is actually translated into — used by the admin. */
+  /** Vlastní text pro vyhledávače; prázdné = odvodit z title/summary. */
+  metaTitle: string | null
+  metaDescription: string | null
+  noindex: boolean
+  /** Locales this reference is actually translated into - used by the admin. */
   availableLocales: string[]
 }
