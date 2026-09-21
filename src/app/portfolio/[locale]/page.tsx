@@ -12,6 +12,7 @@ import type { MapProject } from '@/lib/portfolio-map'
 import { INDUSTRIES, DEFAULT_INDUSTRY_HUE, industryHue } from '@/lib/industries'
 import PortfolioMap from '@/components/portfolio/PortfolioMap'
 import CaseStudy from '@/components/portfolio/CaseStudy'
+import PortfolioLanguageSwitcher from '@/components/portfolio/PortfolioLanguageSwitcher'
 
 /**
  * Portfolio one-pager na portfolio.jabcore.cz.
@@ -234,6 +235,7 @@ export default async function PortfolioPage({
         )}
 
         <x-bar-actions>
+          <PortfolioLanguageSwitcher locale={locale} label={t(locale, 'portfolio.language')} />
           <a href={contactUrl} data-button="solid">
             {t(locale, 'portfolio.ctaButton')}
           </a>
