@@ -81,10 +81,21 @@ x-card-media {
 
   img {
     object-fit: cover;
-    transition: scale 0.8s ease-out;
   }
+}
 
-  a:hover & img {
+/*
+  Zvětšuje se obal s obrázkem i clonou dohromady, ne obrázek sám - jinak se
+  u spodní hrany rozjedou dvě vrstvy a probliká světlá linka (viz komponenta).
+  Obal navíc přesahuje o pixel na každou stranu: při zaokrouhlení hrany na
+  zlomek pixelu pak pod ním nevykoukne světlé pozadí karty.
+*/
+x-card-zoom {
+  position: absolute;
+  inset: -1px;
+  transition: scale 0.8s ease-out;
+
+  a:hover & {
     scale: 1.05;
   }
 }

@@ -45,24 +45,32 @@ export default function ReferenceCard({
         <x-card-glow aria-hidden="true" />
 
         <x-card-media>
-          {reference.coverImage ? (
-            <Image
-              src={reference.coverImage}
-              alt=""
-              fill
-              sizes={
-                wide
-                  ? '(min-width: 1024px) 50vw, 100vw'
-                  : '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw'
-              }
-              priority={priority}
-            />
-          ) : (
-            <x-card-blank />
-          )}
+          {/*
+            Obrázek a clona v jednom obalu, který se při najetí zvětšuje celý.
+            Kdyby se zvětšoval jen obrázek, dostal by během animace vlastní
+            vrstvu a u spodní hrany by se oříznul o zlomek pixelu jinak než
+            clona - pod clonou by probliknul proužek světlé fotky.
+          */}
+          <x-card-zoom>
+            {reference.coverImage ? (
+              <Image
+                src={reference.coverImage}
+                alt=""
+                fill
+                sizes={
+                  wide
+                    ? '(min-width: 1024px) 50vw, 100vw'
+                    : '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw'
+                }
+                priority={priority}
+              />
+            ) : (
+              <x-card-blank />
+            )}
 
-          {/* Ztmavení jen u spodní hrany, aby na obrázku držel bílý text. */}
-          <x-card-scrim aria-hidden="true" />
+            {/* Ztmavení jen u spodní hrany, aby na obrázku držel bílý text. */}
+            <x-card-scrim aria-hidden="true" />
+          </x-card-zoom>
 
           <x-card-meta>
             <span>{reference.clientName}</span>
