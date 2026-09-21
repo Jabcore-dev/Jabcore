@@ -7,6 +7,7 @@ import { db } from '@/db/client'
 import { references, referenceLocales, slugRedirects } from '@/db/schema'
 import { requireUser } from '@/lib/auth/guard'
 import { locales, defaultLocale } from '@/lib/i18n-config'
+import { INDUSTRY_KEYS } from '@/lib/industries'
 
 /**
  * Writing references.
@@ -38,7 +39,9 @@ const referenceSchema = z.object({
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Slug smí obsahovat jen malá písmena, číslice a pomlčky.'),
   clientName: z.string().trim().min(1, 'Vyplň klienta.').max(160),
   year: z.number().int().min(1990).max(2100).nullable(),
-  industry: z.string().trim().max(60).nullable(),
+  // Jen klíč ze seznamu - volný text by na webu skončil nepřeložený a ve
+  // filtru jako další obor vedle správně napsaného.
+  industry: z.enum(INDUSTRY_KEYS, { message: 'Vyber obor ze seznamu.' }).nullable(),
   coverImage: z.string().trim().max(255).nullable(),
   projectUrl: z.string().trim().url('Odkaz musí být platná URL.').max(255).nullable().or(z.literal('').transform(() => null)),
   tech: z.array(z.string().trim().min(1)).max(30),

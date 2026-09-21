@@ -26,7 +26,16 @@ import {
 } from '@/app/admin/actions/references'
 import ReferenceDialog from './ReferenceDialog'
 
-export default function ReferencesManager({ references }: { references: AdminReference[] }) {
+export default function ReferencesManager({
+  references,
+  industryOptions,
+  canTranslate,
+}: {
+  references: AdminReference[]
+  industryOptions: { key: string; label: string }[]
+  /** Je nastavený GEMINI_API_KEY - bez něj se tlačítka překladu neukazují. */
+  canTranslate: boolean
+}) {
   const router = useRouter()
   const [editing, setEditing] = useState<AdminReference | null>(null)
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -216,6 +225,8 @@ export default function ReferencesManager({ references }: { references: AdminRef
         <ReferenceDialog
           key={editing?.id ?? 'new'}
           reference={editing}
+          industryOptions={industryOptions}
+          canTranslate={canTranslate}
           open={dialogOpen}
           onOpenChange={setDialogOpen}
           onSaved={() => router.refresh()}

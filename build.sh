@@ -217,6 +217,10 @@ if [ "$ENVIRONMENT" = "production" ]; then
   auth_secret="$(env_value "$SECRETS_FILE" AUTH_SECRET)"
   [ "${#auth_secret}" -ge 32 ] || problems="$problems\n  - AUTH_SECRET musí mít alespoň 32 znaků (openssl rand -hex 32)"
 
+  # Jen varování: bez klíče web běží, chybí jen překlad v adminu.
+  [ -n "$(env_value "$SECRETS_FILE" GEMINI_API_KEY)" ] \
+    || warn "GEMINI_API_KEY chybí v $SECRETS_FILE - automatický překlad referencí nebude fungovat."
+
   if [ -n "$problems" ]; then
     printf '\033[1;31m✖ Produkční konfigurace není bezpečná k nasazení:\033[0m' >&2
     printf "$problems\n\n" >&2

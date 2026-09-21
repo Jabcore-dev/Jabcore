@@ -33,7 +33,7 @@ Každé prostředí jsou dva soubory:
 | Soubor | Obsah | V gitu |
 |---|---|---|
 | `deploy/<env>.env` | adresy, porty, názvy kontejnerů | ano |
-| `deploy/secrets.<env>.env` | heslo k DB, `AUTH_SECRET` | **ne** |
+| `deploy/secrets.<env>.env` | heslo k DB, `AUTH_SECRET`, `GEMINI_API_KEY` | **ne** |
 
 Nové prostředí = ty dva soubory plus blok v `Caddyfile`. `build.sh` si je najde
 sám, není ho potřeba upravovat.
@@ -47,6 +47,7 @@ cp deploy/secrets.env.template deploy/secrets.production.env
 chmod 600 deploy/secrets.production.env
 openssl rand -hex 24   # → POSTGRES_PASSWORD
 openssl rand -hex 32   # → AUTH_SECRET
+# GEMINI_API_KEY z https://aistudio.google.com/apikey (překlad referencí, nepovinné)
 $EDITOR deploy/secrets.production.env
 
 ./build.sh production

@@ -9,6 +9,7 @@ import { getPublishedReferences, getUsedIndustries } from '@/lib/references'
 import { skipPrerenderWithoutDatabase } from '@/lib/db-runtime'
 import { buildReferenceJsonLd } from '@/lib/jsonld'
 import type { MapProject } from '@/lib/portfolio-map'
+import { INDUSTRIES, DEFAULT_INDUSTRY_HUE, industryHue } from '@/lib/industries'
 import PortfolioMap from '@/components/portfolio/PortfolioMap'
 import CaseStudy from '@/components/portfolio/CaseStudy'
 
@@ -97,19 +98,23 @@ export default async function PortfolioPage({
   ])
 
   /*
-   * Každý obor dostane vlastní odstín. Podle pořadí v seřazeném seznamu, ne
-   * podle hashe názvu: hash by dvěma oborům klidně přidělil skoro stejnou
-   * barvu, pořadí je rozprostře po paletě rovnoměrně.
+   * Filtr v pořadí seznamu oborů (jako v adminu), ne abecedně podle klíče.
+   * Barva je pevně daná oborem, viz src/lib/industries.ts. Starý klíč mimo
+   * seznam se ukáže taky - na konci, s výchozí barvou.
    */
-  const HUES = [195, 255, 300, 25, 145, 70, 340, 170]
-  const DEFAULT_HUE = 195
+  const order = (key: string) => {
+    const index = INDUSTRIES.findIndex((industry) => industry.key === key)
+    return index === -1 ? INDUSTRIES.length : index
+  }
 
-  const industries = industryKeys.map((key, index) => ({
-    key,
-    // Když obor ještě nemá překlad, radši ukázat holý klíč než chybějící text.
-    label: t(locale, `references.industries.${key}`) || key,
-    hue: HUES[index % HUES.length],
-  }))
+  const industries = [...industryKeys]
+    .sort((a, b) => order(a) - order(b))
+    .map((key) => ({
+      key,
+      // Když obor ještě nemá překlad, radši ukázat holý klíč než chybějící text.
+      label: t(locale, `references.industries.${key}`) || key,
+      hue: industryHue(key),
+    }))
 
   const industryOf = (key: string | null) =>
     key ? industries.find((item) => item.key === key) : undefined
@@ -124,7 +129,7 @@ export default async function PortfolioPage({
     year: reference.year,
     industry: reference.industry,
     industryLabel: industryOf(reference.industry)?.label ?? reference.industry,
-    hue: industryOf(reference.industry)?.hue ?? DEFAULT_HUE,
+    hue: industryOf(reference.industry)?.hue ?? DEFAULT_INDUSTRY_HUE,
     coverImage: reference.coverImage,
     summary: reference.summary,
     tech: reference.tech,
@@ -178,7 +183,7 @@ export default async function PortfolioPage({
         key={reference.slug}
         reference={reference}
         industryLabel={industryOf(reference.industry)?.label ?? null}
-        hue={industryOf(reference.industry)?.hue ?? DEFAULT_HUE}
+        hue={industryOf(reference.industry)?.hue ?? DEFAULT_INDUSTRY_HUE}
         contactUrl={contactUrl}
         labels={caseLabels}
       />,

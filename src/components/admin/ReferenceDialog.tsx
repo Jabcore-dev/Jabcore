@@ -16,9 +16,19 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Switch } from '@/components/ui/switch'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Sparkle } from '@phosphor-icons/react'
 import { locales, defaultLocale, languages } from '@/lib/i18n-config'
 import { saveReference } from '@/app/admin/actions/references'
+import { translateReference } from '@/app/admin/actions/translate'
 import type { AdminReference } from '@/lib/admin-data'
+import { isIndustryKey } from '@/lib/industries'
 import ImageField from './ImageField'
 import SeoFields from './SeoFields'
 
@@ -77,6 +87,26 @@ function toFormState(reference: AdminReference | null) {
   }
 }
 
+/** Hodnota Selectu pro „bez oboru" - Radix nepovoluje prázdný řetězec. */
+const NO_INDUSTRY = '__none__'
+
+/** Kolik jazyků se překládá současně. Víc naráz by narazilo na limit API. */
+const TRANSLATE_CONCURRENCY = 6
+
+type TranslateStatus = 'working' | 'error'
+
+/** Pouští úlohy po skupinách, ať jich neběží víc než `limit` najednou. */
+async function runLimited<T>(items: T[], limit: number, task: (item: T) => Promise<void>) {
+  const queue = [...items]
+  const workers = Array.from({ length: Math.min(limit, queue.length) }, async () => {
+    while (queue.length > 0) {
+      const item = queue.shift()!
+      await task(item)
+    }
+  })
+  await Promise.all(workers)
+}
+
 /** "Rezervační systém" → "rezervacni-system" */
 function slugify(value: string): string {
   return value
@@ -92,11 +122,16 @@ function slugify(value: string): string {
 
 export default function ReferenceDialog({
   reference,
+  industryOptions,
+  canTranslate,
   open,
   onOpenChange,
   onSaved,
 }: {
   reference: AdminReference | null
+  industryOptions: { key: string; label: string }[]
+  /** Je nastavený klíč ke Gemini. */
+  canTranslate: boolean
   open: boolean
   onOpenChange: (open: boolean) => void
   onSaved: () => void
@@ -121,14 +156,115 @@ export default function ReferenceDialog({
 
   const current = form.translations[locale]
 
+  const [status, setStatus] = useState<Record<string, TranslateStatus>>({})
+  const [translating, setTranslating] = useState(false)
+  const [confirmRetranslate, setConfirmRetranslate] = useState(false)
+  // Výchozí zapnuto: typický případ je „vyplním češtinu a uložím" a ostatní
+  // jazyky se mají doplnit samy.
+  const [autoTranslate, setAutoTranslate] = useState(canTranslate)
+
+  const otherLocales = locales.filter((code) => code !== defaultLocale)
+  const missingLocales = otherLocales.filter((code) => !form.translations[code].title.trim())
+  const czechReady = Boolean(form.translations[defaultLocale].title.trim())
+
+  /** Stará hodnota oboru, která není v seznamu - admin ji musí přeřadit. */
+  const legacyIndustry =
+    form.industry && !industryOptions.some((option) => option.key === form.industry)
+      ? form.industry
+      : null
+
+  /**
+   * Přeloží češtinu do zadaných jazyků a výsledky rovnou zapisuje do
+   * formuláře, jak postupně přicházejí. Cílový jazyk se nahrazuje celý: pole,
+   * které je v češtině prázdné, bude prázdné i v překladu - jinak by po
+   * smazání české citace zůstala viset ta anglická.
+   *
+   * Vrací výsledky i zvlášť, protože uložení hned po překladu nemůže čekat na
+   * to, až React promítne stav.
+   */
+  async function translate(targets: string[]) {
+    const source = form.translations[defaultLocale]
+    const results: Record<string, Translation> = {}
+    const failed: string[] = []
+
+    setTranslating(true)
+    setStatus(Object.fromEntries(targets.map((code) => [code, 'working' as const])))
+    const toastId = toast.loading(`Překládám do ${targets.length} jazyků…`)
+
+    let done = 0
+    await runLimited(targets, TRANSLATE_CONCURRENCY, async (code) => {
+      const result = await translateReference({ locale: code, source }).catch(() => null)
+      done += 1
+
+      if (!result?.ok) {
+        failed.push(code)
+        setStatus((previous) => ({ ...previous, [code]: 'error' }))
+        if (result && !result.ok && failed.length === 1) toast.error(result.error)
+      } else {
+        const translation = { ...emptyTranslation, ...result.translation }
+        results[code] = translation
+        setForm((previous) => ({
+          ...previous,
+          translations: { ...previous.translations, [code]: translation },
+        }))
+        setStatus((previous) => {
+          const next = { ...previous }
+          delete next[code]
+          return next
+        })
+      }
+
+      toast.loading(`Překládám… ${done}/${targets.length}`, { id: toastId })
+    })
+
+    setTranslating(false)
+
+    if (failed.length === 0) {
+      toast.success(`Přeloženo do ${targets.length} jazyků. Zkontroluj a ulož.`, { id: toastId })
+    } else {
+      toast.warning(
+        `Nepřeloženo: ${failed.map((code) => code.toUpperCase()).join(', ')}. Zkus to znovu.`,
+        { id: toastId },
+      )
+    }
+
+    return results
+  }
+
+  function handleTranslate(targets: string[]) {
+    setConfirmRetranslate(false)
+    if (!czechReady) {
+      toast.error('Nejdřív vyplň český název.')
+      setLocale(defaultLocale)
+      return
+    }
+    void translate(targets)
+  }
+
   function handleSubmit() {
+    // Stará hodnota by se při uložení tiše zahodila; ať o ní admin ví.
+    if (legacyIndustry) {
+      toast.error(`Obor „${legacyIndustry}" už není v seznamu - vyber nový.`)
+      return
+    }
+
     startTransition(async () => {
+      let translations = form.translations
+
+      // „Vyplním češtinu a uložím": chybějící jazyky se doplní před uložením.
+      // Selhání překladu uložení nezastaví - chybějící jazyk prostě dál
+      // spadne na češtinu, jako dosud.
+      if (autoTranslate && canTranslate && czechReady && missingLocales.length > 0) {
+        const results = await translate(missingLocales)
+        translations = { ...translations, ...results }
+      }
+
       const result = await saveReference({
         id: form.id,
         slug: form.slug.trim(),
         clientName: form.clientName.trim(),
         year: form.year ? Number(form.year) : null,
-        industry: form.industry.trim() || null,
+        industry: isIndustryKey(form.industry) ? form.industry : null,
         coverImage: form.coverImage,
         projectUrl: form.projectUrl.trim() || null,
         tech: form.tech
@@ -139,7 +275,7 @@ export default function ReferenceDialog({
         published: form.published,
         featured: form.featured,
         noindex: form.noindex,
-        translations: form.translations,
+        translations,
       })
 
       if (!result.ok) {
@@ -159,11 +295,13 @@ export default function ReferenceDialog({
         <DialogHeader>
           <DialogTitle>{form.id ? 'Upravit referenci' : 'Nová reference'}</DialogTitle>
           <DialogDescription>
-            Čeština je povinná - ostatní jazyky se na ni odkazují, když překlad chybí.
+            {canTranslate
+              ? 'Stačí vyplnit češtinu - ostatní jazyky se přeloží automaticky.'
+              : 'Čeština je povinná - ostatní jazyky se na ni odkazují, když překlad chybí.'}
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-6 py-4">
+        <fieldset disabled={translating} className="space-y-6 py-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="clientName">Klient *</Label>
@@ -207,13 +345,31 @@ export default function ReferenceDialog({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="industry">Obor (klíč pro filtr)</Label>
-              <Input
-                id="industry"
-                value={form.industry}
-                onChange={(event) => setField('industry', event.target.value)}
-                placeholder="verejna-sprava"
-              />
+              <Label htmlFor="industry">Obor</Label>
+              <Select
+                value={legacyIndustry ? undefined : form.industry || NO_INDUSTRY}
+                onValueChange={(value) => setField('industry', value === NO_INDUSTRY ? '' : value)}
+              >
+                <SelectTrigger id="industry" className="w-full">
+                  <SelectValue placeholder="Vyber obor" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={NO_INDUSTRY}>Bez oboru</SelectItem>
+                  {industryOptions.map((option) => (
+                    <SelectItem key={option.key} value={option.key}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {legacyIndustry && (
+                <p className="text-xs text-amber-600 dark:text-amber-400">
+                  Původní hodnota „{legacyIndustry}" není v seznamu - vyber obor.
+                </p>
+              )}
+              <p className="text-xs text-muted-foreground">
+                Přeloží se sám a na portfoliu určuje barvu bubliny.
+              </p>
             </div>
 
             <div className="space-y-2 sm:col-span-2">
@@ -272,10 +428,83 @@ export default function ReferenceDialog({
             </label>
           </div>
 
+          {canTranslate && (
+            <div className="flex flex-col gap-3 rounded-lg border border-border bg-muted/40 p-4">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="flex items-center gap-1.5 text-sm font-medium">
+                    <Sparkle weight="fill" className="text-primary" />
+                    Překlady z češtiny
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {missingLocales.length === 0
+                      ? 'Všechny jazyky jsou vyplněné.'
+                      : `Chybí ${missingLocales.length} z ${otherLocales.length} jazyků.`}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {missingLocales.length > 0 && (
+                    <Button
+                      type="button"
+                      size="sm"
+                      onClick={() => handleTranslate(missingLocales)}
+                      disabled={translating || pending}
+                    >
+                      {translating ? 'Překládám…' : `Doplnit chybějící (${missingLocales.length})`}
+                    </Button>
+                  )}
+
+                  {/* Přepíše i ručně upravené jazyky, proto potvrzení přímo
+                      na místě - druhé modální okno nad formulářem by
+                      zdržovalo víc, než kolik chrání. */}
+                  {missingLocales.length < otherLocales.length &&
+                    (confirmRetranslate ? (
+                      <>
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="destructive"
+                          onClick={() => handleTranslate(otherLocales)}
+                          disabled={translating || pending}
+                        >
+                          Ano, přepsat všech {otherLocales.length}
+                        </Button>
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => setConfirmRetranslate(false)}
+                        >
+                          Zpět
+                        </Button>
+                      </>
+                    ) : (
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="outline"
+                        onClick={() => setConfirmRetranslate(true)}
+                        disabled={translating || pending}
+                      >
+                        Přeložit vše znovu
+                      </Button>
+                    ))}
+                </div>
+              </div>
+
+              <label className="flex items-center gap-2 text-sm">
+                <Switch checked={autoTranslate} onCheckedChange={setAutoTranslate} />
+                Při uložení automaticky doplnit chybějící jazyky
+              </label>
+            </div>
+          )}
+
           <Tabs value={locale} onValueChange={setLocale}>
             <TabsList className="flex w-full flex-wrap">
               {locales.map((code) => {
                 const filled = Boolean(form.translations[code].title.trim())
+                const state = status[code]
 
                 return (
                   <TabsTrigger key={code} value={code} className="relative gap-1">
@@ -284,11 +513,23 @@ export default function ReferenceDialog({
                     {/* A dot rather than a word: twelve tabs with "chybí"
                         written out would not fit on a laptop. */}
                     <span
-                      aria-label={filled ? 'přeloženo' : 'chybí překlad'}
+                      aria-label={
+                        state === 'working'
+                          ? 'překládá se'
+                          : state === 'error'
+                            ? 'překlad selhal'
+                            : filled
+                              ? 'přeloženo'
+                              : 'chybí překlad'
+                      }
                       className={
-                        filled
-                          ? 'size-1.5 rounded-full bg-emerald-500'
-                          : 'size-1.5 rounded-full bg-muted-foreground/40'
+                        state === 'working'
+                          ? 'size-1.5 animate-pulse rounded-full bg-amber-500'
+                          : state === 'error'
+                            ? 'size-1.5 rounded-full bg-destructive'
+                            : filled
+                              ? 'size-1.5 rounded-full bg-emerald-500'
+                              : 'size-1.5 rounded-full bg-muted-foreground/40'
                       }
                     />
                   </TabsTrigger>
@@ -309,6 +550,7 @@ export default function ReferenceDialog({
                 {locale !== defaultLocale && (
                   <p className="text-xs text-muted-foreground">
                     Prázdný název = tenhle jazyk se smaže a použije se čeština.
+                    {canTranslate && ' Překlad z češtiny jde doplnit tlačítkem nahoře.'}
                   </p>
                 )}
               </div>
@@ -367,14 +609,18 @@ export default function ReferenceDialog({
               </div>
             </TabsContent>
           </Tabs>
-        </div>
+        </fieldset>
 
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={pending}>
+          <Button
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+            disabled={pending || translating}
+          >
             Zrušit
           </Button>
-          <Button onClick={handleSubmit} disabled={pending}>
-            {pending ? 'Ukládám…' : 'Uložit'}
+          <Button onClick={handleSubmit} disabled={pending || translating}>
+            {translating ? 'Překládám…' : pending ? 'Ukládám…' : 'Uložit'}
           </Button>
         </DialogFooter>
       </DialogContent>
