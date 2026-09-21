@@ -510,7 +510,7 @@
     "ctaButton": "Get in touch",
     "seoTitle": "Portfolio | Jabcore",
     "seoDescription": "Projects delivered by Jabcore — websites, mobile apps and enterprise systems.",
-    "mapHint": "Drag to move, tap a bubble",
+    "mapHint": "Drag, scroll to zoom, click a project",
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out",
     "mapReset": "Show the whole map",
@@ -520,14 +520,21 @@
     "mapRegion": "Map of projects",
     "openProject": "Open project",
     "close": "Close",
-    "featured": "Featured project",
-    "readCaseStudy": "Read the case study",
-    "ctaSubtitle": "Tell us what you are solving. We will come back with an approach, a timeline and a price.",
-    "statProjects": "Projects",
-    "statTech": "Technologies",
-    "statIndustries": "Industries",
-    "statYears": "Span",
-    "caseStudiesEyebrow": "In depth",
-    "caseStudiesTitle": "Case studies"
+    "previous": "Previous",
+    "next": "Next",
+    "stats": {
+      "projects": {
+        "one": "project",
+        "other": "projects"
+      },
+      "tech": {
+        "one": "technology",
+        "other": "technologies"
+      },
+      "industries": {
+        "one": "industry",
+        "other": "industries"
+      }
+    }
   }
 }

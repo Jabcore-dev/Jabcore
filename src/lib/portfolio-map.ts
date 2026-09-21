@@ -20,6 +20,11 @@ export interface MapProject {
   year: number | null
   industry: string | null
   industryLabel: string | null
+  /**
+   * Odstín barvy oboru (0-360, oklch). Bublina, spojnice i tečka ve filtru ho
+   * sdílí, takže filtr zároveň funguje jako legenda mapy.
+   */
+  hue: number
   coverImage: string | null
   summary: string | null
   tech: string[]

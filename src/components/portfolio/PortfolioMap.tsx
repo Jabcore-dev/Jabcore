@@ -1,87 +1,97 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { animate, useMotionTemplate, useMotionValue } from 'framer-motion'
+import { animate, useMotionTemplate, useMotionValue, useMotionValueEvent } from 'framer-motion'
 import {
-  ArrowsOut,
+  ArrowLeft,
+  ArrowRight,
   ArrowsIn,
-  Plus,
-  Minus,
+  ArrowsOut,
   CornersOut,
   HandGrabbing,
+  Minus,
+  Plus,
+  X,
 } from '@phosphor-icons/react'
 import { buildMapLayout, type MapProject } from '@/lib/portfolio-map'
 import { motionElement } from './motion-element'
 import ProjectBubble from './ProjectBubble'
-import ProjectPanel, { type PanelLabels } from './ProjectPanel'
 import MapBackground from './MapBackground'
 import MapMinimap from './MapMinimap'
 
-export interface MapLabels extends PanelLabels {
-  /** Nadpis stránky. Vykresluje ho mapa, viz poznámka u horní vrstvy. */
-  title: string
-  subtitle: string
+export interface MapLabels {
   all: string
   hint: string
   zoomIn: string
   zoomOut: string
   reset: string
-  expand: string
-  collapse: string
+  fullscreen: string
+  exitFullscreen: string
   minimap: string
   region: string
   open: string
   empty: string
+  close: string
+  previous: string
+  next: string
 }
 
 const SPRING = { type: 'spring', stiffness: 170, damping: 26, mass: 0.9 } as const
+const MIN_SCALE = 0.22
+const MAX_SCALE = 2.6
 
 const Scene = motionElement('x-map-scene')
-const MIN_SCALE = 0.22
-const MAX_SCALE = 2.4
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value))
 }
 
 /**
- * Portfolio jako mapa, po které se dá jezdit.
+ * Portfolio jako mapa, po které se dá jezdit - a nic jiného na stránce není.
  *
  * Proč mapa a ne mřížka karet: onepager používá hlavně obchodník při schůzce.
  * Mřížka je seznam, kterým se roluje; mapa je scéna, kterou může ukazovat -
  * odjet k celku, najet na jeden projekt, otevřít ho. Velikost bubliny nese
- * význam (zvýrazněné projekty jsou největší) a čáry mezi nimi ukazují, co
- * spadá do stejného oboru.
+ * význam (zvýrazněné projekty jsou největší), barva obor a čáry mezi nimi
+ * ukazují, co k sobě patří.
  *
- * Posun a zoom jedou přes motion values, ne přes stav Reactu: při tažení se tak
+ * Stránka se neroluje, takže kolečko myši patří mapě a přibližuje. Detail
+ * projektu je nativní <dialog>: fokus, Escape, ztmavené pozadí a zablokování
+ * mapy za ním dává prohlížeč sám a uvnitř se roluje.
+ *
+ * Case studies přicházejí hotové ze serveru (`details`) a leží v dialogu
+ * pořád, jen skryté. Díky tomu jsou celé v HTML pro vyhledávač, i když je
+ * návštěvník uvidí až po kliknutí - stejně jako obsah záložek nebo akordeonu.
+ *
+ * Posun a zoom jedou přes motion values, ne přes stav Reactu: při tažení se
  * nepřekresluje žádná komponenta, mění se jediná transformace na jednom uzlu.
- *
- * Kolečko myši se schválně nezabírá - mapa je vysoká přes celé okno a pod ní
- * je ještě text, takže přepsat rolování stránky by návštěvníka uvěznilo.
- * Přibližuje se tlačítky, gestem (ctrl/shift + kolečko), dvojklikem nebo
- * roztažením prstů. Na dotykových displejích drží mapa svislé rolování
- * stránky, dokud se nepřepne do režimu přes celou obrazovku.
  */
 export default function PortfolioMap({
   projects,
   industries,
+  details,
   labels,
 }: {
   projects: MapProject[]
-  industries: { key: string; label: string }[]
+  industries: { key: string; label: string; hue: number }[]
+  /** Case study každého projektu, vykreslená na serveru, podle slugu. */
+  details: Record<string, React.ReactNode>
   labels: MapLabels
 }) {
   const layout = useMemo(() => buildMapLayout(projects), [projects])
 
   const [industry, setIndustry] = useState<string | null>(null)
   const [activeSlug, setActiveSlug] = useState<string | null>(null)
-  const [immersive, setImmersive] = useState(false)
   const [hintVisible, setHintVisible] = useState(true)
   const [ready, setReady] = useState(false)
   const [viewport, setViewport] = useState({ width: 0, height: 0 })
+  const [canFullscreen, setCanFullscreen] = useState(false)
+  const [isFullscreen, setIsFullscreen] = useState(false)
+  const [overviewNeeded, setOverviewNeeded] = useState(false)
 
   const surfaceRef = useRef<HTMLElement>(null)
-  const bubbleRefs = useRef(new Map<string, HTMLButtonElement>())
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const dossierRef = useRef<HTMLElement>(null)
   const pointersRef = useRef(new Map<number, { x: number; y: number }>())
   const dragRef = useRef<{
     id: number
@@ -103,10 +113,30 @@ export default function PortfolioMap({
   const scale = useMotionValue(1)
   const transform = useMotionTemplate`translate(${x}px, ${y}px) scale(${scale})`
 
-  const activeProject = useMemo(
-    () => projects.find((project) => project.slug === activeSlug) ?? null,
-    [projects, activeSlug],
-  )
+  /*
+   * Přehledka má smysl, jen když část mapy leží mimo okno. Když je vidět celá,
+   * jen by zakrývala bubliny v rohu. setState se volá při každém snímku, ale
+   * React překreslí jen ve chvíli, kdy se hodnota opravdu přepne.
+   */
+  const updateOverview = () => {
+    // Rozměr přímo z elementu, ne ze stavu `viewport`: ten se při prvním
+    // přizpůsobení mapy nastavuje ve stejném kroku a tady by byl ještě nulový.
+    const element = surfaceRef.current
+    if (!element) return
+    const viewport = { width: element.clientWidth, height: element.clientHeight }
+    const s = scale.get()
+    const { minX, minY, maxX, maxY } = layout.bounds
+    const margin = 8
+    const outside =
+      minX * s + x.get() < -margin ||
+      minY * s + y.get() < -margin ||
+      maxX * s + x.get() > viewport.width + margin ||
+      maxY * s + y.get() > viewport.height + margin
+    setOverviewNeeded(outside)
+  }
+  useMotionValueEvent(x, 'change', updateOverview)
+  useMotionValueEvent(y, 'change', updateOverview)
+  useMotionValueEvent(scale, 'change', updateOverview)
 
   /** Slugy, které projdou filtrem. null = filtr je vypnutý. */
   const allowed = useMemo(() => {
@@ -116,7 +146,12 @@ export default function PortfolioMap({
     )
   }, [projects, industry])
 
-  /** Celá mapa do okna, s rezervou po krajích. */
+  const activeIndex = projects.findIndex((project) => project.slug === activeSlug)
+  const previousProject =
+    activeIndex === -1 ? null : projects[(activeIndex - 1 + projects.length) % projects.length]
+  const nextProject = activeIndex === -1 ? null : projects[(activeIndex + 1) % projects.length]
+
+  /** Celá mapa do okna, s rezervou pro spodní lištu. */
   const fit = useCallback(
     (animated: boolean) => {
       const element = surfaceRef.current
@@ -125,11 +160,10 @@ export default function PortfolioMap({
       const { width, height } = element.getBoundingClientRect()
       if (width === 0 || height === 0) return
 
-      const padding = width < 640 ? 24 : 72
-      // Nahoře sedí titulek s filtrem, dole nápověda a ovládání. Scéna se
-      // skládá do pruhu mezi nimi, ne do celého okna.
-      const insetTop = immersive ? 88 : width < 640 ? 222 : width < 1024 ? 246 : 262
-      const insetBottom = 104
+      const padding = width < 640 ? 20 : 64
+      // Nahoře jen vzduch, dole lišta s filtrem a ovládáním.
+      const insetTop = 56
+      const insetBottom = width < 640 ? 88 : 96
       const usableHeight = Math.max(height - insetTop - insetBottom, 160)
 
       const target = clamp(
@@ -138,19 +172,18 @@ export default function PortfolioMap({
           usableHeight / Math.max(layout.bounds.height, 1),
         ),
         MIN_SCALE,
-        1.15,
+        1.2,
       )
 
       /*
        * Na telefonu se celá scéna do okna vejde jen za cenu bublin, ve kterých
-       * nejde přečíst název - a mapa, která se celá vejde na obrazovku, ani
-       * není mapa. Pod hranicí čitelnosti se proto scéna nezmenšuje dál;
-       * místo toho začne u prvního projektu (ten, který má admin nahoře)
-       * a zbytek si návštěvník najede.
+       * nejde přečíst název. Pod hranicí čitelnosti se proto scéna nezmenšuje
+       * dál; začne u prvního projektu (ten, který má admin nahoře) a zbytek si
+       * návštěvník najede.
        */
       const readable = width < 640 ? Math.max(target, 0.6) : target
       const anchor =
-        readable > target && layout.nodes.length > 0
+        readable > target
           ? layout.nodes[0]
           : { x: layout.bounds.centerX, y: layout.bounds.centerY }
 
@@ -167,7 +200,7 @@ export default function PortfolioMap({
         y.set(nextY)
       }
     },
-    [layout, immersive, scale, x, y],
+    [layout, scale, x, y],
   )
 
   useEffect(() => {
@@ -208,21 +241,17 @@ export default function PortfolioMap({
     [scale, x, y],
   )
 
-  const zoomByButton = useCallback(
-    (factor: number) => {
-      const element = surfaceRef.current
-      if (!element) return
-      const { width, height } = element.getBoundingClientRect()
-      zoomAt(factor, width / 2, height / 2, true)
-    },
-    [zoomAt],
-  )
+  const zoomByButton = (factor: number) => {
+    const element = surfaceRef.current
+    if (!element) return
+    const { width, height } = element.getBoundingClientRect()
+    zoomAt(factor, width / 2, height / 2, true)
+  }
 
   /**
-   * Přijede k jednomu projektu.
-   *
-   * Necentruje se doprostřed okna, ale doprostřed toho, co z okna zbude vedle
-   * panelu - jinak by otevřená bublina skončila přesně pod ním.
+   * Přijede k projektu. Za otevřeným dialogem to vidět není, ale po jeho
+   * zavření návštěvník skončí u bubliny, kterou právě viděl - ne tam, odkud
+   * na ni klikl před třemi projekty.
    */
   const focusSlug = useCallback(
     (slug: string) => {
@@ -231,23 +260,11 @@ export default function PortfolioMap({
       if (!element || !node) return
 
       const { width, height } = element.getBoundingClientRect()
-      const wide = width >= 640
-      const panelWidth = wide ? (width >= 1024 ? 464 : 416) + 44 : 0
-      const freeWidth = width - panelWidth
-      const freeHeight = wide ? height : height * 0.3
-
-      // Bublina má zabrat zhruba polovinu volné plochy: dost na to, aby byla
-      // zřetelně vybraná, a pořád tak, aby kolem ní zůstaly vidět sousedi
-      // a bylo poznat, kde na mapě zrovna jsme.
-      const target = clamp(
-        (Math.min(freeWidth, freeHeight) * 0.52) / (node.r * 2),
-        0.4,
-        wide ? 1.15 : 0.85,
-      )
+      const target = clamp((Math.min(width, height) * 0.5) / (node.r * 2), 0.45, 1.2)
 
       animate(scale, target, SPRING)
-      animate(x, freeWidth / 2 - node.x * target, SPRING)
-      animate(y, (wide ? height / 2 : height * 0.15) - node.y * target, SPRING)
+      animate(x, width / 2 - node.x * target, SPRING)
+      animate(y, height / 2 - node.y * target, SPRING)
     },
     [layout, scale, x, y],
   )
@@ -258,18 +275,29 @@ export default function PortfolioMap({
       setHintVisible(false)
       focusSlug(slug)
       // Adresa s projektem je sdílitelná - obchodník může poslat odkaz rovnou
-      // na konkrétní bublinu. replaceState, aby se historie nezaplnila.
+      // na konkrétní projekt. replaceState, aby se historie nezaplnila.
       window.history.replaceState(null, '', `#${slug}`)
     },
     [focusSlug],
   )
 
   const close = useCallback(() => {
-    const slug = activeSlug
     setActiveSlug(null)
     window.history.replaceState(null, '', window.location.pathname + window.location.search)
-    // Klávesnice se musí vrátit na bublinu, ze které se panel otevřel.
-    if (slug) bubbleRefs.current.get(slug)?.focus({ preventScroll: true })
+  }, [])
+
+  /** Otevřený projekt ↔ otevřený dialog. */
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) return
+
+    if (activeSlug) {
+      if (!dialog.open) dialog.showModal()
+      // Další projekt začíná nahoře, ne v půlce textu toho předchozího.
+      dossierRef.current?.scrollTo({ top: 0 })
+    } else if (dialog.open) {
+      dialog.close()
+    }
   }, [activeSlug])
 
   /** Odkaz s #slug otevře rovnou daný projekt. */
@@ -277,58 +305,59 @@ export default function PortfolioMap({
     const slug = window.location.hash.slice(1)
     if (!slug || !projects.some((project) => project.slug === slug)) return
 
-    const timer = window.setTimeout(() => {
-      surfaceRef.current?.scrollIntoView({ block: 'start' })
-      open(slug)
-    }, 160)
-
+    const timer = window.setTimeout(() => open(slug), 200)
     return () => window.clearTimeout(timer)
     // Jen při prvním vykreslení - později hash mění už jen tahle komponenta.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  /** Kolečko: zoom jen s modifikátorem nebo v režimu přes celou obrazovku. */
+  /** Kolečko přibližuje, vodorovný posun na touchpadu posouvá. */
   useEffect(() => {
     const element = surfaceRef.current
     if (!element) return
 
     const onWheel = (event: WheelEvent) => {
-      const zoomGesture = event.ctrlKey || event.metaKey || event.shiftKey
-      if (!zoomGesture && !immersive) return
-
       event.preventDefault()
-      const rect = element.getBoundingClientRect()
-      zoomAt(
-        Math.exp(-event.deltaY * 0.0022),
-        event.clientX - rect.left,
-        event.clientY - rect.top,
-      )
       setHintVisible(false)
+
+      // Firefox umí hlásit posun v řádcích místo v pixelech.
+      const unit = event.deltaMode === 1 ? 16 : 1
+      const deltaX = event.deltaX * unit
+      const deltaY = event.deltaY * unit
+
+      if (!event.ctrlKey && Math.abs(deltaX) > Math.abs(deltaY)) {
+        x.set(x.get() - deltaX)
+        return
+      }
+
+      const rect = element.getBoundingClientRect()
+      // ctrlKey = sevření prstů na touchpadu; chodí po malých krocích, proto citlivěji.
+      const speed = event.ctrlKey ? 0.01 : 0.0022
+      zoomAt(Math.exp(-deltaY * speed), event.clientX - rect.left, event.clientY - rect.top)
     }
 
     element.addEventListener('wheel', onWheel, { passive: false })
     return () => element.removeEventListener('wheel', onWheel)
-  }, [immersive, zoomAt])
+  }, [zoomAt, x])
 
+  /** Celá obrazovka jen tam, kde ji prohlížeč umí (iPhone ne). */
   useEffect(() => {
-    if (!immersive) return
+    setCanFullscreen(Boolean(document.fullscreenEnabled))
+    const onChange = () => setIsFullscreen(Boolean(document.fullscreenElement))
+    document.addEventListener('fullscreenchange', onChange)
+    return () => document.removeEventListener('fullscreenchange', onChange)
+  }, [])
 
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && !activeSlug) setImmersive(false)
-    }
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement) void document.exitFullscreen()
+    else void document.documentElement.requestFullscreen()
+  }
 
-    // Stránka pod mapou se v tomhle režimu nesmí rolovat: mapa kreslí přes
-    // celé okno a posunuté pozadí by se objevilo ve chvíli, kdy se z něj
-    // vrátíme zpátky.
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-
-    window.addEventListener('keydown', onKeyDown)
-    return () => {
-      document.body.style.overflow = previousOverflow
-      window.removeEventListener('keydown', onKeyDown)
-    }
-  }, [immersive, activeSlug])
+  const pinchDistance = (): number => {
+    const [first, second] = [...pointersRef.current.values()]
+    if (!first || !second) return 0
+    return Math.hypot(second.x - first.x, second.y - first.y)
+  }
 
   const onPointerDown = (event: React.PointerEvent<HTMLElement>) => {
     if (event.pointerType === 'mouse' && event.button !== 0) return
@@ -355,12 +384,6 @@ export default function PortfolioMap({
       vx: 0,
       vy: 0,
     }
-  }
-
-  const pinchDistance = (): number => {
-    const [first, second] = [...pointersRef.current.values()]
-    if (!first || !second) return 0
-    return Math.hypot(second.x - first.x, second.y - first.y)
   }
 
   const onPointerMove = (event: React.PointerEvent<HTMLElement>) => {
@@ -446,29 +469,12 @@ export default function PortfolioMap({
     if (event.key === '0') fit(true)
   }
 
-  const scrollToCaseStudy = (slug: string) => {
-    close()
-    setImmersive(false)
-    /*
-     * Až po překreslení. Odchod z režimu přes celou obrazovku vrací mapu do
-     * toku stránky a tím mění pozice všeho pod ní - rolovat dřív by znamenalo
-     * mířit na souřadnici, která za okamžik nebude platit.
-     */
-    window.setTimeout(() => {
-      document.getElementById(slug)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 180)
-  }
-
   if (projects.length === 0) {
     return <x-map-empty>{labels.empty}</x-map-empty>
   }
 
   return (
-    <section
-      aria-label={labels.region}
-      data-block="project-map"
-      data-immersive={immersive ? '' : undefined}
-    >
+    <section aria-label={labels.region} data-block="project-map">
       <x-map-canvas
         ref={surfaceRef}
         tabIndex={0}
@@ -502,6 +508,7 @@ export default function PortfolioMap({
                   y2={b.y}
                   data-strong={link.strong ? '' : undefined}
                   data-muted={muted ? '' : undefined}
+                  style={{ '--hue': projects[link.a].hue } as React.CSSProperties}
                   // Bez tohohle tloušťka klesá se zoomem a při oddálení
                   // souhvězdí zmizí úplně.
                   vectorEffect="non-scaling-stroke"
@@ -518,10 +525,6 @@ export default function PortfolioMap({
               dimmed={allowed !== null && !allowed.has(project.slug)}
               active={activeSlug === project.slug}
               label={`${labels.open}: ${project.title}`}
-              registerRef={(element) => {
-                if (element) bubbleRefs.current.set(project.slug, element)
-                else bubbleRefs.current.delete(project.slug)
-              }}
               onOpen={() => {
                 // Klik, který vznikl koncem tažení, není volba projektu.
                 if (movedRef.current) return
@@ -532,61 +535,12 @@ export default function PortfolioMap({
         </Scene>
       </x-map-canvas>
 
-      <x-map-top>
-        {/* V režimu přes celou obrazovku jde o místo, ne o kontext. */}
-        {!immersive && (
-          <x-map-title>
-            <h1>
-              <x-gradient>{labels.title}</x-gradient>
-            </h1>
-            <p>{labels.subtitle}</p>
-          </x-map-title>
-        )}
+      <x-map-hint data-hidden={hintVisible ? undefined : ''}>
+        <HandGrabbing size={14} weight="fill" />
+        {labels.hint}
+      </x-map-hint>
 
-        {industries.length > 1 && (
-          <x-map-filters role="group" aria-label={labels.all}>
-            <button
-              type="button"
-              aria-pressed={industry === null}
-              onClick={() => setIndustry(null)}
-            >
-              {labels.all}
-            </button>
-            {industries.map((item) => (
-              <button
-                key={item.key}
-                type="button"
-                aria-pressed={industry === item.key}
-                onClick={() => setIndustry(industry === item.key ? null : item.key)}
-              >
-                {item.label}
-              </button>
-            ))}
-          </x-map-filters>
-        )}
-      </x-map-top>
-
-      <x-map-tools>
-        <button type="button" aria-label={labels.zoomIn} title={labels.zoomIn} onClick={() => zoomByButton(1.35)}>
-          <Plus size={16} weight="bold" />
-        </button>
-        <button type="button" aria-label={labels.zoomOut} title={labels.zoomOut} onClick={() => zoomByButton(1 / 1.35)}>
-          <Minus size={16} weight="bold" />
-        </button>
-        <button type="button" aria-label={labels.reset} title={labels.reset} onClick={() => fit(true)}>
-          <CornersOut size={16} weight="bold" />
-        </button>
-        <button
-          type="button"
-          aria-label={immersive ? labels.collapse : labels.expand}
-          title={immersive ? labels.collapse : labels.expand}
-          onClick={() => setImmersive((value) => !value)}
-        >
-          {immersive ? <ArrowsIn size={16} weight="bold" /> : <ArrowsOut size={16} weight="bold" />}
-        </button>
-      </x-map-tools>
-
-      <x-map-corner>
+      <x-map-corner data-hidden={overviewNeeded ? undefined : ''}>
         <MapMinimap
           nodes={layout.nodes}
           bounds={layout.bounds}
@@ -604,17 +558,101 @@ export default function PortfolioMap({
         />
       </x-map-corner>
 
-      <x-map-hint data-hidden={hintVisible ? undefined : ''}>
-        <HandGrabbing size={14} weight="fill" />
-        {labels.hint}
-      </x-map-hint>
+      <x-map-dock>
+        {industries.length > 1 ? (
+          <x-map-filters role="group" aria-label={labels.all}>
+            <button
+              type="button"
+              aria-pressed={industry === null}
+              onClick={() => setIndustry(null)}
+            >
+              {labels.all}
+            </button>
+            {industries.map((item) => (
+              <button
+                key={item.key}
+                type="button"
+                aria-pressed={industry === item.key}
+                onClick={() => setIndustry(industry === item.key ? null : item.key)}
+                style={{ '--hue': item.hue } as React.CSSProperties}
+              >
+                <x-swatch aria-hidden="true" />
+                {item.label}
+              </button>
+            ))}
+          </x-map-filters>
+        ) : (
+          <x-map-spacer />
+        )}
 
-      <ProjectPanel
-        project={activeProject}
-        labels={labels}
+        <x-map-tools>
+          <button type="button" aria-label={labels.zoomOut} title={labels.zoomOut} onClick={() => zoomByButton(1 / 1.35)}>
+            <Minus size={16} weight="bold" />
+          </button>
+          <button type="button" aria-label={labels.zoomIn} title={labels.zoomIn} onClick={() => zoomByButton(1.35)}>
+            <Plus size={16} weight="bold" />
+          </button>
+          <button type="button" aria-label={labels.reset} title={labels.reset} onClick={() => fit(true)}>
+            <CornersOut size={16} weight="bold" />
+          </button>
+          {canFullscreen && (
+            <button
+              type="button"
+              aria-label={isFullscreen ? labels.exitFullscreen : labels.fullscreen}
+              title={isFullscreen ? labels.exitFullscreen : labels.fullscreen}
+              onClick={toggleFullscreen}
+            >
+              {isFullscreen ? <ArrowsIn size={16} weight="bold" /> : <ArrowsOut size={16} weight="bold" />}
+            </button>
+          )}
+        </x-map-tools>
+      </x-map-dock>
+
+      <dialog
+        ref={dialogRef}
+        aria-label={projects[activeIndex]?.title}
         onClose={close}
-        onReadCaseStudy={scrollToCaseStudy}
-      />
+        onClick={(event) => {
+          // Klik na ztmavené pozadí; obsah dialogu vyplňuje celý jeho rámeček.
+          if (event.target === event.currentTarget) close()
+        }}
+        onKeyDown={(event) => {
+          if (!previousProject || !nextProject) return
+          if (event.key === 'ArrowLeft') open(previousProject.slug)
+          if (event.key === 'ArrowRight') open(nextProject.slug)
+        }}
+      >
+        <button type="button" data-button="close" aria-label={labels.close} onClick={close}>
+          <X size={18} weight="bold" />
+        </button>
+
+        <x-dossier ref={dossierRef}>
+          {projects.map((project) => (
+            <x-dossier-entry key={project.slug} hidden={project.slug !== activeSlug}>
+              {details[project.slug]}
+            </x-dossier-entry>
+          ))}
+        </x-dossier>
+
+        {projects.length > 1 && previousProject && nextProject && (
+          <x-dossier-nav>
+            <button type="button" onClick={() => open(previousProject.slug)}>
+              <ArrowLeft size={16} weight="bold" />
+              <span>
+                <x-label>{labels.previous}</x-label>
+                {previousProject.title}
+              </span>
+            </button>
+            <button type="button" onClick={() => open(nextProject.slug)}>
+              <span>
+                <x-label>{labels.next}</x-label>
+                {nextProject.title}
+              </span>
+              <ArrowRight size={16} weight="bold" />
+            </button>
+          </x-dossier-nav>
+        )}
+      </dialog>
     </section>
   )
 }

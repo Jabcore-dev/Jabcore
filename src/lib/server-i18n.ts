@@ -41,3 +41,32 @@ export function t(locale: Locale, key: string): string {
     ?? resolve(translations['cs'], key)
     ?? key
 }
+
+/**
+ * Tvar podle čísla: „1 projekt", „3 projekty", „7 projektů".
+ *
+ * Klíč ukazuje na objekt s kategoriemi Intl.PluralRules (one, few, many,
+ * other). Chybějící kategorie se nejdřív dohledá jako `other` ve stejném
+ * jazyce a teprve pak v češtině - obyčejný fallback z t() by polské stránce
+ * s pěti projekty podstrčil české „projektů".
+ */
+export function plural(locale: Locale, key: string, count: number): string {
+  const category = new Intl.PluralRules(locale).select(count)
+  const own = translations[locale]
+
+  const lookup = (obj: Record<string, unknown>, path: string): string | undefined => {
+    let current: unknown = obj
+    for (const part of path.split('.')) {
+      if (current == null || typeof current !== 'object') return undefined
+      current = (current as Record<string, unknown>)[part]
+    }
+    return typeof current === 'string' ? current : undefined
+  }
+
+  return (
+    lookup(own, `${key}.${category}`) ??
+    lookup(own, `${key}.other`) ??
+    t(locale, `${key}.${category}`) ??
+    t(locale, `${key}.other`)
+  )
+}

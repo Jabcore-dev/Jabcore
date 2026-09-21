@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { ArrowRight, ArrowUpRight } from '@phosphor-icons/react/ssr'
+import { ArrowUpRight } from '@phosphor-icons/react/ssr'
 import logo from '@/assets/images/transparent.png'
 import { locales, defaultLocale, ogLocales, type Locale } from '@/lib/i18n-config'
-import { t } from '@/lib/server-i18n'
+import { t, plural } from '@/lib/server-i18n'
 import { SITE_URL, PORTFOLIO_URL } from '@/lib/site-config'
 import { getPublishedReferences, getUsedIndustries } from '@/lib/references'
 import { skipPrerenderWithoutDatabase } from '@/lib/db-runtime'
@@ -20,16 +20,12 @@ import CaseStudy from '@/components/portfolio/CaseStudy'
  * nic neodkazuje - jabcore.cz/<locale>/portfolio je přesměrované pryč, aby
  * stejný obsah nežil na dvou adresách.
  *
- * Stránka má dvě vrstvy toho samého obsahu, a to schválně:
+ * Jedna obrazovka bez rolování: tenká lišta s logem, nadpisem a čísly, pod ní
+ * mapa bublin přes zbytek okna. Detail projektu se otevírá v modálním okně.
  *
- *   1. Mapa bublin přes celé okno. To je nástroj pro schůzku - obchodník
- *      odjede na celek, najede na projekt, otevře panel. Interaktivní, takže
- *      klientská komponenta.
- *   2. Case studies pod ní. Čtený text, a zároveň to, co dostane vyhledávač
- *      a návštěvník bez JavaScriptu. Serverové komponenty, celé v HTML.
- *
- * Tělo case study se do mapy netahá - panel ukazuje shrnutí a tlačítkem
- * odroluje na plný text, takže stejný odstavec není ve stránce dvakrát.
+ * Case studies se renderují tady na serveru a mapa je dostane hotové
+ * (`details`). Leží v dialogu i když je zavřený, takže celý text je v HTML
+ * pro vyhledávač, přestože ho návštěvník uvidí až po kliknutí.
  */
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
@@ -100,17 +96,26 @@ export default async function PortfolioPage({
     getUsedIndustries(),
   ])
 
-  const industries = industryKeys.map((key) => ({
+  /*
+   * Každý obor dostane vlastní odstín. Podle pořadí v seřazeném seznamu, ne
+   * podle hashe názvu: hash by dvěma oborům klidně přidělil skoro stejnou
+   * barvu, pořadí je rozprostře po paletě rovnoměrně.
+   */
+  const HUES = [195, 255, 300, 25, 145, 70, 340, 170]
+  const DEFAULT_HUE = 195
+
+  const industries = industryKeys.map((key, index) => ({
     key,
     // Když obor ještě nemá překlad, radši ukázat holý klíč než chybějící text.
     label: t(locale, `references.industries.${key}`) || key,
+    hue: HUES[index % HUES.length],
   }))
 
-  const industryLabel = (key: string | null): string | null =>
-    key ? (industries.find((item) => item.key === key)?.label ?? key) : null
+  const industryOf = (key: string | null) =>
+    key ? industries.find((item) => item.key === key) : undefined
 
-  // Na klienta jde jen to, co mapa opravdu kreslí - bez těla case study
-  // a bez meta polí pro vyhledávače.
+  // Na klienta jde jen to, co mapa opravdu kreslí - tělo case study a meta
+  // pole pro vyhledávače zůstávají na serveru.
   const projects: MapProject[] = references.map((reference) => ({
     id: reference.id,
     slug: reference.slug,
@@ -118,7 +123,8 @@ export default async function PortfolioPage({
     clientName: reference.clientName,
     year: reference.year,
     industry: reference.industry,
-    industryLabel: industryLabel(reference.industry),
+    industryLabel: industryOf(reference.industry)?.label ?? reference.industry,
+    hue: industryOf(reference.industry)?.hue ?? DEFAULT_HUE,
     coverImage: reference.coverImage,
     summary: reference.summary,
     tech: reference.tech,
@@ -129,18 +135,55 @@ export default async function PortfolioPage({
   }))
 
   const years = references.map((reference) => reference.year).filter((year): year is number => !!year)
+  const techCount = new Set(references.flatMap((reference) => reference.tech)).size
+  const firstYear = Math.min(...years)
+  const lastYear = Math.max(...years)
 
+  /*
+   * Nula se neukazuje: „0 oborů" nic neříká a působí, jako by něco chybělo.
+   * Stejně tak rozmezí z jediného roku („2023–2023") se zkrátí na rok.
+   */
   const stats = [
-    { value: String(references.length), label: t(locale, 'portfolio.statProjects') },
-    {
-      value: String(new Set(references.flatMap((reference) => reference.tech)).size),
-      label: t(locale, 'portfolio.statTech'),
-    },
-    { value: String(industries.length), label: t(locale, 'portfolio.statIndustries') },
-    ...(years.length > 0
-      ? [{ value: `${Math.min(...years)}–${Math.max(...years)}`, label: t(locale, 'portfolio.statYears') }]
-      : []),
+    { value: references.length, label: plural(locale, 'portfolio.stats.projects', references.length) },
+    { value: techCount, label: plural(locale, 'portfolio.stats.tech', techCount) },
+    { value: industries.length, label: plural(locale, 'portfolio.stats.industries', industries.length) },
   ]
+    .filter((stat) => stat.value > 0)
+    .map((stat) => ({ value: String(stat.value), label: stat.label }))
+
+  if (years.length > 0) {
+    stats.push({
+      value: firstYear === lastYear ? String(firstYear) : `${firstYear}–${lastYear}`,
+      label: '',
+    })
+  }
+
+  const contactUrl = `${SITE_URL}/${locale}/contact`
+
+  const caseLabels = {
+    client: t(locale, 'references.client'),
+    year: t(locale, 'references.year'),
+    industry: t(locale, 'references.industry'),
+    technologies: t(locale, 'references.technologies'),
+    viewProject: t(locale, 'references.viewProject'),
+    featured: t(locale, 'references.featuredLabel'),
+    cta: t(locale, 'portfolio.cta'),
+    ctaButton: t(locale, 'portfolio.ctaButton'),
+  }
+
+  const details = Object.fromEntries(
+    references.map((reference) => [
+      reference.slug,
+      <CaseStudy
+        key={reference.slug}
+        reference={reference}
+        industryLabel={industryOf(reference.industry)?.label ?? null}
+        hue={industryOf(reference.industry)?.hue ?? DEFAULT_HUE}
+        contactUrl={contactUrl}
+        labels={caseLabels}
+      />,
+    ]),
+  )
 
   const siteUrl = locale === defaultLocale ? SITE_URL : `${SITE_URL}/${locale}`
 
@@ -160,112 +203,64 @@ export default async function PortfolioPage({
         />
       ))}
 
+      {/* Co nejtenčí lišta: všechno ostatní místo patří mapě. */}
       <header data-block="portfolio-bar">
-        <x-wrap>
-          <a href={portfolioUrl(locale)} data-brand="">
-            {/* Stejné logo jako v navigaci hlavního webu - průhledná varianta,
-                která drží v obou režimech. alt je prázdný, protože hned vedle
-                stojí název; čtečka by jinak řekla „Jabcore Jabcore". */}
-            <Image src={logo} alt="" width={36} height={36} priority />
-            <strong>Jabcore</strong>
-            <x-flag>{t(locale, 'portfolio.title')}</x-flag>
-          </a>
+        <a href={portfolioUrl(locale)} data-brand="">
+          {/* Stejné logo jako v navigaci hlavního webu - průhledná varianta,
+              která drží v obou režimech. alt je prázdný, protože hned vedle
+              stojí název; čtečka by jinak řekla „Jabcore Jabcore". */}
+          <Image src={logo} alt="" width={30} height={30} priority />
+          <strong>Jabcore</strong>
+        </a>
 
+        <h1>
+          <x-gradient>{t(locale, 'portfolio.title')}</x-gradient>
+        </h1>
+
+        {stats.length > 0 && (
+          <x-stats>
+            {stats.map((stat) => (
+              <x-stat key={stat.value + stat.label}>
+                <x-gradient>{stat.value}</x-gradient>
+                {stat.label && <x-stat-label>{stat.label}</x-stat-label>}
+              </x-stat>
+            ))}
+          </x-stats>
+        )}
+
+        <x-bar-actions>
+          <a href={contactUrl} data-button="solid">
+            {t(locale, 'portfolio.ctaButton')}
+          </a>
           {/* Doména se nepřekládá, takže ani nejde přes t(). */}
           <a href={siteUrl} data-button="link">
             jabcore.cz
-            <ArrowUpRight size={14} weight="bold" />
+            <ArrowUpRight size={13} weight="bold" />
           </a>
-        </x-wrap>
+        </x-bar-actions>
       </header>
 
       <PortfolioMap
         projects={projects}
         industries={industries}
+        details={details}
         labels={{
-          title: t(locale, 'portfolio.title'),
-          subtitle: t(locale, 'portfolio.subtitle'),
           all: t(locale, 'references.allIndustries'),
           hint: t(locale, 'portfolio.mapHint'),
           zoomIn: t(locale, 'portfolio.zoomIn'),
           zoomOut: t(locale, 'portfolio.zoomOut'),
           reset: t(locale, 'portfolio.mapReset'),
-          expand: t(locale, 'portfolio.mapExpand'),
-          collapse: t(locale, 'portfolio.mapCollapse'),
+          fullscreen: t(locale, 'portfolio.mapExpand'),
+          exitFullscreen: t(locale, 'portfolio.mapCollapse'),
           minimap: t(locale, 'portfolio.mapOverview'),
           region: t(locale, 'portfolio.mapRegion'),
           open: t(locale, 'portfolio.openProject'),
           empty: t(locale, 'references.empty'),
           close: t(locale, 'portfolio.close'),
-          client: t(locale, 'references.client'),
-          year: t(locale, 'references.year'),
-          industry: t(locale, 'references.industry'),
-          technologies: t(locale, 'references.technologies'),
-          featured: t(locale, 'portfolio.featured'),
-          viewProject: t(locale, 'references.viewProject'),
-          readCaseStudy: t(locale, 'portfolio.readCaseStudy'),
+          previous: t(locale, 'portfolio.previous'),
+          next: t(locale, 'portfolio.next'),
         }}
       />
-
-      {references.length > 0 && (
-        <>
-          <section data-block="stats">
-            <x-wrap>
-              {stats.map((stat) => (
-                <x-stat key={stat.label}>
-                  <x-gradient>{stat.value}</x-gradient>
-                  <x-stat-label>{stat.label}</x-stat-label>
-                </x-stat>
-              ))}
-            </x-wrap>
-          </section>
-
-          <section data-block="case-studies">
-            <x-wrap>
-              <x-section-intro>
-                <x-eyebrow>{t(locale, 'portfolio.caseStudiesEyebrow')}</x-eyebrow>
-                <h2>{t(locale, 'portfolio.caseStudiesTitle')}</h2>
-              </x-section-intro>
-
-              <x-case-list>
-                {references.map((reference, index) => (
-                  <CaseStudy
-                    key={reference.id}
-                    reference={reference}
-                    index={index}
-                    industryLabel={industryLabel(reference.industry)}
-                    labels={{
-                      client: t(locale, 'references.client'),
-                      year: t(locale, 'references.year'),
-                      industry: t(locale, 'references.industry'),
-                      technologies: t(locale, 'references.technologies'),
-                      viewProject: t(locale, 'references.viewProject'),
-                    }}
-                  />
-                ))}
-              </x-case-list>
-            </x-wrap>
-          </section>
-        </>
-      )}
-
-      <footer data-block="closing-cta" data-size="large">
-        <x-glow aria-hidden="true" />
-        <x-wrap>
-          <h2>{t(locale, 'portfolio.cta')}</h2>
-          <p>{t(locale, 'portfolio.ctaSubtitle')}</p>
-
-          <a href={`${SITE_URL}/${locale}/contact`} data-button="solid">
-            {t(locale, 'portfolio.ctaButton')}
-            <ArrowRight size={18} weight="bold" />
-          </a>
-
-          <small>
-            <a href={siteUrl}>jabcore.cz</a>
-            <span aria-hidden="true"> · </span>© {new Date().getFullYear()} Jabcore
-          </small>
-        </x-wrap>
-      </footer>
     </main>
   )
 }

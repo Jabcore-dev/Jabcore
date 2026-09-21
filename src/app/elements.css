@@ -323,7 +323,7 @@ x-actions {
   „Kdo jsme" a ostatní stránky; nadpisy mají být stejně velké napříč webem.
 */
 
-:where([data-block='page-hero'], [data-block='reference-detail'] > header, x-map-title) h1 {
+:where([data-block='page-hero'], [data-block='reference-detail'] > header) h1 {
   font-size: 2.25rem;
   font-weight: 700;
   line-height: 1.1;
@@ -519,7 +519,7 @@ x-section-head {
 
 /* ─── Citace klienta ──────────────────────────────────────────── */
 
-:where(x-prose, x-case-body, x-panel-body) blockquote {
+:where(x-prose, x-case-body) blockquote {
   position: relative;
   overflow: hidden;
   border: 1px solid color-mix(in oklch, var(--border) 60%, transparent);

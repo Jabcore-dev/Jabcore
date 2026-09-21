@@ -510,24 +510,37 @@
     "ctaButton": "Napište nám",
     "seoTitle": "Portfolio | Jabcore",
     "seoDescription": "Realizované projekty Jabcore — weby, mobilní aplikace a podniková řešení.",
-    "mapHint": "Táhněte pro pohyb, klikněte na bublinu",
+    "mapHint": "Táhněte, kolečkem přibližujte, klikněte na projekt",
     "zoomIn": "Přiblížit",
     "zoomOut": "Oddálit",
     "mapReset": "Zobrazit celou mapu",
-    "mapExpand": "Na celou obrazovku",
-    "mapCollapse": "Zpět do stránky",
+    "mapExpand": "Celá obrazovka",
+    "mapCollapse": "Ukončit celou obrazovku",
     "mapOverview": "Přehled mapy",
     "mapRegion": "Mapa projektů",
     "openProject": "Otevřít projekt",
     "close": "Zavřít",
-    "featured": "Vybraný projekt",
-    "readCaseStudy": "Celá case study",
-    "ctaSubtitle": "Napište nám, co řešíte. Vrátíme se s návrhem řešení, termínem a cenou.",
-    "statProjects": "Projektů",
-    "statTech": "Technologií",
-    "statIndustries": "Oborů",
-    "statYears": "Období",
-    "caseStudiesEyebrow": "Do hloubky",
-    "caseStudiesTitle": "Case studies"
+    "previous": "Předchozí",
+    "next": "Další",
+    "stats": {
+      "projects": {
+        "one": "projekt",
+        "few": "projekty",
+        "many": "projektu",
+        "other": "projektů"
+      },
+      "tech": {
+        "one": "technologie",
+        "few": "technologie",
+        "many": "technologie",
+        "other": "technologií"
+      },
+      "industries": {
+        "one": "obor",
+        "few": "obory",
+        "many": "oboru",
+        "other": "oborů"
+      }
+    }
   }
 }

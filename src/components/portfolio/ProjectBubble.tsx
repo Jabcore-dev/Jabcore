@@ -4,14 +4,14 @@ import type { MapNode, MapProject } from '@/lib/portfolio-map'
 /**
  * Jedna bublina na mapě.
  *
- * Vždycky tmavé sklo s bílým textem, i ve světlém režimu: pod bublinou je
- * fotka z projektu, a jediný způsob, jak udržet čitelnost nad libovolným
- * snímkem v obou režimech, je nenechat kontrast na barvách tématu.
+ * Fotka z projektu nahoře, text dole na tmavém přechodu: bílý text musí držet
+ * nad libovolným snímkem v obou režimech, a jediný způsob, jak to zaručit, je
+ * nenechat kontrast na barvách tématu. Obrys a záře mají barvu oboru (--hue),
+ * zvýrazněné projekty navíc otáčející se světelný prstenec.
  *
- * Typografie se počítá z poloměru, ne z pevné velikosti - bubliny se liší
- * velikostí a text v té malé by jinak přetekl. Proto tu jsou vlastní
- * vlastnosti `--r` a `--float-*`: čísla, která zná jen JavaScript, se předají
- * do CSS a zbytek si dopočítá stylopis.
+ * Typografie se počítá z poloměru (--r), ne z pevné velikosti - bubliny se
+ * liší velikostí a text v té malé by jinak přetekl. Čísla, která zná jen
+ * JavaScript, jdou do CSS jako vlastní vlastnosti a zbytek dopočítá stylopis.
  */
 export default function ProjectBubble({
   project,
@@ -20,23 +20,22 @@ export default function ProjectBubble({
   active,
   label,
   onOpen,
-  registerRef,
 }: {
   project: MapProject
   node: MapNode
   /** Nesedí do zapnutého filtru - zůstane na mapě, ale ustoupí do pozadí. */
   dimmed: boolean
-  /** Otevřený v panelu. */
+  /** Otevřený v dialogu. */
   active: boolean
   label: string
   onOpen: () => void
-  registerRef: (element: HTMLButtonElement | null) => void
 }) {
   return (
     <x-bubble
       style={
         {
           '--r': `${node.r}px`,
+          '--hue': project.hue,
           '--float-duration': `${node.floatDuration}s`,
           '--float-delay': `${node.floatDelay}s`,
           left: node.x,
@@ -46,7 +45,6 @@ export default function ProjectBubble({
     >
       <x-bubble-float>
         <button
-          ref={registerRef}
           type="button"
           onClick={onOpen}
           aria-label={label}
@@ -55,18 +53,19 @@ export default function ProjectBubble({
           data-dimmed={dimmed ? '' : undefined}
           data-active={active ? '' : undefined}
         >
-          {/* Svatozář - u zvýrazněných projektů svítí pořád, u ostatních až
-              pod kurzorem. */}
           <x-bubble-halo aria-hidden="true" />
+          {project.featured && <x-bubble-ring aria-hidden="true" />}
 
           <x-bubble-face>
             {project.coverImage ? (
-              <Image src={project.coverImage} alt="" fill sizes="340px" />
+              <Image src={project.coverImage} alt="" fill sizes="360px" />
             ) : (
               <x-bubble-blank />
             )}
+            <x-bubble-tint />
             <x-bubble-shade />
-            {/* Lesk shora, aby bublina vypadala jako sklo, ne jako výřez fotky. */}
+            {/* Odlesk a světlý okraj - aby bublina vypadala jako sklo, ne jako
+                kulatý výřez fotky. */}
             <x-bubble-gloss />
           </x-bubble-face>
 
@@ -77,6 +76,7 @@ export default function ProjectBubble({
             </x-bubble-title>
             {(project.year || project.industryLabel) && (
               <x-bubble-meta>
+                {project.industryLabel && <x-swatch aria-hidden="true" />}
                 {[project.industryLabel, project.year].filter(Boolean).join(' · ')}
               </x-bubble-meta>
             )}
