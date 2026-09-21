@@ -187,3 +187,169 @@
   background-size: 200% 200%;
   animation: gradient-shift 8s ease infinite;
 }
+
+/* ─── Mapa portfolia ──────────────────────────────────────────── */
+/*
+  Animace bublin a pozadí mapy jedou v CSS, ne ve framer-motion: bublin je na
+  scéně klidně dvacet a každá plave vlastním tempem, což je přesně ta úloha,
+  kde se vyplatí nechat práci prohlížeči a nebudit kvůli ní React.
+*/
+
+@keyframes map-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -14px, 0); }
+}
+
+@keyframes map-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(4%, -6%, 0) scale(1.12); }
+}
+
+@keyframes map-twinkle {
+  0%, 100% { opacity: 0.12; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.6); }
+}
+
+/* ─── Text z Markdownu ────────────────────────────────────────── */
+/*
+  Case studies a detaily referencí píšou admini v Markdownu. Tailwind
+  v preflightu shodí výchozí styly nadpisů i odstavců, takže bez tohohle je
+  celá case study jeden nerozlišený blok textu. Plugin @tailwindcss/typography
+  tenhle projekt nemá - je to ručně, ale jen to, co editor opravdu používá.
+*/
+
+.richtext {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--foreground);
+}
+
+.richtext > * + * {
+  margin-top: 1.25em;
+}
+
+.richtext h2,
+.richtext h3,
+.richtext h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  scroll-margin-top: 6rem;
+}
+
+.richtext h2 {
+  margin-top: 2.5em;
+  font-size: 1.6rem;
+}
+
+.richtext h3 {
+  margin-top: 2em;
+  font-size: 1.3rem;
+}
+
+.richtext h4 {
+  margin-top: 1.75em;
+  font-size: 1.1rem;
+}
+
+.richtext > :first-child {
+  margin-top: 0;
+}
+
+.richtext p {
+  color: color-mix(in oklch, var(--foreground) 82%, transparent);
+}
+
+.richtext a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.2s ease;
+}
+
+.richtext a:hover {
+  color: var(--accent);
+}
+
+.richtext strong {
+  font-weight: 650;
+  color: var(--foreground);
+}
+
+.richtext ul,
+.richtext ol {
+  padding-left: 1.35em;
+  color: color-mix(in oklch, var(--foreground) 82%, transparent);
+}
+
+.richtext ul { list-style: disc; }
+.richtext ol { list-style: decimal; }
+
+.richtext li + li {
+  margin-top: 0.45em;
+}
+
+.richtext li::marker {
+  color: var(--accent);
+}
+
+.richtext blockquote {
+  padding-left: 1.25em;
+  border-left: 3px solid var(--accent);
+  font-style: italic;
+  color: var(--muted-foreground);
+}
+
+.richtext code {
+  padding: 0.15em 0.4em;
+  border-radius: calc(var(--radius) * 0.4);
+  background: var(--secondary);
+  font-size: 0.9em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.richtext pre {
+  padding: 1.1em 1.25em;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--secondary);
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+.richtext pre code {
+  padding: 0;
+  background: transparent;
+  font-size: 0.875em;
+}
+
+.richtext img {
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.richtext hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, var(--border), transparent);
+}
+
+.richtext table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+.richtext th,
+.richtext td {
+  padding: 0.6em 0.8em;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.richtext th {
+  font-weight: 650;
+  color: var(--foreground);
+}

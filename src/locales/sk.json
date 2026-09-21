@@ -494,7 +494,14 @@
       "sluzby": "Services",
       "doprava": "Transport",
       "vzdelavani": "Education"
-    }
+    },
+    "eyebrow": "References",
+    "listEyebrow": "Our work",
+    "featuredLabel": "Featured project",
+    "portfolioLink": "Explore the full portfolio",
+    "ctaTitle": "Have a similar project in mind?",
+    "ctaText": "Tell us what you need in a few sentences. We will come back with an approach, a timeline and a price.",
+    "ctaButton": "Start a conversation"
   },
   "portfolio": {
     "title": "Portfolio",
@@ -503,6 +510,25 @@
     "cta": "Want something similar?",
     "ctaButton": "Get in touch",
     "seoTitle": "Portfolio | Jabcore",
-    "seoDescription": "Projects delivered by Jabcore — websites, mobile apps and enterprise systems."
+    "seoDescription": "Projects delivered by Jabcore — websites, mobile apps and enterprise systems.",
+    "mapHint": "Drag to move, tap a bubble",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "mapReset": "Show the whole map",
+    "mapExpand": "Full screen",
+    "mapCollapse": "Exit full screen",
+    "mapOverview": "Map overview",
+    "mapRegion": "Map of projects",
+    "openProject": "Open project",
+    "close": "Close",
+    "featured": "Featured project",
+    "readCaseStudy": "Read the case study",
+    "ctaSubtitle": "Tell us what you are solving. We will come back with an approach, a timeline and a price.",
+    "statProjects": "Projects",
+    "statTech": "Technologies",
+    "statIndustries": "Industries",
+    "statYears": "Span",
+    "caseStudiesEyebrow": "In depth",
+    "caseStudiesTitle": "Case studies"
   }
 }

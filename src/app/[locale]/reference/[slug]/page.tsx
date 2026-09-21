@@ -3,23 +3,22 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { notFound, permanentRedirect } from 'next/navigation'
 import { marked } from 'marked'
+import { ArrowLeft, ArrowRight, ArrowUpRight, Quotes } from '@phosphor-icons/react/ssr'
 import { locales, defaultLocale, ogLocales, type Locale } from '@/lib/i18n-config'
 import { t } from '@/lib/server-i18n'
 import { SITE_URL } from '@/lib/site-config'
 import { getReferenceBySlug, getPublishedSlugs, findRedirectTarget } from '@/lib/references'
 import { skipPrerenderWithoutDatabase, hasDatabase } from '@/lib/db-runtime'
 import { buildReferenceJsonLd } from '@/lib/jsonld'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 
 /**
- * Prerenders every published reference in every language at build time; new
- * ones are rendered on first request and then cached, so publishing from the
- * admin does not need a deploy.
+ * Předgeneruje každou publikovanou referenci v každém jazyce při buildu; nové
+ * se vykreslí při prvním požadavku a pak se cachují, takže publikování
+ * z adminu nepotřebuje nasazení.
  */
 export async function generateStaticParams() {
-  // No database during the image build: every slug is then rendered on first
-  // request instead, and cached from there.
+  // Při buildu image databáze není: každý slug se pak vykreslí až při prvním
+  // požadavku a odtamtud se cachuje.
   if (!hasDatabase()) return []
 
   const slugs = await getPublishedSlugs()
@@ -129,6 +128,10 @@ export default async function ReferenceDetailPage({
 
   const jsonLd = buildReferenceJsonLd(reference, `${SITE_URL}/${locale}/reference/${slug}`)
 
+  const industryLabel = reference.industry
+    ? t(locale, `references.industries.${reference.industry}`) || reference.industry
+    : null
+
   return (
     <article className="pt-16">
       <script
@@ -136,85 +139,135 @@ export default async function ReferenceDetailPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="container mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-        <div className="mx-auto max-w-3xl">
+      {/* Titulka přes celou šířku. Obrázek reference je to jediné, co o
+          projektu něco řekne dřív, než se začne číst - tak ať je vidět dřív
+          než metadata. */}
+      <header className="relative isolate overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          {reference.coverImage ? (
+            <>
+              <Image
+                src={reference.coverImage}
+                alt=""
+                fill
+                sizes="100vw"
+                priority
+                className="object-cover"
+              />
+              {/* Dvě clony místo jedné: vodorovná drží čitelný text vlevo,
+                  svislá sešívá obrázek s pozadím stránky. Jedna společná by
+                  musela být tak tmavá, že by z fotky nezbylo nic. */}
+              <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/25" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-background/55" />
+            </>
+          ) : (
+            <>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-background to-accent/15" />
+              <div className="absolute -left-20 top-0 h-[24rem] w-[24rem] rounded-full bg-primary/20 blur-[120px]" />
+              <div className="absolute -right-16 bottom-0 h-[22rem] w-[22rem] rounded-full bg-accent/20 blur-[120px]" />
+            </>
+          )}
+        </div>
+
+        <div className="container mx-auto px-4 pb-20 pt-12 sm:px-6 sm:pb-32 sm:pt-20 lg:px-8">
           <Link
             href={`/${locale}/reference`}
-            className="mb-8 inline-block text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="group mb-10 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
-            ← {t(locale, 'references.backToList')}
+            <ArrowLeft
+              size={15}
+              weight="bold"
+              className="transition-transform duration-300 group-hover:-translate-x-1"
+            />
+            {t(locale, 'references.backToList')}
           </Link>
 
-          <h1
-            className="mb-6 text-4xl font-bold sm:text-5xl"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            {reference.title}
-          </h1>
-
-          {reference.summary && (
-            <p className="mb-10 text-xl text-muted-foreground">{reference.summary}</p>
-          )}
-
-          <dl className="mb-12 grid grid-cols-2 gap-6 border-y border-border py-6 sm:grid-cols-4">
-            <div>
-              <dt className="mb-1 text-sm text-muted-foreground">{t(locale, 'references.client')}</dt>
-              <dd className="font-medium">{reference.clientName}</dd>
+          <div className="max-w-4xl">
+            <div className="mb-5 flex flex-wrap items-center gap-2">
+              {reference.featured && (
+                <span className="rounded-full bg-accent px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-accent-foreground">
+                  {t(locale, 'references.featuredLabel')}
+                </span>
+              )}
+              {industryLabel && (
+                <span className="rounded-full border border-border/70 bg-background/70 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground backdrop-blur-sm">
+                  {industryLabel}
+                </span>
+              )}
             </div>
-            {reference.year && (
-              <div>
-                <dt className="mb-1 text-sm text-muted-foreground">{t(locale, 'references.year')}</dt>
-                <dd className="font-medium">{reference.year}</dd>
-              </div>
-            )}
-            {reference.tech.length > 0 && (
-              <div className="col-span-2">
-                <dt className="mb-1 text-sm text-muted-foreground">
-                  {t(locale, 'references.technologies')}
-                </dt>
-                <dd className="flex flex-wrap gap-2">
-                  {reference.tech.map((tech) => (
-                    <Badge key={tech} variant="secondary">
-                      {tech}
-                    </Badge>
-                  ))}
-                </dd>
-              </div>
-            )}
-          </dl>
-        </div>
-      </div>
 
-      {reference.coverImage && (
-        <div className="container mx-auto mb-16 px-4 sm:px-6 lg:px-8">
-          <div className="relative mx-auto aspect-[16/9] max-w-5xl overflow-hidden rounded-lg bg-muted">
-            <Image
-              src={reference.coverImage}
-              alt={reference.title}
-              fill
-              sizes="(min-width: 1024px) 1024px, 100vw"
-              className="object-cover"
-              priority
-            />
+            <h1
+              className="text-4xl font-bold leading-[1.08] sm:text-5xl lg:text-6xl"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              {reference.title}
+            </h1>
+
+            {reference.summary && (
+              <p className="mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl">
+                {reference.summary}
+              </p>
+            )}
           </div>
         </div>
-      )}
+      </header>
 
-      <div className="container mx-auto px-4 pb-24 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl">
-          {bodyHtml && (
-            <div
-              className="prose prose-lg max-w-none dark:prose-invert"
-              dangerouslySetInnerHTML={{ __html: bodyHtml }}
-            />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Karta s fakty zajíždí do titulky - sešije obrázek s textem, aby
+            hlavička nekončila prázdnou hranou. */}
+        <dl className="-mt-12 grid grid-cols-2 gap-6 rounded-3xl border border-border/70 bg-card/80 p-6 shadow-xl backdrop-blur-xl sm:grid-cols-4 sm:p-8">
+          <div>
+            <dt className="mb-1 text-xs uppercase tracking-wider text-muted-foreground">
+              {t(locale, 'references.client')}
+            </dt>
+            <dd className="font-semibold">{reference.clientName}</dd>
+          </div>
+
+          {reference.year && (
+            <div>
+              <dt className="mb-1 text-xs uppercase tracking-wider text-muted-foreground">
+                {t(locale, 'references.year')}
+              </dt>
+              <dd className="font-semibold">{reference.year}</dd>
+            </div>
           )}
 
+          {reference.tech.length > 0 && (
+            <div className="col-span-2">
+              <dt className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">
+                {t(locale, 'references.technologies')}
+              </dt>
+              <dd className="flex flex-wrap gap-1.5">
+                {reference.tech.map((tech) => (
+                  <span
+                    key={tech}
+                    className="rounded-full border border-border/70 bg-secondary/60 px-2.5 py-1 text-xs font-medium"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </dd>
+            </div>
+          )}
+        </dl>
+      </div>
+
+      <div className="container mx-auto px-4 pb-24 pt-16 sm:px-6 sm:pt-20 lg:px-8">
+        <div className="max-w-3xl">
+          {bodyHtml && <div className="richtext" dangerouslySetInnerHTML={{ __html: bodyHtml }} />}
+
           {reference.testimonial && (
-            <blockquote className="mt-12 border-l-4 border-primary py-2 pl-6">
-              <p className="mb-3 text-lg italic">{reference.testimonial}</p>
+            <blockquote className="relative mt-14 overflow-hidden rounded-3xl border border-border/60 bg-secondary/40 p-7 pt-14 sm:p-10 sm:pt-16">
+              <Quotes
+                size={40}
+                weight="fill"
+                className="absolute left-7 top-6 text-accent/50 sm:left-10"
+                aria-hidden="true"
+              />
+              <p className="text-lg italic leading-relaxed sm:text-xl">{reference.testimonial}</p>
               {reference.testimonialAuthor && (
-                <footer className="text-sm text-muted-foreground">
-                  - {reference.testimonialAuthor}
+                <footer className="mt-5 text-sm font-medium text-muted-foreground">
+                  {reference.testimonialAuthor}
                 </footer>
               )}
             </blockquote>
@@ -222,15 +275,55 @@ export default async function ReferenceDetailPage({
 
           {reference.projectUrl && (
             <div className="mt-12">
-              <Button asChild size="lg">
-                <a href={reference.projectUrl} target="_blank" rel="noopener noreferrer">
-                  {t(locale, 'references.viewProject')} ↗
-                </a>
-              </Button>
+              <a
+                href={reference.projectUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold transition-colors hover:border-accent/60 hover:bg-accent/10"
+              >
+                {t(locale, 'references.viewProject')}
+                <ArrowUpRight
+                  size={16}
+                  weight="bold"
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </a>
             </div>
           )}
         </div>
       </div>
+
+      <section className="border-t border-border/60 bg-secondary/30">
+        <div className="container mx-auto flex flex-col items-center gap-6 px-4 py-16 text-center sm:px-6 lg:px-8">
+          <h2
+            className="max-w-2xl text-2xl font-bold sm:text-3xl"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
+            {t(locale, 'references.ctaTitle')}
+          </h2>
+
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href={`/${locale}/contact`}
+              className="group inline-flex items-center gap-2 rounded-full bg-[linear-gradient(120deg,var(--primary),var(--accent))] px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:shadow-2xl hover:brightness-110"
+            >
+              {t(locale, 'references.ctaButton')}
+              <ArrowRight
+                size={16}
+                weight="bold"
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
+
+            <Link
+              href={`/${locale}/reference`}
+              className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold transition-colors hover:bg-secondary"
+            >
+              {t(locale, 'references.backToList')}
+            </Link>
+          </div>
+        </div>
+      </section>
     </article>
   )
 }
