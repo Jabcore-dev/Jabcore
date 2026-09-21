@@ -38,7 +38,9 @@ export default async function PortfolioLayout({
     <RootHtml lang={locale}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <ViewTracker />
-        <div className="min-h-screen bg-background text-foreground">{children}</div>
+        {/* Bez obalového divu: barvy pozadí a textu nastavuje body v globals.css
+            a mapa si výšku okna drží sama. */}
+        {children}
       </ThemeProvider>
     </RootHtml>
   )

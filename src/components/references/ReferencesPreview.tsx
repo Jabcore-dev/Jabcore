@@ -39,43 +39,24 @@ export default async function ReferencesPreview({ locale }: { locale: Locale }) 
   }
 
   return (
-    <section className="relative overflow-hidden py-24 sm:py-32">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-0 h-[28rem] w-[48rem] -translate-x-1/2 rounded-full bg-primary/10 blur-[130px]"
-      />
+    <section data-block="references-preview">
+      <x-glow aria-hidden="true" />
 
-      <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-14 flex flex-col gap-6 sm:mb-16 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-              {t(locale, 'references.eyebrow')}
-            </p>
-            <h2
-              className="text-4xl font-bold leading-tight sm:text-5xl"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              {t(locale, 'references.previewTitle')}
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground sm:text-xl">
-              {t(locale, 'references.previewSubtitle')}
-            </p>
-          </div>
+      <x-wrap>
+        <x-section-head>
+          <x-section-intro>
+            <x-eyebrow>{t(locale, 'references.eyebrow')}</x-eyebrow>
+            <h2>{t(locale, 'references.previewTitle')}</h2>
+            <p>{t(locale, 'references.previewSubtitle')}</p>
+          </x-section-intro>
 
-          <Link
-            href={`/${locale}/reference`}
-            className="group inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-border px-6 py-3 text-sm font-semibold transition-colors hover:border-accent/60 hover:bg-accent/10 lg:self-auto"
-          >
+          <Link href={`/${locale}/reference`} data-button="ghost">
             {t(locale, 'references.previewCta')}
-            <ArrowRight
-              size={15}
-              weight="bold"
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
+            <ArrowRight size={15} weight="bold" />
           </Link>
-        </div>
+        </x-section-head>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <x-reference-grid>
           {references.map((reference) => (
             <ReferenceCard
               key={reference.id}
@@ -84,8 +65,8 @@ export default async function ReferencesPreview({ locale }: { locale: Locale }) 
               labels={labels}
             />
           ))}
-        </div>
-      </div>
+        </x-reference-grid>
+      </x-wrap>
     </section>
   )
 }

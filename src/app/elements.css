@@ -1,0 +1,705 @@
+/*
+  Vlastní elementy x-* a jejich společný slovník.
+
+  Komponenty portfolia a referencí nepoužívají <div className="…">: značka
+  říká, co to je (<x-card-media>, <x-map-scene>), a styl se na ni věší tady
+  podle jména. Stav se předává atributy (data-active, aria-pressed), ne
+  přepínáním tříd.
+
+  Tenhle soubor je bez Tailwindu. Zbytek aplikace ho pořád používá, takže
+  preflight (vynulované okraje nadpisů, seznamů atd.) platí i tady a styly
+  s ním počítají. Pravidla nejsou v žádné @layer - Tailwind má všechno ve
+  vrstvách, takže nevrstvené CSS vyhraje bez závodů ve specificitě.
+
+  Všechno je zacílené na x-* nebo na [data-block]. Holé „blockquote" nebo
+  „dl" by přestylovalo i stránky, které o tomhle souboru nic nevědí.
+*/
+
+/* ─── Základ ──────────────────────────────────────────────────── */
+
+/*
+  Neregistrovaný custom element je podle specifikace inline. Žádný z našich
+  se neregistruje (nemají žádné chování, jen jméno), takže tenhle jeden řádek
+  z nich všech udělá bloky - jinak by každý potřeboval vlastní display.
+  Konkrétní elementy si ho níž přepisují na flex nebo grid.
+
+  :where() drží specificitu na nule. Holé :not(:defined) má specificitu
+  pseudotřídy, takže by přebilo každé `x-tags { display: flex }` níž.
+*/
+:where(:not(:defined)) {
+  display: block;
+}
+
+/*
+  Obsah na šířku kontejneru - přesně jako `container mx-auto px-4 sm:px-6
+  lg:px-8` ve zbytku webu, včetně skoků šířky na breakpointech Tailwindu.
+  Reference sedí pod navigací, která je na Tailwindu; kdyby tohle mělo jinou
+  šířku, obsah by o pár pixelů nelícoval s logem nad ním.
+*/
+x-wrap {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1rem;
+
+  @media (min-width: 640px) {
+    max-width: 640px;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 768px;
+  }
+
+  @media (min-width: 1024px) {
+    max-width: 1024px;
+    padding-inline: 2rem;
+  }
+
+  @media (min-width: 1280px) {
+    max-width: 1280px;
+  }
+
+  @media (min-width: 1536px) {
+    max-width: 1536px;
+  }
+}
+
+/* Text jen pro čtečky. */
+x-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+x-gradient {
+  display: inline;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+x-eyebrow {
+  margin-bottom: 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+x-label {
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+x-empty {
+  padding-block: 4rem;
+  text-align: center;
+  color: var(--muted-foreground);
+}
+
+/* Rozmazaný kruh barvy značky - stejný motiv jako v hero na homepage. */
+x-glow {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 9999px;
+  filter: blur(120px);
+  left: 50%;
+  top: 0;
+  width: 46rem;
+  max-width: 100vw;
+  height: 22rem;
+  translate: -50% 0;
+  background: color-mix(in oklch, var(--primary) 12%, transparent);
+
+  &[data-side='left'] {
+    left: -6rem;
+    width: 26rem;
+    height: 26rem;
+    translate: none;
+    background: color-mix(in oklch, var(--primary) 15%, transparent);
+  }
+
+  &[data-side='right'] {
+    left: auto;
+    right: -5rem;
+    top: 5rem;
+    width: 24rem;
+    height: 24rem;
+    translate: none;
+    background: color-mix(in oklch, var(--accent) 15%, transparent);
+  }
+}
+
+/* ─── Štítky ──────────────────────────────────────────────────── */
+
+x-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+x-tag {
+  display: inline-block;
+  padding: 0.25rem 0.625rem;
+  border: 1px solid color-mix(in oklch, var(--border) 70%, transparent);
+  border-radius: 9999px;
+  background: color-mix(in oklch, var(--secondary) 60%, transparent);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1rem;
+  color: var(--secondary-foreground);
+  white-space: nowrap;
+
+  /* „+3" za posledním štítkem - není to technologie, tak nesmí vypadat jako jedna. */
+  &[data-rest] {
+    border-style: dashed;
+    background: transparent;
+    color: var(--muted-foreground);
+  }
+}
+
+x-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+x-flag {
+  display: inline-block;
+  padding: 0.25rem 0.7rem;
+  border: 1px solid color-mix(in oklch, var(--border) 70%, transparent);
+  border-radius: 9999px;
+  background: color-mix(in oklch, var(--background) 70%, transparent);
+  backdrop-filter: blur(4px);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+
+  &[data-tone='accent'] {
+    border-color: transparent;
+    background: var(--accent);
+    color: oklch(0.15 0 0);
+  }
+}
+
+/* ─── Fakta (klient, rok, obor…) ──────────────────────────────── */
+
+x-fact {
+  dt {
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  dd {
+    font-weight: 600;
+  }
+
+  dd:has(x-tags) {
+    margin-top: 0.5rem;
+  }
+}
+
+/* ─── Tlačítka a odkazy ───────────────────────────────────────── */
+/*
+  Na <a> i <button> stejně. Atribut místo třídy: data-button říká, jakou roli
+  prvek hraje, a nepřidává do kódu další slovník tříd.
+*/
+
+[data-button] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    filter 0.3s ease;
+
+  svg {
+    flex-shrink: 0;
+    transition: translate 0.3s ease;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+}
+
+[data-button='solid'] {
+  padding: 0.95rem 2rem;
+  border-radius: 9999px;
+  background: linear-gradient(120deg, var(--primary), var(--accent));
+  font-size: 1rem;
+  color: white;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  &:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  }
+
+  &:hover svg {
+    translate: 0.25rem 0;
+  }
+}
+
+[data-button='ghost'] {
+  padding: 0.8rem 1.6rem;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+
+  &:hover {
+    border-color: color-mix(in oklch, var(--accent) 60%, transparent);
+    background: color-mix(in oklch, var(--accent) 10%, transparent);
+  }
+
+  &:hover svg {
+    translate: 0.2rem 0;
+  }
+}
+
+[data-button='link'] {
+  font-size: 0.875rem;
+  color: var(--primary);
+
+  &:hover {
+    color: var(--accent);
+  }
+
+  &:hover svg {
+    translate: 0.15rem -0.15rem;
+  }
+}
+
+[data-button='back'] {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+
+  &:hover {
+    color: var(--foreground);
+  }
+
+  &:hover svg {
+    translate: -0.25rem 0;
+  }
+}
+
+x-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ─── Nadpisy stránek a sekcí ─────────────────────────────────── */
+/*
+  Stejná stupnice jako zbytek webu: nadpis stránky text-4xl → 5xl → 6xl,
+  nadpis sekce text-4xl → 5xl. Reference byly dřív o stupeň větší než
+  „Kdo jsme" a ostatní stránky; nadpisy mají být stejně velké napříč webem.
+*/
+
+:where([data-block='page-hero'], [data-block='reference-detail'] > header, x-map-title) h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+
+  @media (min-width: 640px) {
+    font-size: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 3.75rem;
+  }
+}
+
+x-section-intro {
+  max-width: 42rem;
+
+  h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.15;
+
+    @media (min-width: 640px) {
+      font-size: 3rem;
+    }
+  }
+
+  p {
+    margin-top: 1rem;
+    font-size: 1.125rem;
+    color: var(--muted-foreground);
+
+    @media (min-width: 640px) {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+x-section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+  }
+
+  > a {
+    align-self: flex-start;
+
+    @media (min-width: 1024px) {
+      align-self: auto;
+    }
+  }
+}
+
+/* ─── Úvod stránky ────────────────────────────────────────────── */
+
+[data-block='page-hero'] {
+  position: relative;
+  overflow: hidden;
+  padding-top: 4rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklch, var(--primary) 5%, transparent),
+      var(--background)
+    );
+  }
+
+  x-wrap {
+    position: relative;
+    z-index: 1;
+    padding-block: 4rem;
+
+    @media (min-width: 640px) {
+      padding-block: 6rem 5rem;
+    }
+  }
+
+  p {
+    max-width: 42rem;
+    margin-top: 1.5rem;
+    font-size: 1.125rem;
+    color: var(--muted-foreground);
+
+    @media (min-width: 640px) {
+      font-size: 1.25rem;
+    }
+  }
+
+  [data-button] {
+    margin-top: 2rem;
+  }
+}
+
+/* ─── Závěrečná výzva ─────────────────────────────────────────── */
+
+[data-block='closing-cta'] {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  background: color-mix(in oklch, var(--secondary) 30%, transparent);
+  text-align: center;
+
+  x-wrap {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block: 5rem;
+  }
+
+  h2 {
+    max-width: 42rem;
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.2;
+
+    @media (min-width: 640px) {
+      font-size: 2.25rem;
+    }
+  }
+
+  p {
+    max-width: 36rem;
+    margin-top: 1rem;
+    color: var(--muted-foreground);
+  }
+
+  > x-wrap > [data-button],
+  x-actions {
+    margin-top: 2rem;
+    justify-content: center;
+  }
+
+  small {
+    margin-top: 3.5rem;
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+
+    a:hover {
+      color: var(--foreground);
+    }
+  }
+
+  /* Patička portfolia - poslední, co obchodník ukáže, tak ať je vidět. */
+  &[data-size='large'] {
+    background: linear-gradient(
+      to bottom right,
+      color-mix(in oklch, var(--primary) 10%, transparent),
+      var(--background),
+      color-mix(in oklch, var(--accent) 10%, transparent)
+    );
+
+    x-glow {
+      background: color-mix(in oklch, var(--accent) 20%, transparent);
+    }
+
+    x-wrap {
+      padding-block: 6rem;
+
+      @media (min-width: 640px) {
+        padding-block: 8rem;
+      }
+    }
+
+    h2 {
+      @media (min-width: 640px) {
+        font-size: 3rem;
+      }
+    }
+
+    p {
+      margin-top: 1.25rem;
+      font-size: 1.125rem;
+    }
+
+    > x-wrap > [data-button] {
+      margin-top: 2.5rem;
+    }
+  }
+}
+
+/* ─── Citace klienta ──────────────────────────────────────────── */
+
+:where(x-prose, x-case-body, x-panel-body) blockquote {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  border-radius: 1.5rem;
+  background: color-mix(in oklch, var(--secondary) 40%, transparent);
+  padding: 3.5rem 1.75rem 1.75rem;
+
+  @media (min-width: 640px) {
+    padding: 4rem 2.5rem 2.5rem;
+  }
+
+  svg {
+    position: absolute;
+    left: 1.75rem;
+    top: 1.5rem;
+    color: color-mix(in oklch, var(--accent) 50%, transparent);
+
+    @media (min-width: 640px) {
+      left: 2.5rem;
+    }
+  }
+
+  p {
+    font-size: 1.125rem;
+    font-style: italic;
+    line-height: 1.65;
+
+    @media (min-width: 640px) {
+      font-size: 1.25rem;
+    }
+  }
+
+  footer {
+    margin-top: 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+  }
+}
+
+/* ─── Text z Markdownu ────────────────────────────────────────── */
+/*
+  Case studies a detaily referencí píšou admini v Markdownu. Preflight
+  Tailwindu shodí výchozí styly nadpisů i odstavců, takže bez tohohle je celá
+  case study jeden nerozlišený blok textu. Plugin @tailwindcss/typography
+  projekt nemá - je to ručně, ale jen to, co editor opravdu používá.
+*/
+
+x-richtext {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--foreground);
+
+  > * + * {
+    margin-top: 1.25em;
+  }
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  :where(h2, h3, h4) {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    scroll-margin-top: 6rem;
+  }
+
+  h2 {
+    margin-top: 2.5em;
+    font-size: 1.6rem;
+  }
+
+  h3 {
+    margin-top: 2em;
+    font-size: 1.3rem;
+  }
+
+  h4 {
+    margin-top: 1.75em;
+    font-size: 1.1rem;
+  }
+
+  :where(p, ul, ol) {
+    color: color-mix(in oklch, var(--foreground) 82%, transparent);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--accent);
+    }
+  }
+
+  strong {
+    font-weight: 650;
+    color: var(--foreground);
+  }
+
+  :where(ul, ol) {
+    padding-left: 1.35em;
+  }
+
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+
+  li + li {
+    margin-top: 0.45em;
+  }
+
+  li::marker {
+    color: var(--accent);
+  }
+
+  blockquote {
+    padding-left: 1.25em;
+    border-left: 3px solid var(--accent);
+    font-style: italic;
+    color: var(--muted-foreground);
+  }
+
+  code {
+    padding: 0.15em 0.4em;
+    border-radius: calc(var(--radius) * 0.4);
+    background: var(--secondary);
+    font-size: 0.9em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  pre {
+    padding: 1.1em 1.25em;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--secondary);
+    overflow-x: auto;
+    line-height: 1.6;
+
+    code {
+      padding: 0;
+      background: transparent;
+      font-size: 0.875em;
+    }
+  }
+
+  img {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  hr {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+  }
+
+  :where(th, td) {
+    padding: 0.6em 0.8em;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+
+  th {
+    font-weight: 650;
+    color: var(--foreground);
+  }
+}

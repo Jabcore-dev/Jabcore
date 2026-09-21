@@ -2,10 +2,10 @@
 
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 import { X, ArrowUpRight, ArrowDown, Quotes } from '@phosphor-icons/react'
-import { Button } from '@/components/ui/button'
 import type { MapProject } from '@/lib/portfolio-map'
+import { motionElement } from './motion-element'
 
 export interface PanelLabels {
   close: string
@@ -17,6 +17,9 @@ export interface PanelLabels {
   viewProject: string
   readCaseStudy: string
 }
+
+const Scrim = motionElement('x-panel-scrim')
+const Panel = motionElement('x-panel')
 
 /**
  * Vysunutý detail projektu.
@@ -60,18 +63,17 @@ export default function ProjectPanel({
     <AnimatePresence>
       {project && (
         <>
-          <motion.div
-            key="backdrop"
+          <Scrim
+            key="scrim"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={onClose}
-            className="absolute inset-0 z-30 bg-background/40 backdrop-blur-[2px]"
             aria-hidden="true"
           />
 
-          <motion.div
+          <Panel
             key="panel"
             ref={panelRef}
             role="dialog"
@@ -82,134 +84,93 @@ export default function ProjectPanel({
             animate={{ opacity: 1, x: 0, y: 0 }}
             exit={{ opacity: 0, x: 24, y: 24 }}
             transition={{ type: 'spring', stiffness: 260, damping: 30 }}
-            className="absolute inset-x-3 bottom-3 z-40 flex max-h-[72%] flex-col overflow-hidden rounded-3xl border border-border/60 bg-card/85 shadow-[0_40px_100px_-30px_rgba(0,0,0,0.55)] backdrop-blur-2xl outline-none sm:inset-x-auto sm:bottom-auto sm:right-5 sm:top-5 sm:max-h-[calc(100%-2.5rem)] sm:w-[26rem] lg:w-[29rem]"
           >
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label={labels.close}
-              className="absolute right-4 top-4 z-10 grid size-9 cursor-pointer place-items-center rounded-full bg-black/45 text-white backdrop-blur-md transition-colors hover:bg-black/70"
-            >
+            <button type="button" onClick={onClose} aria-label={labels.close} data-button="close">
               <X size={16} weight="bold" />
             </button>
 
-            <div className="relative aspect-[16/10] shrink-0 overflow-hidden bg-muted">
+            <x-panel-cover>
               {project.coverImage ? (
                 <Image
                   src={project.coverImage}
                   alt=""
                   fill
                   sizes="(min-width: 640px) 29rem, 100vw"
-                  className="object-cover"
                 />
               ) : (
-                <div className="absolute inset-0 bg-[linear-gradient(140deg,var(--primary),var(--accent))]" />
+                <x-panel-blank />
               )}
 
-              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/55 to-transparent" />
+              <x-panel-fade />
 
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <div className="mb-2 flex flex-wrap items-center gap-2">
-                  {project.featured && (
-                    <span className="rounded-full bg-accent px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-accent-foreground">
-                      {labels.featured}
-                    </span>
-                  )}
-                  {project.industryLabel && (
-                    <span className="rounded-full border border-border/70 bg-background/70 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground backdrop-blur-sm">
-                      {project.industryLabel}
-                    </span>
-                  )}
-                </div>
+              <x-panel-heading>
+                <x-flags>
+                  {project.featured && <x-flag data-tone="accent">{labels.featured}</x-flag>}
+                  {project.industryLabel && <x-flag>{project.industryLabel}</x-flag>}
+                </x-flags>
+                <h2>{project.title}</h2>
+              </x-panel-heading>
+            </x-panel-cover>
 
-                <h2
-                  className="text-2xl font-bold leading-tight"
-                  style={{ fontFamily: 'var(--font-display)' }}
-                >
-                  {project.title}
-                </h2>
-              </div>
-            </div>
-
-            <div className="min-h-0 flex-1 overflow-y-auto px-5 pb-5 pt-4">
-              <dl className="mb-5 grid grid-cols-2 gap-4 border-b border-border/60 pb-5 text-sm">
-                <div>
-                  <dt className="mb-1 text-xs uppercase tracking-wider text-muted-foreground">
-                    {labels.client}
-                  </dt>
-                  <dd className="font-medium">{project.clientName}</dd>
-                </div>
+            <x-panel-body>
+              <dl>
+                <x-fact>
+                  <dt>{labels.client}</dt>
+                  <dd>{project.clientName}</dd>
+                </x-fact>
                 {project.year && (
-                  <div>
-                    <dt className="mb-1 text-xs uppercase tracking-wider text-muted-foreground">
-                      {labels.year}
-                    </dt>
-                    <dd className="font-medium">{project.year}</dd>
-                  </div>
+                  <x-fact>
+                    <dt>{labels.year}</dt>
+                    <dd>{project.year}</dd>
+                  </x-fact>
                 )}
               </dl>
 
-              {project.summary && (
-                <p className="mb-5 text-[0.95rem] leading-relaxed text-muted-foreground">
-                  {project.summary}
-                </p>
-              )}
+              {project.summary && <p>{project.summary}</p>}
 
               {project.tech.length > 0 && (
-                <div className="mb-5">
-                  <p className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">
-                    {labels.technologies}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
+                <x-panel-section>
+                  <x-label>{labels.technologies}</x-label>
+                  <x-tags>
                     {project.tech.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-full border border-border/70 bg-secondary/60 px-2.5 py-1 text-xs font-medium"
-                      >
-                        {tech}
-                      </span>
+                      <x-tag key={tech}>{tech}</x-tag>
                     ))}
-                  </div>
-                </div>
+                  </x-tags>
+                </x-panel-section>
               )}
 
               {project.testimonial && (
-                <blockquote className="relative mb-5 rounded-2xl border border-border/60 bg-secondary/40 p-4 pt-8">
-                  <Quotes
-                    size={22}
-                    weight="fill"
-                    className="absolute left-4 top-3 text-accent/60"
-                    aria-hidden="true"
-                  />
-                  <p className="text-sm italic leading-relaxed">{project.testimonial}</p>
-                  {project.testimonialAuthor && (
-                    <footer className="mt-2 text-xs text-muted-foreground">
-                      {project.testimonialAuthor}
-                    </footer>
-                  )}
+                <blockquote>
+                  <Quotes size={22} weight="fill" aria-hidden="true" />
+                  <p>{project.testimonial}</p>
+                  {project.testimonialAuthor && <footer>{project.testimonialAuthor}</footer>}
                 </blockquote>
               )}
-            </div>
+            </x-panel-body>
 
-            <div className="flex shrink-0 flex-wrap gap-2 border-t border-border/60 bg-background/40 p-4">
-              <Button
-                className="flex-1 cursor-pointer"
+            <x-panel-actions>
+              <button
+                type="button"
+                data-button="solid"
                 onClick={() => onReadCaseStudy(project.slug)}
               >
                 {labels.readCaseStudy}
                 <ArrowDown size={15} weight="bold" />
-              </Button>
+              </button>
 
               {project.projectUrl && (
-                <Button asChild variant="outline" className="cursor-pointer">
-                  <a href={project.projectUrl} target="_blank" rel="noopener noreferrer">
-                    {labels.viewProject}
-                    <ArrowUpRight size={15} weight="bold" />
-                  </a>
-                </Button>
+                <a
+                  href={project.projectUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-button="ghost"
+                >
+                  {labels.viewProject}
+                  <ArrowUpRight size={15} weight="bold" />
+                </a>
               )}
-            </div>
-          </motion.div>
+            </x-panel-actions>
+          </Panel>
         </>
       )}
     </AnimatePresence>

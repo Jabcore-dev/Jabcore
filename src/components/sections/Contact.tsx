@@ -164,7 +164,7 @@ export default function Contact() {
           className="text-center mb-16"
         >
           {/* Hlavni nadpis stranky /contact, proto h1: sekce se nikde jinde nepouziva. */}
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4" style={{ fontFamily: 'var(--font-display)' }}>
             {t('contact.title')}
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

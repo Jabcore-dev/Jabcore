@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { ArrowRight, ArrowUpRight } from '@phosphor-icons/react/ssr'
+import logo from '@/assets/images/transparent.png'
 import { locales, defaultLocale, ogLocales, type Locale } from '@/lib/i18n-config'
 import { t } from '@/lib/server-i18n'
 import { SITE_URL, PORTFOLIO_URL } from '@/lib/site-config'
@@ -143,7 +145,7 @@ export default async function PortfolioPage({
   const siteUrl = locale === defaultLocale ? SITE_URL : `${SITE_URL}/${locale}`
 
   return (
-    <main>
+    <main data-block="portfolio">
       {/* Jeden CreativeWork na referenci. Celé portfolio je jediná URL, takže
           bez nich vidí crawler jednu dlouhou stránku místo seznamu projektů. */}
       {references.map((reference) => (
@@ -158,34 +160,23 @@ export default async function PortfolioPage({
         />
       ))}
 
-      <header className="fixed inset-x-0 top-0 z-40 border-b border-border/50 bg-background/70 backdrop-blur-xl">
-        <div className="container mx-auto flex items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
-          <a href={siteUrl} className="group flex items-center gap-2.5">
-            <span
-              aria-hidden="true"
-              className="size-7 rounded-lg bg-[linear-gradient(135deg,var(--primary),var(--accent))] shadow-lg transition-transform duration-300 group-hover:rotate-12"
-            />
-            <span className="text-lg font-bold" style={{ fontFamily: 'var(--font-display)' }}>
-              Jabcore
-            </span>
-            <span className="hidden rounded-full border border-border/70 px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground sm:inline">
-              {t(locale, 'portfolio.title')}
-            </span>
+      <header data-block="portfolio-bar">
+        <x-wrap>
+          <a href={portfolioUrl(locale)} data-brand="">
+            {/* Stejné logo jako v navigaci hlavního webu - průhledná varianta,
+                která drží v obou režimech. alt je prázdný, protože hned vedle
+                stojí název; čtečka by jinak řekla „Jabcore Jabcore". */}
+            <Image src={logo} alt="" width={36} height={36} priority />
+            <strong>Jabcore</strong>
+            <x-flag>{t(locale, 'portfolio.title')}</x-flag>
           </a>
 
-          <a
-            href={siteUrl}
-            className="group inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <span className="hidden sm:inline">{t(locale, 'portfolio.backToSite')}</span>
-            <span className="sm:hidden">jabcore.cz</span>
-            <ArrowUpRight
-              size={14}
-              weight="bold"
-              className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            />
+          {/* Doména se nepřekládá, takže ani nejde přes t(). */}
+          <a href={siteUrl} data-button="link">
+            jabcore.cz
+            <ArrowUpRight size={14} weight="bold" />
           </a>
-        </div>
+        </x-wrap>
       </header>
 
       <PortfolioMap
@@ -218,39 +209,25 @@ export default async function PortfolioPage({
 
       {references.length > 0 && (
         <>
-          <section className="border-y border-border/60 bg-secondary/30">
-            <div className="container mx-auto grid grid-cols-2 gap-8 px-4 py-12 sm:px-6 lg:grid-cols-4 lg:px-8">
+          <section data-block="stats">
+            <x-wrap>
               {stats.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div
-                    className="gradient-text text-4xl font-bold sm:text-5xl"
-                    style={{ fontFamily: 'var(--font-display)' }}
-                  >
-                    {stat.value}
-                  </div>
-                  <div className="mt-1 text-xs uppercase tracking-wider text-muted-foreground sm:text-sm">
-                    {stat.label}
-                  </div>
-                </div>
+                <x-stat key={stat.label}>
+                  <x-gradient>{stat.value}</x-gradient>
+                  <x-stat-label>{stat.label}</x-stat-label>
+                </x-stat>
               ))}
-            </div>
+            </x-wrap>
           </section>
 
-          <section>
-            <div className="container mx-auto px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-              <div className="mb-16 max-w-2xl">
-                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-                  {t(locale, 'portfolio.caseStudiesEyebrow')}
-                </p>
-                <h2
-                  className="text-3xl font-bold sm:text-4xl"
-                  style={{ fontFamily: 'var(--font-display)' }}
-                >
-                  {t(locale, 'portfolio.caseStudiesTitle')}
-                </h2>
-              </div>
+          <section data-block="case-studies">
+            <x-wrap>
+              <x-section-intro>
+                <x-eyebrow>{t(locale, 'portfolio.caseStudiesEyebrow')}</x-eyebrow>
+                <h2>{t(locale, 'portfolio.caseStudiesTitle')}</h2>
+              </x-section-intro>
 
-              <div className="mx-auto max-w-6xl space-y-24 sm:space-y-32">
+              <x-case-list>
                 {references.map((reference, index) => (
                   <CaseStudy
                     key={reference.id}
@@ -266,51 +243,28 @@ export default async function PortfolioPage({
                     }}
                   />
                 ))}
-              </div>
-            </div>
+              </x-case-list>
+            </x-wrap>
           </section>
         </>
       )}
 
-      <footer className="relative overflow-hidden border-t border-border/60">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/10"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-0 h-72 w-[46rem] -translate-x-1/2 rounded-full bg-accent/20 blur-[120px]"
-        />
+      <footer data-block="closing-cta" data-size="large">
+        <x-glow aria-hidden="true" />
+        <x-wrap>
+          <h2>{t(locale, 'portfolio.cta')}</h2>
+          <p>{t(locale, 'portfolio.ctaSubtitle')}</p>
 
-        <div className="container relative mx-auto px-4 py-24 text-center sm:px-6 sm:py-32 lg:px-8">
-          <h2
-            className="mx-auto mb-5 max-w-2xl text-3xl font-bold sm:text-5xl"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            {t(locale, 'portfolio.cta')}
-          </h2>
-          <p className="mx-auto mb-10 max-w-xl text-lg text-muted-foreground">
-            {t(locale, 'portfolio.ctaSubtitle')}
-          </p>
-
-          <a
-            href={`${SITE_URL}/${locale}/contact`}
-            className="group inline-flex items-center gap-2 rounded-full bg-[linear-gradient(120deg,var(--primary),var(--accent))] px-8 py-4 text-base font-semibold text-white shadow-xl transition-all duration-300 hover:shadow-2xl hover:brightness-110"
-          >
+          <a href={`${SITE_URL}/${locale}/contact`} data-button="solid">
             {t(locale, 'portfolio.ctaButton')}
-            <ArrowRight size={18} weight="bold" className="transition-transform group-hover:translate-x-1" />
+            <ArrowRight size={18} weight="bold" />
           </a>
 
-          <p className="mt-14 text-sm text-muted-foreground">
-            <a href={siteUrl} className="transition-colors hover:text-foreground">
-              jabcore.cz
-            </a>
-            <span className="mx-2" aria-hidden="true">
-              ·
-            </span>
-            © {new Date().getFullYear()} Jabcore
-          </p>
-        </div>
+          <small>
+            <a href={siteUrl}>jabcore.cz</a>
+            <span aria-hidden="true"> · </span>© {new Date().getFullYear()} Jabcore
+          </small>
+        </x-wrap>
       </footer>
     </main>
   )

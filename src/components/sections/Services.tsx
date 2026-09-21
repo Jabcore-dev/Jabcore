@@ -53,7 +53,7 @@ export default function Services() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h1 className="text-5xl sm:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-display)' }}>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-display)' }}>
             {t('services.title')}
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">

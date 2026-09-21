@@ -1,0 +1,420 @@
+/*
+  Reference na hlavním webu: karty, výpis, náhled na homepage a detail.
+  Bez Tailwindu, bez tříd - viz úvod v elements.css.
+*/
+
+/* ─── Karta ───────────────────────────────────────────────────── */
+
+x-reference-card {
+  height: 100%;
+
+  > a {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid color-mix(in oklch, var(--border) 70%, transparent);
+    border-radius: 1.5rem;
+    background: var(--card);
+    transition:
+      translate 0.5s ease-out,
+      border-color 0.5s ease-out,
+      box-shadow 0.5s ease-out;
+
+    &:hover {
+      translate: 0 -0.25rem;
+      border-color: color-mix(in oklch, var(--accent) 50%, transparent);
+      box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.35);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 3px;
+    }
+  }
+
+  &[data-layout='wide'] > a {
+    display: grid;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+/* Barevný nádech shora, rozsvítí se až pod kurzorem. */
+x-card-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(
+    120% 80% at 50% 0%,
+    color-mix(in oklch, var(--accent) 16%, transparent),
+    transparent 60%
+  );
+  transition: opacity 0.5s ease;
+
+  a:hover > & {
+    opacity: 1;
+  }
+}
+
+x-card-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--muted);
+
+  x-reference-card[data-layout='wide'] & {
+    aspect-ratio: 16 / 11;
+
+    @media (min-width: 1024px) {
+      aspect-ratio: auto;
+      min-height: 22rem;
+      height: 100%;
+    }
+  }
+
+  img {
+    object-fit: cover;
+    transition: scale 0.8s ease-out;
+  }
+
+  a:hover & img {
+    scale: 1.05;
+  }
+}
+
+x-card-blank {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(140deg, var(--primary), var(--accent));
+  opacity: 0.9;
+}
+
+x-card-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.75), rgb(0 0 0 / 0.1) 50%, transparent);
+}
+
+x-card-meta {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  padding: 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgb(255 255 255 / 0.9);
+
+  @media (min-width: 640px) {
+    padding: 1.25rem;
+  }
+
+  > span:first-child {
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  > span[aria-hidden] {
+    color: rgb(255 255 255 / 0.5);
+  }
+}
+
+x-card-flag {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: var(--accent);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: oklch(0.15 0 0);
+
+  @media (min-width: 640px) {
+    left: 1.25rem;
+    top: 1.25rem;
+  }
+}
+
+x-card-body {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.5rem;
+
+  x-reference-card[data-layout='wide'] & {
+    justify-content: center;
+    padding: 2rem;
+
+    @media (min-width: 640px) {
+      padding: 2.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      padding: 3rem;
+    }
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.25;
+    transition: color 0.3s ease;
+
+    a:hover & {
+      color: var(--primary);
+    }
+
+    x-reference-card[data-layout='wide'] & {
+      font-size: 1.5rem;
+
+      @media (min-width: 640px) {
+        font-size: 1.875rem;
+      }
+
+      @media (min-width: 1024px) {
+        font-size: 2.25rem;
+      }
+    }
+  }
+
+  p {
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    x-reference-card[data-layout='wide'] & {
+      display: block;
+      font-size: 1.125rem;
+    }
+  }
+
+  x-tags {
+    margin-top: 1.25rem;
+  }
+}
+
+/* „Detail reference →" drží u spodní hrany, ať karty v řadě končí stejně. */
+x-card-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: auto;
+  padding-top: 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary);
+  transition: color 0.3s ease;
+
+  svg {
+    transition: translate 0.3s ease;
+  }
+
+  a:hover & {
+    color: var(--accent);
+  }
+
+  a:hover & svg {
+    translate: 0.25rem 0;
+  }
+
+  x-reference-card[data-layout='wide'] & {
+    margin-top: 0;
+  }
+}
+
+x-reference-grid {
+  display: grid;
+  gap: 1.5rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ─── Výpis ───────────────────────────────────────────────────── */
+
+[data-block='reference-list'] {
+  padding-bottom: 6rem;
+
+  @media (min-width: 640px) {
+    padding-bottom: 8rem;
+  }
+
+  x-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+/* ─── Náhled na homepage ──────────────────────────────────────── */
+
+[data-block='references-preview'] {
+  position: relative;
+  overflow: hidden;
+  padding-block: 6rem;
+
+  @media (min-width: 640px) {
+    padding-block: 8rem;
+  }
+
+  x-wrap {
+    position: relative;
+    z-index: 1;
+  }
+
+  x-section-intro h2 {
+    line-height: 1.1;
+  }
+}
+
+/* ─── Detail ──────────────────────────────────────────────────── */
+
+[data-block='reference-detail'] {
+  padding-top: 4rem;
+
+  > header {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    x-wrap {
+      padding-block: 3rem 5rem;
+
+      @media (min-width: 640px) {
+        padding-block: 5rem 8rem;
+      }
+    }
+
+    [data-button='back'] {
+      margin-bottom: 2.5rem;
+    }
+
+    x-flags {
+      margin-bottom: 1.25rem;
+    }
+
+    h1 {
+      max-width: 56rem;
+    }
+
+    p {
+      max-width: 42rem;
+      margin-top: 1.5rem;
+      font-size: 1.125rem;
+      color: var(--muted-foreground);
+
+      @media (min-width: 640px) {
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+
+x-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  img {
+    object-fit: cover;
+  }
+}
+
+x-hero-scrim {
+  position: absolute;
+  inset: 0;
+
+  &[data-axis='x'] {
+    background: linear-gradient(
+      to right,
+      var(--background),
+      color-mix(in oklch, var(--background) 90%, transparent),
+      color-mix(in oklch, var(--background) 25%, transparent)
+    );
+  }
+
+  &[data-axis='y'] {
+    background: linear-gradient(
+      to top,
+      var(--background),
+      color-mix(in oklch, var(--background) 25%, transparent),
+      color-mix(in oklch, var(--background) 55%, transparent)
+    );
+  }
+}
+
+x-hero-blank {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom right,
+    color-mix(in oklch, var(--primary) 15%, transparent),
+    var(--background),
+    color-mix(in oklch, var(--accent) 15%, transparent)
+  );
+}
+
+/* Karta s fakty zajíždí do titulky. */
+[data-block='fact-card'] {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: -3rem;
+  padding: 1.5rem;
+  border: 1px solid color-mix(in oklch, var(--border) 70%, transparent);
+  border-radius: 1.5rem;
+  background: color-mix(in oklch, var(--card) 80%, transparent);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  backdrop-filter: blur(24px);
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding: 2rem;
+  }
+
+  x-fact[data-span='2'] {
+    grid-column: span 2;
+  }
+}
+
+x-prose {
+  max-width: 48rem;
+  padding-block: 4rem 6rem;
+
+  @media (min-width: 640px) {
+    padding-top: 5rem;
+  }
+
+  blockquote {
+    margin-top: 3.5rem;
+  }
+
+  x-actions {
+    margin-top: 3rem;
+  }
+}

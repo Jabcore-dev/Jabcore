@@ -133,7 +133,7 @@ export default async function ReferenceDetailPage({
     : null
 
   return (
-    <article className="pt-16">
+    <article data-block="reference-detail">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -142,187 +142,110 @@ export default async function ReferenceDetailPage({
       {/* Titulka přes celou šířku. Obrázek reference je to jediné, co o
           projektu něco řekne dřív, než se začne číst - tak ať je vidět dřív
           než metadata. */}
-      <header className="relative isolate overflow-hidden">
-        <div className="absolute inset-0 -z-10">
+      <header>
+        <x-hero-media aria-hidden="true">
           {reference.coverImage ? (
             <>
-              <Image
-                src={reference.coverImage}
-                alt=""
-                fill
-                sizes="100vw"
-                priority
-                className="object-cover"
-              />
+              <Image src={reference.coverImage} alt="" fill sizes="100vw" priority />
               {/* Dvě clony místo jedné: vodorovná drží čitelný text vlevo,
                   svislá sešívá obrázek s pozadím stránky. Jedna společná by
                   musela být tak tmavá, že by z fotky nezbylo nic. */}
-              <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/25" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-background/55" />
+              <x-hero-scrim data-axis="x" />
+              <x-hero-scrim data-axis="y" />
             </>
           ) : (
             <>
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-background to-accent/15" />
-              <div className="absolute -left-20 top-0 h-[24rem] w-[24rem] rounded-full bg-primary/20 blur-[120px]" />
-              <div className="absolute -right-16 bottom-0 h-[22rem] w-[22rem] rounded-full bg-accent/20 blur-[120px]" />
+              <x-hero-blank />
+              <x-glow data-side="left" />
+              <x-glow data-side="right" />
             </>
           )}
-        </div>
+        </x-hero-media>
 
-        <div className="container mx-auto px-4 pb-20 pt-12 sm:px-6 sm:pb-32 sm:pt-20 lg:px-8">
-          <Link
-            href={`/${locale}/reference`}
-            className="group mb-10 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <ArrowLeft
-              size={15}
-              weight="bold"
-              className="transition-transform duration-300 group-hover:-translate-x-1"
-            />
+        <x-wrap>
+          <Link href={`/${locale}/reference`} data-button="back">
+            <ArrowLeft size={15} weight="bold" />
             {t(locale, 'references.backToList')}
           </Link>
 
-          <div className="max-w-4xl">
-            <div className="mb-5 flex flex-wrap items-center gap-2">
-              {reference.featured && (
-                <span className="rounded-full bg-accent px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-accent-foreground">
-                  {t(locale, 'references.featuredLabel')}
-                </span>
-              )}
-              {industryLabel && (
-                <span className="rounded-full border border-border/70 bg-background/70 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground backdrop-blur-sm">
-                  {industryLabel}
-                </span>
-              )}
-            </div>
-
-            <h1
-              className="text-4xl font-bold leading-[1.08] sm:text-5xl lg:text-6xl"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              {reference.title}
-            </h1>
-
-            {reference.summary && (
-              <p className="mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-                {reference.summary}
-              </p>
+          <x-flags>
+            {reference.featured && (
+              <x-flag data-tone="accent">{t(locale, 'references.featuredLabel')}</x-flag>
             )}
-          </div>
-        </div>
+            {industryLabel && <x-flag>{industryLabel}</x-flag>}
+          </x-flags>
+
+          <h1>{reference.title}</h1>
+
+          {reference.summary && <p>{reference.summary}</p>}
+        </x-wrap>
       </header>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <x-wrap>
         {/* Karta s fakty zajíždí do titulky - sešije obrázek s textem, aby
             hlavička nekončila prázdnou hranou. */}
-        <dl className="-mt-12 grid grid-cols-2 gap-6 rounded-3xl border border-border/70 bg-card/80 p-6 shadow-xl backdrop-blur-xl sm:grid-cols-4 sm:p-8">
-          <div>
-            <dt className="mb-1 text-xs uppercase tracking-wider text-muted-foreground">
-              {t(locale, 'references.client')}
-            </dt>
-            <dd className="font-semibold">{reference.clientName}</dd>
-          </div>
+        <dl data-block="fact-card">
+          <x-fact>
+            <dt>{t(locale, 'references.client')}</dt>
+            <dd>{reference.clientName}</dd>
+          </x-fact>
 
           {reference.year && (
-            <div>
-              <dt className="mb-1 text-xs uppercase tracking-wider text-muted-foreground">
-                {t(locale, 'references.year')}
-              </dt>
-              <dd className="font-semibold">{reference.year}</dd>
-            </div>
+            <x-fact>
+              <dt>{t(locale, 'references.year')}</dt>
+              <dd>{reference.year}</dd>
+            </x-fact>
           )}
 
           {reference.tech.length > 0 && (
-            <div className="col-span-2">
-              <dt className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">
-                {t(locale, 'references.technologies')}
-              </dt>
-              <dd className="flex flex-wrap gap-1.5">
-                {reference.tech.map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-full border border-border/70 bg-secondary/60 px-2.5 py-1 text-xs font-medium"
-                  >
-                    {tech}
-                  </span>
-                ))}
+            <x-fact data-span="2">
+              <dt>{t(locale, 'references.technologies')}</dt>
+              <dd>
+                <x-tags>
+                  {reference.tech.map((tech) => (
+                    <x-tag key={tech}>{tech}</x-tag>
+                  ))}
+                </x-tags>
               </dd>
-            </div>
+            </x-fact>
           )}
         </dl>
-      </div>
 
-      <div className="container mx-auto px-4 pb-24 pt-16 sm:px-6 sm:pt-20 lg:px-8">
-        <div className="max-w-3xl">
-          {bodyHtml && <div className="richtext" dangerouslySetInnerHTML={{ __html: bodyHtml }} />}
+        <x-prose>
+          {bodyHtml && <x-richtext dangerouslySetInnerHTML={{ __html: bodyHtml }} />}
 
           {reference.testimonial && (
-            <blockquote className="relative mt-14 overflow-hidden rounded-3xl border border-border/60 bg-secondary/40 p-7 pt-14 sm:p-10 sm:pt-16">
-              <Quotes
-                size={40}
-                weight="fill"
-                className="absolute left-7 top-6 text-accent/50 sm:left-10"
-                aria-hidden="true"
-              />
-              <p className="text-lg italic leading-relaxed sm:text-xl">{reference.testimonial}</p>
-              {reference.testimonialAuthor && (
-                <footer className="mt-5 text-sm font-medium text-muted-foreground">
-                  {reference.testimonialAuthor}
-                </footer>
-              )}
+            <blockquote>
+              <Quotes size={40} weight="fill" aria-hidden="true" />
+              <p>{reference.testimonial}</p>
+              {reference.testimonialAuthor && <footer>{reference.testimonialAuthor}</footer>}
             </blockquote>
           )}
 
           {reference.projectUrl && (
-            <div className="mt-12">
-              <a
-                href={reference.projectUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold transition-colors hover:border-accent/60 hover:bg-accent/10"
-              >
+            <x-actions>
+              <a href={reference.projectUrl} target="_blank" rel="noopener noreferrer" data-button="ghost">
                 {t(locale, 'references.viewProject')}
-                <ArrowUpRight
-                  size={16}
-                  weight="bold"
-                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                />
+                <ArrowUpRight size={16} weight="bold" />
               </a>
-            </div>
+            </x-actions>
           )}
-        </div>
-      </div>
+        </x-prose>
+      </x-wrap>
 
-      <section className="border-t border-border/60 bg-secondary/30">
-        <div className="container mx-auto flex flex-col items-center gap-6 px-4 py-16 text-center sm:px-6 lg:px-8">
-          <h2
-            className="max-w-2xl text-2xl font-bold sm:text-3xl"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            {t(locale, 'references.ctaTitle')}
-          </h2>
-
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href={`/${locale}/contact`}
-              className="group inline-flex items-center gap-2 rounded-full bg-[linear-gradient(120deg,var(--primary),var(--accent))] px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:shadow-2xl hover:brightness-110"
-            >
+      <section data-block="closing-cta">
+        <x-wrap>
+          <h2>{t(locale, 'references.ctaTitle')}</h2>
+          <x-actions>
+            <Link href={`/${locale}/contact`} data-button="solid">
               {t(locale, 'references.ctaButton')}
-              <ArrowRight
-                size={16}
-                weight="bold"
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              />
+              <ArrowRight size={16} weight="bold" />
             </Link>
-
-            <Link
-              href={`/${locale}/reference`}
-              className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold transition-colors hover:bg-secondary"
-            >
+            <Link href={`/${locale}/reference`} data-button="ghost">
               {t(locale, 'references.backToList')}
             </Link>
-          </div>
-        </div>
+          </x-actions>
+        </x-wrap>
       </section>
     </article>
   )

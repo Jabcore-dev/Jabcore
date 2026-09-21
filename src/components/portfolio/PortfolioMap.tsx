@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motion'
+import { animate, useMotionTemplate, useMotionValue } from 'framer-motion'
 import {
   ArrowsOut,
   ArrowsIn,
@@ -10,8 +10,8 @@ import {
   CornersOut,
   HandGrabbing,
 } from '@phosphor-icons/react'
-import { cn } from '@/lib/utils'
 import { buildMapLayout, type MapProject } from '@/lib/portfolio-map'
+import { motionElement } from './motion-element'
 import ProjectBubble from './ProjectBubble'
 import ProjectPanel, { type PanelLabels } from './ProjectPanel'
 import MapBackground from './MapBackground'
@@ -35,6 +35,8 @@ export interface MapLabels extends PanelLabels {
 }
 
 const SPRING = { type: 'spring', stiffness: 170, damping: 26, mass: 0.9 } as const
+
+const Scene = motionElement('x-map-scene')
 const MIN_SCALE = 0.22
 const MAX_SCALE = 2.4
 
@@ -78,7 +80,7 @@ export default function PortfolioMap({
   const [ready, setReady] = useState(false)
   const [viewport, setViewport] = useState({ width: 0, height: 0 })
 
-  const surfaceRef = useRef<HTMLDivElement>(null)
+  const surfaceRef = useRef<HTMLElement>(null)
   const bubbleRefs = useRef(new Map<string, HTMLButtonElement>())
   const pointersRef = useRef(new Map<number, { x: number; y: number }>())
   const dragRef = useRef<{
@@ -126,7 +128,7 @@ export default function PortfolioMap({
       const padding = width < 640 ? 24 : 72
       // Nahoře sedí titulek s filtrem, dole nápověda a ovládání. Scéna se
       // skládá do pruhu mezi nimi, ne do celého okna.
-      const insetTop = immersive ? 88 : width < 640 ? 222 : 246
+      const insetTop = immersive ? 88 : width < 640 ? 222 : width < 1024 ? 246 : 262
       const insetBottom = 104
       const usableHeight = Math.max(height - insetTop - insetBottom, 160)
 
@@ -328,7 +330,7 @@ export default function PortfolioMap({
     }
   }, [immersive, activeSlug])
 
-  const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+  const onPointerDown = (event: React.PointerEvent<HTMLElement>) => {
     if (event.pointerType === 'mouse' && event.button !== 0) return
 
     pointersRef.current.set(event.pointerId, { x: event.clientX, y: event.clientY })
@@ -361,7 +363,7 @@ export default function PortfolioMap({
     return Math.hypot(second.x - first.x, second.y - first.y)
   }
 
-  const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+  const onPointerMove = (event: React.PointerEvent<HTMLElement>) => {
     if (!pointersRef.current.has(event.pointerId)) return
     pointersRef.current.set(event.pointerId, { x: event.clientX, y: event.clientY })
 
@@ -406,7 +408,7 @@ export default function PortfolioMap({
     y.set(drag.baseY + deltaY)
   }
 
-  const endPointer = (event: React.PointerEvent<HTMLDivElement>) => {
+  const endPointer = (event: React.PointerEvent<HTMLElement>) => {
     pointersRef.current.delete(event.pointerId)
     if (pointersRef.current.size < 2) pinchRef.current = null
 
@@ -421,7 +423,7 @@ export default function PortfolioMap({
     }
   }
 
-  const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+  const onKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
     const step = 90
     const moves: Record<string, [number, number]> = {
       ArrowLeft: [step, 0],
@@ -458,22 +460,16 @@ export default function PortfolioMap({
   }
 
   if (projects.length === 0) {
-    return (
-      <div className="flex h-[60svh] items-center justify-center text-muted-foreground">
-        {labels.empty}
-      </div>
-    )
+    return <x-map-empty>{labels.empty}</x-map-empty>
   }
 
   return (
     <section
       aria-label={labels.region}
-      className={cn(
-        'isolate',
-        immersive ? 'fixed inset-0 z-50 bg-background' : 'relative h-[100svh] min-h-[34rem] w-full',
-      )}
+      data-block="project-map"
+      data-immersive={immersive ? '' : undefined}
     >
-      <div
+      <x-map-canvas
         ref={surfaceRef}
         tabIndex={0}
         onKeyDown={onKeyDown}
@@ -485,26 +481,17 @@ export default function PortfolioMap({
           const rect = event.currentTarget.getBoundingClientRect()
           zoomAt(1.6, event.clientX - rect.left, event.clientY - rect.top, true)
         }}
-        className="absolute inset-0 cursor-grab overflow-hidden outline-none active:cursor-grabbing focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
-        style={{ touchAction: immersive ? 'none' : 'pan-y' }}
       >
         <MapBackground x={x} y={y} scale={scale} />
 
-        <motion.div
-          className="absolute left-0 top-0 h-0 w-0 transition-opacity duration-700"
-          style={{ transform, transformOrigin: '0 0', opacity: ready ? 1 : 0 }}
-        >
-          <svg
-            className="absolute left-0 top-0 overflow-visible"
-            width="1"
-            height="1"
-            aria-hidden="true"
-          >
+        {/* Počátek transformace v rohu, ne uprostřed: na tom stojí veškerá
+            matematika posunu a zoomu výš (svět → obrazovka = p · s + t). */}
+        <Scene style={{ transform, transformOrigin: '0 0', opacity: ready ? 1 : 0 }}>
+          <svg width="1" height="1" aria-hidden="true">
             {layout.links.map((link) => {
               const a = layout.nodes[link.a]
               const b = layout.nodes[link.b]
-              const muted =
-                allowed !== null && (!allowed.has(a.slug) || !allowed.has(b.slug))
+              const muted = allowed !== null && (!allowed.has(a.slug) || !allowed.has(b.slug))
 
               return (
                 <line
@@ -513,17 +500,11 @@ export default function PortfolioMap({
                   y1={a.y}
                   x2={b.x}
                   y2={b.y}
-                  className={cn(
-                    'transition-opacity duration-500',
-                    link.strong ? 'stroke-accent' : 'stroke-foreground',
-                  )}
-                  strokeWidth={link.strong ? 2.5 : 1.5}
-                  strokeDasharray={link.strong ? '16 12' : '5 10'}
-                  strokeLinecap="round"
+                  data-strong={link.strong ? '' : undefined}
+                  data-muted={muted ? '' : undefined}
                   // Bez tohohle tloušťka klesá se zoomem a při oddálení
                   // souhvězdí zmizí úplně.
                   vectorEffect="non-scaling-stroke"
-                  opacity={muted ? 0.08 : link.strong ? 0.6 : 0.4}
                 />
               )
             })}
@@ -548,69 +529,64 @@ export default function PortfolioMap({
               }}
             />
           ))}
-        </motion.div>
-      </div>
+        </Scene>
+      </x-map-canvas>
 
-      <div
-        className={cn(
-          'pointer-events-none absolute inset-x-0 top-0 z-20 flex flex-col items-center gap-4 px-3 sm:px-5',
-          // Pod pevnou hlavičkou stránky; v režimu přes celou obrazovku žádná
-          // hlavička není, tak se pás stáhne nahoru.
-          immersive ? 'pt-4' : 'pt-16 sm:pt-20',
-        )}
-      >
+      <x-map-top>
         {/* V režimu přes celou obrazovku jde o místo, ne o kontext. */}
         {!immersive && (
-          <div className="max-w-3xl text-center">
-            <h1
-              className="gradient-text text-4xl font-bold leading-[1.1] sm:text-5xl"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              {labels.title}
+          <x-map-title>
+            <h1>
+              <x-gradient>{labels.title}</x-gradient>
             </h1>
-            <p className="mx-auto mt-2.5 max-w-xl text-sm text-muted-foreground sm:text-base">
-              {labels.subtitle}
-            </p>
-          </div>
+            <p>{labels.subtitle}</p>
+          </x-map-title>
         )}
 
         {industries.length > 1 && (
-          <div className="pointer-events-auto flex max-w-full gap-1.5 overflow-x-auto rounded-full border border-border/60 bg-background/70 p-1.5 shadow-lg backdrop-blur-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <FilterChip active={industry === null} onClick={() => setIndustry(null)}>
+          <x-map-filters role="group" aria-label={labels.all}>
+            <button
+              type="button"
+              aria-pressed={industry === null}
+              onClick={() => setIndustry(null)}
+            >
               {labels.all}
-            </FilterChip>
+            </button>
             {industries.map((item) => (
-              <FilterChip
+              <button
                 key={item.key}
-                active={industry === item.key}
+                type="button"
+                aria-pressed={industry === item.key}
                 onClick={() => setIndustry(industry === item.key ? null : item.key)}
               >
                 {item.label}
-              </FilterChip>
+              </button>
             ))}
-          </div>
+          </x-map-filters>
         )}
-      </div>
+      </x-map-top>
 
-      <div className="absolute bottom-4 right-4 z-20 flex flex-col gap-1.5 rounded-2xl border border-border/60 bg-background/70 p-1.5 shadow-lg backdrop-blur-xl sm:bottom-6 sm:right-6">
-        <MapButton label={labels.zoomIn} onClick={() => zoomByButton(1.35)}>
+      <x-map-tools>
+        <button type="button" aria-label={labels.zoomIn} title={labels.zoomIn} onClick={() => zoomByButton(1.35)}>
           <Plus size={16} weight="bold" />
-        </MapButton>
-        <MapButton label={labels.zoomOut} onClick={() => zoomByButton(1 / 1.35)}>
+        </button>
+        <button type="button" aria-label={labels.zoomOut} title={labels.zoomOut} onClick={() => zoomByButton(1 / 1.35)}>
           <Minus size={16} weight="bold" />
-        </MapButton>
-        <MapButton label={labels.reset} onClick={() => fit(true)}>
+        </button>
+        <button type="button" aria-label={labels.reset} title={labels.reset} onClick={() => fit(true)}>
           <CornersOut size={16} weight="bold" />
-        </MapButton>
-        <MapButton
-          label={immersive ? labels.collapse : labels.expand}
+        </button>
+        <button
+          type="button"
+          aria-label={immersive ? labels.collapse : labels.expand}
+          title={immersive ? labels.collapse : labels.expand}
           onClick={() => setImmersive((value) => !value)}
         >
           {immersive ? <ArrowsIn size={16} weight="bold" /> : <ArrowsOut size={16} weight="bold" />}
-        </MapButton>
-      </div>
+        </button>
+      </x-map-tools>
 
-      <div className="absolute bottom-6 left-6 z-20 hidden lg:block">
+      <x-map-corner>
         <MapMinimap
           nodes={layout.nodes}
           bounds={layout.bounds}
@@ -626,20 +602,12 @@ export default function PortfolioMap({
             animate(y, viewport.height / 2 - worldY * current, SPRING)
           }}
         />
-      </div>
+      </x-map-corner>
 
-      <div
-        className={cn(
-          'pointer-events-none absolute bottom-5 left-4 right-20 z-20 transition-opacity duration-500',
-          'sm:left-1/2 sm:right-auto sm:-translate-x-1/2 lg:bottom-8',
-          hintVisible ? 'opacity-100' : 'opacity-0',
-        )}
-      >
-        <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-4 py-2 text-xs font-medium text-muted-foreground shadow-lg backdrop-blur-xl">
-          <HandGrabbing size={14} weight="fill" className="text-accent" />
-          {labels.hint}
-        </span>
-      </div>
+      <x-map-hint data-hidden={hintVisible ? undefined : ''}>
+        <HandGrabbing size={14} weight="fill" />
+        {labels.hint}
+      </x-map-hint>
 
       <ProjectPanel
         project={activeProject}
@@ -648,54 +616,5 @@ export default function PortfolioMap({
         onReadCaseStudy={scrollToCaseStudy}
       />
     </section>
-  )
-}
-
-function MapButton({
-  label,
-  onClick,
-  children,
-}: {
-  label: string
-  onClick: () => void
-  children: React.ReactNode
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-label={label}
-      title={label}
-      className="grid size-9 cursor-pointer place-items-center rounded-xl text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-    >
-      {children}
-    </button>
-  )
-}
-
-function FilterChip({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean
-  onClick: () => void
-  children: React.ReactNode
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={active}
-      className={cn(
-        'shrink-0 cursor-pointer whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition-colors',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-        active
-          ? 'bg-foreground text-background'
-          : 'text-muted-foreground hover:bg-secondary hover:text-foreground',
-      )}
-    >
-      {children}
-    </button>
   )
 }

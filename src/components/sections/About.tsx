@@ -44,7 +44,7 @@ export default function About() {
           className="text-center mb-16"
         >
           {/* Hlavni nadpis stranky /about, proto h1: sekce se nikde jinde nepouziva. */}
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6" style={{ fontFamily: 'var(--font-display)' }}>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-display)' }}>
             {t('about.title')}
           </h1>
         </motion.div>

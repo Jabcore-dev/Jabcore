@@ -1,11 +1,14 @@
 'use client'
 
-import { motion, useTransform, type MotionValue } from 'framer-motion'
+import { useTransform, type MotionValue } from 'framer-motion'
 import type { MapBounds, MapNode } from '@/lib/portfolio-map'
+import { motionElement } from './motion-element'
 
 const WIDTH = 188
 const HEIGHT = 120
 const PADDING = 10
+
+const Frame = motionElement('x-overview-frame')
 
 /**
  * Přehledka v rohu mapy.
@@ -68,16 +71,10 @@ export default function MapMinimap({
   })
 
   return (
-    <div
-      className="relative overflow-hidden rounded-2xl border border-border/60 bg-background/70 shadow-lg backdrop-blur-xl"
-      style={{ width: WIDTH, height: HEIGHT }}
-      role="group"
-      aria-label={label}
-    >
+    <x-overview role="group" aria-label={label} style={{ width: WIDTH, height: HEIGHT }}>
       <button
         type="button"
         aria-label={label}
-        className="absolute inset-0 cursor-crosshair"
         onClick={(event) => {
           const rect = event.currentTarget.getBoundingClientRect()
           const worldX = (event.clientX - rect.left - WIDTH / 2) / ratio + bounds.centerX
@@ -87,34 +84,23 @@ export default function MapMinimap({
       />
 
       {nodes.map((node) => (
-        <span
+        <x-overview-dot
           key={node.slug}
           aria-hidden="true"
-          className={
-            node.slug === activeSlug
-              ? 'pointer-events-none absolute rounded-full bg-accent'
-              : 'pointer-events-none absolute rounded-full bg-foreground/25'
-          }
+          data-active={node.slug === activeSlug ? '' : undefined}
           style={{
             left: toMiniX(node.x),
             top: toMiniY(node.y),
             width: Math.max(4, node.r * ratio * 2),
             height: Math.max(4, node.r * ratio * 2),
-            transform: 'translate(-50%, -50%)',
           }}
         />
       ))}
 
-      <motion.span
+      <Frame
         aria-hidden="true"
-        className="pointer-events-none absolute rounded-md border border-accent/70 bg-accent/10"
-        style={{
-          left: frameLeft,
-          top: frameTop,
-          width: frameWidth,
-          height: frameHeight,
-        }}
+        style={{ left: frameLeft, top: frameTop, width: frameWidth, height: frameHeight }}
       />
-    </div>
+    </x-overview>
   )
 }

@@ -1,0 +1,1091 @@
+/*
+  Portfolio one-pager: hlavička, mapa bublin, panel projektu, čísla a case
+  studies. Bez Tailwindu, bez tříd - viz úvod v elements.css.
+
+  Animace bublin a pozadí jedou tady v CSS, ne ve framer-motion: bublin je na
+  scéně klidně dvacet a každá plave vlastním tempem, což je přesně ta úloha,
+  kde se vyplatí nechat práci prohlížeči a nebudit kvůli ní React.
+*/
+
+@keyframes map-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -14px; }
+}
+
+@keyframes map-drift {
+  0%, 100% { translate: 0 0; scale: 1; }
+  50% { translate: 4% -6%; scale: 1.12; }
+}
+
+@keyframes map-twinkle {
+  0%, 100% { opacity: 0.12; scale: 1; }
+  50% { opacity: 0.7; scale: 1.6; }
+}
+
+/* ─── Hlavička ────────────────────────────────────────────────── */
+
+[data-block='portfolio-bar'] {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  border-bottom: 1px solid color-mix(in oklch, var(--border) 50%, transparent);
+  background: color-mix(in oklch, var(--background) 70%, transparent);
+  backdrop-filter: blur(24px);
+
+  x-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.7rem;
+  }
+}
+
+[data-brand] {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+
+  img {
+    width: 2.25rem;
+    height: 2.25rem;
+    object-fit: contain;
+    transition: rotate 0.3s ease;
+  }
+
+  &:hover img {
+    rotate: -8deg;
+  }
+
+  strong {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+
+  x-flag {
+    display: none;
+    backdrop-filter: none;
+
+    @media (min-width: 640px) {
+      display: inline-block;
+    }
+  }
+}
+
+/* ─── Mapa ────────────────────────────────────────────────────── */
+
+[data-block='project-map'] {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100svh;
+  min-height: 34rem;
+
+  &[data-immersive] {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    height: auto;
+    min-height: 0;
+    background: var(--background);
+  }
+}
+
+x-map-empty {
+  display: flex;
+  height: 60svh;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-foreground);
+}
+
+x-map-canvas {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  cursor: grab;
+  outline: none;
+  /*
+    Na dotyku si stránka nechává svislé rolování - mapa je přes celé okno
+    a pod ní je text, takže plné zabrání gesta by návštěvníka uvěznilo.
+    Vodorovně se mapa táhne, na celé obrazovce se pak pouští všechno.
+  */
+  touch-action: pan-y;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--ring);
+  }
+
+  [data-immersive] & {
+    touch-action: none;
+  }
+}
+
+x-map-scene {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  transition: opacity 0.7s ease;
+
+  svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: visible;
+  }
+
+  line {
+    stroke: var(--foreground);
+    stroke-width: 1.5;
+    stroke-dasharray: 5 10;
+    stroke-linecap: round;
+    opacity: 0.4;
+    transition: opacity 0.5s ease;
+
+    &[data-strong] {
+      stroke: var(--accent);
+      stroke-width: 2.5;
+      stroke-dasharray: 16 12;
+      opacity: 0.6;
+    }
+
+    &[data-muted] {
+      opacity: 0.08;
+    }
+  }
+}
+
+/* ─── Pozadí mapy ─────────────────────────────────────────────── */
+
+x-map-sky {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+x-map-wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom right,
+    color-mix(in oklch, var(--primary) 5%, transparent),
+    var(--background),
+    color-mix(in oklch, var(--accent) 5%, transparent)
+  );
+}
+
+x-map-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image: radial-gradient(circle at center, var(--foreground) 1px, transparent 1px);
+  mask-image: radial-gradient(ellipse at center, black 35%, transparent 78%);
+
+  .dark & {
+    opacity: 0.25;
+  }
+}
+
+x-map-orbs {
+  position: absolute;
+  inset: 0;
+}
+
+x-map-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(120px);
+
+  &[data-orb='primary'] {
+    left: -5rem;
+    top: 12%;
+    width: 38rem;
+    height: 38rem;
+    background: color-mix(in oklch, var(--primary) 20%, transparent);
+  }
+
+  &[data-orb='accent'] {
+    right: -6rem;
+    bottom: 8%;
+    width: 34rem;
+    height: 34rem;
+    background: color-mix(in oklch, var(--accent) 20%, transparent);
+  }
+
+  &[data-orb='core'] {
+    left: 50%;
+    top: 50%;
+    width: 26rem;
+    height: 26rem;
+    translate: -50% -50%;
+    filter: blur(140px);
+    background: color-mix(in oklch, var(--accent) 10%, transparent);
+  }
+}
+
+x-map-stars {
+  position: absolute;
+  inset: 0;
+  display: none;
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
+
+x-map-star {
+  position: absolute;
+  border-radius: 9999px;
+  background: color-mix(in oklch, var(--accent) 50%, transparent);
+}
+
+x-map-haze {
+  position: absolute;
+  inset-inline: 0;
+
+  &[data-edge='top'] {
+    top: 0;
+    height: 7rem;
+    background: linear-gradient(to bottom, var(--background), transparent);
+  }
+
+  &[data-edge='bottom'] {
+    bottom: 0;
+    height: 8rem;
+    background: linear-gradient(
+      to top,
+      var(--background),
+      color-mix(in oklch, var(--background) 70%, transparent),
+      transparent
+    );
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  x-map-orb[data-orb='primary'] {
+    animation: map-drift 26s ease-in-out infinite;
+  }
+
+  x-map-orb[data-orb='accent'] {
+    animation: map-drift 32s ease-in-out infinite reverse;
+  }
+
+  x-map-star {
+    animation-name: map-twinkle;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+}
+
+/* ─── Bublina ─────────────────────────────────────────────────── */
+/*
+  Velikost i písmo se počítají z --r (poloměr ve světových jednotkách), který
+  posílá komponenta. Bubliny se liší velikostí a pevné písmo by se do malé
+  nevešlo.
+*/
+
+x-bubble {
+  position: absolute;
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+  translate: -50% -50%;
+}
+
+x-bubble-float {
+  width: 100%;
+  height: 100%;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: map-float var(--float-duration) ease-in-out var(--float-delay) infinite;
+  }
+
+  > button {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 9999px;
+    text-align: center;
+    outline: none;
+    transition:
+      scale 0.5s ease-out,
+      opacity 0.5s ease-out,
+      filter 0.5s ease-out;
+
+    &:hover {
+      scale: 1.06;
+    }
+
+    &:active {
+      scale: 1.02;
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 4px color-mix(in oklch, var(--accent) 70%, transparent);
+    }
+
+    &[data-active] {
+      scale: 1.08;
+    }
+
+    /* Nesedí do filtru - zůstane na mapě, ale ustoupí. */
+    &[data-dimmed] {
+      scale: 0.82;
+      opacity: 0.25;
+      filter: blur(1px);
+    }
+  }
+}
+
+x-bubble-halo {
+  position: absolute;
+  inset: -8%;
+  border-radius: 9999px;
+  opacity: 0;
+  filter: blur(40px);
+  background: radial-gradient(circle, var(--accent), transparent 70%);
+  transition: opacity 0.5s ease;
+
+  button:hover > & {
+    opacity: 0.45;
+  }
+
+  button[data-featured] > & {
+    opacity: 0.4;
+  }
+
+  button[data-active] > & {
+    opacity: 0.7;
+  }
+}
+
+x-bubble-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 9999px;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.2),
+    0 24px 60px -18px rgb(0 0 0 / 0.55);
+  transition: box-shadow 0.5s ease;
+
+  button:hover > & {
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.45),
+      0 24px 60px -18px rgb(0 0 0 / 0.55);
+  }
+
+  button[data-featured] > & {
+    box-shadow:
+      0 0 0 2px color-mix(in oklch, var(--accent) 60%, transparent),
+      0 24px 60px -18px rgb(0 0 0 / 0.55);
+  }
+
+  button[data-active] > & {
+    box-shadow:
+      0 0 0 2px var(--accent),
+      0 24px 60px -18px rgb(0 0 0 / 0.55);
+  }
+
+  img {
+    object-fit: cover;
+    transition: scale 0.9s ease-out;
+  }
+
+  button:hover > & img {
+    scale: 1.1;
+  }
+}
+
+x-bubble-blank {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(140deg, var(--primary), var(--accent));
+}
+
+/* Vždycky tmavé sklo: bílý text musí držet nad libovolnou fotkou v obou režimech. */
+x-bubble-shade {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 18%, rgb(10 12 18 / 0.35), rgb(8 10 16 / 0.88));
+
+  x-bubble-blank + & {
+    background: radial-gradient(circle at 50% 18%, rgb(10 12 18 / 0.2), rgb(8 10 16 / 0.78));
+  }
+}
+
+x-bubble-gloss {
+  position: absolute;
+  inset: 0;
+  opacity: 0.7;
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.28), transparent 45%);
+}
+
+x-bubble-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--r) * 0.05);
+  padding-inline: 14%;
+  color: white;
+}
+
+x-bubble-client {
+  font-size: calc(var(--r) * 0.1);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: calc(var(--r) * 0.012);
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.65);
+}
+
+x-bubble-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: calc(var(--r) * 0.165);
+  font-weight: 700;
+  line-height: 1.25;
+  text-shadow: 0 2px 8px rgb(0 0 0 / 0.6);
+
+  /* Do velké bubliny se vejde o řádek víc, než kolik unese malá. */
+  &[data-big] {
+    -webkit-line-clamp: 4;
+  }
+}
+
+x-bubble-meta {
+  margin-top: 2%;
+  padding: calc(var(--r) * 0.035) calc(var(--r) * 0.1);
+  border-radius: 9999px;
+  background: rgb(255 255 255 / 0.15);
+  backdrop-filter: blur(4px);
+  font-size: calc(var(--r) * 0.095);
+  font-weight: 500;
+  color: rgb(255 255 255 / 0.8);
+}
+
+/* ─── Ovládání nad mapou ──────────────────────────────────────── */
+
+/* Společný vzhled plovoucích skleněných lišt. */
+:where(x-map-filters, x-map-tools, x-map-hint, x-overview) {
+  border: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  background: color-mix(in oklch, var(--background) 70%, transparent);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  backdrop-filter: blur(24px);
+}
+
+x-map-top {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 0.75rem 0;
+  pointer-events: none;
+
+  @media (min-width: 640px) {
+    padding: 5rem 1.25rem 0;
+  }
+
+  [data-immersive] & {
+    padding-top: 1rem;
+  }
+}
+
+x-map-title {
+  max-width: 48rem;
+  text-align: center;
+
+  p {
+    max-width: 36rem;
+    margin: 0.625rem auto 0;
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+
+    @media (min-width: 640px) {
+      font-size: 1rem;
+    }
+  }
+}
+
+x-map-filters {
+  display: flex;
+  max-width: 100%;
+  gap: 0.375rem;
+  overflow-x: auto;
+  padding: 0.375rem;
+  border-radius: 9999px;
+  pointer-events: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  button {
+    flex-shrink: 0;
+    cursor: pointer;
+    padding: 0.375rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+    color: var(--muted-foreground);
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
+
+    &:hover {
+      background: var(--secondary);
+      color: var(--foreground);
+    }
+
+    &[aria-pressed='true'] {
+      background: var(--foreground);
+      color: var(--background);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+}
+
+x-map-tools {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 0.375rem;
+  border-radius: 1rem;
+
+  @media (min-width: 640px) {
+    right: 1.5rem;
+    bottom: 1.5rem;
+  }
+
+  button {
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    cursor: pointer;
+    border-radius: 0.75rem;
+    color: var(--muted-foreground);
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
+
+    &:hover {
+      background: var(--secondary);
+      color: var(--foreground);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 1px;
+    }
+  }
+}
+
+x-map-corner {
+  position: absolute;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 20;
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: block;
+  }
+}
+
+x-map-hint {
+  position: absolute;
+  left: 1rem;
+  right: 5rem;
+  bottom: 1.25rem;
+  z-index: 20;
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  pointer-events: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  transition: opacity 0.5s ease;
+
+  @media (min-width: 640px) {
+    left: 50%;
+    right: auto;
+    translate: -50% 0;
+  }
+
+  @media (min-width: 1024px) {
+    bottom: 2rem;
+  }
+
+  svg {
+    color: var(--accent);
+  }
+
+  &[data-hidden] {
+    opacity: 0;
+  }
+}
+
+/* ─── Přehledka ───────────────────────────────────────────────── */
+
+x-overview {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+
+  > button {
+    position: absolute;
+    inset: 0;
+    cursor: crosshair;
+  }
+}
+
+x-overview-dot {
+  position: absolute;
+  translate: -50% -50%;
+  pointer-events: none;
+  border-radius: 9999px;
+  background: color-mix(in oklch, var(--foreground) 25%, transparent);
+
+  &[data-active] {
+    background: var(--accent);
+  }
+}
+
+x-overview-frame {
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid color-mix(in oklch, var(--accent) 70%, transparent);
+  border-radius: 0.375rem;
+  background: color-mix(in oklch, var(--accent) 10%, transparent);
+}
+
+/* ─── Panel projektu ──────────────────────────────────────────── */
+
+x-panel-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background: color-mix(in oklch, var(--background) 40%, transparent);
+  backdrop-filter: blur(2px);
+}
+
+x-panel {
+  position: absolute;
+  inset: auto 0.75rem 0.75rem;
+  z-index: 40;
+  display: flex;
+  max-height: 72%;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  border-radius: 1.5rem;
+  background: color-mix(in oklch, var(--card) 85%, transparent);
+  box-shadow: 0 40px 100px -30px rgb(0 0 0 / 0.55);
+  backdrop-filter: blur(40px);
+  outline: none;
+
+  @media (min-width: 640px) {
+    /* Pod pevnou hlavičkou stránky, jinak by pod ní zmizel křížek. */
+    inset: 5rem 1.25rem auto auto;
+    width: 26rem;
+    max-height: calc(100% - 6.25rem);
+
+    [data-immersive] & {
+      top: 1.25rem;
+      max-height: calc(100% - 2.5rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    width: 29rem;
+  }
+
+  > [data-button='close'] {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    z-index: 10;
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border-radius: 9999px;
+    background: rgb(0 0 0 / 0.45);
+    backdrop-filter: blur(12px);
+    color: white;
+
+    &:hover {
+      background: rgb(0 0 0 / 0.7);
+    }
+  }
+}
+
+x-panel-cover {
+  position: relative;
+  flex-shrink: 0;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--muted);
+
+  img {
+    object-fit: cover;
+  }
+}
+
+x-panel-blank {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(140deg, var(--primary), var(--accent));
+}
+
+x-panel-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    var(--card),
+    color-mix(in oklch, var(--card) 55%, transparent),
+    transparent
+  );
+}
+
+x-panel-heading {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 1.25rem;
+
+  x-flags {
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+}
+
+x-panel-body {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1.25rem 1.25rem;
+
+  dl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+    font-size: 0.875rem;
+
+    dd {
+      font-weight: 500;
+    }
+  }
+
+  > p {
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--muted-foreground);
+  }
+
+  blockquote {
+    margin-bottom: 1.25rem;
+    border-radius: 1rem;
+    padding: 2rem 1rem 1rem;
+
+    svg {
+      left: 1rem;
+      top: 0.75rem;
+    }
+
+    p {
+      font-size: 0.875rem;
+    }
+
+    footer {
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 400;
+    }
+  }
+}
+
+x-panel-section {
+  margin-bottom: 1.25rem;
+}
+
+x-panel-actions {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  background: color-mix(in oklch, var(--background) 40%, transparent);
+
+  [data-button] {
+    padding: 0.6rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  [data-button='solid'] {
+    flex: 1;
+    background: var(--primary);
+    box-shadow: none;
+  }
+
+  [data-button='solid']:hover svg {
+    translate: 0 0.15rem;
+  }
+}
+
+/* ─── Čísla ───────────────────────────────────────────────────── */
+
+[data-block='stats'] {
+  border-block: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  background: color-mix(in oklch, var(--secondary) 30%, transparent);
+
+  x-wrap {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    padding-block: 3rem;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+}
+
+x-stat {
+  text-align: center;
+
+  x-gradient {
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.1;
+
+    @media (min-width: 640px) {
+      font-size: 3rem;
+    }
+  }
+}
+
+x-stat-label {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+
+  @media (min-width: 640px) {
+    font-size: 0.875rem;
+  }
+}
+
+/* ─── Case studies ────────────────────────────────────────────── */
+
+[data-block='case-studies'] {
+  x-wrap {
+    padding-block: 5rem;
+
+    @media (min-width: 640px) {
+      padding-block: 7rem;
+    }
+  }
+
+  x-section-intro {
+    margin-bottom: 4rem;
+
+    h2 {
+      font-size: 1.875rem;
+
+      @media (min-width: 640px) {
+        font-size: 2.25rem;
+      }
+    }
+  }
+}
+
+x-case-list {
+  display: flex;
+  max-width: 72rem;
+  margin-inline: auto;
+  flex-direction: column;
+  gap: 6rem;
+
+  @media (min-width: 640px) {
+    gap: 8rem;
+  }
+}
+
+[data-block='case-study'] {
+  scroll-margin-top: 6rem;
+}
+
+x-case-number {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  @media (min-width: 640px) {
+    gap: 1.5rem;
+  }
+
+  x-gradient {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+
+    @media (min-width: 640px) {
+      font-size: 3.75rem;
+    }
+  }
+}
+
+x-rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--border), transparent);
+}
+
+x-case-cover {
+  position: relative;
+  margin-bottom: 2.5rem;
+
+  @media (min-width: 640px) {
+    margin-bottom: 3.5rem;
+  }
+}
+
+x-case-halo {
+  position: absolute;
+  inset: -1rem;
+  border-radius: 2rem;
+  opacity: 0.15;
+  filter: blur(40px);
+  background: linear-gradient(120deg, var(--primary), var(--accent));
+}
+
+x-case-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  border-radius: 1rem;
+  background: var(--muted);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+  img {
+    object-fit: cover;
+  }
+}
+
+x-case-layout {
+  display: grid;
+  gap: 2.5rem;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 3.5rem;
+
+    > aside {
+      grid-column: span 4;
+    }
+
+    > x-case-body {
+      grid-column: span 8;
+    }
+  }
+}
+
+x-case-sticky {
+  @media (min-width: 1024px) {
+    position: sticky;
+    top: 6rem;
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.2;
+
+    @media (min-width: 640px) {
+      font-size: 2.25rem;
+    }
+  }
+
+  dl {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+    font-size: 0.875rem;
+
+    dd {
+      font-weight: 500;
+    }
+  }
+
+  [data-button='link'] {
+    margin-top: 1.5rem;
+  }
+}
+
+x-lead {
+  margin-bottom: 2rem;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: color-mix(in oklch, var(--foreground) 80%, transparent);
+
+  @media (min-width: 640px) {
+    font-size: 1.5rem;
+  }
+}
+
+x-case-body blockquote {
+  margin-top: 2.5rem;
+}
