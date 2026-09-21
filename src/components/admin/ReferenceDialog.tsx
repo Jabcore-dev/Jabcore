@@ -26,7 +26,6 @@ import {
 import { Sparkle } from '@phosphor-icons/react'
 import { locales, defaultLocale, languages } from '@/lib/i18n-config'
 import { saveReference } from '@/app/admin/actions/references'
-import { translateReference } from '@/app/admin/actions/translate'
 import type { AdminReference } from '@/lib/admin-data'
 import { isIndustryKey } from '@/lib/industries'
 import ImageField from './ImageField'
@@ -90,21 +89,30 @@ function toFormState(reference: AdminReference | null) {
 /** Hodnota Selectu pro „bez oboru" - Radix nepovoluje prázdný řetězec. */
 const NO_INDUSTRY = '__none__'
 
-/** Kolik jazyků se překládá současně. Víc naráz by narazilo na limit API. */
-const TRANSLATE_CONCURRENCY = 6
-
 type TranslateStatus = 'working' | 'error'
 
-/** Pouští úlohy po skupinách, ať jich neběží víc než `limit` najednou. */
-async function runLimited<T>(items: T[], limit: number, task: (item: T) => Promise<void>) {
-  const queue = [...items]
-  const workers = Array.from({ length: Math.min(limit, queue.length) }, async () => {
-    while (queue.length > 0) {
-      const item = queue.shift()!
-      await task(item)
+/**
+ * Jeden jazyk přes /api/admin/translate. Přes fetch, ne server action:
+ * server actions pouští Next jednu po druhé a jazyky by se řadily za sebe.
+ */
+async function requestTranslation(
+  locale: string,
+  source: Translation,
+): Promise<{ ok: true; translation: Partial<Translation> } | { ok: false; error: string }> {
+  try {
+    const response = await fetch('/api/admin/translate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ locale, source }),
+    })
+    const data = (await response.json()) as { translation?: Partial<Translation>; error?: string }
+    if (!response.ok || !data.translation) {
+      return { ok: false, error: data.error ?? 'Překlad selhal.' }
     }
-  })
-  await Promise.all(workers)
+    return { ok: true, translation: data.translation }
+  } catch {
+    return { ok: false, error: 'Překlad selhal - zkontroluj připojení.' }
+  }
 }
 
 /** "Rezervační systém" → "rezervacni-system" */
@@ -192,14 +200,15 @@ export default function ReferenceDialog({
     const toastId = toast.loading(`Překládám do ${targets.length} jazyků…`)
 
     let done = 0
-    await runLimited(targets, TRANSLATE_CONCURRENCY, async (code) => {
-      const result = await translateReference({ locale: code, source }).catch(() => null)
+    // Všechny jazyky naráz - každý dorazí, jakmile je hotový.
+    await Promise.all(targets.map(async (code) => {
+      const result = await requestTranslation(code, source)
       done += 1
 
-      if (!result?.ok) {
+      if (!result.ok) {
         failed.push(code)
         setStatus((previous) => ({ ...previous, [code]: 'error' }))
-        if (result && !result.ok && failed.length === 1) toast.error(result.error)
+        if (failed.length === 1) toast.error(result.error)
       } else {
         const translation = { ...emptyTranslation, ...result.translation }
         results[code] = translation
@@ -215,7 +224,7 @@ export default function ReferenceDialog({
       }
 
       toast.loading(`Překládám… ${done}/${targets.length}`, { id: toastId })
-    })
+    }))
 
     setTranslating(false)
 

@@ -73,6 +73,27 @@ function clamp(value: string, max: number): string {
   return (space > max * 0.6 ? cut.slice(0, space) : cut).trim()
 }
 
+const normalize = (value: string) => value.replace(/\s+/g, ' ').trim().toLowerCase()
+
+/**
+ * Pole, které se vrátilo stejné jako česky, i když stejné být nemá.
+ *
+ * Lite model občas nechá název v češtině. Hlídají se jen víceslovné texty -
+ * jednoslovný název produktu („Pillsee") je stejný ve všech jazycích právem.
+ * Autor citace se nekontroluje: když je to jen jméno, stejný zůstat má.
+ */
+function untranslatedFields(
+  source: Record<string, string>,
+  result: Record<string, string>,
+): string[] {
+  return Object.keys(result).filter(
+    (field) =>
+      field !== 'testimonialAuthor' &&
+      source[field].trim().includes(' ') &&
+      normalize(source[field]) === normalize(result[field]),
+  )
+}
+
 export async function translateReferenceFields(
   source: TranslationFields,
   locale: Locale,
@@ -86,6 +107,10 @@ export async function translateReferenceFields(
     system: systemPrompt(locale),
     input: JSON.stringify(input),
     requiredKeys: filled,
+    check: (candidate) => {
+      const same = untranslatedFields(input, candidate)
+      return same.length > 0 ? `nepřeloženo: ${same.join(', ')}` : null
+    },
   })
 
   return Object.fromEntries(

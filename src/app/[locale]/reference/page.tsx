@@ -69,7 +69,10 @@ export default async function ReferencesPage({
           </h1>
           <p>{t(locale, 'references.subtitle')}</p>
 
-          <a href={portfolioUrl} data-button="link">
+          {/* Portfolio je samostatný web - v novém okně, ať návštěvník nepřijde
+              o stránku, ze které přišel. noopener: nová karta nedostane přístup
+              k window.opener téhle stránky. */}
+          <a href={portfolioUrl} target="_blank" rel="noopener" data-button="link">
             {t(locale, 'references.portfolioLink')}
             <ArrowUpRight size={15} weight="bold" />
           </a>
