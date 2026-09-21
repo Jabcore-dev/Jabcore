@@ -216,6 +216,10 @@
         "title": "Cloud și infrastructură",
         "description": "Infrastructură cloud de nivel enterprise care scalează odată cu afacerea ta. Implementăm sisteme robuste cu pipeline-uri CI/CD automatizate, containerizare, monitorizare și securitate pe mai multe niveluri."
       },
+      "dataAnalytics": {
+        "title": "Colectarea și analiza datelor",
+        "description": "Configurăm o măsurare care răspunde la întrebări reale de business: de unde vin clienții, unde renunță și ce funcționează. Colectăm traficul și conversiile cu Google Analytics, stocăm și analizăm datele în BigQuery și transformăm rezultatele în rapoarte pe care se pot baza deciziile."
+      },
       "uxui": {
         "title": "Design UX/UI",
         "description": "Interfețe frumoase, intuitive pe care utilizatorii le adoră. Combinăm excelența estetică cu cercetarea usabilității pentru a crea design-uri perfect pixelate care ghidează utilizatorii natural și stimulează angajamentul."
@@ -391,6 +395,10 @@
       "cloud": {
         "title": "Cloud și DevOps",
         "description": "Infrastructură scalabilă și livrare continuă"
+      },
+      "data": {
+        "title": "Colectarea și analiza datelor",
+        "description": "Măsurarea traficului, colectarea datelor și analize pe care te poți baza în decizii"
       },
       "ai": {
         "title": "AI și machine learning",

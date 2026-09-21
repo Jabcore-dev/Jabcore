@@ -216,6 +216,10 @@
         "title": "Cloud & Infrastructure",
         "description": "Enterprise-grade cloud infrastructure that scales with your business. We implement robust systems with automated CI/CD pipelines, containerization, monitoring, and multi-layered security."
       },
+      "dataAnalytics": {
+        "title": "Data collection & analytics",
+        "description": "We set up tracking that answers real business questions: where customers come from, where they drop off and what works. We collect traffic and conversions with Google Analytics, store and analyse the data in BigQuery and turn the results into reports you can base decisions on."
+      },
       "uxui": {
         "title": "UX/UI Design",
         "description": "Beautiful, intuitive interfaces that users love. We blend aesthetic excellence with usability research to create pixel-perfect designs that guide users naturally and drive engagement."
@@ -391,6 +395,10 @@
       "cloud": {
         "title": "Cloud & DevOps",
         "description": "Scalable infrastructure and continuous delivery"
+      },
+      "data": {
+        "title": "Data collection & analytics",
+        "description": "Tracking, data collection and analysis you can base decisions on"
       },
       "ai": {
         "title": "AI & Machine Learning",

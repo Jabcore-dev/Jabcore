@@ -265,6 +265,10 @@
         "title": "Chmura i infrastruktura",
         "description": "Infrastruktura chmurowa klasy enterprise, która skaluje się wraz z Twoim biznesem. Wdrażamy solidne systemy z automatycznymi potokami CI/CD, konteneryzacją, monitorowaniem i wielowarstwowym bezpieczeństwem."
       },
+      "dataAnalytics": {
+        "title": "Zbieranie i analiza danych",
+        "description": "Konfigurujemy pomiar, który odpowiada na prawdziwe pytania biznesowe: skąd przychodzą klienci, gdzie odpadają i co działa. Ruch i konwersje zbieramy w Google Analytics, dane przechowujemy i analizujemy w BigQuery, a wyniki zamieniamy w raporty, na których można opierać decyzje."
+      },
       "uxui": {
         "title": "Projektowanie UX/UI",
         "description": "Piękne, intuicyjne interfejsy, które użytkownicy uwielbiają. Łączymy doskonałość estetyczną z badaniami użyteczności, aby tworzyć perfekcyjne projekty, które prowadzą użytkowników naturalnie i napędzają zaangażowanie."
@@ -440,6 +444,10 @@
       "cloud": {
         "title": "Chmura i DevOps",
         "description": "Skalowalna infrastruktura i ciągła dostawa"
+      },
+      "data": {
+        "title": "Zbieranie i analiza danych",
+        "description": "Pomiar ruchu, zbieranie danych i analizy, na których można opierać decyzje"
       },
       "ai": {
         "title": "AI i uczenie maszynowe",

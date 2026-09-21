@@ -8,6 +8,8 @@ import {
   SiAndroid,
   SiUbuntu,
   SiCapacitor,
+  SiGoogleanalytics,
+  SiGooglebigquery,
 } from 'react-icons/si'
 import { FaDocker } from 'react-icons/fa6'
 import {
@@ -54,6 +56,8 @@ const simpleIcons: Record<string, {
   'Ubuntu Server': { icon: SiUbuntu, color: '#E95420' },
   'Docker': { icon: FaDocker, color: '#2496ED' },
   'Capacitor JS': { icon: SiCapacitor, color: '#119EFF' },
+  'Google Analytics': { icon: SiGoogleanalytics, color: '#E37400' },
+  'BigQuery': { icon: SiGooglebigquery, color: '#669DF6' },
 }
 
 // Speciální ikony pro design/UX služby

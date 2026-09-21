@@ -216,6 +216,10 @@
         "title": "Cloud & infrastructuur",
         "description": "Enterprise-grade cloud-infrastructuur die schaalt met je bedrijf. We implementeren robuuste systemen met geautomatiseerde CI/CD-pipelines, containerisatie, monitoring en meerlagige beveiliging."
       },
+      "dataAnalytics": {
+        "title": "Dataverzameling & analyse",
+        "description": "We richten metingen in die echte zakelijke vragen beantwoorden: waar klanten vandaan komen, waar ze afhaken en wat werkt. Verkeer en conversies verzamelen we met Google Analytics, de data slaan we op en analyseren we in BigQuery, en de resultaten zetten we om in rapportages waarop je beslissingen kunt baseren."
+      },
       "uxui": {
         "title": "UX/UI-ontwerp",
         "description": "Mooie, intuïtieve interfaces waar gebruikers van houden. We combineren esthetische excellentie met bruikbaarheidsonderzoek om pixel-perfecte ontwerpen te creëren die gebruikers natuurlijk leiden en betrokkenheid stimuleren."
@@ -391,6 +395,10 @@
       "cloud": {
         "title": "Cloud & DevOps",
         "description": "Schaalbare infrastructuur en continue levering"
+      },
+      "data": {
+        "title": "Dataverzameling & analyse",
+        "description": "Meten, dataverzameling en analyses om beslissingen op te baseren"
       },
       "ai": {
         "title": "AI & machine learning",

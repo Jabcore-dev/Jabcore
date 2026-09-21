@@ -216,6 +216,10 @@
         "title": "Cloud & Infrastruktur",
         "description": "Enterprise-grade Cloud-Infrastruktur, die mit Ihrem Unternehmen skaliert. Wir implementieren robuste Systeme mit automatisierten CI/CD-Pipelines, Containerisierung, Monitoring und mehrschichtiger Sicherheit."
       },
+      "dataAnalytics": {
+        "title": "Datenerfassung & Analyse",
+        "description": "Wir richten ein Tracking ein, das echte Geschäftsfragen beantwortet: Woher kommen Kunden, wo springen sie ab und was funktioniert. Besuche und Conversions erfassen wir mit Google Analytics, speichern und analysieren die Daten in BigQuery und machen daraus Auswertungen, auf die sich Entscheidungen stützen lassen."
+      },
       "uxui": {
         "title": "UX/UI-Design",
         "description": "Schöne, intuitive Interfaces, die Benutzer lieben. Wir verbinden ästhetische Exzellenz mit Usability-Forschung, um pixelperfekte Designs zu schaffen, die Benutzer natürlich führen und Engagement fördern."
@@ -391,6 +395,10 @@
       "cloud": {
         "title": "Cloud & DevOps",
         "description": "Skalierbare Infrastruktur und kontinuierliche Bereitstellung"
+      },
+      "data": {
+        "title": "Datenerfassung & Analyse",
+        "description": "Tracking, Datenerfassung und Analysen als Grundlage für Entscheidungen"
       },
       "ai": {
         "title": "KI & maschinelles Lernen",

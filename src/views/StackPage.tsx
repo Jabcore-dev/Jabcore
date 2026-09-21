@@ -8,7 +8,8 @@ import {
   Brain, 
   Cloud, 
   PencilLine,
-  CheckCircle
+  CheckCircle,
+  ChartLineUp
 } from '@phosphor-icons/react'
 import TechIcon from '@/components/TechIcon'
 import { useTranslation } from 'react-i18next'
@@ -102,6 +103,18 @@ export default function StackPage() {
         { name: 'Git' },
         { name: 'Docker' },
         { name: 'CI/CD' }
+      ]
+    },
+    {
+      icon: ChartLineUp,
+      title: t('stack.technologies.dataAnalytics.title'),
+      color: 'text-amber-500',
+      bgColor: 'bg-amber-500/10',
+      description: t('stack.technologies.dataAnalytics.description'),
+      features: [],
+      techs: [
+        { name: 'Google Analytics' },
+        { name: 'BigQuery' }
       ]
     },
     {

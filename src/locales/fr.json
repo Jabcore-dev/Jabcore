@@ -216,6 +216,10 @@
         "title": "Cloud et infrastructure",
         "description": "Infrastructure cloud de niveau entreprise qui évolue avec votre entreprise. Nous mettons en œuvre des systèmes robustes avec des pipelines CI/CD automatisés, la conteneurisation, la surveillance et une sécurité multicouche."
       },
+      "dataAnalytics": {
+        "title": "Collecte et analyse de données",
+        "description": "Nous mettons en place une mesure qui répond à de vraies questions business : d'où viennent les clients, où ils décrochent et ce qui fonctionne. Nous collectons le trafic et les conversions avec Google Analytics, stockons et analysons les données dans BigQuery et transformons les résultats en rapports sur lesquels fonder vos décisions."
+      },
       "uxui": {
         "title": "Design UX/UI",
         "description": "Interfaces belles et intuitives que les utilisateurs adorent. Nous allions l'excellence esthétique avec la recherche d'utilisabilité pour créer des designs au pixel près qui guident les utilisateurs naturellement et favorisent l'engagement."
@@ -391,6 +395,10 @@
       "cloud": {
         "title": "Cloud et DevOps",
         "description": "Infrastructure évolutive et livraison continue"
+      },
+      "data": {
+        "title": "Collecte et analyse de données",
+        "description": "Mesure d'audience, collecte de données et analyses pour mieux décider"
       },
       "ai": {
         "title": "IA et apprentissage automatique",

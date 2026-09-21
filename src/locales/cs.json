@@ -216,6 +216,10 @@
         "title": "Cloud & infrastruktura",
         "description": "Cloudová infrastruktura podnikové úrovně, která škáluje s vaším podnikáním. Implementujeme robustní systémy s automatizovanými CI/CD pipelines, kontejnerizací, monitoringem a vícevrstvým zabezpečením."
       },
+      "dataAnalytics": {
+        "title": "Sběr a analýza dat",
+        "description": "Nastavíme měření, které odpovídá na skutečné obchodní otázky: odkud přicházejí zákazníci, kde odcházejí a co funguje. Návštěvnost a konverze sbíráme přes Google Analytics, data ukládáme a analyzujeme v BigQuery a výsledky převádíme do přehledů, podle kterých se dá rozhodovat."
+      },
       "uxui": {
         "title": "UX/UI design",
         "description": "Krásná, intuitivní rozhraní, která uživatelé milují. Spojujeme estetickou dokonalost s výzkumem použitelnosti pro vytvoření pixel-perfektních designů, které uživatele vedou přirozeně a podporují zapojení."
@@ -391,6 +395,10 @@
       "cloud": {
         "title": "Cloud & DevOps",
         "description": "Škálovatelná infrastruktura a kontinuální dodávka"
+      },
+      "data": {
+        "title": "Sběr a analýza dat",
+        "description": "Měření návštěvnosti, sběr dat a analýzy, podle kterých se dá rozhodovat"
       },
       "ai": {
         "title": "AI & strojové učení",

@@ -51,6 +51,14 @@ export default function TechStack() {
       ],
     },
     {
+      title: t('techStack.categories.data.title'),
+      description: t('techStack.categories.data.description'),
+      technologies: [
+        'Google Analytics',
+        'BigQuery',
+      ],
+    },
+    {
       title: t('techStack.categories.ai.title'),
       description: t('techStack.categories.ai.description'),
       technologies: [
@@ -95,6 +103,14 @@ export default function TechStack() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              // Sedm kategorií nevychází do řad po třech (ani po dvou) -
+              // poslední karta by visela sama vlevo. Vycentruje se, ať to
+              // vypadá záměrně.
+              className={
+                index === techCategories.length - 1 && techCategories.length % 3 === 1
+                  ? 'md:col-span-2 md:mx-auto md:w-full md:max-w-[calc(50%-1rem)] lg:col-span-1 lg:col-start-2 lg:max-w-none'
+                  : undefined
+              }
             >
               <Card className="h-full hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/30">
                 <CardContent className="pt-6">

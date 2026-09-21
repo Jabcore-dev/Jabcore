@@ -216,6 +216,10 @@
         "title": "Cloud e infrastruttura",
         "description": "Infrastruttura cloud di livello enterprise che scala con la tua azienda. Implementiamo sistemi robusti con pipeline CI/CD automatizzate, containerizzazione, monitoraggio e sicurezza multi-livello."
       },
+      "dataAnalytics": {
+        "title": "Raccolta e analisi dei dati",
+        "description": "Impostiamo una misurazione che risponde a vere domande di business: da dove arrivano i clienti, dove abbandonano e cosa funziona. Raccogliamo traffico e conversioni con Google Analytics, archiviamo e analizziamo i dati in BigQuery e trasformiamo i risultati in report su cui basare le decisioni."
+      },
       "uxui": {
         "title": "Design UX/UI",
         "description": "Interfacce belle e intuitive che gli utenti amano. Fondiamo eccellenza estetica con ricerca sull'usabilità per creare design pixel-perfect che guidano gli utenti naturalmente e favoriscono l'engagement."
@@ -391,6 +395,10 @@
       "cloud": {
         "title": "Cloud e DevOps",
         "description": "Infrastruttura scalabile e consegna continua"
+      },
+      "data": {
+        "title": "Raccolta e analisi dei dati",
+        "description": "Misurazione del traffico, raccolta dati e analisi su cui basare le decisioni"
       },
       "ai": {
         "title": "IA e machine learning",

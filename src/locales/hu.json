@@ -216,6 +216,10 @@
         "title": "Felhő és infrastruktúra",
         "description": "Vállalati szintű felhőinfrastruktúra, amely az üzleteddel skálázódik. Robusztus rendszereket telepítünk automatizált CI/CD pipeline-okkal, konténerizációval, monitorozással és többrétegű biztonsággal."
       },
+      "dataAnalytics": {
+        "title": "Adatgyűjtés és elemzés",
+        "description": "Olyan mérést állítunk be, amely valódi üzleti kérdésekre ad választ: honnan érkeznek az ügyfelek, hol morzsolódnak le, és mi működik. A látogatottságot és a konverziókat a Google Analytics segítségével gyűjtjük, az adatokat a BigQueryben tároljuk és elemezzük, az eredményekből pedig olyan kimutatásokat készítünk, amelyekre döntéseket lehet alapozni."
+      },
       "uxui": {
         "title": "UX/UI tervezés",
         "description": "Gyönyörű, intuitív felületek, amelyeket a felhasználók imádnak. Az esztétikai kiválóságot ötvözzük a használhatósági kutatással, hogy pixelpontos dizájnokat hozzunk létre, amelyek természetesen vezetik a felhasználókat és növelik az elkötelezettséget."
@@ -391,6 +395,10 @@
       "cloud": {
         "title": "Felhő és DevOps",
         "description": "Skálázható infrastruktúra és folyamatos szállítás"
+      },
+      "data": {
+        "title": "Adatgyűjtés és elemzés",
+        "description": "Látogatottságmérés, adatgyűjtés és elemzés a megalapozott döntésekhez"
       },
       "ai": {
         "title": "MI és gépi tanulás",

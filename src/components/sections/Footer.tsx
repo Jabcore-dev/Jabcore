@@ -5,13 +5,11 @@ import { GithubLogo, LinkedinLogo, FacebookLogo, InstagramLogo, EnvelopeSimple, 
 import logoWhite from '@/assets/images/white.png'
 import logoBlack from '@/assets/images/black.png'
 import Link from 'next/link'
-import { useTheme } from 'next-themes'
 import { useTranslation } from 'react-i18next'
 import { useLocalePath } from '@/hooks/useLocale'
 
 const Footer = memo(function Footer() {
   const currentYear = useMemo(() => new Date().getFullYear(), [])
-  const { resolvedTheme } = useTheme()
   const { t } = useTranslation()
   const localePath = useLocalePath()
 
@@ -34,10 +32,18 @@ const Footer = memo(function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
             <Link href={localePath('/')} className="inline-flex items-center gap-3 mb-4">
+              {/*
+                Obě varianty loga, správnou ukáže CSS podle třídy .dark, kterou
+                next-themes nastaví na <html> ještě před prvním vykreslením.
+                Výběr v JavaScriptu podle resolvedTheme dělal hydration
+                mismatch: server téma nezná a posílal vždycky bílé logo.
+              */}
+              <img src={logoBlack.src} alt="Jabcore" className="w-10 h-10 object-contain dark:hidden" />
               <img
-                src={resolvedTheme === 'light' ? logoBlack.src : logoWhite.src}
-                alt="Jabcore"
-                className="w-10 h-10 object-contain"
+                src={logoWhite.src}
+                alt=""
+                aria-hidden="true"
+                className="hidden w-10 h-10 object-contain dark:block"
               />
               <span className="font-display text-2xl font-bold text-foreground">Jabcore</span>
             </Link>

@@ -21,7 +21,7 @@ const Navigation = memo(function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [isContactOpen, setIsContactOpen] = useState(false)
   const pathname = usePathname()
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
   const { t } = useTranslation()
   const localePath = useLocalePath()
 
@@ -31,7 +31,9 @@ const Navigation = memo(function Navigation() {
     navbarHasAnimated = true
   }, [])
 
-  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
+  // resolvedTheme, ne theme: při „podle systému" je theme === 'system' a první
+  // klik na tmavém systému by nastavil 'dark', tedy nic viditelného.
+  const toggleTheme = () => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
 
   const navItems = useMemo(() => [
     { label: t('navigation.home'), href: localePath('/') },
@@ -123,11 +125,10 @@ const Navigation = memo(function Navigation() {
                 onClick={toggleTheme}
                 className="rounded-full"
               >
-                {theme === 'light' ? (
-                  <Moon className="h-5 w-5" />
-                ) : (
-                  <Sun className="h-5 w-5" />
-                )}
+                {/* Obě ikony, správnou vybere CSS - server téma nezná a výběr
+                    v JavaScriptu by se při hydrataci neshodoval. */}
+                <Moon className="h-5 w-5 dark:hidden" />
+                <Sun className="hidden h-5 w-5 dark:block" />
               </Button>
             </motion.div>
             {socialLinks.map((social, index) => {
@@ -160,11 +161,8 @@ const Navigation = memo(function Navigation() {
             onClick={toggleTheme}
             className="rounded-full"
           >
-            {theme === 'light' ? (
-              <Moon className="h-5 w-5" />
-            ) : (
-              <Sun className="h-5 w-5" />
-            )}
+            <Moon className="h-5 w-5 dark:hidden" />
+            <Sun className="hidden h-5 w-5 dark:block" />
           </Button>
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>

@@ -229,6 +229,10 @@
         "title": "Cloud y DevOps",
         "description": "Infraestructura escalable y entrega continua"
       },
+      "data": {
+        "title": "Recogida y análisis de datos",
+        "description": "Medición, recogida de datos y análisis para tomar mejores decisiones"
+      },
       "ai": {
         "title": "IA y Machine Learning",
         "description": "Funciones inteligentes impulsadas por IA de vanguardia"
@@ -281,6 +285,10 @@
       "cloudInfra": {
         "title": "Cloud e infraestructura",
         "description": "Infraestructura en la nube de nivel empresarial que escala con su negocio. Implementamos sistemas robustos con pipelines CI/CD automatizados, contenedorización, monitoreo y seguridad multicapa."
+      },
+      "dataAnalytics": {
+        "title": "Recogida y análisis de datos",
+        "description": "Configuramos una medición que responde a preguntas reales de negocio: de dónde vienen los clientes, dónde abandonan y qué funciona. Recogemos el tráfico y las conversiones con Google Analytics, almacenamos y analizamos los datos en BigQuery y convertimos los resultados en informes en los que basar las decisiones."
       },
       "uxui": {
         "title": "Diseño UX/UI",
