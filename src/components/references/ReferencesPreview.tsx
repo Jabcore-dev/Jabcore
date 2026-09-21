@@ -1,10 +1,12 @@
 import Link from 'next/link'
-import { ArrowRight } from '@phosphor-icons/react/ssr'
+import { ArrowRight, ArrowUpRight } from '@phosphor-icons/react/ssr'
 import { t } from '@/lib/server-i18n'
 import { getPublishedReferences } from '@/lib/references'
 import { skipPrerenderWithoutDatabase } from '@/lib/db-runtime'
-import type { Locale } from '@/lib/i18n-config'
+import { defaultLocale, type Locale } from '@/lib/i18n-config'
+import { PORTFOLIO_URL } from '@/lib/site-config'
 import ReferenceCard from './ReferenceCard'
+import ReferenceRail from './ReferenceRail'
 
 /**
  * Tři reference na homepage, prolinkované na celý seznam.
@@ -38,6 +40,8 @@ export default async function ReferencesPreview({ locale }: { locale: Locale }) 
     featured: t(locale, 'references.featuredLabel'),
   }
 
+  const portfolioUrl = locale === defaultLocale ? PORTFOLIO_URL : `${PORTFOLIO_URL}/${locale}`
+
   return (
     <section data-block="references-preview">
       <x-glow aria-hidden="true" />
@@ -50,22 +54,31 @@ export default async function ReferencesPreview({ locale }: { locale: Locale }) 
             <p>{t(locale, 'references.previewSubtitle')}</p>
           </x-section-intro>
 
-          <Link href={`/${locale}/reference`} data-button="ghost">
-            {t(locale, 'references.previewCta')}
-            <ArrowRight size={15} weight="bold" />
-          </Link>
+          <x-actions>
+            <Link href={`/${locale}/reference`} data-button="ghost">
+              {t(locale, 'references.previewCta')}
+              <ArrowRight size={15} weight="bold" />
+            </Link>
+            {/* Portfolio je samostatný web - v novém okně, ať návštěvník
+                nepřijde o homepage. */}
+            <a href={portfolioUrl} target="_blank" rel="noopener" data-button="link">
+              {t(locale, 'references.portfolioLink')}
+              <ArrowUpRight size={15} weight="bold" />
+            </a>
+          </x-actions>
         </x-section-head>
 
-        <x-reference-grid>
+        <ReferenceRail slideLabel={t(locale, 'references.carouselSlide')}>
           {references.map((reference) => (
             <ReferenceCard
               key={reference.id}
               reference={reference}
               href={`/${locale}/reference/${reference.slug}`}
               labels={labels}
+              showFeatured={false}
             />
           ))}
-        </x-reference-grid>
+        </ReferenceRail>
       </x-wrap>
     </section>
   )

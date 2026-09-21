@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { Star } from '@phosphor-icons/react'
 import type { MapNode, MapProject } from '@/lib/portfolio-map'
 
 /**
@@ -6,8 +7,10 @@ import type { MapNode, MapProject } from '@/lib/portfolio-map'
  *
  * Fotka z projektu nahoře, text dole na tmavém přechodu: bílý text musí držet
  * nad libovolným snímkem v obou režimech, a jediný způsob, jak to zaručit, je
- * nenechat kontrast na barvách tématu. Obrys a záře mají barvu oboru (--hue),
- * zvýrazněné projekty navíc otáčející se světelný prstenec.
+ * nenechat kontrast na barvách tématu. Obrys a záře mají barvu oboru (--hue).
+ *
+ * Oblíbený projekt vypadá stejně jako ostatní - stejná velikost, stejné místo
+ * v mapě. Liší se jen hvězdičkou nad jménem klienta.
  *
  * Typografie se počítá z poloměru (--r), ne z pevné velikosti - bubliny se
  * liší velikostí a text v té malé by jinak přetekl. Čísla, která zná jen
@@ -57,12 +60,10 @@ export default function ProjectBubble({
           }}
           aria-label={label}
           data-slug={project.slug}
-          data-featured={project.featured ? '' : undefined}
           data-dimmed={dimmed ? '' : undefined}
           data-active={active ? '' : undefined}
         >
           <x-bubble-halo aria-hidden="true" />
-          {project.featured && <x-bubble-ring aria-hidden="true" />}
 
           <x-bubble-face>
             {project.coverImage ? (
@@ -78,14 +79,19 @@ export default function ProjectBubble({
           </x-bubble-face>
 
           <x-bubble-label>
+            {project.featured && (
+              <x-bubble-star aria-hidden="true">
+                <Star weight="fill" />
+              </x-bubble-star>
+            )}
             <x-bubble-client>{project.clientName}</x-bubble-client>
-            <x-bubble-title data-big={node.r >= 130 ? '' : undefined}>
-              {project.title}
-            </x-bubble-title>
+            <x-bubble-title>{project.title}</x-bubble-title>
             {(project.year || project.industryLabel) && (
               <x-bubble-meta>
                 {project.industryLabel && <x-swatch aria-hidden="true" />}
-                {[project.industryLabel, project.year].filter(Boolean).join(' · ')}
+                {/* Rok první: když se dlouhý obor nevejde, zkrátí se obor (je ve
+                    filtru i v detailu), rok zůstane celý. */}
+                <span>{[project.year, project.industryLabel].filter(Boolean).join(' · ')}</span>
               </x-bubble-meta>
             )}
           </x-bubble-label>

@@ -99,11 +99,14 @@ const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5))
  */
 const GAP = 78
 
-const FEATURED_RADIUS = 152
 const NORMAL_RADIUS = 104
 
+/*
+ * Oblíbený projekt velikost bubliny neovlivňuje - dřív byla výrazně větší a to
+ * přeskládalo celou mapu i spojnice. Oblíbenost ukazuje jen hvězdička.
+ */
 function radiusOf(project: MapProject, seed: number): number {
-  const base = project.featured ? FEATURED_RADIUS : NORMAL_RADIUS
+  const base = NORMAL_RADIUS
   // ±8 % podle slugu: mapa pravidelných koleček vypadá jako diagram, mapa
   // s drobnou nepravidelností jako souhvězdí.
   const variation = 0.92 + unit(seed, 1) * 0.16
@@ -130,8 +133,9 @@ export function buildMapLayout(projects: MapProject[]): MapLayout {
     }
   }
 
-  // Pořadí drží pořadí z databáze (featured první, pak ruční řazení), takže
-  // to, co má obchodník ukázat jako první, sedí doprostřed mapy.
+  // Pořadí je ruční řazení z adminu (volající ho předá seřazené), takže to, co
+  // má obchodník ukázat jako první, sedí doprostřed. Oblíbenost pořadí
+  // nemění - přepnutí hvězdičky nesmí přeskládat mapu.
   const nodes: MapNode[] = projects.map((project, index) => {
     const seed = hash(project.slug)
     const r = radiusOf(project, seed)

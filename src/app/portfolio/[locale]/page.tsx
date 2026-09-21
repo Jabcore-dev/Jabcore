@@ -120,9 +120,19 @@ export default async function PortfolioPage({
   const industryOf = (key: string | null) =>
     key ? industries.find((item) => item.key === key) : undefined
 
+  /*
+   * Databáze vrací oblíbené první (tak je to správně pro výpisy na webu). Mapa
+   * se ale skládá podle pořadí - první projekt jde doprostřed a ostatní kolem
+   * něj - takže by přepnutí hvězdičky přeskládalo celou scénu i spojnice.
+   * Pro mapu proto jen ruční pořadí z adminu, pak rok.
+   */
+  const ordered = [...references].sort(
+    (a, b) => a.sortOrder - b.sortOrder || (b.year ?? 0) - (a.year ?? 0) || a.id - b.id,
+  )
+
   // Na klienta jde jen to, co mapa opravdu kreslí - tělo case study a meta
   // pole pro vyhledávače zůstávají na serveru.
-  const projects: MapProject[] = references.map((reference) => ({
+  const projects: MapProject[] = ordered.map((reference) => ({
     id: reference.id,
     slug: reference.slug,
     title: reference.title,
@@ -266,6 +276,7 @@ export default async function PortfolioPage({
           close: t(locale, 'portfolio.close'),
           previous: t(locale, 'portfolio.previous'),
           next: t(locale, 'portfolio.next'),
+          featured: t(locale, 'references.featuredLabel'),
         }}
       />
     </main>

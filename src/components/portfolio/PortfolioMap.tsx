@@ -34,6 +34,8 @@ export interface MapLabels {
   close: string
   previous: string
   next: string
+  /** Pro čtečky: hvězdička v bublině je jen obrázek. */
+  featured: string
 }
 
 const SPRING = { type: 'spring', stiffness: 170, damping: 26, mass: 0.9 } as const
@@ -569,7 +571,7 @@ export default function PortfolioMap({
               node={layout.nodes[index]}
               dimmed={allowed !== null && !allowed.has(project.slug)}
               active={activeSlug === project.slug}
-              label={`${labels.open}: ${project.title}`}
+              label={`${labels.open}: ${project.title}${project.featured ? ` (${labels.featured})` : ''}`}
               onKeyboardOpen={() => open(project.slug)}
             />
           ))}

@@ -26,6 +26,7 @@ export default function ReferenceCard({
   labels,
   layout = 'card',
   priority = false,
+  showFeatured = true,
 }: {
   reference: LocalizedReference
   href: string
@@ -33,6 +34,8 @@ export default function ReferenceCard({
   layout?: 'card' | 'wide'
   /** Jen pro první kartu nad ohybem - jinak by se přednačítala celá mřížka. */
   priority?: boolean
+  /** Štítek „Vybraný projekt". Na homepage vypnutý - tam je to jen upoutávka. */
+  showFeatured?: boolean
 }) {
   const wide = layout === 'wide'
   const shown = wide ? 6 : 4
@@ -85,7 +88,7 @@ export default function ReferenceCard({
             )}
           </x-card-meta>
 
-          {reference.featured && <x-card-flag>{labels.featured}</x-card-flag>}
+          {showFeatured && reference.featured && <x-card-flag>{labels.featured}</x-card-flag>}
         </x-card-media>
 
         <x-card-body>

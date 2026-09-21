@@ -266,6 +266,98 @@ x-reference-grid {
   }
 }
 
+/* ─── Karusel na homepage ─────────────────────────────────────── */
+/*
+  Telefon: jedna karta a kousek další, aby bylo vidět, že jde posunout.
+  Tablet: dvě. Desktop: tři v mřížce, bez posouvání a bez teček.
+  Posouvání je nativní scroll se scroll-snap, viz ReferenceRail.
+*/
+x-reference-rail {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  /*
+    Řada sahá až ke krajům obrazovky (karta vyjíždí zpod okraje, ne zpod
+    neviditelné hrany kontejneru), ale přichytává se na stejnou levou linku
+    jako nadpis nad ní. Nahoře a dole rezerva pro stín a nadzvednutí karty.
+  */
+  margin: -0.75rem -1rem;
+  padding: 0.75rem 1rem 1.5rem;
+  scroll-padding-inline: 1rem;
+  cursor: grab;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  > x-reference-card {
+    flex: 0 0 86%;
+    scroll-snap-align: start;
+  }
+
+  /* Během tahu myší přichytávání nebojuje s kurzorem. */
+  &[data-dragging] {
+    scroll-snap-type: none;
+    cursor: grabbing;
+    user-select: none;
+  }
+
+  @media (min-width: 640px) {
+    margin-inline: -1.5rem;
+    padding-inline: 1.5rem;
+    scroll-padding-inline: 1.5rem;
+
+    > x-reference-card {
+      flex-basis: calc(50% - 0.5rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+    cursor: auto;
+  }
+}
+
+x-rail-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+
+  button {
+    width: 0.5rem;
+    height: 0.5rem;
+    cursor: pointer;
+    border-radius: 9999px;
+    background: color-mix(in oklch, var(--foreground) 20%, transparent);
+    transition:
+      width 0.3s ease,
+      background-color 0.3s ease;
+
+    &[aria-current='true'] {
+      width: 1.5rem;
+      background: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 3px;
+    }
+  }
+}
+
 /* ─── Výpis ───────────────────────────────────────────────────── */
 
 [data-block='reference-list'] {

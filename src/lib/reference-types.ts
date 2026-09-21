@@ -16,6 +16,8 @@ export interface LocalizedReference {
   projectUrl: string | null
   tech: string[]
   featured: boolean
+  /** Ruční pořadí z adminu; mapa portfolia se podle něj skládá. */
+  sortOrder: number
   title: string
   summary: string | null
   body: string | null

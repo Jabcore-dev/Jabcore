@@ -509,7 +509,8 @@
     "portfolioLink": "Prohlédnout celé portfolio",
     "ctaTitle": "Máte v hlavě podobný projekt?",
     "ctaText": "Napište pár vět o tom, co potřebujete. Ozveme se s návrhem řešení, termínem i cenou.",
-    "ctaButton": "Nezávazně poptat"
+    "ctaButton": "Nezávazně poptat",
+    "carouselSlide": "Reference {n} z {total}"
   },
   "portfolio": {
     "title": "Portfolio",

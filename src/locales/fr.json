@@ -509,7 +509,8 @@
     "portfolioLink": "Explore the full portfolio",
     "ctaTitle": "Have a similar project in mind?",
     "ctaText": "Tell us what you need in a few sentences. We will come back with an approach, a timeline and a price.",
-    "ctaButton": "Start a conversation"
+    "ctaButton": "Start a conversation",
+    "carouselSlide": "Case study {n} of {total}"
   },
   "portfolio": {
     "title": "Portfolio",

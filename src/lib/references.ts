@@ -69,6 +69,7 @@ function toLocalized(
     projectUrl: reference.projectUrl,
     tech: reference.tech,
     featured: reference.featured,
+    sortOrder: reference.sortOrder,
     title: text.title,
     summary: text.summary,
     body: text.body,
