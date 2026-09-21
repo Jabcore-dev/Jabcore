@@ -19,7 +19,7 @@ export default function ProjectBubble({
   dimmed,
   active,
   label,
-  onOpen,
+  onKeyboardOpen,
 }: {
   project: MapProject
   node: MapNode
@@ -28,7 +28,11 @@ export default function ProjectBubble({
   /** Otevřený v dialogu. */
   active: boolean
   label: string
-  onOpen: () => void
+  /**
+   * Otevření z klávesnice (Enter, mezerník) nebo čtečky. Myš a prst obsluhuje
+   * mapa sama při puštění, protože jen ona ví, jestli to byl klik, nebo tah.
+   */
+  onKeyboardOpen: () => void
 }) {
   return (
     <x-bubble
@@ -46,7 +50,11 @@ export default function ProjectBubble({
       <x-bubble-float>
         <button
           type="button"
-          onClick={onOpen}
+          onClick={(event) => {
+            // detail === 0: klik nevyvolala myš ani prst, ale klávesa nebo
+            // asistivní technologie. Klik myší už otevřela mapa na pointerup.
+            if (event.detail === 0) onKeyboardOpen()
+          }}
           aria-label={label}
           data-slug={project.slug}
           data-featured={project.featured ? '' : undefined}

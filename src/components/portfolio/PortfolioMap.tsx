@@ -42,6 +42,13 @@ const MAX_SCALE = 2.6
 
 const Scene = motionElement('x-map-scene')
 
+/** Slug bubliny pod ukazatelem, nebo null. */
+function slugAt(target: EventTarget | null): string | null {
+  return target instanceof Element
+    ? (target.closest<HTMLElement>('[data-slug]')?.dataset.slug ?? null)
+    : null
+}
+
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value))
 }
@@ -104,6 +111,11 @@ export default function PortfolioMap({
     lastTime: number
     vx: number
     vy: number
+    /** Bublina, na které tah začal - otevře se, pokud se ukazatel nepohne. */
+    slug: string | null
+    /** Od kolika pixelů je to tah, ne klik. Prst se chvěje víc než myš. */
+    threshold: number
+    captured: boolean
   } | null>(null)
   const movedRef = useRef(false)
   const pinchRef = useRef<number | null>(null)
@@ -363,7 +375,6 @@ export default function PortfolioMap({
     if (event.pointerType === 'mouse' && event.button !== 0) return
 
     pointersRef.current.set(event.pointerId, { x: event.clientX, y: event.clientY })
-    event.currentTarget.setPointerCapture(event.pointerId)
     movedRef.current = false
 
     if (pointersRef.current.size === 2) {
@@ -383,6 +394,9 @@ export default function PortfolioMap({
       lastTime: event.timeStamp,
       vx: 0,
       vy: 0,
+      slug: slugAt(event.target),
+      threshold: event.pointerType === 'mouse' ? 5 : 10,
+      captured: false,
     }
   }
 
@@ -415,9 +429,23 @@ export default function PortfolioMap({
     const deltaX = event.clientX - drag.startX
     const deltaY = event.clientY - drag.startY
 
-    if (!movedRef.current && Math.abs(deltaX) + Math.abs(deltaY) > 6) {
+    // Do překročení prahu se mapa nehýbe: jinak by se každý klik, při kterém
+    // se ruka o pixel pohne, proměnil v cuknutí mapy.
+    if (!movedRef.current) {
+      if (Math.hypot(deltaX, deltaY) < drag.threshold) return
       movedRef.current = true
       setHintVisible(false)
+    }
+
+    /*
+     * Ukazatel si canvas přivlastní až teď, když je jasné, že jde o tah - tah
+     * pak pokračuje, i když kurzor vyjede z mapy. Přivlastnit si ho hned při
+     * stisku byla původní chyba: prohlížeč pak poslal i `click` canvasu místo
+     * bubliny a detail se nikdy neotevřel.
+     */
+    if (!drag.captured) {
+      drag.captured = true
+      event.currentTarget.setPointerCapture(event.pointerId)
     }
 
     const elapsed = Math.max(event.timeStamp - drag.lastTime, 1)
@@ -438,6 +466,21 @@ export default function PortfolioMap({
     const drag = dragRef.current
     if (!drag || drag.id !== event.pointerId) return
     dragRef.current = null
+
+    /*
+     * Klik = stisk i puštění na stejné bublině a mezitím žádný tah. Rozhoduje
+     * se tady, ne v onClick: na dotyku a po přivlastnění ukazatele se na
+     * `click` nedá spolehnout, na pointerup ano.
+     */
+    if (
+      event.type === 'pointerup' &&
+      !movedRef.current &&
+      drag.slug &&
+      slugAt(event.target) === drag.slug
+    ) {
+      open(drag.slug)
+      return
+    }
 
     // Dojezd. Mapa, která se zastaví přesně pod prstem, působí zaseknutě.
     if (movedRef.current && Math.hypot(drag.vx, drag.vy) > 120) {
@@ -484,6 +527,8 @@ export default function PortfolioMap({
         onPointerUp={endPointer}
         onPointerCancel={endPointer}
         onDoubleClick={(event) => {
+          // Dvojklik na bublinu ji otevře, nepřibližuje.
+          if (slugAt(event.target)) return
           const rect = event.currentTarget.getBoundingClientRect()
           zoomAt(1.6, event.clientX - rect.left, event.clientY - rect.top, true)
         }}
@@ -525,11 +570,7 @@ export default function PortfolioMap({
               dimmed={allowed !== null && !allowed.has(project.slug)}
               active={activeSlug === project.slug}
               label={`${labels.open}: ${project.title}`}
-              onOpen={() => {
-                // Klik, který vznikl koncem tažení, není volba projektu.
-                if (movedRef.current) return
-                open(project.slug)
-              }}
+              onKeyboardOpen={() => open(project.slug)}
             />
           ))}
         </Scene>
