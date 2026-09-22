@@ -260,7 +260,10 @@ x-map-scene {
   height: 0;
   transition: opacity 0.7s ease;
 
-  svg {
+  /* Jen vrstva s čarami (přímý potomek), ne každé SVG ve scéně - dřív to
+     chytalo i ikonu hvězdičky v bublině, ta dostala position: absolute
+     a ujela z odznaku k rohu mapy. */
+  > svg {
     position: absolute;
     left: 0;
     top: 0;
@@ -599,22 +602,29 @@ x-bubble-title {
   text-shadow: 0 2px 12px rgb(0 0 0 / 0.7);
 }
 
-/* Hvězdička oblíbeného projektu - jediné, čím se jeho bublina liší. */
+/*
+  Hvězdička oblíbeného projektu - jediné, čím se jeho bublina liší. Záře je
+  barevný přechod v pozadí odznaku; bublina leží ve scéně zvětšené
+  transformací, kde je obyčejné pozadí levnější a spolehlivější než filtry.
+*/
 x-bubble-star {
   display: grid;
-  width: calc(var(--r) * 0.2);
-  height: calc(var(--r) * 0.2);
+  width: calc(var(--r) * 0.22);
+  height: calc(var(--r) * 0.22);
   place-items: center;
   margin-bottom: calc(var(--r) * 0.01);
   border-radius: 9999px;
-  background: rgb(255 255 255 / 0.14);
-  backdrop-filter: blur(6px);
-  color: oklch(0.85 0.16 85);
-  filter: drop-shadow(0 0 calc(var(--r) * 0.06) oklch(0.85 0.16 85 / 0.6));
+  background:
+    radial-gradient(circle, oklch(0.85 0.16 85 / 0.45), transparent 70%),
+    rgb(255 255 255 / 0.12);
+  color: oklch(0.86 0.16 85);
 
+  /* Pevná velikost z poloměru, ne procenta - procentní výška se v téhle
+     mřížce nepřepočítá. */
   svg {
-    width: 62%;
-    height: 62%;
+    display: block;
+    width: calc(var(--r) * 0.14);
+    height: calc(var(--r) * 0.14);
   }
 }
 

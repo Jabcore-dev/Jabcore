@@ -88,8 +88,6 @@ function unit(seed: number, salt: number): number {
   return mixed / 0xffffffff
 }
 
-/** Zlatý úhel - rozsévá body tak, aby kolem středu nevznikaly prázdné paprsky. */
-const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5))
 
 /**
  * Mezera mezi bublinami ve světových jednotkách.
@@ -133,21 +131,47 @@ export function buildMapLayout(projects: MapProject[]): MapLayout {
     }
   }
 
-  // Pořadí je ruční řazení z adminu (volající ho předá seřazené), takže to, co
-  // má obchodník ukázat jako první, sedí doprostřed. Oblíbenost pořadí
-  // nemění - přepnutí hvězdičky nesmí přeskládat mapu.
+  /*
+   * Počáteční rozmístění, ze kterého pak relaxace poskládá výslednou mapu.
+   *
+   * První projekt (podle ručního pořadí z adminu, volající ho předá
+   * seřazené) jde doprostřed - to, co má obchodník ukázat jako první, je
+   * uprostřed. Ostatní se rozestaví do kruhu kolem něj a každý obor dostane
+   * souvislou výseč: projekty stejného oboru tak začínají vedle sebe a jejich
+   * barevná čára je krátká. Dřív se sely po spirále bez ohledu na obor a dva
+   * projekty z průmyslu klidně skončily na opačných koncích mapy.
+   *
+   * Obory jdou v pořadí, v jakém se v seznamu poprvé objeví, a obor prvního
+   * projektu začíná hned vedle něj. Oblíbenost pořadí nemění - přepnutí
+   * hvězdičky nesmí přeskládat mapu.
+   */
+  const groupOf = (project: MapProject) => project.industry ?? ''
+  const groupOrder = [...new Set(projects.map(groupOf))]
+  const ring = projects
+    .map((project, index) => ({ project, index }))
+    .slice(1)
+    .sort(
+      (a, b) =>
+        groupOrder.indexOf(groupOf(a.project)) - groupOrder.indexOf(groupOf(b.project)) ||
+        a.index - b.index,
+    )
+  const ringPosition = new Map(ring.map((item, position) => [item.index, position]))
+  // Obvod kruhu tak, aby se bubliny vešly vedle sebe i s mezerou.
+  const ringRadius = Math.max(2.4 * NORMAL_RADIUS, (ring.length * (2 * NORMAL_RADIUS + GAP)) / (2 * Math.PI))
+
   const nodes: MapNode[] = projects.map((project, index) => {
     const seed = hash(project.slug)
     const r = radiusOf(project, seed)
-    const spiral = Math.sqrt(index) * 2.15 * NORMAL_RADIUS
-    const angle = index * GOLDEN_ANGLE
+    const position = ringPosition.get(index)
+    const angle = position === undefined ? 0 : (position / ring.length) * 2 * Math.PI
+    const distance = position === undefined ? 0 : ringRadius
 
     return {
       id: project.id,
       slug: project.slug,
-      x: Math.cos(angle) * spiral * 1.15,
+      x: Math.cos(angle) * distance * 1.15,
       // Svisle stlačené už při setí - relaxace tvar dorovná, ne obrátí.
-      y: Math.sin(angle) * spiral * 0.6,
+      y: Math.sin(angle) * distance * 0.6,
       r,
       floatDelay: -unit(seed, 2) * 12,
       floatDuration: 9 + unit(seed, 3) * 7,
@@ -164,7 +188,25 @@ export function buildMapLayout(projects: MapProject[]): MapLayout {
         const distance = Math.hypot(dx, dy) || 0.001
         const minimum = a.r + b.r + GAP
 
-        if (distance >= minimum) continue
+        /*
+         * Projekty stejného oboru se k sobě přitahují, takže obory skončí
+         * pohromadě. Bez toho mohly dva projekty z průmyslu ležet na opačných
+         * koncích mapy a jejich barevná čára vedla přes celou scénu pod
+         * cizími bublinami, jako by spojovala úplně jiné projekty.
+         */
+        if (distance > minimum) {
+          const industry = projects[i].industry
+          if (industry && industry === projects[j].industry) {
+            const pull = (distance - minimum) * 0.02
+            const ux = dx / distance
+            const uy = dy / distance
+            a.x += ux * pull
+            a.y += uy * pull
+            b.x -= ux * pull
+            b.y -= uy * pull
+          }
+          continue
+        }
 
         const push = (minimum - distance) / 2
         const ux = dx / distance
@@ -189,6 +231,37 @@ export function buildMapLayout(projects: MapProject[]): MapLayout {
     }
   }
 
+  /*
+   * Závěrečné rozestrkání bez přitahování. Přitažlivost oborů a tah ke středu
+   * se s odstrkováním do poslední chvíle přetahují a pár bublin by zůstalo
+   * přes sebe; tady už se jen rozestupují, dokud se nepřekrývá nic.
+   */
+  for (let iteration = 0; iteration < 200; iteration += 1) {
+    let moved = false
+
+    for (let i = 0; i < nodes.length; i += 1) {
+      for (let j = i + 1; j < nodes.length; j += 1) {
+        const a = nodes[i]
+        const b = nodes[j]
+        const dx = b.x - a.x
+        const dy = b.y - a.y
+        const distance = Math.hypot(dx, dy) || 0.001
+        const minimum = a.r + b.r + GAP
+
+        if (distance >= minimum - 0.5) continue
+
+        moved = true
+        const push = (minimum - distance) / 2
+        a.x -= (dx / distance) * push
+        a.y -= (dy / distance) * push
+        b.x += (dx / distance) * push
+        b.y += (dy / distance) * push
+      }
+    }
+
+    if (!moved) break
+  }
+
   for (const node of nodes) {
     node.x = Math.round(node.x * 100) / 100
     node.y = Math.round(node.y * 100) / 100
@@ -197,52 +270,104 @@ export function buildMapLayout(projects: MapProject[]): MapLayout {
   return { nodes, links: buildLinks(projects, nodes), bounds: boundsOf(nodes) }
 }
 
+/** Vede úsečka mezi dvěma uzly pod cizí bublinou? */
+function crossesOtherBubble(a: number, b: number, nodes: MapNode[]): boolean {
+  const A = nodes[a]
+  const B = nodes[b]
+  const dx = B.x - A.x
+  const dy = B.y - A.y
+  const length = dx * dx + dy * dy || 1
+
+  return nodes.some((node, index) => {
+    if (index === a || index === b) return false
+    const t = Math.max(0, Math.min(1, ((node.x - A.x) * dx + (node.y - A.y) * dy) / length))
+    return Math.hypot(A.x + t * dx - node.x, A.y + t * dy - node.y) < node.r
+  })
+}
+
 /**
- * Souhvězdí: každý uzel se spojí s nejbližším sousedem a navíc s nejbližším
- * projektem ze stejného oboru. Vznikne síť, která na pozadí napoví, co k sobě
- * patří, a přitom nezakryje bubliny pavučinou ze všech do všech.
+ * Nejlevnější síť, která propojí všechny zadané uzly (minimální kostra,
+ * Primův algoritmus). Uzlů je jednotky až desítky, takže O(n²) nevadí.
+ *
+ * Kostra, ne „každý se svým nejbližším": to dřív nechávalo dvojice projektů,
+ * které jsou nejblíž sobě navzájem, viset mimo zbytek mapy. Kostra je vždycky
+ * souvislá a žádná čára nevede zbytečně.
+ *
+ * Cena spojnice je její délka; spojnice pod cizí bublinou je výrazně dražší,
+ * takže se použije, jen když bez ní síť nejde propojit.
  */
-function buildLinks(projects: MapProject[], nodes: MapNode[]): MapLink[] {
-  const seen = new Set<string>()
-  const links: MapLink[] = []
+function spanningTree(indexes: number[], nodes: MapNode[]): [number, number][] {
+  if (indexes.length < 2) return []
 
-  const add = (a: number, b: number, strong: boolean) => {
-    if (a === b) return
-    const key = a < b ? `${a}-${b}` : `${b}-${a}`
-    if (seen.has(key)) return
-    seen.add(key)
-    links.push({ a, b, strong })
-  }
+  const cost = (a: number, b: number) =>
+    Math.hypot(nodes[a].x - nodes[b].x, nodes[a].y - nodes[b].y) *
+    (crossesOtherBubble(a, b, nodes) ? 4 : 1)
 
-  const nearest = (from: number, predicate?: (index: number) => boolean): number => {
-    let best = -1
-    let bestDistance = Infinity
+  const inTree = new Set([indexes[0]])
+  const edges: [number, number][] = []
 
-    for (let i = 0; i < nodes.length; i += 1) {
-      if (i === from) continue
-      if (predicate && !predicate(i)) continue
-      const distance = Math.hypot(nodes[i].x - nodes[from].x, nodes[i].y - nodes[from].y)
-      if (distance < bestDistance) {
-        bestDistance = distance
-        best = i
+  while (inTree.size < indexes.length) {
+    let best: [number, number] | null = null
+    let bestCost = Infinity
+
+    for (const from of inTree) {
+      for (const to of indexes) {
+        if (inTree.has(to)) continue
+        const c = cost(from, to)
+        if (c < bestCost) {
+          bestCost = c
+          best = [from, to]
+        }
       }
     }
 
-    return best
+    if (!best) break
+    edges.push(best)
+    inTree.add(best[1])
   }
 
-  for (let i = 0; i < nodes.length; i += 1) {
-    const neighbour = nearest(i)
-    if (neighbour !== -1) add(i, neighbour, false)
+  return edges
+}
 
-    const industry = projects[i].industry
-    if (!industry) continue
+/**
+ * Souhvězdí: dvě vrstvy čar.
+ *
+ *   - tenké: kostra přes všechny projekty - celá mapa je jedna síť,
+ *   - barevné: kostra zvlášť pro každý obor - projekty stejného oboru jsou
+ *     spojené všechny, ne jen s nejbližším.
+ *
+ * Kde vede čára v obou vrstvách, zůstane barevná. Dřív to bylo naopak: tenká
+ * čára vznikla první a barevná se zahodila jako duplicita, takže dva nejbližší
+ * projekty stejného oboru barevnou čáru neměly vůbec.
+ *
+ * Barevná čára nikdy nevede pod cizí bublinou - vypadala by, že spojuje
+ * úplně jiné projekty. Když jinudy nejde, radši chybí; obor pořád ukazuje
+ * barva bubliny. Aby takových případů bylo co nejmíň, se projekty stejného
+ * oboru při skládání mapy k sobě přitahují.
+ */
+function buildLinks(projects: MapProject[], nodes: MapNode[]): MapLink[] {
+  const links = new Map<string, MapLink>()
+  const key = (a: number, b: number) => (a < b ? `${a}-${b}` : `${b}-${a}`)
 
-    const sameIndustry = nearest(i, (index) => projects[index].industry === industry)
-    if (sameIndustry !== -1) add(i, sameIndustry, true)
+  const all = nodes.map((_, index) => index)
+  for (const [a, b] of spanningTree(all, nodes)) {
+    links.set(key(a, b), { a, b, strong: false })
   }
 
-  return links
+  const byIndustry = new Map<string, number[]>()
+  projects.forEach((project, index) => {
+    if (!project.industry) return
+    byIndustry.set(project.industry, [...(byIndustry.get(project.industry) ?? []), index])
+  })
+
+  for (const members of byIndustry.values()) {
+    for (const [a, b] of spanningTree(members, nodes)) {
+      if (crossesOtherBubble(a, b, nodes)) continue
+      links.set(key(a, b), { a, b, strong: true })
+    }
+  }
+
+  return [...links.values()]
 }
 
 function boundsOf(nodes: MapNode[]): MapBounds {
