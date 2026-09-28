@@ -58,15 +58,23 @@ a `systemctl reload caddy`.
 
 ## Administrace
 
-Panel je na `/admin`. První účet se zakládá z příkazové řádky, protože panel
-sám registraci nemá:
+Panel je na `/admin`. Přihlašuje **Jabcore Platform** (Zitadel, stejný účet jako do
+Finance, Registry a dalších aplikací) - hesla, MFA a zapomenuté heslo řeší platforma.
+V adminu platformy má aplikace „Jabcore“ instanci `jabcore.cz` s Redirect URI
+`https://jabcore.cz/admin/callback` a Post Logout URI `https://jabcore.cz/admin`;
+client ID je v `deploy/production.env` (`OIDC_CLIENT_ID`, není tajné).
+
+Platforma jen ověří, kdo to je. **Kdo smí do panelu a s jakou rolí, je tabulka
+`admin_users`** - do user poolu se může zaregistrovat kdokoli. První vlastník se
+zakládá z příkazové řádky:
 
 ```bash
 ./deploy/admin.sh production admin@jabcore.cz "Michal Petříček" owner
 ```
 
-Stejný příkaz na existující e-mail **změní heslo** - tak se dá panel odemknout,
-když se heslo zapomene.
+Stejný příkaz na existující e-mail změní jméno a roli - tak se dá panel odemknout,
+když v něm nezůstal žádný vlastník. E-mail musí sedět s ověřeným e-mailem účtu
+v Jabcore Platform. Další lidi přidává vlastník v panelu (Uživatelé).
 
 Role: `owner` spravuje i účty, `editor` jen obsah. Poslední vlastník nejde
 smazat ani degradovat, jinak by se ze správy účtů nikdo nedostal zpět.

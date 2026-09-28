@@ -116,6 +116,9 @@ export PORTFOLIO_BASE_URL="${PORTFOLIO_BASE_URL:-$PUBLIC_BASE_URL}"
 export STACK_PREFIX="${STACK_PREFIX:-jabcore}"
 export BIND_ADDRESS="${BIND_ADDRESS:-127.0.0.1}"
 export WEB_PORT="${WEB_PORT:-3000}"
+# Přihlášení do /admin přes Jabcore Platform — veřejné hodnoty z deploy/<env>.env.
+export OIDC_ISSUER="${OIDC_ISSUER:-https://zitadel.auth.jabcore.cloud}"
+export OIDC_CLIENT_ID="${OIDC_CLIENT_ID:-}"
 # Exportuje se, jen když ho prostředí opravdu nastaví: prázdná hodnota nutí
 # compose fallbackovat způsobem, který se mezi verzemi liší, a z názvu projektu
 # se skládá název volume s databází.
@@ -216,6 +219,7 @@ if [ "$ENVIRONMENT" = "production" ]; then
 
   auth_secret="$(env_value "$SECRETS_FILE" AUTH_SECRET)"
   [ "${#auth_secret}" -ge 32 ] || problems="$problems\n  - AUTH_SECRET musí mít alespoň 32 znaků (openssl rand -hex 32)"
+  [ -n "$OIDC_CLIENT_ID" ] || problems="$problems\n  - OIDC_CLIENT_ID je prázdné (deploy/$ENVIRONMENT.env) - bez něj se nikdo nepřihlásí do /admin"
 
   # Jen varování: bez klíče web běží, chybí jen překlad v adminu.
   [ -n "$(env_value "$SECRETS_FILE" GEMINI_API_KEY)" ] \

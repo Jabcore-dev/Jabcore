@@ -203,17 +203,25 @@ export const pageViews = pgTable(
 )
 
 /**
- * Admin accounts. Deliberately tiny - this is a handful of people editing a
- * marketing site, not a user system.
+ * Who may open the panel, and as what. Deliberately tiny - this is a handful of
+ * people editing a marketing site. Identity (passwords, MFA) lives in Jabcore
+ * Platform; a row here is the permission.
  */
 export const adminUsers = pgTable('admin_users', {
   id: serial('id').primaryKey(),
 
-  /** Lowercased on write, so logging in is not case sensitive. */
+  /**
+   * Lowercased on write. Must match the verified e-mail of the person's
+   * Jabcore Platform account - that is how a platform login finds its row.
+   */
   email: varchar('email', { length: 190 }).notNull().unique(),
 
-  /** bcrypt hash. Never the password. */
-  passwordHash: text('password_hash').notNull(),
+  /**
+   * Left over from password sign-in, which Jabcore Platform replaced - nothing
+   * reads or writes it any more. Drop in a later migration once the platform
+   * login has run in production for a while.
+   */
+  passwordHash: text('password_hash'),
 
   name: varchar('name', { length: 120 }),
 

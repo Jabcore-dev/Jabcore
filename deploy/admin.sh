@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 #
-# admin.sh - založí nebo přepíše účet do administrace.
+# admin.sh - založí nebo změní účet do administrace (e-mail + role).
 #
 #   ./deploy/admin.sh production admin@jabcore.cz "Michal Petříček" owner
 #   ./deploy/admin.sh production admin@jabcore.cz              # jméno a roli se doptá
 #
 # Role: owner (může spravovat účty) | editor (jen obsah). Výchozí je owner.
 #
-# Existující e-mail znamená změnu hesla, ne chybu - tohle je i cesta, jak se
-# dostat zpátky do panelu, když se zapomene heslo.
+# Hesla tu nejsou - přihlašuje Jabcore Platform, e-mail musí sedět s účtem
+# tam. Tohle je cesta zpátky do panelu, když v něm nezůstal žádný vlastník.
 #
 # Běží v migrate kontejneru, protože produkční image je Next standalone a tsx
 # ani src/ v něm nejsou.
@@ -49,17 +49,7 @@ POSTGRES_PASSWORD="$(sed -n 's/^[[:space:]]*POSTGRES_PASSWORD=//p' "$SECRETS_FIL
 [ -n "$POSTGRES_PASSWORD" ] || die "$SECRETS_FILE: chybí POSTGRES_PASSWORD."
 export POSTGRES_PASSWORD
 
-# Čte se sem místo do skriptu v kontejneru, aby se heslo nedostalo do
-# argumentů procesu, kde by ho viděl každý `ps` na stroji.
-if [ -z "${ADMIN_PASSWORD:-}" ]; then
-  [ -t 0 ] || die "Nastav ADMIN_PASSWORD, nebo spusť skript z terminálu."
-  printf 'Heslo (min. 10 znaků): '
-  read -rs ADMIN_PASSWORD
-  echo
-fi
-export ADMIN_PASSWORD
-
 docker compose --env-file "$ENV_FILE" --env-file "$SECRETS_FILE" \
   -f docker-compose.prod.yml --profile tools \
-  run --rm -T -e ADMIN_PASSWORD migrate \
+  run --rm -T migrate \
   npx tsx src/db/create-admin.ts "$EMAIL" "$NAME" "$ROLE"

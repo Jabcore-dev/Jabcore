@@ -29,6 +29,13 @@
       "when": 1789991757302,
       "tag": "0003_industry_keys",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790589018098,
+      "tag": "0004_admin_platform_login",
+      "breakpoints": true
     }
   ]
 }

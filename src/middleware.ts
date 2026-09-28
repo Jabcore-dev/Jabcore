@@ -118,6 +118,12 @@ function handlePortfolioHost(request: NextRequest) {
  */
 async function handleAdmin(request: NextRequest) {
   const { pathname } = request.nextUrl
+
+  // The two legs of the Jabcore Platform sign-in run before there is a session.
+  if (pathname === '/admin/login/start' || pathname === '/admin/callback') {
+    return NextResponse.next()
+  }
+
   const isLogin = pathname === '/admin/login'
   const session = await readSessionToken(request.cookies.get(SESSION_COOKIE)?.value)
 

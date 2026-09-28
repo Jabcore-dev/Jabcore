@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { Plus, Trash2, KeyRound, Pencil } from 'lucide-react'
+import { Plus, Trash2, Pencil } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -20,13 +20,7 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import type { AdminUser } from '@/db/schema'
 import type { SessionPayload } from '@/lib/auth/session'
-import {
-  createUser,
-  updateUser,
-  deleteUser,
-  resetPassword,
-  changeOwnPassword,
-} from '@/app/admin/actions/users'
+import { createUser, updateUser, deleteUser } from '@/app/admin/actions/users'
 
 type Role = 'owner' | 'editor'
 
@@ -56,13 +50,9 @@ export default function UsersManager({
 
   const [createOpen, setCreateOpen] = useState(false)
   const [editing, setEditing] = useState<AdminUser | null>(null)
-  const [resetting, setResetting] = useState<AdminUser | null>(null)
   const [deleting, setDeleting] = useState<AdminUser | null>(null)
-  const [ownPasswordOpen, setOwnPasswordOpen] = useState(false)
 
-  const [form, setForm] = useState({ email: '', name: '', role: 'editor' as Role, password: '' })
-  const [newPassword, setNewPassword] = useState('')
-  const [currentPassword, setCurrentPassword] = useState('')
+  const [form, setForm] = useState({ email: '', name: '', role: 'editor' as Role })
 
   function run(action: () => Promise<{ ok: boolean; error?: string }>, success: string, after?: () => void) {
     startTransition(async () => {
@@ -85,18 +75,15 @@ export default function UsersManager({
             Uživatelé
           </h1>
           <p className="text-sm text-muted-foreground">
-            Vlastník může spravovat účty, editor jen obsah.
+            Vlastník může spravovat účty, editor jen obsah. Přihlašuje se účtem Jabcore
+            (hesla a MFA spravuje Jabcore Platform) - e-mail tady musí sedět s ním.
           </p>
         </div>
 
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => setOwnPasswordOpen(true)} className="gap-2">
-            <KeyRound className="size-4" />
-            Moje heslo
-          </Button>
           <Button
             onClick={() => {
-              setForm({ email: '', name: '', role: 'editor', password: '' })
+              setForm({ email: '', name: '', role: 'editor' })
               setCreateOpen(true)
             }}
             className="gap-2"
@@ -151,18 +138,6 @@ export default function UsersManager({
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="size-8"
-                      onClick={() => {
-                        setNewPassword('')
-                        setResetting(user)
-                      }}
-                    >
-                      <KeyRound className="size-4" />
-                      <span className="sr-only">Změnit heslo</span>
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
                       className="size-8 text-destructive"
                       disabled={user.id === session.userId}
                       onClick={() => setDeleting(user)}
@@ -183,7 +158,10 @@ export default function UsersManager({
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Přidat uživatele</DialogTitle>
-            <DialogDescription>Heslo mu předej jinou cestou než e-mailem.</DialogDescription>
+            <DialogDescription>
+              Přihlásí se svým účtem Jabcore se stejným e-mailem. Když ho ještě nemá,
+              založí si ho na přihlašovací stránce.
+            </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4 py-2">
@@ -218,16 +196,6 @@ export default function UsersManager({
                   <SelectItem value="owner">Vlastník - i správa účtů</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="new-password">Heslo *</Label>
-              <Input
-                id="new-password"
-                type="text"
-                value={form.password}
-                onChange={(event) => setForm({ ...form, password: event.target.value })}
-                placeholder="min. 10 znaků"
-              />
             </div>
           </div>
 
@@ -307,103 +275,6 @@ export default function UsersManager({
         </DialogContent>
       </Dialog>
 
-      {/* Reset hesla */}
-      <Dialog open={resetting !== null} onOpenChange={(open) => !open && setResetting(null)}>
-        <DialogContent className="sm:max-w-md">
-          {resetting && (
-            <>
-              <DialogHeader>
-                <DialogTitle>Změnit heslo</DialogTitle>
-                <DialogDescription>{resetting.email}</DialogDescription>
-              </DialogHeader>
-
-              <div className="space-y-2 py-2">
-                <Label htmlFor="reset-password">Nové heslo</Label>
-                <Input
-                  id="reset-password"
-                  type="text"
-                  value={newPassword}
-                  onChange={(event) => setNewPassword(event.target.value)}
-                  placeholder="min. 10 znaků"
-                />
-              </div>
-
-              <DialogFooter>
-                <Button variant="outline" onClick={() => setResetting(null)}>
-                  Zrušit
-                </Button>
-                <Button
-                  disabled={pending}
-                  onClick={() =>
-                    run(
-                      () => resetPassword(resetting.id, newPassword),
-                      'Heslo změněno.',
-                      () => setResetting(null),
-                    )
-                  }
-                >
-                  Změnit
-                </Button>
-              </DialogFooter>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
-
-      {/* Vlastní heslo */}
-      <Dialog open={ownPasswordOpen} onOpenChange={setOwnPasswordOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Změnit vlastní heslo</DialogTitle>
-            <DialogDescription>Zůstaneš přihlášený.</DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-4 py-2">
-            <div className="space-y-2">
-              <Label htmlFor="current-password">Současné heslo</Label>
-              <Input
-                id="current-password"
-                type="password"
-                autoComplete="current-password"
-                value={currentPassword}
-                onChange={(event) => setCurrentPassword(event.target.value)}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="own-new-password">Nové heslo</Label>
-              <Input
-                id="own-new-password"
-                type="password"
-                autoComplete="new-password"
-                value={newPassword}
-                onChange={(event) => setNewPassword(event.target.value)}
-              />
-            </div>
-          </div>
-
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setOwnPasswordOpen(false)}>
-              Zrušit
-            </Button>
-            <Button
-              disabled={pending}
-              onClick={() =>
-                run(
-                  () => changeOwnPassword(currentPassword, newPassword),
-                  'Heslo změněno.',
-                  () => {
-                    setOwnPasswordOpen(false)
-                    setCurrentPassword('')
-                    setNewPassword('')
-                  },
-                )
-              }
-            >
-              Změnit
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </>
   )
 }

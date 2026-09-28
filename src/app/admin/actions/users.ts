@@ -5,8 +5,7 @@ import { eq, and, ne, sql } from 'drizzle-orm'
 import { z } from 'zod'
 import { db } from '@/db/client'
 import { adminUsers } from '@/db/schema'
-import { requireUser, requireOwner } from '@/lib/auth/guard'
-import { hashPassword, verifyPassword, MIN_PASSWORD_LENGTH } from '@/lib/auth/password'
+import { requireOwner } from '@/lib/auth/guard'
 
 export interface ActionResult {
   ok: boolean
@@ -17,9 +16,6 @@ const userSchema = z.object({
   email: z.string().trim().email('Zadej platný e-mail.').max(190),
   name: z.string().trim().max(120).optional(),
   role: z.enum(['owner', 'editor']),
-  password: z
-    .string()
-    .min(MIN_PASSWORD_LENGTH, `Heslo musí mít alespoň ${MIN_PASSWORD_LENGTH} znaků.`),
 })
 
 /** How many owners exist besides this one. */
@@ -54,7 +50,6 @@ export async function createUser(input: unknown): Promise<ActionResult> {
     email,
     name: parsed.data.name || null,
     role: parsed.data.role,
-    passwordHash: await hashPassword(parsed.data.password),
   })
 
   revalidatePath('/admin/uzivatele')
@@ -99,51 +94,5 @@ export async function deleteUser(id: number): Promise<ActionResult> {
   await db.delete(adminUsers).where(eq(adminUsers.id, id))
 
   revalidatePath('/admin/uzivatele')
-  return { ok: true }
-}
-
-/** An owner resetting somebody else's password - no old password needed. */
-export async function resetPassword(id: number, password: string): Promise<ActionResult> {
-  await requireOwner()
-
-  if (password.length < MIN_PASSWORD_LENGTH) {
-    return { ok: false, error: `Heslo musí mít alespoň ${MIN_PASSWORD_LENGTH} znaků.` }
-  }
-
-  await db
-    .update(adminUsers)
-    .set({ passwordHash: await hashPassword(password) })
-    .where(eq(adminUsers.id, id))
-
-  revalidatePath('/admin/uzivatele')
-  return { ok: true }
-}
-
-/** Changing your own password, which does require the current one. */
-export async function changeOwnPassword(
-  currentPassword: string,
-  newPassword: string,
-): Promise<ActionResult> {
-  const session = await requireUser()
-
-  if (newPassword.length < MIN_PASSWORD_LENGTH) {
-    return { ok: false, error: `Nové heslo musí mít alespoň ${MIN_PASSWORD_LENGTH} znaků.` }
-  }
-
-  const [user] = await db
-    .select()
-    .from(adminUsers)
-    .where(eq(adminUsers.id, session.userId))
-    .limit(1)
-
-  if (!user || !(await verifyPassword(currentPassword, user.passwordHash))) {
-    return { ok: false, error: 'Současné heslo nesouhlasí.' }
-  }
-
-  await db
-    .update(adminUsers)
-    .set({ passwordHash: await hashPassword(newPassword) })
-    .where(eq(adminUsers.id, session.userId))
-
   return { ok: true }
 }

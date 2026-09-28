@@ -68,6 +68,10 @@ services:
       NEXT_PUBLIC_PORTFOLIO_URL: ${PORTFOLIO_BASE_URL}
       NEXT_PUBLIC_SITE_ENV: ${ENVIRONMENT}
       UPLOADS_DIR: /app/uploads
+      # Přihlášení do /admin přes Jabcore Platform (Zitadel, veřejný klient + PKCE).
+      # Veřejné hodnoty z deploy/<env>.env; bez OIDC_CLIENT_ID se do panelu nejde.
+      OIDC_ISSUER: ${OIDC_ISSUER:-https://zitadel.auth.jabcore.cloud}
+      OIDC_CLIENT_ID: ${OIDC_CLIENT_ID:-}
       # Identita buildu, kterou servíruje /api/health - aby se deploy dal ověřit
       # zvenku místo předpokládání.
       APP_VERSION: ${APP_VERSION:-unknown}
