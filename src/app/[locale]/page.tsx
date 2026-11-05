@@ -1,5 +1,5 @@
 import { generatePageMetadata } from '@/lib/metadata'
-import { buildOrganizationJsonLd } from '@/lib/jsonld'
+import { buildHomeJsonLd } from '@/lib/jsonld'
 import { locales, defaultLocale, type Locale } from '@/lib/i18n-config'
 import HomePage from '@/views/HomePage'
 
@@ -31,7 +31,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrganizationJsonLd()) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildHomeJsonLd(locale)) }}
       />
       <HomePage locale={locale} />
     </>

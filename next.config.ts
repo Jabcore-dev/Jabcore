@@ -10,6 +10,16 @@ const nextConfig: NextConfig = {
 
   poweredByHeader: false,
 
+  /*
+   * Metadata (title, description, canonical, hreflang) always in <head>.
+   * Next 15 streams them into <body> for clients it doesn't list as bots, which
+   * was everyone we checked, Googlebot and the AI crawlers included: Lighthouse
+   * reported a missing meta description and a crawler that doesn't run
+   * JavaScript found no <title> in <head>. Matching every user agent makes the
+   * metadata blocking again; the cost is a few ms before the first byte.
+   */
+  htmlLimitedBots: /.*/,
+
   // Trailing slash consistency
   trailingSlash: false,
 

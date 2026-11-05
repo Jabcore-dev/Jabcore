@@ -77,6 +77,13 @@ const Footer = memo(function Footer() {
                   </Link>
                 </li>
               ))}
+              {/* Our own product. A plain link (not rel=nofollow) so search
+                  engines can see the two sites belong together. */}
+              <li>
+                <a href="https://onlybrain.ai" className="text-muted-foreground hover:text-foreground transition-colors">
+                  onlybrain
+                </a>
+              </li>
             </ul>
           </div>
 

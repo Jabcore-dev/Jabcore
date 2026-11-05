@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { locales, defaultLocale, ogLocales, type Locale } from '@/lib/i18n-config'
 import { t } from '@/lib/server-i18n'
 import '../globals.css'
@@ -78,9 +79,14 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale: rawLocale } = await params
-  const locale = (locales as readonly string[]).includes(rawLocale)
-    ? rawLocale
-    : defaultLocale
+  /*
+   * Only the twelve locales exist. The middleware skips paths with a dot, so
+   * /wp-login.php or a mistyped file used to land here and render the Czech
+   * homepage with status 200, which search engines count as a duplicate page
+   * (soft 404). Unknown first segments are a real 404 now.
+   */
+  if (!(locales as readonly string[]).includes(rawLocale)) notFound()
+  const locale = rawLocale
 
   return (
     <RootHtml lang={locale}>
