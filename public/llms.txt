@@ -1,0 +1,29 @@
+# Jabcore
+
+> Jabcore s.r.o. je malá softwarová firma z Jablonce nad Nisou. Pro české výrobní a obchodní firmy píšeme software na míru: webové aplikace, mobilní aplikace a podnikové systémy, které nahrazují Excel, staré programy a ruční přepisování dat. Software napojujeme na ERP a další systémy, které už firma má, a kde to dává smysl, i na AI. Jsme vývojáři, žádní prostředníci: klient mluví přímo s lidmi, kteří kód píšou.
+
+Kontakt: info@jabcore.cz, +420 792 219 454, Brigádnická 208/7, Jablonec nad Nisou. Pracujeme hlavně v Česku a na Slovensku, česky i anglicky.
+
+Vlastní produkt: [onlybrain](https://onlybrain.ai) je firemní znalostní báze (second brain) pro AI. Firemní dokumenty, procesy a přepisy schůzek drží v Markdownu, s oprávněními podle rolí, a dá se napojit na ChatGPT, Claude i další AI. Jabcore ho vyvíjí a sám na něm řídí celou firmu.
+
+## Co děláme
+
+- [Služby](https://jabcore.cz/cs/services): mobilní aplikace (iOS a Android z jednoho kódu), webové aplikace a podnikové systémy na míru, napojení na ERP, automatizace procesů a integrace AI
+- [Technologie](https://jabcore.cz/cs/stack): s čím pracujeme
+- [O nás](https://jabcore.cz/cs/about): kdo jsme a jak pracujeme
+- [Kontakt](https://jabcore.cz/cs/contact)
+
+## Reference
+
+- [aGB: konfigurátor pro ATREA](https://jabcore.cz/cs/reference/atrea-agb): konfigurátor vzduchotechnických jednotek pro výrobce z Jablonce
+- [aManager pro ATREA](https://jabcore.cz/cs/reference/atrea-amanager): správa vzduchotechnických jednotek
+- [Centralizovaná autorizace a SSO pro ATREA](https://jabcore.cz/cs/reference/atrea-auth): jedno přihlášení pro více aplikací
+- [Ice To Go](https://jabcore.cz/cs/reference/ice-to-go): platforma pro správu automatů
+- [TIGER CZ](https://jabcore.cz/cs/reference/tiger-cz-zemedelska-technika): web a katalog zemědělské techniky
+- [ELEVEN custom](https://jabcore.cz/cs/reference/eleven-custom): vlastní design oblečení navržený pomocí AI
+- [Další projekty](https://jabcore.cz/cs/reference/other-projects)
+
+## Optional
+
+- [English version](https://jabcore.cz/en)
+- [onlybrain: návody](https://onlybrain.ai/learn)

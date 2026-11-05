@@ -3,11 +3,11 @@
  *
  * Usage in page.tsx (Server Component):
  * ```tsx
- * import { buildOrganizationJsonLd } from '@/lib/jsonld'
+ * import { buildHomeJsonLd, jsonLdScript } from '@/lib/jsonld'
  * // In the component return:
  * <script
  *   type="application/ld+json"
- *   dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrganizationJsonLd()) }}
+ *   dangerouslySetInnerHTML={{ __html: jsonLdScript(buildHomeJsonLd()) }}
  * />
  * ```
  */
@@ -16,42 +16,35 @@ import { SITE_URL } from '@/lib/site-config'
 
 const BASE_URL = SITE_URL
 
-export interface OrganizationJsonLd {
-  '@context': 'https://schema.org'
-  '@type': ['Organization', 'LocalBusiness']
-  name: string
-  url: string
-  logo: string
-  description: string
-  slogan: string
-  email: string
-  telephone: string
-  address: {
-    '@type': 'PostalAddress'
-    addressLocality: string
-    addressCountry: string
-  }
-  sameAs: string[]
-  contactPoint: {
-    '@type': 'ContactPoint'
-    contactType: string
-    email: string
-    telephone: string
-    availableLanguage: string[]
-  }
+const ORGANIZATION_ID = `${BASE_URL}/#organization`
+
+/**
+ * JSON for a <script type="application/ld+json"> body.
+ *
+ * Plain JSON.stringify leaves "</script>" as is, so a reference title from the
+ * database containing it would close the tag early and the rest would run as
+ * HTML. Escaping "<" keeps the JSON identical for parsers.
+ */
+export function jsonLdScript(data: unknown): string {
+  return JSON.stringify(data).replace(/</g, '\\u003c')
 }
 
 /**
- * Generates Organization + LocalBusiness JSON-LD schema for Jabcore.
- * Primarily used on the homepage but can be included on any page.
+ * Jabcore as an Organization, with an @id the other nodes point to.
+ *
+ * Not LocalBusiness: that type is for places customers walk into, and it made
+ * structured-data checkers file us as a local shop. `brand` ties the company to
+ * onlybrain, so search and AI engines can tell who is behind onlybrain.ai.
  */
-export function buildOrganizationJsonLd(): OrganizationJsonLd {
+export function buildOrganizationJsonLd() {
   return {
-    '@context': 'https://schema.org',
-    '@type': ['Organization', 'LocalBusiness'],
+    '@type': 'Organization',
+    '@id': ORGANIZATION_ID,
     name: 'Jabcore',
+    legalName: 'Jabcore s.r.o.',
     url: BASE_URL,
-    logo: `${BASE_URL}/og-image.png`,
+    // Square, as Google asks for an organization logo (the og-image is 1200 × 630)
+    logo: `${BASE_URL}/favicon.png`,
     description:
       'Vývoj softwaru na míru: mobilní aplikace, enterprise systémy, webové aplikace. Lean tým, AI-first přístup, konkurenční ceny.',
     slogan: 'Build it right, build it once.',
@@ -59,8 +52,27 @@ export function buildOrganizationJsonLd(): OrganizationJsonLd {
     telephone: '+420792219454',
     address: {
       '@type': 'PostalAddress',
+      streetAddress: 'Brigádnická 208/7',
+      postalCode: '46602',
       addressLocality: 'Jablonec nad Nisou',
       addressCountry: 'CZ',
+    },
+    areaServed: [
+      { '@type': 'Country', name: 'Česko' },
+      { '@type': 'Country', name: 'Slovensko' },
+    ],
+    knowsAbout: [
+      'Vývoj softwaru na míru',
+      'Webové aplikace',
+      'Mobilní aplikace',
+      'Podnikové informační systémy',
+      'Integrace AI do firemních procesů',
+      'Napojení na ERP',
+    ],
+    brand: {
+      '@type': 'Brand',
+      name: 'onlybrain',
+      url: 'https://onlybrain.ai',
     },
     sameAs: [
       'https://github.com/Jabcore-dev',
@@ -78,6 +90,43 @@ export function buildOrganizationJsonLd(): OrganizationJsonLd {
   }
 }
 
+/**
+ * The site itself, published by the organization above. One node for all
+ * locales (same @id), so no inLanguage: a value per locale would give the same
+ * node twelve different languages. hreflang says which page is which language.
+ */
+export function buildWebSiteJsonLd() {
+  return {
+    '@type': 'WebSite',
+    '@id': `${BASE_URL}/#website`,
+    name: 'Jabcore',
+    url: BASE_URL,
+    publisher: { '@id': ORGANIZATION_ID },
+  }
+}
+
+/** Homepage graph: organization and website in one script tag. */
+export function buildHomeJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [buildOrganizationJsonLd(), buildWebSiteJsonLd()],
+  }
+}
+
+/** Breadcrumb trail, e.g. Home > References > project. */
+export function buildBreadcrumbJsonLd(items: { name: string; url: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  }
+}
+
 interface CreativeWorkJsonLd {
   '@context': 'https://schema.org'
   '@type': 'CreativeWork'
@@ -87,7 +136,7 @@ interface CreativeWorkJsonLd {
   dateCreated?: string
   image?: string
   keywords?: string
-  creator: { '@type': 'Organization'; name: string; url: string }
+  creator: { '@type': 'Organization'; '@id': string; name: string; url: string }
   about?: { '@type': 'Organization'; name: string }
 }
 
@@ -118,7 +167,7 @@ export function buildReferenceJsonLd(reference: {
     ...(reference.year ? { dateCreated: String(reference.year) } : {}),
     ...(reference.coverImage ? { image: `${BASE_URL}${reference.coverImage}` } : {}),
     ...(reference.tech.length > 0 ? { keywords: reference.tech.join(', ') } : {}),
-    creator: { '@type': 'Organization', name: 'Jabcore', url: BASE_URL },
+    creator: { '@type': 'Organization', '@id': ORGANIZATION_ID, name: 'Jabcore', url: BASE_URL },
     about: { '@type': 'Organization', name: reference.clientName },
   }
 }

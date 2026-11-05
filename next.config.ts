@@ -10,6 +10,19 @@ const nextConfig: NextConfig = {
 
   poweredByHeader: false,
 
+  /*
+   * Metadata (title, description, canonical, hreflang) always in <head>.
+   * Next 15 streams them into <body> on dynamic routes (home, references) for
+   * every client outside its short list of HTML-limited bots, which includes
+   * OAI-SearchBot and the other AI crawlers. Lighthouse reported a missing meta
+   * description and a crawler that doesn't run JavaScript found no <title> in
+   * <head>. Matching every user agent makes the metadata blocking again; the
+   * cost is waiting for generateMetadata before the first byte. Static pages
+   * are prerendered with the metadata in <head> either way, and Next still
+   * streams for requests with no User-Agent at all; config can't change that.
+   */
+  htmlLimitedBots: /.*/,
+
   // Trailing slash consistency
   trailingSlash: false,
 

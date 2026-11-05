@@ -9,7 +9,7 @@ import { t } from '@/lib/server-i18n'
 import { SITE_URL } from '@/lib/site-config'
 import { getReferenceBySlug, getPublishedSlugs, findRedirectTarget } from '@/lib/references'
 import { skipPrerenderWithoutDatabase, hasDatabase } from '@/lib/db-runtime'
-import { buildReferenceJsonLd } from '@/lib/jsonld'
+import { buildReferenceJsonLd, buildBreadcrumbJsonLd, jsonLdScript } from '@/lib/jsonld'
 
 /**
  * Předgeneruje každou publikovanou referenci v každém jazyce při buildu; nové
@@ -127,6 +127,11 @@ export default async function ReferenceDetailPage({
   const bodyHtml = reference.body ? await marked.parse(reference.body) : null
 
   const jsonLd = buildReferenceJsonLd(reference, `${SITE_URL}/${locale}/reference/${slug}`)
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: t(locale, 'navigation.home'), url: `${SITE_URL}/${locale}` },
+    { name: t(locale, 'navigation.references'), url: `${SITE_URL}/${locale}/reference` },
+    { name: reference.title, url: `${SITE_URL}/${locale}/reference/${slug}` },
+  ])
 
   const industryLabel = reference.industry
     ? t(locale, `references.industries.${reference.industry}`) || reference.industry
@@ -136,7 +141,11 @@ export default async function ReferenceDetailPage({
     <article data-block="reference-detail">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(breadcrumbJsonLd) }}
       />
 
       {/* Titulka přes celou šířku. Obrázek reference je to jediné, co o

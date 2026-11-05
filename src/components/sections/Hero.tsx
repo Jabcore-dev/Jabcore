@@ -125,29 +125,28 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+          {/* The heading and the paragraph below are the largest text on the
+              page, so they are what Lighthouse times as LCP. Fading them in
+              from opacity 0 held LCP back until hydration and the animation
+              were done (16.8 s on a throttled phone). They render visible and
+              without motion; the badge and buttons around keep theirs. */}
+          <h1
             className="mb-8"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             <span className="block text-6xl sm:text-7xl lg:text-8xl font-bold gradient-text leading-tight">
               {t('hero.title')}
-            </span>
+            </span>{' '}
             <span className="block text-2xl sm:text-3xl lg:text-4xl font-semibold text-foreground/90 mt-4">
               {t('hero.subtitle')}
             </span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+          <p
             className="text-lg sm:text-xl lg:text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed font-medium"
           >
             {t('hero.description')}
-          </motion.p>
+          </p>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
