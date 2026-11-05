@@ -7,7 +7,7 @@ import { t, plural } from '@/lib/server-i18n'
 import { SITE_URL, PORTFOLIO_URL } from '@/lib/site-config'
 import { getPublishedReferences, getUsedIndustries } from '@/lib/references'
 import { skipPrerenderWithoutDatabase } from '@/lib/db-runtime'
-import { buildReferenceJsonLd } from '@/lib/jsonld'
+import { buildReferenceJsonLd, jsonLdScript } from '@/lib/jsonld'
 import type { MapProject } from '@/lib/portfolio-map'
 import { INDUSTRIES, DEFAULT_INDUSTRY_HUE, industryHue } from '@/lib/industries'
 import PortfolioMap from '@/components/portfolio/PortfolioMap'
@@ -212,7 +212,7 @@ export default async function PortfolioPage({
           key={reference.id}
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(
+            __html: jsonLdScript(
               buildReferenceJsonLd(reference, `${portfolioUrl(locale)}#${reference.slug}`),
             ),
           }}

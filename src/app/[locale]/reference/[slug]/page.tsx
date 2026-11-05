@@ -9,7 +9,7 @@ import { t } from '@/lib/server-i18n'
 import { SITE_URL } from '@/lib/site-config'
 import { getReferenceBySlug, getPublishedSlugs, findRedirectTarget } from '@/lib/references'
 import { skipPrerenderWithoutDatabase, hasDatabase } from '@/lib/db-runtime'
-import { buildReferenceJsonLd, buildBreadcrumbJsonLd } from '@/lib/jsonld'
+import { buildReferenceJsonLd, buildBreadcrumbJsonLd, jsonLdScript } from '@/lib/jsonld'
 
 /**
  * Předgeneruje každou publikovanou referenci v každém jazyce při buildu; nové
@@ -141,11 +141,11 @@ export default async function ReferenceDetailPage({
     <article data-block="reference-detail">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(jsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(breadcrumbJsonLd) }}
       />
 
       {/* Titulka přes celou šířku. Obrázek reference je to jediné, co o

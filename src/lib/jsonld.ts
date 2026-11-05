@@ -3,11 +3,11 @@
  *
  * Usage in page.tsx (Server Component):
  * ```tsx
- * import { buildOrganizationJsonLd } from '@/lib/jsonld'
+ * import { buildHomeJsonLd, jsonLdScript } from '@/lib/jsonld'
  * // In the component return:
  * <script
  *   type="application/ld+json"
- *   dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrganizationJsonLd()) }}
+ *   dangerouslySetInnerHTML={{ __html: jsonLdScript(buildHomeJsonLd()) }}
  * />
  * ```
  */
@@ -17,6 +17,17 @@ import { SITE_URL } from '@/lib/site-config'
 const BASE_URL = SITE_URL
 
 const ORGANIZATION_ID = `${BASE_URL}/#organization`
+
+/**
+ * JSON for a <script type="application/ld+json"> body.
+ *
+ * Plain JSON.stringify leaves "</script>" as is, so a reference title from the
+ * database containing it would close the tag early and the rest would run as
+ * HTML. Escaping "<" keeps the JSON identical for parsers.
+ */
+export function jsonLdScript(data: unknown): string {
+  return JSON.stringify(data).replace(/</g, '\\u003c')
+}
 
 /**
  * Jabcore as an Organization, with an @id the other nodes point to.
@@ -32,7 +43,8 @@ export function buildOrganizationJsonLd() {
     name: 'Jabcore',
     legalName: 'Jabcore s.r.o.',
     url: BASE_URL,
-    logo: `${BASE_URL}/og-image.png`,
+    // Square, as Google asks for an organization logo (the og-image is 1200 × 630)
+    logo: `${BASE_URL}/favicon.png`,
     description:
       'Vývoj softwaru na míru: mobilní aplikace, enterprise systémy, webové aplikace. Lean tým, AI-first přístup, konkurenční ceny.',
     slogan: 'Build it right, build it once.',
@@ -41,10 +53,14 @@ export function buildOrganizationJsonLd() {
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Brigádnická 208/7',
+      postalCode: '46602',
       addressLocality: 'Jablonec nad Nisou',
       addressCountry: 'CZ',
     },
-    areaServed: ['CZ', 'SK'],
+    areaServed: [
+      { '@type': 'Country', name: 'Česko' },
+      { '@type': 'Country', name: 'Slovensko' },
+    ],
     knowsAbout: [
       'Vývoj softwaru na míru',
       'Webové aplikace',
@@ -74,23 +90,26 @@ export function buildOrganizationJsonLd() {
   }
 }
 
-/** The site itself, published by the organization above. */
-export function buildWebSiteJsonLd(locale: string) {
+/**
+ * The site itself, published by the organization above. One node for all
+ * locales (same @id), so no inLanguage: a value per locale would give the same
+ * node twelve different languages. hreflang says which page is which language.
+ */
+export function buildWebSiteJsonLd() {
   return {
     '@type': 'WebSite',
     '@id': `${BASE_URL}/#website`,
     name: 'Jabcore',
     url: BASE_URL,
-    inLanguage: locale,
     publisher: { '@id': ORGANIZATION_ID },
   }
 }
 
 /** Homepage graph: organization and website in one script tag. */
-export function buildHomeJsonLd(locale: string) {
+export function buildHomeJsonLd() {
   return {
     '@context': 'https://schema.org',
-    '@graph': [buildOrganizationJsonLd(), buildWebSiteJsonLd(locale)],
+    '@graph': [buildOrganizationJsonLd(), buildWebSiteJsonLd()],
   }
 }
 

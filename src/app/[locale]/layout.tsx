@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { locales, defaultLocale, ogLocales, type Locale } from '@/lib/i18n-config'
+import { locales, ogLocales, type Locale } from '@/lib/i18n-config'
 import { t } from '@/lib/server-i18n'
 import '../globals.css'
 import RootHtml from '@/components/RootHtml'
@@ -8,7 +8,6 @@ import Providers from '@/components/providers/Providers'
 import Navigation from '@/components/sections/Navigation'
 import Footer from '@/components/sections/Footer'
 import { Toaster } from '@/components/ui/sonner'
-import DynamicSeoTitle from '@/components/DynamicSeoTitle'
 import ViewTracker from '@/components/ViewTracker'
 
 import { SITE_URL } from '@/lib/site-config'
@@ -21,9 +20,10 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: rawLocale } = await params
-  const locale = (locales as readonly string[]).includes(rawLocale)
-    ? (rawLocale as Locale)
-    : defaultLocale
+  // Same check as in the layout below. Without it the 404 for /wp-login.php
+  // carried the homepage title and a canonical pointing at /cs.
+  if (!(locales as readonly string[]).includes(rawLocale)) notFound()
+  const locale = rawLocale as Locale
 
   const title = t(locale, 'seo.home.title')
   const description = t(locale, 'seo.home.description')
@@ -91,7 +91,6 @@ export default async function LocaleLayout({
   return (
     <RootHtml lang={locale}>
       <Providers locale={locale}>
-        <DynamicSeoTitle />
         <ViewTracker />
         <div className="min-h-screen bg-background text-foreground">
           <Navigation />

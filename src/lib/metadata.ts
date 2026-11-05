@@ -14,10 +14,8 @@ interface PageMetadataProps {
   page: PageKey
   /** URL path without locale prefix, e.g. "/services" */
   path: string
-  /** Current locale */
+  /** Current locale. Every title is absolute: the brand is already in the locale text */
   locale: Locale
-  /** Kept for callers; every title is absolute now (the brand is in the locale text) */
-  isHome?: boolean
 }
 
 /**
