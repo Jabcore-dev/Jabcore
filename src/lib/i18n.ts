@@ -41,9 +41,10 @@ const resources = {
 // nemá přístup k localStorage ani navigator, proto padá na fallbackLng: 'en'.
 // Klient detekuje jazyk synchronně při init a dostane jiný výsledek → hydration mismatch.
 //
-// Řešení: inicializovat vždy s pevným lng: 'cs' (konzistentní s lang="cs" v HTML
-// a OpenGraph locale cs_CZ). Detekci uložené preference přebírá I18nProvider.useEffect
-// který běží výhradně na klientovi, tedy až PO úspěšné hydrataci.
+// Řešení: sdílená instance začíná vždy s pevným lng: 'cs'. Stránky pod /{locale}
+// ale renderuje I18nProvider přes klon s jazykem z URL (na serveru i na klientovi
+// stejně, takže bez hydration mismatch). Detekce uložené preference v useEffect
+// zbývá jen pro stránky bez jazyka v URL.
 if (!i18n.isInitialized) {
   i18n
     .use(initReactI18next)
