@@ -14,10 +14,8 @@ interface PageMetadataProps {
   page: PageKey
   /** URL path without locale prefix, e.g. "/services" */
   path: string
-  /** Current locale */
+  /** Current locale. Every title is absolute: the brand is already in the locale text */
   locale: Locale
-  /** If true, use title without "| Jabcore" suffix */
-  isHome?: boolean
 }
 
 /**
@@ -27,7 +25,6 @@ export function generatePageMetadata({
   page,
   path,
   locale,
-  isHome = false,
 }: PageMetadataProps): Metadata {
   const title = t(locale, `seo.${page}.title`)
   const description = t(locale, `seo.${page}.description`)
@@ -51,7 +48,9 @@ export function generatePageMetadata({
   const canonical = url
 
   return {
-    title: isHome ? { absolute: title } : title,
+    // The titles in the locale files already end with "| Jabcore", so the
+    // layout template ("%s | Jabcore") must not add it a second time.
+    title: { absolute: title },
     description,
     keywords,
     alternates: {
